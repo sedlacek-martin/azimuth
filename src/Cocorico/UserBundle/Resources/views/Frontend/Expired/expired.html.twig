@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{%- block meta_title -%}
+    {{ cocorico_site_name }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'home.meta_desc'|trans({}, 'cocorico_meta') }}
+{%- endblock -%}
+
+{% block layout %}
+    {% embed '@CocoricoCore/Frontend/layout_simple.html.twig' %}
+        {% block main %}
+            {% trans_default_domain 'cocorico_user' %}
+
+            {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+            <h1>{{ 'user.expired.h1'|trans }}</h1>
+            <p>{{ 'user.expired.text'|trans }}</p>
+
+            {% if user.expired %}
+                {% if user.reconfirmRequested %}
+                    <p class="text-muted"><em>
+                            {{ 'user.expire.reactivation_already_requested.text'|trans }}
+                    </em></p>
+                {% else %}
+                    <a href="{{ path('cocorico_user_reconfirm') }}" class="btn btn-primary">
+                        {{ 'user.expire.reactivate.button'|trans }}
+                    </a>
+                {% endif %}
+            {% endif %}
+        {% endblock main %}
+
+    {% endembed %}
+
+{% endblock layout %}

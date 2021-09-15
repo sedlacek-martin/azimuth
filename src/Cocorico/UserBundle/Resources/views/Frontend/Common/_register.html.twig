@@ -1,0 +1,262 @@
+{% trans_default_domain 'cocorico_user' %}
+
+<div role="tabpanel" class="tab-pane{{ register_class }} grid-width-80" id="home">
+
+    {{ form_errors(form_registration) }}
+
+    <div class="tab-holder">
+        <div class="row">
+            <div class="field-row validate-row col-md-6">
+                <div class="error-container">{{ form_errors(form_registration.firstName) }}</div>
+                <div class="label w-100">
+                    {{ form_label(form_registration.firstName, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.first_name.legal'|trans
+                        }
+                    }) }}
+                </div>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.firstName, {
+                        'attr': {
+                            'class': "form-control required",
+                            'data-parsley-required-message': 'cocorico_user.first_name.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'cocorico_user.first_name.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row col-md-6">
+                <div class="error-container">{{ form_errors(form_registration.lastName) }}</div>
+                <div class="label w-100">
+
+                    {{ form_label(form_registration.lastName, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.last_name.legal'|trans
+                        }
+                    }) }}
+                </div>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.lastName, {
+                        'attr': {
+                            'class': 'form-control required',
+                            'data-parsley-required-message': 'cocorico_user.last_name.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'cocorico_user.last_name.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.email) }}</div>
+                <div class="label w-100">{{ form_label(form_registration.email) }}</div>
+
+                <div class="">
+                    {{ form_widget(form_registration.email, {
+                        'attr': {
+                            'class': "form-control required",
+                            'data-parsley-required-message': 'cocorico_user.email.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'cocorico_user.email.invalid'|trans({}, 'validators'),
+                            'data-parsley-type-message': 'cocorico_user.email.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.memberOrganization) }}</div>
+                <div class="label w-100">
+                    {{ form_label(form_registration.memberOrganization, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.member_organization.legal'|trans
+                        }
+                    }) }}
+                </div>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.memberOrganization, {
+                        'attr': {
+                            'class': "form-control required no-arrow member-organization-input",
+                            'data-parsley-required-message': 'cocorico_user.memberOrganization.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'cocorico_user.memberOrganization.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.country) }}</div>
+                <div class="label w-100">
+                    {{ form_label(form_registration.country, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.country.legal'|trans
+                        }
+                    }) }}
+                </div>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.country, {
+                        'attr': {
+                            'class': "form-control required no-arrow country-input"
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.birthday) }}</div>
+                <div class="label w-100">
+                    {{ form_label(form_registration.birthday, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.birthday.legal'|trans
+                        }
+                    }) }}
+                </div>
+
+                <div class="field-holder">
+                    <div class="field-day col-sm-4">
+                        {{ form_widget(form_registration.birthday.day, {
+                            'attr': {
+                                'class': "form-control required no-arrow"
+                            }
+                        } ) }}
+                    </div>
+                    <div class="field-month col-sm-4">
+                        {{ form_widget(form_registration.birthday.month, {
+                            'attr': {
+                                'class': "form-control required no-arrow",
+                            }
+                        } ) }}
+                    </div>
+                    <div class="field-year col-sm-4">
+                        {{ form_widget(form_registration.birthday.year, {
+                            'attr': {
+                                'class': "form-control required no-arrow"
+                            }
+                        } ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.gender) }}</div>
+                <div class="label w-100">
+                    {{ form_label(form_registration.gender, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.gender.legal'|trans
+                        }
+                    }) }}
+                </div>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.gender, {
+                        'attr': {
+                            'class': "form-control required"
+                        }
+                    }) }}
+                </div>
+            </div>
+
+{#            <div class="field-row validate-row col-md-12">#}
+{#                <div class="error-container">{{ form_errors(form_registration.phone) }}</div>#}
+{#                <div class="label w-100">{{ form_label(form_registration.phone) }}</div>#}
+
+{#                <div class="field-holder">#}
+{#                    {{ form_widget(form_registration.phone, {#}
+{#                        'attr': {#}
+{#                            'class': "form-control phone-input",#}
+{#                            'data-parsley-type': 'digits',#}
+{#                            'data-parsley-type-message': 'cocorico_user.phone.invalid'|trans({},'validators')#}
+{#                        }#}
+{#                    }) }}#}
+{#                </div>#}
+{#            </div>#}
+
+{#            <div class="field-row validate-row hidden">#}
+{#                <div class="error-container">{{ form_errors(form_registration.phonePrefix) }}</div>#}
+{#                <span class="label" style="margin-top:0">{{ form_label(form_registration.phonePrefix) }}</span>#}
+
+{#                <div class="field-holder code">#}
+{#                    {{ form_widget(form_registration.phonePrefix, {#}
+{#                        'attr': {#}
+{#                            'class': "form-control phone-prefix-input"#}
+{#                        }#}
+{#                    }) }}#}
+{#                </div>#}
+{#            </div>#}
+
+
+            {% if not timeUnitIsDay %}
+                <div class="field-row validate-row col-md-12">
+                    <div class="error-container">{{ form_errors(form_registration.timeZone) }}</div>
+                    <div class="label w-100">{{ form_label(form_registration.timeZone) }}</div>
+
+                    <div class="field-holder">
+                        {{ form_widget(form_registration.timeZone, {
+                            'attr': {'class': "form-control no-arrow"}
+                        }) }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {# dont work when empty value #}
+            <div class="field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.plainPassword.first) }}</div>
+                <div class="label w-100">{{ form_label(form_registration.plainPassword.first) }}</div>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.plainPassword.first, {
+                        'attr': {
+                            'class': "form-control required",
+                            'data-parsley-required-message': 'cocorico_user.plainPassword.first.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'cocorico_user.plainPassword.first.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.plainPassword.second) }}</div>
+                <div class="label w-100">{{ form_label(form_registration.plainPassword.second) }}</div>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.plainPassword.second , {
+                        'attr': {
+                            'class': "form-control required",
+                            'data-parsley-equalto': "#"~ form_registration.plainPassword.first.vars.id,
+                            'data-parsley-equalto-message': 'fos_user.password.mismatch'|trans({},'validators'),
+                            'data-parsley-required-message': 'cocorico_user.plainPassword.second.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'cocorico_user.plainPassword.second.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="agreement field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.tac) }}</div>
+
+                <div class="field-holder">
+                    <div class="label w-100"></div>
+                    <div class="pull-left">
+                        {{ form_widget(form_registration.tac, {
+                            'attr': {
+                                'class': "form-control required",
+                                'data-parsley-required-message': 'cocorico_user.tac.error'|trans({},'cocorico'),
+                            }
+                        }) }}
+                    </div>
+                    <span class="pull-left">
+                        {{ form_label(form_registration.tac, null, {'required': false} ) }}
+                        <a href="{{ path('cocorico_page_show', { 'slug': 'nav.tac.slug'|trans({}, 'cocorico_listing') }) }}"
+                           target="_blank">
+                            {{ 'listing.new.tac.link'|trans({}, 'cocorico_listing') }}
+                        </a>*
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_rest(form_registration) }}

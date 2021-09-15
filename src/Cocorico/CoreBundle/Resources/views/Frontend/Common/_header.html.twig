@@ -1,0 +1,128 @@
+{% trans_default_domain 'cocorico' %}
+
+<!-- header of the page -->
+<header id="header">
+    <!-- topbar -->
+    <div class="topbar {% if is_granted('ROLE_PREVIOUS_ADMIN') %}danger{% endif %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="tel:{{ cocorico_phone|replace({'(0)': '', ' ': ''}) }}"
+                               tabindex="10">
+                                <i class="icon-phone"></i>{{ cocorico_phone }}
+                            </a>
+                        </li>
+                        <li>
+                            <a tabindex="11" href="mailto:{{ cocorico_contact_mail_obfuscated|raw }}">
+                                <i class="icon-mail-alt"></i>{{ cocorico_contact_mail_obfuscated|raw }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                <div class="col-xs-6 text-right">
+                    <span>{{ 'impersonation.active'|trans }}</span>
+                    <a  class="link" href="{{ path('cocorico_home', {'_become_who_you_are': '_exit'}) }}">
+                        {{ 'exit_impersonation'|trans|upper }}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") and app.user.isExpiredSoon(30) and not app.user.reconfirmRequested %}
+        <div class="expiry-warning-topbar">
+            <div class="container">
+                <i class="glyphicon glyphicon-time pe-2"></i>
+                {{ 'nav.expires_soon.message'|trans({'%link%': path('cocorico_user_reconfirm') , '%date%': app.user.expiryDate|date('d.m.Y')})|raw }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- main navigation of the page -->
+                <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" tabindex="2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- page logo -->
+                        <a class="navbar-brand" href="{{ path('cocorico_home') }}" tabindex="3">
+                            <img src="{{ asset('images/logo.png') }}" alt="{{ 'nav.home.link'|trans }}" height="40">
+                        </a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+{#                            <li>#}
+{#                                <a href="{{ path('cocorico_listing_map') }}" id="nav-all-offers"#}
+{#                                   tabindex="4">{{ 'nav.offers.link'|trans }}#}
+{#                                </a>#}
+{#                            </li>#}
+                            <li>
+                                <a href="{{ path('cocorico_page_map') }}"
+                                   tabindex="5">{{ 'nav.map.link'|trans }}
+                                </a>
+                            </li>
+
+                            {# User info #}
+                            {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
+                                <li id="dashboard-dropdown" class="dropdown">
+                                    <a id="dashboard-link" class="dropdown-toggle"
+                                       href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"
+                                       title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        {{ 'nav.dashboard.link'|trans }} ({{ app.user.firstName | capitalize }})
+                                        <span id="nb-unread-msg"></span>
+                                        <span class="icon-down-open-mini"></span>
+                                    </a>
+                                    {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}
+                                </li>
+                            {%- else -%}
+                                <li>
+                                    <a href="{{ path('cocorico_user_register') }}" tabindex="7">
+                                        {{ 'nav.register.link'|trans }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('cocorico_user_login') }}" tabindex="8">
+                                        {{ 'nav.login.link'|trans }}
+                                    </a>
+                                </li>
+                            {%- endif -%}
+
+
+                            {# Language switcher. #}
+                            {{ render(controller('CocoricoCoreBundle:Frontend/Language:switch', {'request': app.request} )) }}
+
+                            {# Currency switcher #}
+{#                            {% include '@CocoricoCore/Frontend/Common/_currency_switcher.html.twig' only %}#}
+                        </ul>
+
+                        {# New listing link #}
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <a href="{{ path('cocorico_admin__dashboard') }}" class="btn btn-primary navbar-right" tabindex="10">
+                            <i></i>
+                            {{ 'nav.admin.link'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if not is_granted("ROLE_SUPER_ADMIN") %}
+                            <a href="{{ path('cocorico_listing_new') }}" class="btn btn-primary navbar-right" tabindex=11">
+                                {{ 'nav.listing.new.link'|trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

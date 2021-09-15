@@ -1,0 +1,25 @@
+{% trans_default_domain 'cocorico_listing' %}
+
+<div id="category-form-container">
+    <div id="category-form" class="new">
+        {% if app.request.isXmlHttpRequest %}
+            {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+        {% endif %}
+
+        <h2>{{ 'listing.new.categories.title'|trans }}</h2>
+
+        {{ form_errors(form) }}
+
+        <div class="selection-area listing-categories">
+            {{ form_errors(form.category) }}
+            {{ form_widget(form.category) }}
+        </div>
+
+        <div class="selection-area listing-type">
+            {{ form_errors(form.type) }}
+            {{ form_widget(form.type, {'requierd': false}) }}
+        </div>
+
+        {{ form_rest(form) }}
+    </div>
+</div>

@@ -1,0 +1,231 @@
+<?php
+
+/*
+ * This file is part of the Cocorico package.
+ *
+ * (c) Cocolabs SAS <contact@cocolabs.io>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Cocorico\CoreBundle\Form\Type\Frontend;
+
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Cocorico\CoreBundle\Entity\Listing;
+use Cocorico\CoreBundle\Entity\ListingLocation;
+use Cocorico\CoreBundle\Event\ListingFormBuilderEvent;
+use Cocorico\CoreBundle\Event\ListingFormEvents;
+use Cocorico\CoreBundle\Form\Type\ImageType;
+use Cocorico\CoreBundle\Form\Type\PriceType;
+use Cocorico\UserBundle\Entity\User;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Valid;
+
+/**
+ * Class ListingNewType
+ * Categories are created trough ajax in ListingNewCategoriesType.
+ */
+class ListingNewType extends AbstractType implements TranslationContainerInterface
+{
+    public static $tacError = 'listing.form.tac.error';
+    public static $credentialError = 'user.form.credential.error';
+
+    private $request;
+    protected $dispatcher;
+    private $locale;
+    private $locales;
+
+    /**
+     * @param RequestStack             $requestStack
+     * @param EventDispatcherInterface $dispatcher
+     * @param array                    $locales
+     */
+    public function __construct(
+        RequestStack $requestStack,
+        EventDispatcherInterface $dispatcher,
+        $locales
+    ) {
+        $this->request = $requestStack->getCurrentRequest();
+        $this->dispatcher = $dispatcher;
+        $this->locale = $this->request->getLocale();
+        $this->locales = $locales;
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        /** @var Listing $listing */
+        $listing = $builder->getData();
+
+        //Translations fields
+        $titles = $descriptions = array();
+        foreach ($this->locales as $i => $locale) {
+            $titles[$locale] = array(
+                'label' => 'listing.form.title',
+                'constraints' => array(new NotBlank(),
+                                       new Length(
+                                           array(
+                                            'max' => 50,
+                                            'min' => 3,
+                                                )
+                                            ),
+                                       ),
+                'attr' => array(
+                    'placeholder' => 'auto',
+                ),
+            );
+            $descriptions[$locale] = array(
+                'label' => 'listing.form.description',
+                'constraints' => array(new NotBlank()),
+                'attr' => array(
+                    'placeholder' => 'auto',
+                ),
+            );
+        }
+
+        $builder
+            ->add(
+                'translations',
+                TranslationsType::class,
+                array(
+                    'required_locales' => array($this->locale),
+                    'fields' => array(
+                        'title' => array(
+                            'field_type' => 'text',
+                            'locale_options' => $titles,
+                        ),
+                        'description' => array(
+                            'field_type' => 'textarea',
+                            'locale_options' => $descriptions,
+                        ),
+                        'rules' => array(
+                            'display' => false,
+                        ),
+                        'slug' => array(
+                            'display' => false
+                        ),
+                    ),
+                    /** @Ignore */
+                    'label' => false,
+                )
+            )
+//            ->add(
+//                'price',
+//                PriceType::class,
+//                array(
+//                    'label' => 'listing.form.price',
+//                )
+//            )
+            ->add(
+                'image',
+                ImageType::class
+            )
+            ->add(
+                'location',
+                ListingLocationType::class,
+                array(
+                    'data_class' => 'Cocorico\CoreBundle\Entity\ListingLocation',
+                    /** @Ignore */
+                    'label' => false,
+                    'data' => $this->getDefaultListingLocation($listing->getUser()),
+                )
+            )
+            ->add(
+                'tac',
+                CheckboxType::class,
+                array(
+                    'label' => 'listing.form.tac',
+                    'mapped' => false,
+                    'constraints' => new IsTrue(
+                        array(
+                            'message' => self::$tacError,
+                        )
+                    ),
+                )
+            );
+
+        //Dispatch LISTING_NEW_FORM_BUILD Event. Listener listening this event can add fields and validation
+        //Used for example to add fields to new listing form
+        $this->dispatcher->dispatch(
+            ListingFormEvents::LISTING_NEW_FORM_BUILD,
+            new ListingFormBuilderEvent($builder)
+        );
+    }
+
+    /**
+     * @param User $user
+     * @return ListingLocation|null
+     */
+    private function getDefaultListingLocation(User $user)
+    {
+        $listingLocation = new ListingLocation();
+        if ($user->getListings()->count() >= 1) {
+            /** @var Listing $listing */
+            $listing = $user->getListings()->first();
+            $location = $listing->getLocation();
+
+
+            $listingLocation->setCountry($location->getCountry());
+            $listingLocation->setCity($location->getCity());
+            $listingLocation->setZip($location->getZip());
+            $listingLocation->setRoute($location->getRoute());
+            $listingLocation->setStreetNumber($location->getStreetNumber());
+        } else {
+            $listingLocation->setCountry($user->getCountry());
+        }
+
+        return $listingLocation;
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Cocorico\CoreBundle\Entity\Listing',
+                'csrf_token_id' => 'listing_new',
+                'translation_domain' => 'cocorico_listing',
+                'constraints' => new Valid(),
+                //'validation_groups' => array('Listing'),
+            )
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'listing_new';
+    }
+
+    /**
+     * JMS Translation messages.
+     *
+     * @return array
+     */
+    public static function getTranslationMessages()
+    {
+        $messages = array();
+        $messages[] = new Message(self::$tacError, 'cocorico');
+        $messages[] = new Message(self::$credentialError, 'cocorico');
+
+        return $messages;
+    }
+}

@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block layout %}
+    {% embed '@CocoricoCore/Frontend/layout.html.twig' %}
+        {% trans_default_domain 'cocorico_user' %}
+
+        {% block main %}
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="mb-5">{{ 'registration.additional_info.h1'|trans }}</h1>
+                <p class="mt-4 large xlarge">{{ 'registration.additional_info'|trans }}</p>
+
+                {{ form_start(form) }}
+                <div class="field-row validate-row">
+                    <div class="error-container">{{ form_errors(form.organizationIdentifier) }}</div>
+
+                    <div class="field-holder">
+                        {{ form_widget(form.organizationIdentifier, {
+                            'attr': {
+                                'class': "form-control required",
+                                'placeholder': 'form.organization_identifier.placeholder'|trans ,
+                            }
+                        }) }}
+                        {% if userIdentifierDescription is not empty %}
+                            <span class="tooltip-button"></span>
+                            <span class="text-muted">{{ userIdentifierDescription }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <p class="mt-5 mb-5">{{ 'registration.additional_info.confirm_email'|trans }}</p>
+
+                <div class="btn-block text-center">
+                    <button type="submit" class="btn btn-default">{{ 'registration.additional_info.submit'|trans }}</button>
+                </div>
+
+                <div class="hidden">
+                    {{ form_rest(form) }}
+                </div>
+                {{ form_end(form) }}
+
+            </div>
+        {% endblock %}
+
+    {% endembed %}
+{% endblock layout %}

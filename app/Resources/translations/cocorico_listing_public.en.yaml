@@ -1,0 +1,10 @@
+listing.price_four: '0-3 years'
+listing.price_four.help: listing.price_four.help
+listing.price_one: '18 years+'
+listing.price_one.help: listing.price_one.help
+listing.price_three: '4-12 years'
+listing.price_three.help: listing.price_three.help
+listing.price_two: '13-18 years'
+listing.price_two.help: listing.price_two.help
+listing_public.price.required: 'At least one price must be filled'
+price: Price

@@ -1,0 +1,86 @@
+{% extends "CocoricoSonataAdminBundle::standard_layout.html.twig" %}
+
+{% block navbar_title %}
+    {{ block('title') }}
+{% endblock %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-body">
+        <div class="row">
+            {% if is_granted('ROLE_ACTIVATOR') %}
+                <div class="col-lg-6">
+                    <div class="panel border">
+                        <div class="panel-heading bg-gray-light">
+                            <h4>Activator overview</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>New registrations</td>
+                                        <td class="text-bold" style="width: 10%;">
+                                            14
+                                        </td>
+                                        <td class="text-right" style="width: 10%;">
+                                            <a href="{{ url|default('#') }}" class="btn btn-sm btn-default edit_link"
+                                                title="{{ 'dashboard_action_new_registration'|trans({}, 'SonataAdminBundle') }}">
+                                                <i class="glyphicon glyphicon-eye-open"> </i>
+                                                {{ 'dashboard_action_new_registration'|trans({}, 'SonataAdminBundle') }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            {% endif %}
+            {% if is_granted('ROLE_FACILITATOR') %}
+                <div class="col-lg-6">
+                    <div class="panel border">
+                        <div class="panel-heading bg-gray-light">
+                            <h4>Facilitator overview</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <td>New Posts (your MO’s members)</td>
+                                    <td class="text-bold" style="width: 10%;">
+                                        22
+                                    </td>
+                                    <td class="text-right" style="width: 10%;">
+                                        <a href="{{ url|default('#') }}" class="btn btn-sm btn-default edit_link"
+                                           title="{{ 'dashboard_action_new_mo_posts'|trans({}, 'SonataAdminBundle') }}">
+                                            <i class="glyphicon glyphicon-eye-open"> </i>
+                                            {{ 'dashboard_action_new_mo_posts'|trans({}, 'SonataAdminBundle') }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>New postings by other MOs mentioning you</td>
+                                    <td class="text-bold" style="width: 10%;">2</td>
+                                    <td class="text-right" style="width: 10%;">
+                                        <a href="{{ url|default('#') }}" class="btn btn-sm btn-default edit_link"
+                                           title="{{ 'dashboard_action_new_posts_mentions'|trans({}, 'SonataAdminBundle') }}">
+                                            <i class="glyphicon glyphicon-eye-open"> </i>
+                                            {{ 'dashboard_action_new_posts_mentions'|trans({}, 'SonataAdminBundle') }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

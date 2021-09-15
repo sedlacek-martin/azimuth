@@ -1,0 +1,25 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% set value = object.verifiedDomainRegistration %}
+    {% if value %}
+        {% set text = 'registration_type_verified_domain'|trans({}, 'SonataAdminBundle') %}
+        {% set help = 'registration_type_verified_domain_help'|trans({}, 'SonataAdminBundle') %}
+    {% else %}
+        {% set text = 'registration_type_normal'|trans({}, 'SonataAdminBundle') %}
+        {% set help = 'registration_type_normal_help'|trans({}, 'SonataAdminBundle') %}
+    {% endif %}
+
+    {% if field_description.options.inverse|default(false) ? not value : value %}
+        {% set class = 'label-success' %}
+    {% else %}
+        {% set class = 'label-info' %}
+    {% endif %}
+
+    <div>
+        <span class="label {{ class }}">{{ text }}</span>
+        <span data-toggle="tooltip" data-placement="top" title="{{ help }}">
+        <i class="glyphicon glyphicon-question-sign text-info"></i>
+        </span>
+    </div>
+{% endblock %}

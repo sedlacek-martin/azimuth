@@ -1,0 +1,58 @@
+{#
+Alternatives flashes to not display on main flashes display (first include).
+Alt flashes name must have the form : success_xxx or error_xxx
+#}
+{% set alt_flashes = ['success_voucher', 'error_voucher' ] %}
+
+{#Does the alternate flash must be displayed#}
+{% set display_alt = display_alt|default(false) %}
+
+<div class="clearfix"></div>
+<div class="flashes clearfix">
+    {% for type, messages in app.session.flashbag.all() %}
+
+        {% set type_css = type %}
+        {% set hidden = "" %}
+
+        {% if type in alt_flashes %}
+            {% if not display_alt %}
+                {#Hide main flash display as it's displayed in alt flash #}
+                {% set hidden = "hidden" %}
+            {% else %}
+                {#Transform alternate type flash in success or error class #}
+                {% set type_css = type|split('_')|first %}
+            {% endif %}
+        {% endif %}
+
+        {% for message in messages %}
+
+            {% if type == 'success' %}
+                {% set icon = 'glyphicon glyphicon-ok'%}
+            {% elseif type == 'error' %}
+                {% set icon = 'glyphicon glyphicon-remove'%}
+            {% elseif type == 'warning' %}
+                {% set icon = 'glyphicon glyphicon-exclamation-sign'%}
+            {% elseif type == 'info' %}
+                {% set icon = 'glyphicon glyphicon-info-sign'%}
+            {% else %}
+                {% set icon = 'glyphicon glyphicon-info-sign'%}
+                {% if type in alt_flashes %}
+                    {% if not display_alt %}
+                        {#Add again to the flash stack because it was removed while accessing all flasbags #}
+                        {{ app.session.flashbag.add(type, message) }}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+            <div class="alert alert-{{ type_css }}-new {{ hidden }}">
+                <i class="{{ icon }} me-4" style="font-size: 1.5em"></i>
+                <span>
+                    {{ message }}
+                </span>
+                <span class="alert-close">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </span>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

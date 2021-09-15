@@ -1,0 +1,113 @@
+imports:
+    - { resource: "@CocoricoCoreBundle/Resources/config/parameters.yml"}
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: "@CocoricoCoreBundle/Resources/config/config.yml"}
+    - { resource: "@SonataAdminBundle/Resources/config/config.yml"}
+    - { resource: "@CocoricoUserBundle/Resources/config/config.yml"}
+    - { resource: "@CocoricoMessageBundle/Resources/config/config.yml"}
+    - { resource: "@CocoricoGeoBundle/Resources/config/config.yml"}
+    - { resource: "@CocoricoBreadcrumbBundle/Resources/config/config.yml"}
+    - { resource: "@CocoricoPageBundle/Resources/config/config.yml"}
+    - { resource: "@CocoricoConfigBundle/Resources/config/config.yml"}
+    - { resource: "@CocoricoTimeBundle/Resources/config/config.yml"}
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%cocorico.locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.project_dir%/app/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%cocorico.locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+        name: _csess
+        #on debian there is a /etc/cron.d/php5 doing the job
+        gc_probability: null
+    fragments:       ~
+    http_method_override: true
+
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller:
+        enabled:    false
+
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        minifycsscompressor: ~
+        jsqueeze: ~
+#        jsminplus: ~
+#        closure:
+#            jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+#        yui_css:
+#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+#    workers:
+#        cache_busting:
+#            enabled: true
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        server_version: 9.4
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+#        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+doctrine_mongodb:
+    connections:
+        default:
+            server: "%mongodb_server%"
+            options: {}
+    default_database: "%mongodb_database_name%"
+    document_managers:
+        default:
+            auto_mapping: true
+
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    port:      "%mailer_port%"
+
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations
+
+jms_translation:
+    locales: [ 'en' ] # List of locales supported by your application
+    source_language: 'en' # The language that the

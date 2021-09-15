@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% if page %}
+    {%- block meta_title -%}
+        {{ page.metaTitle }}
+    {%- endblock -%}
+
+    {%- block meta_description -%}
+        {{ page.metaDescription }}
+    {%- endblock -%}
+{% endif %}
+
+{% block layout %}
+    {% embed '@CocoricoCore/Frontend/layout.html.twig' %}
+        {% block main %}
+            <div class="min-height">
+                {% if page %}
+                    <h1>{{ page.title }}</h1>
+                    <div>
+                        {{ page.description | raw }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock layout %}
+

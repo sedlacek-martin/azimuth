@@ -1,0 +1,257 @@
+services:
+    #Forms
+    cocorico.form.type.listing_new:
+        class: Cocorico\CoreBundle\Form\Type\Frontend\ListingNewType
+        arguments:
+            - "@request_stack"
+            - "@event_dispatcher"
+            - "%cocorico.locales%"
+        tags:
+            - { name: form.type }
+
+    ##Listing edition
+    cocorico.form.type.listing_edit:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditType
+        arguments:
+            - "@security.token_storage"
+            - "@request_stack"
+            - "%cocorico.locales%"
+            - "@cocorico.listing.manager"
+            - "%cocorico.time_unit%"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_status:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditStatusType
+        parent: cocorico.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_description:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditDescriptionType
+        parent: cocorico.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_price:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditPriceType
+        arguments:
+            - "@event_dispatcher"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_images:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditImagesType
+        parent: cocorico.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_location:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditLocationType
+        parent: cocorico.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_characteristic:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditCharacteristicType
+        parent: cocorico.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_availabilities:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesType
+        arguments:
+            - "@event_dispatcher"
+            - "%cocorico.time_unit%"
+            - "%cocorico.days_max_edition%"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_availabilities_status:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesStatusType
+        parent: cocorico.form.type.listing_edit_availabilities
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_availability_status:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilityStatusType
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_availabilities_prices:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesPricesType
+        parent: cocorico.form.type.listing_edit_availabilities
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_availability_price:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilityPriceType
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_new_categories:
+        class: Cocorico\CoreBundle\Form\Type\Frontend\ListingNewCategoriesType
+        arguments:
+            - "@event_dispatcher"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_categories:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditCategoriesType
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_categories_ajax:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditCategoriesAjaxType
+        arguments:
+            - "@event_dispatcher"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.country_filtered:
+        class: Cocorico\CoreBundle\Form\Type\CountryFilteredType
+        arguments:
+            - "%cocorico.listing_countries%"
+            - "%cocorico.listing_favorite_countries%"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.language_filtered:
+        class: Cocorico\CoreBundle\Form\Type\LanguageFilteredType
+        arguments:
+            - "%cocorico.locales%"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.price:
+        class: Cocorico\CoreBundle\Form\Type\PriceType
+        arguments:
+            - "%cocorico.currency%"
+            - "%cocorico.listing_price_precision%"
+            - "@lexik_currency.converter"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.price_range:
+        class: Cocorico\CoreBundle\Form\Type\PriceRangeType
+        arguments:
+            - "@session"
+            - "%cocorico.currency%"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.entity_hidden:
+        class: Cocorico\CoreBundle\Form\Type\EntityHiddenType
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_category:
+        class: Cocorico\CoreBundle\Form\Type\ListingCategoryType
+        arguments:
+            - "@request_stack"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_search_result:
+        class: Cocorico\CoreBundle\Form\Type\Frontend\ListingSearchResultType
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@request_stack"
+            - "@event_dispatcher"
+            - parameters:
+                  cocorico_time_unit: "%cocorico.time_unit%"
+                  cocorico_time_unit_flexibility: "%cocorico.time_unit_flexibility%"
+                  cocorico_days_display_mode: "%cocorico.days_display_mode%"
+                  cocorico_times_display_mode: "%cocorico.times_display_mode%"
+                  cocorico_booking_allow_single_day: "%cocorico.booking.allow_single_day%"
+                  cocorico_booking_end_day_included: "%cocorico.booking.end_day_included%"
+                  cocorico_booking_min_start_time_delay: "%cocorico.booking.min_start_time_delay%"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_search:
+        class:  Cocorico\CoreBundle\Form\Type\Frontend\ListingSearchType
+        parent:  cocorico.form.type.listing_search_result
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_search_home:
+        class:  Cocorico\CoreBundle\Form\Type\Frontend\ListingSearchHomeType
+        parent:  cocorico.form.type.listing_search_result
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_characteristic:
+        class: Cocorico\CoreBundle\Form\Type\ListingCharacteristicType
+        arguments:
+            - "@request_stack"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_listing_characteristic:
+        class: Cocorico\CoreBundle\Form\Type\ListingListingCharacteristicType
+        arguments:
+            - "@request_stack"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.listing_edit_duration:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditDurationType
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.booking_new:
+        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingNewType
+        arguments:
+            - "@cocorico.booking.manager"
+            - "@event_dispatcher"
+            - parameters:
+                  cocorico_booking_allow_single_day: "%cocorico.booking.allow_single_day%"
+                  cocorico_booking_end_day_included: "%cocorico.booking.end_day_included%"
+                  cocorico_booking_min_start_time_delay: "%cocorico.booking.min_start_time_delay%"
+                  cocorico_booking_acceptation_delay: "%cocorico.booking.acceptation_delay%"
+                  cocorico_currency: "%cocorico.currency%"
+                  cocorico_user_address_delivery: "%cocorico.user_address_delivery%"
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.booking_edit:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\BookingEditType
+        tags:
+            - { name: form.type }
+
+    cocorico.form.type.booking_price:
+        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingPriceType
+        arguments:
+            - "@event_dispatcher"
+            - "%cocorico.booking.allow_single_day%"
+            - "%cocorico.booking.end_day_included%"
+            - "%cocorico.days_display_mode%"
+            - "%cocorico.times_display_mode%"
+            - "%cocorico.time_unit%"
+        tags:
+            - { name: form.type }
+
+    #Booking user address
+    cocorico.form.type.booking_user_address:
+        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingUserAddressFormType
+        arguments:
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+        tags:
+            - { name: form.type }
+
+    #Form extensions
+    cocorico.image_type_extension:
+        class: Cocorico\CoreBundle\Form\Extension\ImageTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
+
+    cocorico.form.booking.status_filter:
+        class: Cocorico\CoreBundle\Form\Type\Dashboard\BookingStatusFilterType
+        tags:
+            - { name: form.type }

@@ -1,0 +1,13 @@
+{% trans_default_domain 'cocorico_listing' %}
+
+{% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'form-category alt col-xs-12'}}) }}
+
+{{ form_errors(form) }}
+
+{% include '@CocoricoCore/Frontend/Common/form_search_fields.html.twig' with {
+    'form': form
+} only %}
+
+{{ form_end(form) }}

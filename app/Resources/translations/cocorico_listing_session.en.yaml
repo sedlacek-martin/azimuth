@@ -1,0 +1,5 @@
+listing.duration: Duration
+listing.form.duration: 'Session duration'
+listing.show.duration: 'Session duration'
+'listing_session.duration.min {{ min }}': 'THe minimum duration is {{ min }}'
+time_unit_session: "{-3} by session|{-1} hour(s)|{0} session|]0,1] %hour%h %minute%|]1,Inf]%hour%h%minute%\n        "

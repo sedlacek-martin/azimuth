@@ -1,0 +1,187 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% trans_default_domain 'cocorico' %}
+
+{# Labels #}
+{#@formatter:off#}
+{% block form_label %}
+    {% spaceless %}
+        {% if label is not same as(false) %}
+            {% if not compound %}
+                {% set label_attr = label_attr|merge({'for': id}) %}
+            {% endif %}
+
+            {% set label_required = "" %}
+            {% if required %}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+                {% set label_required %}<span> *</span>{% endset %}
+            {% endif %}
+
+            {% if label is empty %}
+                {% set label = name|humanize %}
+            {% endif %}
+
+            {{ '<label ' }}
+            {%- for attrname, attrvalue in label_attr -%}
+                {%- if attrname != 'data-icon' -%}
+                    {{ attrname }}="{{ attrvalue }}"
+                {%- endif -%}
+            {%- endfor -%}
+            {{ '>' }}
+
+            {%- if 'data-icon' in label_attr|keys -%}
+                <i class="ico-beta {{ label_attr['data-icon'] }}"></i>
+            {%- endif -%}
+
+            {%- autoescape false -%}
+                {{ label|trans({}, translation_domain) }}
+            {%- endautoescape -%}
+
+            {{ label_required }}
+
+            {{ '</label>' }}
+        {%- endif -%}
+    {% endspaceless %}
+{% endblock %}
+{#@formatter:on#}
+
+
+{# Form Error #}
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            {% set existing_errors = [] %}
+
+            <div class="errors">
+                {% for error in errors %}
+                    {#duplicate errors#}
+                    {% if error.message and error.message not in existing_errors %}
+                        <i class="icon-error-field"></i>
+                        {{ error.message|trans(error.messageParameters) }}<br/>
+                        {% set existing_errors = existing_errors|merge([error.message]) %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            {% if not form.vars.valid %}
+                <div class="flashes">
+                    <div class="alert alert-error-new">
+                        <i class="ico icon-error"></i>
+
+                        <p>
+                            {{ 'form.error'|trans }}
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+
+{# Form Row #}
+{% block form_row %}
+    {% spaceless %}
+        <div class="form-row">
+            {{ form_errors(form) }}
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+{# Help message #}
+{% block form_widget_simple -%}
+    {% spaceless %}
+        {{ parent() }}
+
+        {% set help_text = "" %}
+        {% if help is defined %}
+            {% set  help_text = help %}
+        {% elseif  attr.help is defined %}
+            {% set  help_text = attr.help %}
+        {% endif %}
+
+        {% if help_text %}
+            <button title="" data-placement="right" data-toggle="tooltip" class="tooltip-button"
+                    type="button" data-original-title="{{ help_text|trans }}">?
+            </button>
+        {% endif %}
+    {% endspaceless %}
+{%- endblock %}
+
+{% block choice_widget -%}
+    {% spaceless %}
+        {{ parent() }}
+
+        {% if help is defined %}
+            <span class="help">{{ help|trans }}</span>
+        {% elseif  attr.help is defined %}
+            <span class="help">{{ attr.help|trans }}</span>
+        {% endif %}
+
+        {% if help_plain is defined %}
+            <span class="ending">{{ help_plain|trans }}</span>
+        {% elseif  attr.help_plain is defined %}
+            <span class="ending">{{ attr.help_plain|trans }}</span>
+        {% endif %}
+    {% endspaceless %}
+{%- endblock %}
+
+{% block file_widget %}
+    {% spaceless %}
+        {%- set type = type|default('text') -%}
+        <input type="{{ type }}" {{ block('widget_attributes') }}
+               data-jcf='{"buttonText": "{{ 'listing.file.button.text'|trans }}", "placeholderText": "{{ 'listing.file.placeholder.text'|trans }}"}'/>
+
+        {#{{ block('form_widget') }}#}
+        {% if image_url|default(null) is not null %}
+            <img src="{{ image_url| imagine_filter(imagine_filter|default('listing_xsmall')) }}"/>
+        {% endif %}
+
+    {% endspaceless %}
+{% endblock %}
+
+{#
+    Number range widget
+#}
+{%- block number_range_widget -%}
+    <div class="number-range">
+        <div class="col">
+            {{ form_errors(form.min) }}
+            {% if form.min.vars.label %}
+                <strong class="title">{{ form_label(form.min) }}</strong>
+            {% endif %}
+            <div class="field-holder">
+                {{ form_widget(form.min,{
+                    'attr': {
+                        'class': '' ~ form.min.vars.attr.class|default(''),
+                    }
+                }) }}
+            </div>
+        </div>
+
+        <div class="col">
+            {{ form_errors(form.max) }}
+            {% if form.max.vars.label %}
+                <strong class="title">{{ form_label(form.max) }}</strong>
+            {% endif %}
+            <div class="field-holder">
+                {{ form_widget(form.max,{
+                    'attr': {
+                        'class': '' ~ form.max.vars.attr.class|default(''),
+                    }
+                }) }}
+            </div>
+        </div>
+    </div>
+{%- endblock -%}
+
+{%- block choice_widget_expanded -%}
+    {%- for child in form %}
+        <div class="custom-radio">
+            <span style="margin-right: 10px;">{{- form_widget(child) -}}</span>
+            {{- form_label(child) -}}
+        </div>
+    {% endfor -%}
+{%- endblock choice_widget_expanded -%}

@@ -1,0 +1,34 @@
+<div>
+    <p class="h4">{{ user.memberOrganization.name }} ({{ user.memberOrganization.countryName }})</p>
+    {% if user.location is not empty %}
+        <i class="icon-location"></i>
+        <span>{{ user.location }}</span>
+    {% endif %}
+</div>
+<div class="mt-5">
+    <ul class="info-list">
+        <li>
+            {{ 'form.user.scout_since:'|trans({}, 'cocorico_user') }}
+            <strong>{{ user.scoutSince }}</strong>
+        </li>
+        <li>
+            {{ 'form.user.age:'|trans({}, 'cocorico_user') }}
+            <strong>{{ user.age }}</strong>
+        </li>
+        <li>
+            {{ 'form.user.gender:'|trans({}, 'cocorico_user') }}
+            <strong>{{ user.gender|trans({}, 'cocorico_user') }}</strong>
+        </li>
+        <li>
+            {{ 'user.profile.languages'|trans({}, 'cocorico_user') }}
+            <strong class="list-comma">
+                {%- if user.motherTongue %}
+                    <span>{{ user.motherTongue|language_name(app.request.locale) }}</span>
+                {% endif -%}
+                {% for language in user.languages -%}
+                    <span>{{ language.code|language_name(app.request.locale) }}</span>
+                {%- endfor %}
+            </strong>
+        </li>
+    </ul>
+</div>

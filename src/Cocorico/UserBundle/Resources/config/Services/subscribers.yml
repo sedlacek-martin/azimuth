@@ -1,0 +1,16 @@
+services:
+    cocorico_user.authentication_subscriber:
+        class: Cocorico\UserBundle\Event\UserAuthenticationSubscriber
+        arguments:
+            - "@session"
+            - "%cocorico.time_zone%"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    cocorico_user.expiry_subscriber:
+        class: Cocorico\UserBundle\Event\UserExpirySubscriber
+        arguments:
+            - "@router"
+            - "@security.token_storage"
+        tags:
+            - { name: kernel.event_subscriber }

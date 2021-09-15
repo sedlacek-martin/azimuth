@@ -1,0 +1,53 @@
+{% extends "CocoricoSonataAdminBundle::standard_layout.html.twig" %}
+
+{% block navbar_title %}
+    Edit MO info | <strong>{{ memberOrganization.name }}</strong> ({{ memberOrganization.countryName }})
+{% endblock %}
+
+{% block title %}
+    Edit MO
+{% endblock %}
+
+{#{% block form %}#}
+{#    {{ form(form) }}#}
+{#{% endblock %}#}
+{% block content %}
+
+    <div class="panel panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        <div class="field-row form-group">
+                            {{ form_errors(form.abstract) }}
+                            <div class="control-label">
+                                {{ form_label(form.abstract) }}
+                            </div>
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                {{ form_widget(form.abstract) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 25px">
+                        {{ form_row(form.description) }}
+                    </div>
+                    <div class="col-lg-12 sonata-ba-form">
+                        {{ form_row(form.countryDescription) }}
+                    </div>
+                    <div class="hidden">
+                        {{ form_rest(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-body">
+        <button class="btn btn-success" type="submit" name="btn_create_and_edit">
+            <i class="fa fa-save" aria-hidden="true"></i> Save
+        </button>
+    </div>
+
+{% endblock %}

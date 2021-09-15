@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {{ object.newBookingAt ?
+    object.getExpirationDate(
+        field_description.options.bookingExpirationDelay,
+        field_description.options.bookingAcceptationDelay
+    )|localizeddate(field_description.options.dateFormat|default('medium'), field_description.options.timeFormat|default('short'), null, timeZone)
+    : '' }}
+{% endblock %}

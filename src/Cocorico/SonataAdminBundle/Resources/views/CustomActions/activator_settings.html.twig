@@ -1,0 +1,69 @@
+{% extends "CocoricoSonataAdminBundle::standard_layout.html.twig" %}
+
+{% trans_default_domain 'SonataAdminBundle' %}
+
+{% block navbar_title %}
+    <strong>{{ 'activator_settings.title'|trans }}</strong> | {{ memberOrganization.name }} ({{ memberOrganization.countryName }})
+{% endblock %}
+
+{% block title %}
+    {{ 'activator_settings.title'|trans }}
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        <div class="field-row form-group">
+                            {{ form_errors(form.registrationAcceptDomain) }}
+                            <div class="control-label">
+                                <label>{{ 'activator_settings.ways_of_register.label'|trans }}</label>
+                            </div>
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural" style="margin-left: 15px">
+                                <div>
+                                    {{ form_widget(form.registrationAcceptDomain) }}{{ form_label(form.registrationAcceptDomain) }}
+                                    <a href="{{ path('verified-domain_list') }}" style="margin-left: 15px;">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                        {{ 'activator_settings.edit_verified_domains.link_text'|trans }}
+                                    </a>
+                                </div>
+                                <div>{{ form_widget(form.registrationAcceptActivation) }}{{ form_label(form.registrationAcceptActivation) }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                        <div class="field-row form-group">
+                            {{ form_errors(form.userExpiryPeriod) }}
+                            <div class="control-label">
+                                {{ form_label(form.userExpiryPeriod) }}:
+                            </div>
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural"  style="margin-left: 15px">
+                                {{ form_widget(form.userExpiryPeriod) }}
+                                <span data-toggle="tooltip" data-placement="top"
+                                      title="{{ 'activator_settings.expiry_period.help_message'|trans }}">
+                                    <i class="glyphicon glyphicon-question-sign text-info"></i>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="hidden">
+                        {{ form_rest(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-body">
+        <button class="btn btn-success" type="submit" name="btn_create_and_edit">
+            <i class="fa fa-save" aria-hidden="true"></i> Save
+        </button>
+    </div>
+
+{% endblock %}
+

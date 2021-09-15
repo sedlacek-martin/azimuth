@@ -1,0 +1,55 @@
+/** Global */
+th, label, .checkbox label, .radio label, .label {
+    font-weight: 600;
+}
+
+.sonata-ba-list td.sonata-ba-list-field a.sonata-link-identifier {
+    font-weight: normal;
+}
+
+.field-row span.label {
+    color: #333;
+    font-size: 14px;
+}
+
+.form-group span.sign {
+    float: left;
+    margin-right: 4px;
+    line-height: 26px;
+}
+
+div.connection {
+    padding-bottom: 20px;
+}
+
+/** Date Time fields */
+div.sonata-medium-date .col-sm-2, div.sonata-medium-date .col-sm-4, div.form-group div[id$=Time] .col-sm-6 {
+    width: auto !important;
+    padding: 0 0 0 15px;
+}
+
+/** Report bundle */
+.small-box .icon {
+    font-size: 60px;
+    right: 10px;
+    top: -10px;
+    bottom: 0;
+    color: rgba(255, 255, 255, 0.15);
+}
+
+@media screen and (max-width: 480px) {
+    .small-box {
+        min-height: 132px;
+    }
+}
+
+/** Audit Revisions bundle */
+table#revisions {
+    background-color: #fff;
+}
+
+.menu-divider {
+    color: white;
+    margin: 10px 20px 0;
+    border-top: #b8c7ce solid 1px;
+}

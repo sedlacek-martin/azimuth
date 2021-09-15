@@ -1,0 +1,33 @@
+{% trans_default_domain 'cocorico_listing' %}
+
+<div id="discount-form-container">
+    {% if app.request.isXmlHttpRequest %}
+        {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+    {% endif %}
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+    {{ form_widget(form.discounts) }}
+
+    <div class="btn-block text-center">
+        <button type="submit" class="btn btn-default">{{ 'listing.price_save'|trans }}</button>
+    </div>
+    {{ form_end(form) }}
+
+    <script>
+        $(function () {
+            var $formContainer = $("#discount-form-container");
+            $formContainer.submitAjaxForm(function () {
+                jcf.replaceAll("#discount-form-container");
+            });
+
+            $formContainer.addFormToCollection("div.collection", "ul", function () {
+
+            });
+        });
+    </script>
+</div>
+
+
+

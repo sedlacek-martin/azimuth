@@ -1,0 +1,24 @@
+services:
+  cocorico.form.type.mo_edit:
+    class: Cocorico\SonataAdminBundle\Form\Type\MoEditType
+    arguments:
+      - "@request_stack"
+      - "@doctrine.orm.entity_manager"
+    tags:
+      - { name: form.type }
+
+  cocorico.form.type.activatior_settings:
+    class: Cocorico\SonataAdminBundle\Form\Type\ActivatorSettingsType
+    arguments:
+      - "@request_stack"
+      - "@doctrine.orm.entity_manager"
+    tags:
+      - { name: form.type }
+
+  cocorico.form.type.facilitator_settings:
+    class: Cocorico\SonataAdminBundle\Form\Type\FacilitatorSettingsType
+    arguments:
+      - "@request_stack"
+      - "@doctrine.orm.entity_manager"
+    tags:
+      - { name: form.type }

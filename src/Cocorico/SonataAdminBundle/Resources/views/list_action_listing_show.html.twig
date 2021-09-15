@@ -1,0 +1,7 @@
+{% set url =  path('cocorico_listing_show', {'slug': object.slug}) %}
+
+<a href="{{ url }}" class="btn btn-sm btn-default edit_link" target="_blank"
+   title="{{ 'list_action_show_listing'|trans({}, 'SonataAdminBundle') }}">
+    <i class="glyphicon glyphicon-eye-open"> </i>
+    {{ 'list_action_show_listing'|trans({}, 'SonataAdminBundle') }}
+</a>

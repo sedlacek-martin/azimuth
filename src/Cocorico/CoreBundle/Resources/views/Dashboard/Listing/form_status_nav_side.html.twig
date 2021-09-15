@@ -1,0 +1,65 @@
+{% trans_default_domain 'cocorico_listing' %}
+
+<div id="status-form-container">
+    {% if app.request.isXmlHttpRequest %}
+        {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+    {% endif %}
+
+    {{ form_start(form, {'attr': {'class': 'form-announcements'}}) }}
+
+    {{ form_errors(form) }}
+    <fieldset>
+        <legend class="hidden">announcements</legend>
+        <h2>
+            {{ form_label(form.status) }}
+        </h2>
+
+        {{ form_errors(form.status) }}
+
+        <div class="select-holder">
+            {{ form_widget(form.status, {
+                'attr': {
+                    'class': 'no-arrow announcements-list',
+                    'data-jcf': '{"wrapNative": false, "wrapNativeOnMobile": false}'
+                }
+            }) }}
+        </div>
+
+        <input type="submit" class="hidden" value="{{ 'listing.status_save'|trans }}">
+
+    </fieldset>
+    {{ form_end(form) }}
+
+
+    <script>
+        $(function () {
+            $("#status-form-container").submitAjaxForm(
+                function () {
+                    jcf.replaceAll("#status-form-container");
+                }
+            );
+
+
+            //Handle listing status change
+            var $statusSelectElt = $("#listing_status_status");
+            var statusVal = $statusSelectElt.val();
+            $statusSelectElt.change(function (e) {
+                if ($statusSelectElt.val() == '{{ ListingConstants.STATUS_DELETED }}') {
+                    if (confirm("{{ 'listing.confirm.delete'|trans }}")) {
+                        //Remove listing if its status is deleted
+                        $(this).closest('form').submit();
+                        window.location = '{{ path('cocorico_dashboard_listing') }}';
+                    } else {
+                        $statusSelectElt.val(statusVal);
+                        return false;
+                    }
+                } else {
+                    $(this).closest('form').submit();
+                }
+            });
+        });
+    </script>
+
+</div>
+
+

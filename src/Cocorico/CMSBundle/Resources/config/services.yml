@@ -1,0 +1,10 @@
+imports:
+    - { resource: admin.yml }
+
+services:
+    #Entities manager
+    cocorico_cms.footer.manager:
+        class: Cocorico\CMSBundle\Model\Manager\FooterManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true

@@ -1,0 +1,88 @@
+{% block a2lix_translations_widget %}
+    <div role="tabpanel">
+        {% if locales|length > 1 %}
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                {% for translations_fields in form %}
+                    {% set locale = translations_fields.vars.name %}
+                    {#to manage multiple tabset in same page#}
+                    {% set tab_link =  (translations_fields|first).vars.id ~ "-" ~ locale %}
+
+                    <li role="presentation" {% if app.request.locale == locale %}class="active"{% endif %}>
+                        <a href="#{{ tab_link }}" data-toggle="tab" data-text="{{ locale }}">
+                            {#error icon in tabs#}
+                            {% set has_error = false %}
+                            {% for translations_field in translations_fields if not has_error %}
+                                {% if translations_field.vars.errors|length %}
+                                    {% set has_error = true %}
+                                    <span class="errors">
+                                        <i class="icon-error-field"></i>
+                                    </span>
+                                {% endif %}
+                            {% endfor %}
+
+                            {{ locale|capitalize }}
+                            {% if translations_fields.vars.required %}*{% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            {% for translations_fields in form %}
+                {% set locale = translations_fields.vars.name %}
+                {#to manage multiple tabset in same page#}
+                {% set tab_link =  (translations_fields|first).vars.id ~ "-" ~ locale %}
+
+                <div role="tabpanel" class="tab-pane {% if app.request.locale == locale %}active{% endif %}"
+                     id="{{ tab_link }}">
+
+                    {#{{ form_errors(translations_fields) }}#}
+                    {% for translations_field in translations_fields %}
+                        {% set type = translations_field.vars.block_prefixes %}
+                        {% set translation_domain = translations_field.vars.translation_domain|default('cocorico') %}
+                        {% set placeholder = translations_field.vars.attr.placeholder|default('') %}
+
+                        {% if placeholder == 'auto' %}
+                            {% set placeholder = translations_field.vars.id ~ '_placeholder' %}
+                        {% endif %}
+
+                        {% if "hidden" not in type %}
+                            <div class="field-row">
+                                {{ form_errors(translations_field) }}
+                                {% if "textarea" not in type %}
+                                    <span class="label">{{ form_label(translations_field) }}</span>
+                                    <div class="field-holder">
+                                        {{ form_widget(translations_field, {
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': placeholder|trans({}, translation_domain)
+                                            }
+                                        }) }}
+                                    </div>
+                                {% else %}
+                                    <span class="label block">{{ form_label(translations_field) }}</span>
+                                    <div class="thin-scroll">
+                                        {{ form_widget(translations_field, {
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'placeholder': placeholder|trans({}, translation_domain)
+                                            }
+                                        }) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block a2lix_translationsForms_widget %}
+    {{ block('a2lix_translations_widget') }}
+{% endblock %}

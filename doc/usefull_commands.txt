@@ -1,0 +1,10 @@
+spuštení containeru
+-----
+UID=${UID} docker-compose up
+docker exec -it --user cocorico docker_cocorico_1 sh
+
+Nahrání nové verze docker image do azure
+------
+docker build --tag cocorico-custom .
+docker tag cocorico-custom cocorico.azurecr.io/cocorico-custom:latest
+docker push cocorico.azurecr.io/cocorico-custom:latest/cocorico/src/Cocorico/CoreBundle/Resources/views/Frontend/Common/_header.html.twig

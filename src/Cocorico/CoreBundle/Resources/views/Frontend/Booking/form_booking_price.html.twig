@@ -1,0 +1,128 @@
+{% trans_default_domain 'cocorico_booking' %}
+
+<section class="widget reservation ajax-container">
+    {% if app.request.isXmlHttpRequest %}
+        {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+    {% endif %}
+
+    {{ form_start(form, {'attr': {'id': 'booking-price-form', 'class': 'date-selection'}}) }}
+
+    {{ form_errors(form) }}
+
+    <fieldset>
+        <legend class="hidden">date-selection</legend>
+
+        {{ form_widget(form.date_range) }}
+
+        {% if not timeUnitIsDay %}
+            {{ form_widget(form.time_range) }}
+        {% endif %}
+
+        <input type="submit" class="hidden">
+    </fieldset>
+
+    {{ form_end(form) }}
+
+    <div class="add-info">
+{#        {% if includeVat %}#}
+{#            {% set amount = booking.amountDecimal %}#}
+{#        {% else %}#}
+{#            {% set amount = booking.amountExcludingVATDecimal(vatRate) %}#}
+{#        {% endif %}#}
+{#        {% set amount = amount | format_price(app.request.locale, 0) %}#}
+
+{#        <strong class="price">#}
+{#            {{ amount }}#}
+{#            <sup>#}
+{#                <small>{{ vatInclusionText(app.request.getLocale()) }}</small>#}
+{#            </sup> *#}
+{#        </strong>#}
+
+        {% if bundleExist('CocoricoDeliveryBundle') %}
+            {% include 'CocoricoDeliveryBundle:Frontend:Booking/_show_delivery.html.twig' with {
+            'listing_delivery':  booking.listing.delivery
+            } only %}
+        {% endif %}
+
+        {% if form.vars.submitted and form.vars.valid %}
+            <a href="#" data-id="submit-booking" class="btn btn-default no-margin">{{ 'listing.show.book.now.submit'|trans }}</a>
+        {% else %}
+            <a disabled data-id="submit-booking" class="btn btn-default no-margin">{{ 'listing.show.book.now.submit'|trans }}</a>
+        {% endif %}
+
+        {% set duration = booking.duration(endDayIncluded, timeUnit) %}
+        {% if duration %}
+            <em class="text">
+                <strong>{{ 'booking.duration:'|trans ~ " " ~ duration|add_time_unit_text }}</strong>
+            </em>
+        {% endif %}
+
+        {% if not timeUnitIsDay %}
+            <em class="text">
+                {{ 'form.time_zone'|trans({}, 'cocorico_user') }} : {{ app.session.get('timezone')|timezone_name }}
+            </em>
+        {% endif %}
+
+        {% if bundleExist('CocoricoCarrierBundle') %}
+            {% include 'CocoricoCarrierBundle:Frontend:Listing/_show_carrier.html.twig' with {
+            'listing_pallets': booking.listing.pallets
+            } only %}
+        {% endif %}
+
+        {% if bundleExist('CocoricoListingDepositBundle') %}
+            {% include 'CocoricoListingDepositBundle:Frontend:Listing/_show_amount_deposit.html.twig' with {
+                'listing_deposit': booking.listing.amountDepositDecimal
+            } only %}
+        {% endif %}
+
+{#        <em class="text small">*{{ 'listing.show.excluding_booking_fees'|trans }}</em>#}
+    </div>
+
+
+    <script>
+        $(function () {
+            var timeUnitIsDay = {{ timeUnitIsDay ? 'true' : 'false' }};
+
+            initDatePickerAjax(function () {
+                jcf.replaceAll("#booking-price-form");
+            });
+
+            var $form = $("#booking-price-form");
+
+            $form.submit(function () {
+                //Remove price and submit button
+                //Disable fields and add loading until form is rendered
+                $(this).find("input").attr("readonly", "readonly");
+                $(this).find("select option:not(:selected)").each(function () {
+                    $(this).attr('disabled', 'disabled');
+                });
+                $(".add-info .price, .add-info .loading, a[data-id=submit-booking]").remove();
+                $(".add-info").prepend('<img class="loading" src="{{ asset("images/loading.gif") }}" /><br>');
+            });
+
+            $("a[data-id=submit-booking]").click(function (e) {
+                e.preventDefault();
+                var $errors = $form.find('div.errors');
+                //Submit form if no errors
+                if (!$errors.length || ($errors.length && !$errors.is(":visible"))) {
+                    if ($("#start-date").val() && $("#end-date").val()) {
+                        if (timeUnitIsDay) {
+                            $form.submit();
+                        } else {
+                            var $holderTimes = $form.find(".time-fields");
+                            var $startHour = $holderTimes.find("[id$=_start_hour]").first();
+                            var $endHour = $holderTimes.find("[id$=_start_minute]").first();
+                            var $startMinute = $holderTimes.find("[id$=_end_hour]").first();
+                            var $endMinute = $holderTimes.find("[id$=_end_minute]").first();
+
+                            if ($startHour.val() && $endHour.val() && $startMinute.val() && $endMinute.val()) {
+                                $form.submit();
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</section>

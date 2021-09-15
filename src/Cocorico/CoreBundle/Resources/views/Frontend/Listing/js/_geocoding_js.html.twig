@@ -1,0 +1,186 @@
+{#
+ Javascript geocoding for listing edition and creation without place auto complettion
+#}
+{% trans_default_domain 'cocorico_geo' %}
+
+{% include '@CocoricoGeo/Common/js/_geocoding_js.html.twig' with {
+'map_elt': map_elt,
+'marker_draggable': marker_draggable is not defined ? false : marker_draggable
+} only %}
+
+<script>
+    $(function () {
+        var $listingLocationError = $("#listing-location .error");
+
+        //Location
+        //Geocoding
+        $("body").on('click', 'a.validate-location', function (e) {
+            geocode(function (result) {
+                geocodingSuccess(result);
+            });
+        });
+
+        //Geocode address before form submission
+        var submitForm = false;
+        $("#listing_location_country").parents('form:first').submit(function (e) {
+            if (!submitForm) {
+                e.preventDefault();
+
+                geocode(function (result) {
+                    geocodingSuccess(result);
+                    submitForm = true;
+                    $("#listing_location_country").parents('form:first').submit();
+                });
+            }
+
+            return true;
+        });
+
+        /**
+         * Geocode address
+         * @param geocodingSuccessCallback function
+         */
+        function geocode(geocodingSuccessCallback) {
+            $listingLocationError.html('');
+            $.when(
+                geocodeFunc(
+                    constructAddressFromAddressFields(),
+                    $("#listing_location_country option:selected").val(),
+                    true, true
+                )
+            ).then(
+                geocodingSuccessCallback, geocodingError
+            );
+        }
+
+        //Marker dragend event > Reverse geocoding
+        $(document).on("markerDragendEvt", function (e) {
+            $.when(
+                    reverseGeocodeFunc(e.markerPosition)
+            ).then(
+                    geocodingSuccess, geocodingError
+            );
+
+        });
+
+
+        function geocodingSuccess(result) {
+            //console.log("geocodingSuccess", result);
+            $("#listing_location_coordinate").val(JSON.stringify(result));
+            $('#formatted-address').html(result.formatted_address);
+            fillAddressFields(result);
+        }
+
+        function geocodingError(result) {
+            //console.log("geocodingError", result);
+            $("#listing_location_coordinate").val();
+            $('#formatted-address').html('');
+            $listingLocationError.html(result);
+        }
+
+
+        function constructAddressFromAddressFields() {
+            var streetNumber = $("#listing_location_street_number").val();
+            var route = $("#listing_location_route").val();
+            var city = $("#listing_location_city").val();
+            var zip = $("#listing_location_zip").val();
+            var country = $("#listing_location_country option:selected").text();
+
+            var address =
+                    streetNumber + ' ' +
+                    (route ? route + ', ' : '') +
+                    (zip ? zip + ', ' : '') +
+                    (city ? city + ' ' : '') +
+                    country;
+
+            return $.trim(address);
+        }
+
+        /**
+         * Fill Address Fields from geocoding
+         * @param geocodingI18n
+         *
+         * @returns {*}
+         */
+        function fillAddressFields(geocodingI18n) {
+            if (geocodingI18n) {
+                var geocoding = geocodingI18n["{{ app.request.locale }}"];
+//                console_log(geocoding);
+                if (geocoding) {
+                    if (geocoding.street_number) {
+                        $("#listing_location_street_number").val(geocoding.street_number);
+                    }
+
+                    if (geocoding.route) {
+                        $("#listing_location_route").val(geocoding.route);
+                    }
+
+                    if (geocoding.locality) {
+                        $("#listing_location_city").val(geocoding.locality);
+                    } else if (geocoding.postal_town) {
+                        $("#listing_location_city").val(geocoding.postal_town);
+                    }
+
+                    if (geocoding.postal_code || geocoding.administrative_area_level_2_short) {
+                        if (geocoding.postal_code) {
+                            $("#listing_location_zip").val(geocoding.postal_code);
+                        } else {
+                            var area2 = geocoding.administrative_area_level_2_short;
+                            if (area2 && area2.match(/\d+/g) != null) {//is it number in it?
+                                $("#listing_location_zip").val(area2);
+                            }
+                        }
+                    }
+
+                    if (geocoding.country_short) {
+                        var countries = $.map($('#listing_location_country option'), function (option) {
+                            return option.value;
+                        });
+
+                        if ($.inArray(geocoding.country_short, countries) !== -1) {
+                            $("#listing_location_country").val(geocoding.country_short);
+                        } else {
+                            var $listingLocationCountry = $("#listing_location_country");
+                            $listingLocationCountry.val('');
+                            $listingLocationCountry.find(":selected").removeAttr("selected");
+//                            $listingLocationCountry.next('.jcf-select').find('span span').html('');
+                            $listingLocationError.html("{{ 'geo.location.wrong_country'|trans() }}" + " : " + geocoding.country);
+                        }
+                    }
+                } else {
+                    $listingLocationError.html("{{ 'geo.location.no_result'|trans }}");
+                }
+
+            } else {
+                $listingLocationError.html("{{ 'geo.location.no_result'|trans }}");
+            }
+        }
+
+        function addressIsFilled() {
+            return ($("#listing_location_street_number").val() || $("#listing_location_route").val() ||
+            $("#listing_location_city").val() || $("#listing_location_zip").val());
+        }
+
+        function refreshGeocoding() {
+            if (addressIsFilled()) {
+                $(".validate-location").trigger('click');
+            }
+        }
+
+        refreshGeocoding();
+
+        //Geo locate ip
+        geoLocateIPFunc(function (location) {
+            if (!addressIsFilled()) {
+                if (location.countryCode) {
+                    $("#listing_location_country").val(location.countryCode);
+                }
+
+                if (location.cityName) {
+                    $("#listing_location_city").val(location.cityName);
+                }
+                refreshGeocoding();
+            }
+        });
+    });
+</script>

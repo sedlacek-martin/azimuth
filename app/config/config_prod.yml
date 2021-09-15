@@ -1,0 +1,61 @@
+imports:
+    - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: validator.mapping.cache.doctrine.apc
+#    serializer:
+#        cache: serializer.mapping.cache.doctrine.apc
+
+doctrine:
+    orm:
+        metadata_cache_driver: apcu
+        query_cache_driver: apcu
+        result_cache_driver: apcu
+
+monolog:
+    handlers:
+        main:
+            type:               fingers_crossed
+            action_level:       critical
+            handler:            grouped
+        grouped:
+            type:               group
+            members:            [rotated, swift]
+#            members:            [streamed, swift]
+        rotated:
+            type:               rotating_file
+            path:               "%kernel.logs_dir%/%kernel.environment%.log"
+            level:              debug
+#        streamed:
+#            type:               stream
+#            path:               "%kernel.logs_dir%/%kernel.environment%.log"
+#            level:              debug
+        swift:
+            type:               swift_mailer
+            from_email:         "%cocorico.from_email%"
+            to_email:           "%cocorico.webmaster_email%"
+            subject:            "An error occured on %cocorico.site_name%"
+            level:              debug
+        login:
+            type:               stream
+            path:               "%kernel.logs_dir%/auth.log"
+            level:              info
+            channels:           security
+
+#        main:
+#            type:         fingers_crossed
+#            action_level: error
+#            handler:      nested
+#        nested:
+#            type:  stream
+#            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+#            level: debug
+#            channels: [!mangopay]
+        console:
+            type:  console
+
+
+swiftmailer:
+    spool:
+        type: memory

@@ -1,0 +1,37 @@
+services:
+    #Voters
+    security.access.listing_voter:
+        class:      Cocorico\CoreBundle\Security\Voter\ListingVoter
+        arguments:
+          - "@security.authorization_checker"
+        public:     false
+        tags:
+           - { name: security.voter }
+
+    security.access.listing_image_voter:
+        class:      Cocorico\CoreBundle\Security\Voter\ListingImageVoter
+        public:     false
+        tags:
+           - { name: security.voter }
+
+    security.access.booking_voter:
+        class:      Cocorico\CoreBundle\Security\Voter\BookingVoter
+        public:     false
+        tags:
+           - { name: security.voter }
+
+    security.access.verified_domain_voter:
+      class: Cocorico\CoreBundle\Security\Voter\VerifiedDomainVoter
+      arguments:
+        - "@security.authorization_checker"
+      public: false
+      tags:
+        - { name: security.voter }
+
+    security.access.user_voter:
+      class: Cocorico\CoreBundle\Security\Voter\UserVoter
+      arguments:
+        - "@security.authorization_checker"
+      public: false
+      tags:
+        - { name: security.voter }

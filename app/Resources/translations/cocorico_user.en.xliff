@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="3bc15c8aae3e4124dd409035f32ea2fd6835efc9" resname="-">
+        <source>-</source>
+        <target>-</target>
+      </trans-unit>
+      <trans-unit id="7d08aa60b1b84264cf1b22a4a60155ff3e5d03bd" resname="- Select -">
+        <source>- Select -</source>
+        <target state="new">- Select -</target>
+      </trans-unit>
+      <trans-unit id="d79da395b5d7a09c6439a5f2660d8c568186ab7e" resname="Abstract">
+        <source>Abstract</source>
+        <target state="new">Abstract</target>
+      </trans-unit>
+      <trans-unit id="97c89a4d6630adeb18fa12ba9976a31413fe293e" resname="Action">
+        <source>Action</source>
+        <target state="new">Action</target>
+      </trans-unit>
+      <trans-unit id="4281c52d617278a34a14cf5faf9c6fb11df197a6" resname="Asker">
+        <source>Asker</source>
+        <target>Asker</target>
+      </trans-unit>
+      <trans-unit id="fbe2f800f0f4a7c6f623967e6fa7235892cbe24d" resname="Bad credentials.">
+        <source>Bad credentials.</source>
+        <target>Bad credentials</target>
+      </trans-unit>
+      <trans-unit id="53c2de2d09cbdfd49e998fe7a94498fe7cf5beb0" resname="Biography">
+        <source>Biography</source>
+        <target state="new">Biography</target>
+      </trans-unit>
+      <trans-unit id="2a1513fb97683f0b6d8d7ff1ab9af8b9bf3bf12e" resname="Booking User Address Batch">
+        <source>Booking User Address Batch</source>
+        <target>Booking User Address Batch</target>
+      </trans-unit>
+      <trans-unit id="7dd81984365f9d8ef16e3e84bd3613a8f8924be2" resname="Booking User Address Create">
+        <source>Booking User Address Create</source>
+        <target>Booking User Address Create</target>
+      </trans-unit>
+      <trans-unit id="05c1d2a9ca656afd725532c1e9eb5235f9930060" resname="Booking User Address Delete">
+        <source>Booking User Address Delete</source>
+        <target>Booking User Address Delete</target>
+      </trans-unit>
+      <trans-unit id="ca974754d31e000bc6ec4e5f149b04f0fd30946f" resname="Booking User Address Edit">
+        <source>Booking User Address Edit</source>
+        <target>Booking User Address Edit</target>
+      </trans-unit>
+      <trans-unit id="aabf43cb99080d02cb2bd18a6d9609020c414129" resname="Booking User Address List">
+        <source>Booking User Address List</source>
+        <target>Booking User Address List</target>
+      </trans-unit>
+      <trans-unit id="ca4242b2f1f0ba57867b54f515660d468d2a0f24" resname="Booking User Address Update">
+        <source>Booking User Address Update</source>
+        <target>Booking User Address Update</target>
+      </trans-unit>
+      <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
+        <source>Country</source>
+        <target state="new">Country</target>
+      </trans-unit>
+      <trans-unit id="da2fe616281835e93604314fd13192e689316e09" resname="Country Information Batch">
+        <source>Country Information Batch</source>
+        <target state="new">Country Information Batch</target>
+      </trans-unit>
+      <trans-unit id="6cc2d9508fa08d825e53a2a25c3c7c283e4edca6" resname="Country Information Create">
+        <source>Country Information Create</source>
+        <target state="new">Country Information Create</target>
+      </trans-unit>
+      <trans-unit id="5b9f0a7eea0c4074e3f38d404eacc4ba6a1de3e9" resname="Country Information Delete">
+        <source>Country Information Delete</source>
+        <target state="new">Country Information Delete</target>
+      </trans-unit>
+      <trans-unit id="81d2cb1cebd4f7e8eef02e2ad4ad096c186cfe60" resname="Country Information Edit">
+        <source>Country Information Edit</source>
+        <target state="new">Country Information Edit</target>
+      </trans-unit>
+      <trans-unit id="4423579c9c4bad33a1a68236b2a0093826aae02e" resname="Country Information List">
+        <source>Country Information List</source>
+        <target state="new">Country Information List</target>
+      </trans-unit>
+      <trans-unit id="79082a25154f61634489b328033c2dabd0996a3e" resname="Country Information Update">
+        <source>Country Information Update</source>
+        <target state="new">Country Information Update</target>
+      </trans-unit>
+      <trans-unit id="95b56d15d9cc0ef70b7074f7ff598fd3c15e23a1" resname="Country information">
+        <source>Country information</source>
+        <target state="new">Country information</target>
+      </trans-unit>
+      <trans-unit id="5db1542e683b0540dc5a4544657851d8020c91d9" resname="Created At">
+        <source>Created At</source>
+        <target state="new">Created At</target>
+      </trans-unit>
+      <trans-unit id="f25210a5310fd3f221d3343bedff76ac67c2a269" resname="Date Of Birth">
+        <source>Date Of Birth</source>
+        <target state="new">Date Of Birth</target>
+      </trans-unit>
+      <trans-unit id="55f8ebc805e65b5b71ddafdae390e3be2bcd69af" resname="Description">
+        <source>Description</source>
+        <target state="new">Description</target>
+      </trans-unit>
+      <trans-unit id="9b10914d8b0a097ace7176e8973f5c3dee92bb44" resname="Domain">
+        <source>Domain</source>
+        <target state="new">Domain</target>
+      </trans-unit>
+      <trans-unit id="84add5b2952787581cb9a8851eef63d1ec75d22b" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="df174a3f2faa31814e06540acda7af8825403fac" resname="Enabled">
+        <source>Enabled</source>
+        <target state="new">Enabled</target>
+      </trans-unit>
+      <trans-unit id="1c82119c31678afc6233c719096414eef0fb22b6" resname="Expiration">
+        <source>Expiration</source>
+        <target state="new">Expiration</target>
+      </trans-unit>
+      <trans-unit id="89742ccf780c8a67051d8f3c622d70fe05c3fbee" resname="Facebook Name">
+        <source>Facebook Name</source>
+        <target state="new">Facebook Name</target>
+      </trans-unit>
+      <trans-unit id="c4aa41e86fb3925d5cb62a8564f577eb841c9492" resname="Facebook Uid">
+        <source>Facebook Uid</source>
+        <target state="new">Facebook Uid</target>
+      </trans-unit>
+      <trans-unit id="cf23ba48c06d7e6d4b41a205bfb3cac3bb7b1e38" resname="Firstname">
+        <source>Firstname</source>
+        <target state="new">Firstname</target>
+      </trans-unit>
+      <trans-unit id="9b1458893fdf24868765e6710e8c64ee8ed94388" resname="Fullname">
+        <source>Fullname</source>
+        <target state="new">Fullname</target>
+      </trans-unit>
+      <trans-unit id="8a754c61c2ced0c5ff79a1827e02c9d643d6d926" resname="Gender">
+        <source>Gender</source>
+        <target state="new">Gender</target>
+      </trans-unit>
+      <trans-unit id="260433f07572d3554e380a176e31290618564df4" resname="Gplus Name">
+        <source>Gplus Name</source>
+        <target state="new">Gplus Name</target>
+      </trans-unit>
+      <trans-unit id="c112ac21328067d86ae451ab826b6fadad88f6e2" resname="Gplus Uid">
+        <source>Gplus Uid</source>
+        <target state="new">Gplus Uid</target>
+      </trans-unit>
+      <trans-unit id="ae9629f4ebb82c6331c0809fa9a0e54b00e578e6" resname="Groups">
+        <source>Groups</source>
+        <target state="new">Groups</target>
+      </trans-unit>
+      <trans-unit id="474ae52625b87d7628ae7b20a499329a99e07119" resname="Id">
+        <source>Id</source>
+        <target state="new">Id</target>
+      </trans-unit>
+      <trans-unit id="639860fbb86cea7f96e287fa3fecca62e4bb42f8" resname="Lastname">
+        <source>Lastname</source>
+        <target state="new">Lastname</target>
+      </trans-unit>
+      <trans-unit id="8970f0e691a0a23a47517698017c997507efd496" resname="Locale">
+        <source>Locale</source>
+        <target state="new">Locale</target>
+      </trans-unit>
+      <trans-unit id="e71015d0e82e3df7df311fc712165d5273e3e2a6" resname="Member Organization">
+        <source>Member Organization</source>
+        <target state="new">Member Organization</target>
+      </trans-unit>
+      <trans-unit id="81218e94217a6a26a213bd1ce6a483fd693c364b" resname="Member Organization Batch">
+        <source>Member Organization Batch</source>
+        <target state="new">Member Organization Batch</target>
+      </trans-unit>
+      <trans-unit id="586c5a5cf04d4732ebebcb54d90c438dacfa5a0f" resname="Member Organization Create">
+        <source>Member Organization Create</source>
+        <target state="new">Member Organization Create</target>
+      </trans-unit>
+      <trans-unit id="90a89febc31f64835b32063f55258b5d5b178d6f" resname="Member Organization Delete">
+        <source>Member Organization Delete</source>
+        <target state="new">Member Organization Delete</target>
+      </trans-unit>
+      <trans-unit id="2407fdd22960e2c86ed44fe35aacff153bf0ccca" resname="Member Organization Edit">
+        <source>Member Organization Edit</source>
+        <target state="new">Member Organization Edit</target>
+      </trans-unit>
+      <trans-unit id="35b059ef4af87317c8503876a8f23f36e0b0a087" resname="Member Organization List">
+        <source>Member Organization List</source>
+        <target state="new">Member Organization List</target>
+      </trans-unit>
+      <trans-unit id="c60b150cd8470e787539e33d392c4a2cb1933613" resname="Member Organization Update">
+        <source>Member Organization Update</source>
+        <target state="new">Member Organization Update</target>
+      </trans-unit>
+      <trans-unit id="ebe8227378d4d0f9011c5d556245ae5024fddaea" resname="Member organization">
+        <source>Member organization</source>
+        <target state="new">Member organization</target>
+      </trans-unit>
+      <trans-unit id="709a23220f2c3d64d1e1d6d18c4d5280f8d82fca" resname="Name">
+        <source>Name</source>
+        <target state="new">Name</target>
+      </trans-unit>
+      <trans-unit id="b6efbc728e20a592f93cc71db4d9e5cfe7f9e414" resname="Offerer">
+        <source>Offerer</source>
+        <target>Offerer</target>
+      </trans-unit>
+      <trans-unit id="07605242f7a070b43bdc103189dccf6a5cc43506" resname="Organizations">
+        <source>Organizations</source>
+        <target state="new">Organizations</target>
+      </trans-unit>
+      <trans-unit id="71715c7bcee555c9fa17dfccfec99bd43386b599" resname="Pending activations">
+        <source>Pending activations</source>
+        <target state="new">Pending activations</target>
+      </trans-unit>
+      <trans-unit id="77064d5265236e0ac252f3fc4a5ba7b274b6a583" resname="Phone">
+        <source>Phone</source>
+        <target state="new">Phone</target>
+      </trans-unit>
+      <trans-unit id="43212c47f44f1782d86c9258c4ca7bac2d65c37f" resname="Reconfirm Requested">
+        <source>Reconfirm Requested</source>
+        <target state="new">Reconfirm Requested</target>
+      </trans-unit>
+      <trans-unit id="fe40e788d3b22487ca58c0d17a29bc0a3a74e2dd" resname="Requires User Identifier">
+        <source>Requires User Identifier</source>
+        <target state="new">Requires User Identifier</target>
+      </trans-unit>
+      <trans-unit id="d1f7dc891b5e5d1797163b556e805123c9369e4f" resname="Timezone">
+        <source>Timezone</source>
+        <target state="new">Timezone</target>
+      </trans-unit>
+      <trans-unit id="a1141eb96836ed960ae0be11b9889597388b5df0" resname="Token">
+        <source>Token</source>
+        <target state="new">Token</target>
+      </trans-unit>
+      <trans-unit id="99f7ed543bf3747d87f8a2778ea501bc0116c380" resname="Trusted">
+        <source>Trusted</source>
+        <target>Trusted</target>
+      </trans-unit>
+      <trans-unit id="9adf380321442a39e1391f1306ba1fab374dd44e" resname="Twitter Name">
+        <source>Twitter Name</source>
+        <target state="new">Twitter Name</target>
+      </trans-unit>
+      <trans-unit id="c38767da1a72940f30f8bb635ba2f10bede02c89" resname="Twitter Uid">
+        <source>Twitter Uid</source>
+        <target state="new">Twitter Uid</target>
+      </trans-unit>
+      <trans-unit id="ba7c533d62696987d62217b9b50830b45f5ecb27" resname="Two Step Verification Code">
+        <source>Two Step Verification Code</source>
+        <target state="new">Two Step Verification Code</target>
+      </trans-unit>
+      <trans-unit id="02c0e4a1da64085d6e5e5cc69335b54b181e8a32" resname="Used">
+        <source>Used</source>
+        <target state="new">Used</target>
+      </trans-unit>
+      <trans-unit id="e6b55e309c0fd34f11593e222785392b13cfc32e" resname="User Address Batch">
+        <source>User Address Batch</source>
+        <target>User Address Batch</target>
+      </trans-unit>
+      <trans-unit id="6beaadbfd9666d258d7bd6f67e2a9495ef433664" resname="User Address Create">
+        <source>User Address Create</source>
+        <target>User Address Create</target>
+      </trans-unit>
+      <trans-unit id="923af6e85acdb16f33d6ced17bee53a94da6c8c4" resname="User Address Delete">
+        <source>User Address Delete</source>
+        <target>User Address Delete</target>
+      </trans-unit>
+      <trans-unit id="c7e238c437a00b6eeb79ba541b33d69722aac0dc" resname="User Address Edit">
+        <source>User Address Edit</source>
+        <target>User Address Edit</target>
+      </trans-unit>
+      <trans-unit id="71b5353869c44cd332fd3609c123c0b2bd8e195a" resname="User Address List">
+        <source>User Address List</source>
+        <target>User Address List</target>
+      </trans-unit>
+      <trans-unit id="87ebb286bf6b2f2509ebf1b7f51568ab90c4d2df" resname="User Address Update">
+        <source>User Address Update</source>
+        <target>User Address Update</target>
+      </trans-unit>
+      <trans-unit id="f4d281a169ee8e391ec7623743eac344b9837f23" resname="User Batch">
+        <source>User Batch</source>
+        <target>User Batch</target>
+      </trans-unit>
+      <trans-unit id="262d153f2ede99c2af701345040d1c3b08275219" resname="User Create">
+        <source>User Create</source>
+        <target>User Create</target>
+      </trans-unit>
+      <trans-unit id="76cf135262c4134e30e0e7a2f97a6abf8ca0ce29" resname="User Delete">
+        <source>User Delete</source>
+        <target>User Delete</target>
+      </trans-unit>
+      <trans-unit id="937d7e7d1f91a68263a1d390e554fed520d2e21c" resname="User Edit">
+        <source>User Edit</source>
+        <target>User Edit</target>
+      </trans-unit>
+      <trans-unit id="867e84d89be53643f4fcc56adfa69fa43b4d97e8" resname="User Identifier Description">
+        <source>User Identifier Description</source>
+        <target state="new">User Identifier Description</target>
+      </trans-unit>
+      <trans-unit id="5aab820af54d22b041bd5726356fb31643597bff" resname="User Invitation Batch">
+        <source>User Invitation Batch</source>
+        <target state="new">User Invitation Batch</target>
+      </trans-unit>
+      <trans-unit id="5070ef3d74249e584e2d6d14283fc4c68197b0eb" resname="User Invitation Create">
+        <source>User Invitation Create</source>
+        <target state="new">User Invitation Create</target>
+      </trans-unit>
+      <trans-unit id="c597f8b75772ab38701a09a337004d79366bf562" resname="User Invitation Delete">
+        <source>User Invitation Delete</source>
+        <target state="new">User Invitation Delete</target>
+      </trans-unit>
+      <trans-unit id="aafc778091160e345d045b2b538942bfcac197bf" resname="User Invitation Edit">
+        <source>User Invitation Edit</source>
+        <target state="new">User Invitation Edit</target>
+      </trans-unit>
+      <trans-unit id="b8f8355c35c8e9c95e8b20830c1c18200de1b125" resname="User Invitation List">
+        <source>User Invitation List</source>
+        <target state="new">User Invitation List</target>
+      </trans-unit>
+      <trans-unit id="2fb7a348e6779c52bd7420f385c328a25993e01f" resname="User Invitation Update">
+        <source>User Invitation Update</source>
+        <target state="new">User Invitation Update</target>
+      </trans-unit>
+      <trans-unit id="5b0d366aff61a85387ad1c8c49d601f92f59bde5" resname="User List">
+        <source>User List</source>
+        <target>User List</target>
+      </trans-unit>
+      <trans-unit id="f9739311727dbb6f3c8b3dc43301b6110657297a" resname="User Update">
+        <source>User Update</source>
+        <target>User Update</target>
+      </trans-unit>
+      <trans-unit id="19070ecda2c30d4bdba8b027d5b135ffbde80d18" resname="User invitation">
+        <source>User invitation</source>
+        <target state="new">User invitation</target>
+      </trans-unit>
+      <trans-unit id="84c29015de33e5d22422382a372caba5c58f8c01" resname="Username">
+        <source>Username</source>
+        <target state="new">Username</target>
+      </trans-unit>
+      <trans-unit id="a3d77cf19006d924c06a03755c93fc42fa3d06be" resname="Verified Domain Batch">
+        <source>Verified Domain Batch</source>
+        <target state="new">Verified Domain Batch</target>
+      </trans-unit>
+      <trans-unit id="975bdca3c9cddb3c6900957e5e83b5e289b5e688" resname="Verified Domain Create">
+        <source>Verified Domain Create</source>
+        <target state="new">Verified Domain Create</target>
+      </trans-unit>
+      <trans-unit id="438c0476dd493cc7e38b16e82d5d0069024c570b" resname="Verified Domain Delete">
+        <source>Verified Domain Delete</source>
+        <target state="new">Verified Domain Delete</target>
+      </trans-unit>
+      <trans-unit id="827b696e5ed8ec9a2fe136afec7fa954c20110b5" resname="Verified Domain Edit">
+        <source>Verified Domain Edit</source>
+        <target state="new">Verified Domain Edit</target>
+      </trans-unit>
+      <trans-unit id="25f3a38f4ef963bb3fa5d48e58892600112ef491" resname="Verified Domain List">
+        <source>Verified Domain List</source>
+        <target state="new">Verified Domain List</target>
+      </trans-unit>
+      <trans-unit id="f12e84133f69ffc3c903abe30c27fcd5f729607c" resname="Verified Domain Update">
+        <source>Verified Domain Update</source>
+        <target state="new">Verified Domain Update</target>
+      </trans-unit>
+      <trans-unit id="6ea08b623852a7a9284b136b69d181041ffc4659" resname="Verified domains">
+        <source>Verified domains</source>
+        <target state="new">Verified domains</target>
+      </trans-unit>
+      <trans-unit id="2e8a57cc5c472f4ac3b071979a38e80db7e59e87" resname="Website">
+        <source>Website</source>
+        <target state="new">Website</target>
+      </trans-unit>
+      <trans-unit id="0d612c12d2ac33625bf3e0351b6f5e4f73829fa8" resname="auto">
+        <source>auto</source>
+        <target>auto</target>
+      </trans-unit>
+      <trans-unit id="a5eba05921c11add89e9b68570149da22499c604" resname="change_password.submit">
+        <source>change_password.submit</source>
+        <target>Change password</target>
+      </trans-unit>
+      <trans-unit id="d04312144cfa558660c1b402b1f2b022d40c8de4" resname="cocorico.en">
+        <source>cocorico.en</source>
+        <target>English</target>
+      </trans-unit>
+      <trans-unit id="2fb2ddb9f57ab2b67ab72abf22e14396095c042d" resname="cocorico.fr">
+        <source>cocorico.fr</source>
+        <target>French</target>
+      </trans-unit>
+      <trans-unit id="45ca7e55a6930d23560f13b43ba365b3152db8d0" resname="cocorico.from">
+        <source>cocorico.from</source>
+        <target>Translate from</target>
+      </trans-unit>
+      <trans-unit id="35011389a9f3c0791c30cd5d75136a364ef89ee9" resname="cocorico.language">
+        <source>cocorico.language</source>
+        <target>Languages spoken</target>
+      </trans-unit>
+      <trans-unit id="7e3f78e586fb910d94501eefd6cd941c2590972b" resname="cocorico.motherTongue">
+        <source>cocorico.motherTongue</source>
+        <target>Mother tongue</target>
+      </trans-unit>
+      <trans-unit id="2297600d92e3fb5924c0659e20e479b5b5515490" resname="cocorico.to">
+        <source>cocorico.to</source>
+        <target>to</target>
+      </trans-unit>
+      <trans-unit id="2e33a41aa053169361b996e132dc6288a51f83f9" resname="entity.user.type.billing">
+        <source>entity.user.type.billing</source>
+        <target>Billing address</target>
+      </trans-unit>
+      <trans-unit id="6672ac1144b067af9dd189f9c831be1acf13f5b2" resname="entity.user.type.delivery">
+        <source>entity.user.type.delivery</source>
+        <target>Delivery address</target>
+      </trans-unit>
+      <trans-unit id="7493734ead0bdedfe7aea277ad64272939c9c914" resname="form.address.address">
+        <source>form.address.address</source>
+        <target>Address street number and name</target>
+      </trans-unit>
+      <trans-unit id="b28c4ad5e834b173a41fde062a04a1ee6456e5d3" resname="form.address.city">
+        <source>form.address.city</source>
+        <target>City</target>
+      </trans-unit>
+      <trans-unit id="02b8acf448f3cd8e8c6ca63d7047bfb91b59bca9" resname="form.address.country">
+        <source>form.address.country</source>
+        <target>Country</target>
+      </trans-unit>
+      <trans-unit id="4667c63593a53fb5487b7e195a238bff0e6b0b71" resname="form.address.type">
+        <source>form.address.type</source>
+        <target>form.address.type</target>
+      </trans-unit>
+      <trans-unit id="8e429cf6802a2864ffd2d99ad6110a91682010c8" resname="form.address.zip">
+        <source>form.address.zip</source>
+        <target>Zip</target>
+      </trans-unit>
+      <trans-unit id="fbaebba339b2bef20e07ce35710ae0ca0573984e" resname="form.birthday.help">
+        <source>form.birthday.help</source>
+        <target>Your birthdate will not be shown to anybody. It's only used to compute your age which will be displayed.</target>
+      </trans-unit>
+      <trans-unit id="acc506740716cd9d92e0ba6a6f025b9ef9eecd5e" resname="form.birthday.legal">
+        <source>form.birthday.legal</source>
+        <target>Legal representative birthday</target>
+      </trans-unit>
+      <trans-unit id="3310aa800af4bb01801c3a53815fd8d9be4558d3" resname="form.country.legal">
+        <source>form.country.legal</source>
+        <target>Country</target>
+      </trans-unit>
+      <trans-unit id="7e6b12a7deb5f7315f025b8c49121130cd7798ad" resname="form.email">
+        <source>form.email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="db116776771da1cb379326d6d03fc8263c61d48d" resname="form.first_name">
+        <source>form.first_name</source>
+        <target>First name</target>
+      </trans-unit>
+      <trans-unit id="9d36b50a14a60900ef6d28641a346d7bf19c2113" resname="form.first_name.legal">
+        <source>form.first_name.legal</source>
+        <target>Legal representative first name</target>
+      </trans-unit>
+      <trans-unit id="8b93d84fe5e05b1f9340d18c3910cccc4a5100c5" resname="form.gender">
+        <source>form.gender</source>
+        <target>Gender</target>
+      </trans-unit>
+      <trans-unit id="d614f18c7cd965566ad37d24e273e8a6ea5fb5b2" resname="form.gender.legal">
+        <source>form.gender.legal</source>
+        <target>Gender</target>
+      </trans-unit>
+      <trans-unit id="ad2644b8e49a53ebc956786823470bf19bf5d146" resname="form.last_name">
+        <source>form.last_name</source>
+        <target>Last name</target>
+      </trans-unit>
+      <trans-unit id="60aeaca52e36c506adda495fa922689c9860b174" resname="form.last_name.legal">
+        <source>form.last_name.legal</source>
+        <target>Legal representative last name</target>
+      </trans-unit>
+      <trans-unit id="69ee13c66b1a96c7345dac82eb1d24bcae2c7f48" resname="form.member_organization.legal">
+        <source>form.member_organization.legal</source>
+        <target>Member organization</target>
+      </trans-unit>
+      <trans-unit id="210f8b7cbd19367b2ca1332f3cd00b7a06f7e0a0" resname="form.new_password">
+        <source>form.new_password</source>
+        <target>New password</target>
+      </trans-unit>
+      <trans-unit id="9c550aa2c68f9be72e8c34c90d6c359178ab9a25" resname="form.new_password_confirmation">
+        <source>form.new_password_confirmation</source>
+        <target>Password again</target>
+      </trans-unit>
+      <trans-unit id="367e2d82242375ddfab0431ece56cb73af56acfa" resname="form.organization_identifier">
+        <source>form.organization_identifier</source>
+        <target>Identifier</target>
+      </trans-unit>
+      <trans-unit id="1bc81c7ed707c571c74540f603dd321bcbda3a53" resname="form.organization_identifier.placeholder">
+        <source>form.organization_identifier.placeholder</source>
+        <target>MO identifier</target>
+      </trans-unit>
+      <trans-unit id="6d384fb8ef3ca9318f0f9d983868842a211770f8" resname="form.password">
+        <source>form.password</source>
+        <target>Password</target>
+      </trans-unit>
+      <trans-unit id="30de94712c8550862006ed6a664870c398c9482d" resname="form.password_confirmation">
+        <source>form.password_confirmation</source>
+        <target>Password again</target>
+      </trans-unit>
+      <trans-unit id="d3e5d85b8b1db5de05d522481c67cd3654d4b197" resname="form.time_zone">
+        <source>form.time_zone</source>
+        <target>Time zone</target>
+      </trans-unit>
+      <trans-unit id="15ff43f0396da263ee979181b11c883f3752b3db" resname="form.user.age:">
+        <source>form.user.age:</source>
+        <target>Age:</target>
+      </trans-unit>
+      <trans-unit id="011bec66fccef62851d9b5ff7f47641fac3b9987" resname="form.user.birthday">
+        <source>form.user.birthday</source>
+        <target>Birthday</target>
+      </trans-unit>
+      <trans-unit id="1c2fac4973611f193526545b15f55dec0a403750" resname="form.user.country">
+        <source>form.user.country</source>
+        <target>Country</target>
+      </trans-unit>
+      <trans-unit id="5bbad741fe8166df8f96758bac68e00f4d5fbca1" resname="form.user.email">
+        <source>form.user.email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="9c5bd681ddc7561fe789d6589d6f78be416d0be2" resname="form.user.gender:">
+        <source>form.user.gender:</source>
+        <target>Gender:</target>
+      </trans-unit>
+      <trans-unit id="ddd4ada9ba61719ee59aea030c37d3156fe20c4d" resname="form.user.location">
+        <source>form.user.location</source>
+        <target>Location</target>
+      </trans-unit>
+      <trans-unit id="1989c58409f127c052957a6ed83d517354d5992a" resname="form.user.member_organization">
+        <source>form.user.member_organization</source>
+        <target>Member Organization</target>
+      </trans-unit>
+      <trans-unit id="9fe109a88733d99d54e1f1424e5eea054373d74f" resname="form.user.scout_name">
+        <source>form.user.scout_name</source>
+        <target>Scout name</target>
+      </trans-unit>
+      <trans-unit id="769d977ec74da6ecc19f77d46ef3bc8ee95dada6" resname="form.user.scout_since">
+        <source>form.user.scout_since</source>
+        <target>Scout since</target>
+      </trans-unit>
+      <trans-unit id="0e9e5c0fef8e05344c336329730ad32e30248c47" resname="form.user.scout_since:">
+        <source>form.user.scout_since:</source>
+        <target>Scout since:</target>
+      </trans-unit>
+      <trans-unit id="9f92ae96e8c9f7661c8f46a371f6a85a487e8fd2" resname="nav.user.about_me.link">
+        <source>nav.user.about_me.link</source>
+        <target>About me</target>
+      </trans-unit>
+      <trans-unit id="12f7ff7fd5e95aa477a2c47a4c8ac678a76fce00" resname="nav.user.contact.link">
+        <source>nav.user.contact.link</source>
+        <target>Contact information</target>
+      </trans-unit>
+      <trans-unit id="44815499cf9d1bed47fe93ec3cefb697638ca6e9" resname="nav.user.scout_info.link">
+        <source>nav.user.scout_info.link</source>
+        <target>Scout information</target>
+      </trans-unit>
+      <trans-unit id="9e7250f99e1915cc8289a01fc861a0ec76f9e325" resname="nav.user.show.link">
+        <source>nav.user.show.link</source>
+        <target>See my profile</target>
+      </trans-unit>
+      <trans-unit id="92ff738052eda39b7f5fa7ba263c3e30dfa28ac8" resname="profile.birthday.title">
+        <source>profile.birthday.title</source>
+        <target>Birthday</target>
+      </trans-unit>
+      <trans-unit id="37bd2c15b89edf1a86ecac366e71a11a0c5a6401" resname="profile.drop.files">
+        <source>profile.drop.files</source>
+        <target>Drop your files here</target>
+      </trans-unit>
+      <trans-unit id="9741ffbcf8dbb31e1a2d32bd25cb0ccc5a6dea54" resname="profile.edit.submit">
+        <source>profile.edit.submit</source>
+        <target>Update</target>
+      </trans-unit>
+      <trans-unit id="8cbedfc816931792b8a220c2f2eee9530abf0beb" resname="profile.gender.title">
+        <source>profile.gender.title</source>
+        <target>Gender</target>
+      </trans-unit>
+      <trans-unit id="6be8a7d1f21d0370f56f4f23c8c75ffddab3ccbc" resname="profile.images.to_upload.title">
+        <source>profile.images.to_upload.title</source>
+        <target>Images to upload</target>
+      </trans-unit>
+      <trans-unit id="45a41d2099651dbd7df02437427e3748ba96b07a" resname="profile.languages.add">
+        <source>profile.languages.add</source>
+        <target>Add</target>
+      </trans-unit>
+      <trans-unit id="53a4c93891d17fd3483b6f6ce77ae09c1ffed517" resname="profile.languages.title">
+        <source>profile.languages.title</source>
+        <target>My languages</target>
+      </trans-unit>
+      <trans-unit id="b9f867fdb018c329dd0452a22e07224cf7cfb0d4" resname="profile.moreinfo.title">
+        <source>profile.moreinfo.title</source>
+        <target>Tell us about yourself</target>
+      </trans-unit>
+      <trans-unit id="c82619608718e2de7908cdf8f3ec5b785b99933c" resname="reconfirm_request_already_requested">
+        <source>reconfirm_request_already_requested</source>
+        <target state="new">reconfirm_request_already_requested</target>
+      </trans-unit>
+      <trans-unit id="e52ad7d8a5e95d387610aa975b559e85f5112ae6" resname="reconfirm_request_successful">
+        <source>reconfirm_request_successful</source>
+        <target state="new">reconfirm_request_successful</target>
+      </trans-unit>
+      <trans-unit id="73e465b6422f4fd0a51932c9a200d6d7fc733ae8" resname="registration.additional_info">
+        <source>registration.additional_info</source>
+        <target>To finish your registration, please, provide your unique MO identifier.</target>
+      </trans-unit>
+      <trans-unit id="979409b320492499e2a2515c79e606339ad0d9f0" resname="registration.additional_info.already_filled">
+        <source>registration.additional_info.already_filled</source>
+        <target state="new">registration.additional_info.already_filled</target>
+      </trans-unit>
+      <trans-unit id="05a49ed6f64cab08563ca93abb6d4f8776c53b77" resname="registration.additional_info.confirm_email">
+        <source>registration.additional_info.confirm_email</source>
+        <target>In addition, please, confirm your email address by clicking the link sent to your inbox.</target>
+      </trans-unit>
+      <trans-unit id="f2202014b60f29a018d7983cacaec2eccdeae5af" resname="registration.additional_info.h1">
+        <source>registration.additional_info.h1</source>
+        <target>Finish your registration</target>
+      </trans-unit>
+      <trans-unit id="c133a269dda6a9800db12101e56b4a449f8a9262" resname="registration.additional_info.submit">
+        <source>registration.additional_info.submit</source>
+        <target state="new">registration.additional_info.submit</target>
+      </trans-unit>
+      <trans-unit id="d68aba5c2f5418c4f8779e02be8f6511df697bd7" resname="registration.additional_info.success">
+        <source>registration.additional_info.success</source>
+        <target state="new">registration.additional_info.success</target>
+      </trans-unit>
+      <trans-unit id="1fa5b2873fe30be026b854f6a51503b86c6ac81a" resname="registration.back">
+        <source>registration.back</source>
+        <target state="new">registration.back</target>
+      </trans-unit>
+      <trans-unit id="85a4eff0132a6f92eae3057837f285b3aedf38b8" resname="registration.check_email">
+        <source>registration.check_email</source>
+        <target xml:space="preserve">An email has been sent to your inbox (%email%). It contains an activation link you must click to activate your account.
+                </target>
+      </trans-unit>
+      <trans-unit id="4ba3f8b403cb294758fe412284220b37835a86a8" resname="registration.check_email.h1">
+        <source>registration.check_email.h1</source>
+        <target>Registration confirmed</target>
+      </trans-unit>
+      <trans-unit id="7a0a8fbc70fe82997f8a2ff89090f523ee63f72a" resname="registration.confirmed">
+        <source>registration.confirmed</source>
+        <target state="new">registration.confirmed</target>
+      </trans-unit>
+      <trans-unit id="d1ca8dda1d74badc546fbc979ffdab122995ef7a" resname="registration.confirmed.title">
+        <source>registration.confirmed.title</source>
+        <target state="new">registration.confirmed.title</target>
+      </trans-unit>
+      <trans-unit id="ca8b7df503d20f084dc7a96264d8b0cfa490e1fb" resname="registration.needVerification">
+        <source>registration.needVerification</source>
+        <target>Your registration has to be verified by the admin. We will inform you about the verification by email.</target>
+      </trans-unit>
+      <trans-unit id="4ef79d57e94b4b74349d6533a231e09dc5be0ce2" resname="registration.submit">
+        <source>registration.submit</source>
+        <target>Register</target>
+      </trans-unit>
+      <trans-unit id="40c1a483571045e24d606bf00361cfd4d021ba05" resname="resetting.check_email">
+        <source>resetting.check_email</source>
+        <target xml:space="preserve">An email has been sent to you at %username%. It contains a link you must click to reset your password.
+                     Notes:
+                        - You can only request a new password once within %tokenLifetime% hours.
+                        - If you don't get an email check your spam folder or try again.
+                </target>
+      </trans-unit>
+      <trans-unit id="f0b3476bec045fac67c256d17a54e4f8a8d05335" resname="resetting.password_already_requested">
+        <source>resetting.password_already_requested</source>
+        <target>The password for this user has already been requested within the last 24 hours.</target>
+      </trans-unit>
+      <trans-unit id="c3474ad1b73a0d0db019eec986ee675e8afaf640" resname="resetting.request.invalid_username">
+        <source>resetting.request.invalid_username</source>
+        <target>The username or email address "%username%" does not exist.</target>
+      </trans-unit>
+      <trans-unit id="e1470b3c202d9a4fa8e1afa7ed8695917f060ccd" resname="resetting.request.submit">
+        <source>resetting.request.submit</source>
+        <target>Reset your password</target>
+      </trans-unit>
+      <trans-unit id="7ad41bf8fb30013eb0f31ca027ca8d1dc7a3d96f" resname="resetting.request.username">
+        <source>resetting.request.username</source>
+        <target>Email:</target>
+      </trans-unit>
+      <trans-unit id="921fd7a5cc7f9e46eab31822855a22d9808b0477" resname="resetting.reset.submit">
+        <source>resetting.reset.submit</source>
+        <target>Change password</target>
+      </trans-unit>
+      <trans-unit id="1774f9c08d7572712b2f70f583709279a062652e" resname="user.about.language.select">
+        <source>user.about.language.select</source>
+        <target>Select</target>
+      </trans-unit>
+      <trans-unit id="82c66c2ecd3dac3e9b3f58e6f21a6400785b8385" resname="user.about.title">
+        <source>user.about.title</source>
+        <target>About</target>
+      </trans-unit>
+      <trans-unit id="77f5d674daf5cf49d8fb2854a36b4cf9d3b46ba9" resname="user.edit.about_me.success">
+        <source>user.edit.about_me.success</source>
+        <target>Your profile has been modified successfully</target>
+      </trans-unit>
+      <trans-unit id="bde1a863d677579f32c5cb7e7c38c5a1f433c001" resname="user.edit.completion_notice">
+        <source>user.edit.completion_notice</source>
+        <target xml:space="preserve">For the best user experience, please, fill in your remaining profile information.
+        </target>
+      </trans-unit>
+      <trans-unit id="2185bec02a486c7e2647a95607e5a7d4a4d64859" resname="user.edit.completion_notice.description">
+        <source>user.edit.completion_notice.description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="41231be46a74394288993e32cfb21f2bca3e6138" resname="user.edit.completion_notice.image">
+        <source>user.edit.completion_notice.image</source>
+        <target>Profile image</target>
+      </trans-unit>
+      <trans-unit id="d853516791baa7efc18995d68b7c5001ea54c3d5" resname="user.edit.completion_notice.languages">
+        <source>user.edit.completion_notice.languages</source>
+        <target>Languages</target>
+      </trans-unit>
+      <trans-unit id="74a2d7a5024b9df57f181e6ed6c7f3a9ef07dbae" resname="user.edit.completion_notice.location">
+        <source>user.edit.completion_notice.location</source>
+        <target>Location</target>
+      </trans-unit>
+      <trans-unit id="25d8733622777f6a85263b5cf59cbddaaada6529" resname="user.edit.contact.error">
+        <source>user.edit.contact.error</source>
+        <target>user.edit.contact.error</target>
+      </trans-unit>
+      <trans-unit id="e29f6e5f025f307e27bc9ee74f440833c2c2d4d6" resname="user.edit.contact.success">
+        <source>user.edit.contact.success</source>
+        <target>Your contact informations has been modified successfully</target>
+      </trans-unit>
+      <trans-unit id="3143a7ea7f0d3fc25b984544c7cbd10a2a320db0" resname="user.edit.contact.title">
+        <source>user.edit.contact.title</source>
+        <target>Contact information</target>
+      </trans-unit>
+      <trans-unit id="15838fa1aad8e3a00686c5b2713a772fbe33af4d" resname="user.edit.scout_info.error">
+        <source>user.edit.scout_info.error</source>
+        <target>Error occurred while saving your scout information </target>
+      </trans-unit>
+      <trans-unit id="e1e11b9f6c70b716e29a2926071739aa0684da63" resname="user.edit.scout_info.success">
+        <source>user.edit.scout_info.success</source>
+        <target>Your scout information has been modified successfully</target>
+      </trans-unit>
+      <trans-unit id="359dcee990ed67c74e265041ef4d8d5b36a3fa1e" resname="user.edit.scout_info.title">
+        <source>user.edit.scout_info.title</source>
+        <target>Scout information</target>
+      </trans-unit>
+      <trans-unit id="6b719769a1aabbaeb466ef96c84e6af4128054b3" resname="user.expire.reactivate.button">
+        <source>user.expire.reactivate.button</source>
+        <target>Reactivate your account</target>
+      </trans-unit>
+      <trans-unit id="333084fa7fe516c3fa1d523bfa10b9a47027685b" resname="user.expired.h1">
+        <source>user.expired.h1</source>
+        <target>Your account has expired</target>
+      </trans-unit>
+      <trans-unit id="e3eb6abcf56cfaf324b54cb188799efdb8f6a429" resname="user.expired.not_expired">
+        <source>user.expired.not_expired</source>
+        <target>Your account is not expired!</target>
+      </trans-unit>
+      <trans-unit id="8dced656082e01126adf9dc01550742b82fdb3fd" resname="user.expired.text">
+        <source>user.expired.text</source>
+        <target xml:space="preserve">Your account has expired. To continue using your account, please reactivate your account using the button below. 
+While being deactivated, your are denied to access the page content. However you are still able to edit your profile.</target>
+      </trans-unit>
+      <trans-unit id="7824fc917661cf559f8bca7537aa4f2b42aadecc" resname="user.gender.female">
+        <source>user.gender.female</source>
+        <target>Female</target>
+      </trans-unit>
+      <trans-unit id="21216710ec6bd6b49b4c20bcaa8f31c599489783" resname="user.gender.male">
+        <source>user.gender.male</source>
+        <target>Male</target>
+      </trans-unit>
+      <trans-unit id="9386096e078c1bd13c8fb28c746ceaba26be31b2" resname="user.gender.other">
+        <source>user.gender.other</source>
+        <target>Other</target>
+      </trans-unit>
+      <trans-unit id="b25f30d71bfa16486eb2ae7200fbd102f4a1274e" resname="user.login.password">
+        <source>user.login.password</source>
+        <target>Password</target>
+      </trans-unit>
+      <trans-unit id="1c071f50ed5b51710dbde298771b59c4306715ac" resname="user.login.submit">
+        <source>user.login.submit</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="ff5d6a678286a111f27d198f70134b1d76bc5fc1" resname="user.login.username">
+        <source>user.login.username</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="af64838f08c8a579c32e7bbc8bb2514e78e17415" resname="user.password_forgotten">
+        <source>user.password_forgotten</source>
+        <target>Forgot your password</target>
+      </trans-unit>
+      <trans-unit id="195e94dd9cc3f46f4ab609cea9bd81dc22c79c65" resname="user.profile.h1">
+        <source>user.profile.h1</source>
+        <target>Hello and welcome to my profile</target>
+      </trans-unit>
+      <trans-unit id="9e750f6979ebc1dbab4e2e37a1f3b8c1f9faa9c2" resname="user.profile.languages">
+        <source>user.profile.languages</source>
+        <target>Spoken languages:</target>
+      </trans-unit>
+      <trans-unit id="329ffbfee377ed1f628c557cf8c1fe2c20dd5f14" resname="user.profile.my-listing">
+        <source>user.profile.my-listing</source>
+        <target>My listings</target>
+      </trans-unit>
+      <trans-unit id="6e0d3c3e10cb50874685c595bf6daaf767e8a548" resname="user.profile.subscribe-date.title">
+        <source>user.profile.subscribe-date.title</source>
+        <target>Member since</target>
+      </trans-unit>
+      <trans-unit id="31e2cd9615198589f3489f7b13ce92bdc31c2ada" resname="user.request.h1">
+        <source>user.request.h1</source>
+        <target>Request new password</target>
+      </trans-unit>
+      <trans-unit id="2f6250210fa7afc2a8dc26e65cfeabbc6f94463e" resname="user.reset.error">
+        <source>user.reset.error</source>
+        <target>Error</target>
+      </trans-unit>
+      <trans-unit id="92e3dab129b9d376e78720bc2a20d9f4b8c784cd" resname="user.reset.h1">
+        <source>user.reset.h1</source>
+        <target>Reset new password</target>
+      </trans-unit>
+      <trans-unit id="c5c5e1c871acaa3cbb0a44b606288af5b145332b" resname="user.reset.success">
+        <source>user.reset.success</source>
+        <target>Success</target>
+      </trans-unit>
+      <trans-unit id="f430c03121a935ccb7fb15e7a376f2add10abe32" resname="user.signin">
+        <source>user.signin</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="e2cab8a005c1e82c97106b2ab60f2b155f979e8e" resname="user.signup">
+        <source>user.signup</source>
+        <target>Register</target>
+      </trans-unit>
+      <trans-unit id="09d7893d52caa3806811a4a82fd75ad169413f84" resname="user.translate.button">
+        <source>user.translate.button</source>
+        <target>Translate</target>
+      </trans-unit>
+      <trans-unit id="b55451c1697d951ccdd55692e6318f807690f7f6" resname="user_images.max {{ max_images }}">
+        <source>user_images.max {{ max_images }}</source>
+        <target>Max {{ max_images }}</target>
+      </trans-unit>
+      <trans-unit id="afbac2dc1997b8b4069b2984d0449147e97765e5" resname="user_images.min {{ min_images }}">
+        <source>user_images.min {{ min_images }}</source>
+        <target>Min {{ min_images }}</target>
+      </trans-unit>
+      <trans-unit id="37e00c91f30773a4b84992ea9a33c850b8385a13" resname="user_translations_en_description_placeholder">
+        <source>user_translations_en_description_placeholder</source>
+        <target>Introduction</target>
+      </trans-unit>
+      <trans-unit id="a6734def089c4975532c9b0b49814bd2c38926d1" resname="user_translations_fr_description_placeholder">
+        <source>user_translations_fr_description_placeholder</source>
+        <target>Introduction</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

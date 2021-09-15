@@ -1,0 +1,5 @@
+cocorico_custom_action:
+  resource: "@SonataAdminBundle/Controller"
+  type:     annotation
+  prefix: /%cocorico.admin%
+  options: { i18n: false }

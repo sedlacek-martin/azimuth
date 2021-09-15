@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="57f2b181d0a5e79a147ea1cdf41457f58dbbb3c9" resname="Users">
+        <source>Users</source>
+        <target>Users</target>
+      </trans-unit>
+      <trans-unit id="dd218fc1da748f3247369d4c6e6f95afe1b0a160" resname="breadcrumb.link_user_batch">
+        <source>breadcrumb.link_user_batch</source>
+        <target>breadcrumb.link_user_batch</target>
+      </trans-unit>
+      <trans-unit id="f2fd1ccd2313babffc4ae0bfa2f1f9c7bb2a52a9" resname="breadcrumb.link_user_create">
+        <source>breadcrumb.link_user_create</source>
+        <target>Create User</target>
+      </trans-unit>
+      <trans-unit id="75e8eb7f2025252b3ad80f50ad943e429e7a1e1e" resname="breadcrumb.link_user_delete">
+        <source>breadcrumb.link_user_delete</source>
+        <target>Delete User</target>
+      </trans-unit>
+      <trans-unit id="6a934bd0f4caae988c5b540d9378da109f50c376" resname="breadcrumb.link_user_edit">
+        <source>breadcrumb.link_user_edit</source>
+        <target>Edit User</target>
+      </trans-unit>
+      <trans-unit id="86d4789db2f443b5441f5009720f252ada993135" resname="breadcrumb.link_user_list">
+        <source>breadcrumb.link_user_list</source>
+        <target>List Users</target>
+      </trans-unit>
+      <trans-unit id="77793400416ca8a23552fb2cbdbd41388ef366f1" resname="breadcrumb.link_user_update">
+        <source>breadcrumb.link_user_update</source>
+        <target>Update User</target>
+      </trans-unit>
+      <trans-unit id="533a2369f7d9f2db95b80c5e6632608adf3db982" resname="filter.label_email">
+        <source>filter.label_email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="c465eb532f470e8484e4fc8520c88917e3c48e21" resname="filter.label_enabled">
+        <source>filter.label_enabled</source>
+        <target>Enabled</target>
+      </trans-unit>
+      <trans-unit id="0ac435910a3540a54b409a3e58f8f59c9bd5ee39" resname="filter.label_fullname">
+        <source>filter.label_fullname</source>
+        <target>Full Name</target>
+      </trans-unit>
+      <trans-unit id="882776942c325f0ec06fc5a2a38f93cb2b183ec5" resname="filter.label_id">
+        <source>filter.label_id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="1e30524fcad141cc93a522de0f94072fe3a5b472" resname="filter.label_member_organization">
+        <source>filter.label_member_organization</source>
+        <target>Member organization</target>
+      </trans-unit>
+      <trans-unit id="8a2f9c4cf577fc1e85acba5faae49a13c969ecb8" resname="filter.label_reconfirm_requested">
+        <source>filter.label_reconfirm_requested</source>
+        <target state="new">filter.label_reconfirm_requested</target>
+      </trans-unit>
+      <trans-unit id="870bf6fe84487686a5c3087ee4fa61d0e8a58417" resname="filter.label_trusted">
+        <source>filter.label_trusted</source>
+        <target>Trusted</target>
+      </trans-unit>
+      <trans-unit id="296ea8bf9da5b60f6439012df3ca488344a93144" resname="form.label_birthday">
+        <source>form.label_birthday</source>
+        <target>Birthday</target>
+      </trans-unit>
+      <trans-unit id="6c5a30ab17da013482b5b545dcbcae5268c87ff8" resname="form.label_country">
+        <source>form.label_country</source>
+        <target>Country</target>
+      </trans-unit>
+      <trans-unit id="c259330e043cfc54d5e324fca19cbf44605aac58" resname="form.label_created_at">
+        <source>form.label_created_at</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="6831ae1f5b600f4b8673f697f894dad7f5aa5f18" resname="form.label_email">
+        <source>form.label_email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="eb3c8cf3f531dd44f9a5a7940e27ff80b4a4895b" resname="form.label_email_verified">
+        <source>form.label_email_verified</source>
+        <target>Email Verified</target>
+      </trans-unit>
+      <trans-unit id="96a3c7e8e0cd00818edcebde0c9a9176a99828e6" resname="form.label_enabled">
+        <source>form.label_enabled</source>
+        <target>Enabled</target>
+      </trans-unit>
+      <trans-unit id="133dc34ee95d141677558daa0c468ebcd45d247f" resname="form.label_expiry_date">
+        <source>form.label_expiry_date</source>
+        <target state="new">form.label_expiry_date</target>
+      </trans-unit>
+      <trans-unit id="4005831bcbc16e8559dee8d011be8484c5e3bafb" resname="form.label_first_name">
+        <source>form.label_first_name</source>
+        <target>First Name</target>
+      </trans-unit>
+      <trans-unit id="6c0e2d210eb0c639718b4848483faa1788f13bb1" resname="form.label_id">
+        <source>form.label_id</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="9ecfc611c5617283240db6f78db97f4f75e7e460" resname="form.label_last_name">
+        <source>form.label_last_name</source>
+        <target>Last Name</target>
+      </trans-unit>
+      <trans-unit id="12d06ba6f0391beb0cefd4382b4ac945f1789890" resname="form.label_member_organization">
+        <source>form.label_member_organization</source>
+        <target>Member organization</target>
+      </trans-unit>
+      <trans-unit id="6135f0d1e01c34820b5ae3b0f5bee68f14ebd519" resname="form.label_mother_tongue">
+        <source>form.label_mother_tongue</source>
+        <target>Where are you from</target>
+      </trans-unit>
+      <trans-unit id="314c8ce85451cc64580cf4c03f0153182ba713e5" resname="form.label_nb_bookings_asker">
+        <source>form.label_nb_bookings_asker</source>
+        <target>Bookings as asker</target>
+      </trans-unit>
+      <trans-unit id="6841ad85d96f09359dced016dbfd443a58acd8a3" resname="form.label_nb_bookings_offerer">
+        <source>form.label_nb_bookings_offerer</source>
+        <target>Bookings as offerer</target>
+      </trans-unit>
+      <trans-unit id="be117d58ffc6879ff0cd84f859e17f60dc595d34" resname="form.label_plain_password">
+        <source>form.label_plain_password</source>
+        <target>Plain password</target>
+      </trans-unit>
+      <trans-unit id="a7e2e4c98dcc88fda5a49ea18fc71e244e2e6dc6" resname="form.label_reconfirm_requested">
+        <source>form.label_reconfirm_requested</source>
+        <target state="new">form.label_reconfirm_requested</target>
+      </trans-unit>
+      <trans-unit id="b53c5ee9cc0c94fbdd4f3f4e8fffde0d99b2d918" resname="form.label_trusted">
+        <source>form.label_trusted</source>
+        <target>Trusted</target>
+      </trans-unit>
+      <trans-unit id="1706de171efc487ada66e0e74a5c1d16b710b3af" resname="list.label__action">
+        <source>list.label__action</source>
+        <target>Action</target>
+      </trans-unit>
+      <trans-unit id="9f30fa0e79538b21033e95fdd2217c9dd11bdfc3" resname="list.label_created_at">
+        <source>list.label_created_at</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="f349dd8d20e769bda6a4bed51c6994080ad8b75b" resname="list.label_email">
+        <source>list.label_email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="f08dc3408d89f35c2a2fd085714c5128eaee986b" resname="list.label_fullname">
+        <source>list.label_fullname</source>
+        <target>Full Name</target>
+      </trans-unit>
+      <trans-unit id="0ddac6dabd4a0ad2d7a1f8175f9ccb8549b184fa" resname="list.label_id">
+        <source>list.label_id</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="f9d65533af1dba5fedf5c292f601a63590d03063" resname="list.label_reconfirm_requested">
+        <source>list.label_reconfirm_requested</source>
+        <target state="new">list.label_reconfirm_requested</target>
+      </trans-unit>
+      <trans-unit id="d2c34f80bacc948b678578b8c2e65ddf62614f0b" resname="list.label_trusted">
+        <source>list.label_trusted</source>
+        <target>Trusted</target>
+      </trans-unit>
+      <trans-unit id="62d5564c383b885ff0de25abd24a41080499970b" resname="security.login.password">
+        <source>security.login.password</source>
+        <target>Password</target>
+      </trans-unit>
+      <trans-unit id="79c180ac5e987e195d1dfeda857a114ed692d07f" resname="security.login.submit">
+        <source>security.login.submit</source>
+        <target>Log in</target>
+      </trans-unit>
+      <trans-unit id="64e1b2aaf6156a7e34a13fbc38801e89478efff8" resname="security.login.username">
+        <source>security.login.username</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="56fee11d331aa7f17be36d2c2d6a7f884fa8cd1a" resname="show.label_biography">
+        <source>show.label_biography</source>
+        <target>Biography</target>
+      </trans-unit>
+      <trans-unit id="1f6bea5cd8ebf21461b740baffe127b383ece139" resname="show.label_date_of_birth">
+        <source>show.label_date_of_birth</source>
+        <target>Date of Birth</target>
+      </trans-unit>
+      <trans-unit id="884b0e254700aff5ce6abbe331c02e18951a89f3" resname="show.label_email">
+        <source>show.label_email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="a8c04a1f1d3a5461f2cb2a8a1ab16ada7eb55f68" resname="show.label_facebook_name">
+        <source>show.label_facebook_name</source>
+        <target>Facebook name</target>
+      </trans-unit>
+      <trans-unit id="e20fb0c785702147bca4a8d655125b6999ad95a3" resname="show.label_facebook_uid">
+        <source>show.label_facebook_uid</source>
+        <target>Facebook uid</target>
+      </trans-unit>
+      <trans-unit id="11c75043627b97eb192104aa4f26c8d9cf508806" resname="show.label_firstname">
+        <source>show.label_firstname</source>
+        <target>Firstname</target>
+      </trans-unit>
+      <trans-unit id="a72bd64ed6ecb828e4446729a0b38228d1bbe1bd" resname="show.label_gender">
+        <source>show.label_gender</source>
+        <target>Gender</target>
+      </trans-unit>
+      <trans-unit id="987aa13dc314e9edb73bdc299b73063a70793ea0" resname="show.label_gplus_name">
+        <source>show.label_gplus_name</source>
+        <target>G plus name</target>
+      </trans-unit>
+      <trans-unit id="8bdf759c9f085864c971937ba53401ed8d868e42" resname="show.label_gplus_uid">
+        <source>show.label_gplus_uid</source>
+        <target>G plus uid</target>
+      </trans-unit>
+      <trans-unit id="14f520d31284195e2fdfa587c8aef0a1db257e5d" resname="show.label_groups">
+        <source>show.label_groups</source>
+        <target>Groups</target>
+      </trans-unit>
+      <trans-unit id="cc8e302cf5e154fc5a4641aa99f8073a50857b0b" resname="show.label_lastname">
+        <source>show.label_lastname</source>
+        <target>Lastname</target>
+      </trans-unit>
+      <trans-unit id="bb5aca467c673647f7e9c10e49c174313ffc5433" resname="show.label_locale">
+        <source>show.label_locale</source>
+        <target>Locale</target>
+      </trans-unit>
+      <trans-unit id="62b62688fac32edbaf81a1426d8e341808b65255" resname="show.label_phone">
+        <source>show.label_phone</source>
+        <target>Phone</target>
+      </trans-unit>
+      <trans-unit id="b0d38e1c687a735c78560eac1403afb601d4db6e" resname="show.label_timezone">
+        <source>show.label_timezone</source>
+        <target>Timezone</target>
+      </trans-unit>
+      <trans-unit id="efa3be8807c742cc2bbc580cf4fdbeed63e82060" resname="show.label_token">
+        <source>show.label_token</source>
+        <target>Token</target>
+      </trans-unit>
+      <trans-unit id="f7f52a8130b40175b33438efe8760b03341e6936" resname="show.label_twitter_name">
+        <source>show.label_twitter_name</source>
+        <target>Twitter name</target>
+      </trans-unit>
+      <trans-unit id="9af1e70e664162ad1cf712a9ec9747a1d03ff95f" resname="show.label_twitter_uid">
+        <source>show.label_twitter_uid</source>
+        <target>Twitter uid</target>
+      </trans-unit>
+      <trans-unit id="f1e3f29ced183c96d5c3f850e21353acfd00e38d" resname="show.label_two_step_verification_code">
+        <source>show.label_two_step_verification_code</source>
+        <target>Two step verification code</target>
+      </trans-unit>
+      <trans-unit id="cb66613d3c4009f00f3eaf4918a08edd3d0b2682" resname="show.label_username">
+        <source>show.label_username</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="7639153476e3aa728b934f8f7cbb9e70b161973a" resname="show.label_website">
+        <source>show.label_website</source>
+        <target>Website</target>
+      </trans-unit>
+      <trans-unit id="1d9a2b2670efd868a3deb215ea057ade89d012e3" resname="switch_user">
+        <source>switch_user</source>
+        <target>Switch user</target>
+      </trans-unit>
+      <trans-unit id="b16c610452a5e04873ae25d234e7eb93c55f1638" resname="title_user_authentication">
+        <source>title_user_authentication</source>
+        <target>Authentication</target>
+      </trans-unit>
+      <trans-unit id="30296748403bb9ca684e2020409f15bd250f6639" resname="user_block_logout">
+        <source>user_block_logout</source>
+        <target>Logout</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

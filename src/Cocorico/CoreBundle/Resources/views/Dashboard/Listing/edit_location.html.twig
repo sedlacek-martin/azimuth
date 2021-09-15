@@ -1,0 +1,171 @@
+{% extends 'CocoricoCoreBundle:Dashboard/Listing:layout.html.twig' %}
+
+{% trans_default_domain 'cocorico_listing' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #map-listing {
+            width: {{ listing_edit_map_w }}%;
+            height: {{ listing_edit_map_h }}px;
+        }
+    </style>
+{% endblock %}
+
+{% block nav_side_dashboard -%}
+    {% set nav_side_dashboard_current = 'location' %}
+    {{ parent() }}
+{%- endblock %}
+
+{% block content_dashboard -%}
+    {{ form_start(form, {'attr': {'class': 'form-area'}}) }}
+
+    <fieldset>
+        <legend class="hidden">form area</legend>
+        <!-- alert -->
+        {{ render(controller('CocoricoCoreBundle:Dashboard/Offerer/Listing:completionNotice', {'listing': listing})) }}
+        {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+        {{ form_errors(form) }}
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="info">
+
+                <div class="form-holder">
+                    <h2>{{ 'listing.edit.location.title'|trans }}</h2>
+
+                    <div class="form-block block2" id="listing-location">
+                        <h3>{{ 'listing.location.title'|trans }}</h3>
+
+                        <p class="error"></p>
+                        {{ form_errors(form.location) }}
+                        {{ form_errors(form.location.coordinate) }}
+
+                        <div class="field-row">
+                            {{ form_errors(form.location.country) }}
+                            {{ form_errors(form.location.city) }}
+                            <div class="col country">
+                                <span class="label">{{ form_label(form.location.country) }}</span>
+
+                                <div class="select-holder">
+                                    {{ form_widget(form.location.country, {
+                                        'attr': {
+                                            'class': "no-arrow"
+                                        }
+                                    }) }}
+                                </div>
+                            </div>
+                            <div class="col city">
+                                <span class="label">{{ form_label(form.location.city) }}</span>
+
+                                <div class="select-holder">
+                                    {{ form_widget(form.location.city, {
+                                        'attr': {
+                                            'class': "form-control"
+                                        }
+                                    }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            {{ form_errors(form.location.street_number) }}
+                            {{ form_errors(form.location.route) }}
+                            <div class="col cell">
+                                <span class="label">
+                                    {{ form_label(form.location.street_number) }}
+                                    <button title="{{ 'listing.location.help'|trans }}"
+                                            data-placement="right"
+                                            data-toggle="tooltip" class="tooltip-button"
+                                            type="button"
+                                            data-original-title="{{ 'listing.location.help'|trans }}">?
+                                    </button>
+                                </span>
+
+                                <div class="select-holder">
+                                    {{ form_widget(form.location.street_number, {
+                                        'attr': {
+                                            'class': "form-control"
+                                        }
+                                    }) }}
+                                </div>
+                            </div>
+                            <div class="col route">
+                                <span class="label">{{ form_label(form.location.route) }}</span>
+
+                                <div class="select-holder">
+                                    {{ form_widget(form.location.route, {
+                                        'attr': {
+                                            'class': "form-control"
+                                        }
+                                    }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field-row address">
+                            {{ form_errors(form.location.zip) }}
+                            <div class="col zip">
+                                <span class="label">{{ form_label(form.location.zip) }}</span>
+
+                                <div class="select-holder">
+                                    {{ form_widget(form.location.zip, {
+                                        'attr': {
+                                            'class': "form-control"
+                                        }
+                                    }) }}
+                                </div>
+                            </div>
+                            {#hidden#}
+                            {{ form_widget(form.location.coordinate) }}
+                        </div>
+
+                        <div class="btn-block text-center">
+                            <p>
+                                <label> {{ 'listing.location.address_found'|trans }}</label>
+                                <strong id="formatted-address">{{ 'listing.location.none'|trans }}</strong>
+                            </p>
+
+                            <a class="validate-location btn btn-default" href="javascript:void(0)">
+                                {{ 'listing.location.validate'|trans }}
+                            </a>
+
+                        </div>
+
+                        <!-- maparea -->
+                        <div class="maparea">
+                            <div class="alert alert-info-new" role="alert">
+                                <i class="glyphicon glyphicon-map-marker me-2" style="font-size: 1.3em;"></i>
+
+                                <p>{{ 'listing.location.drag_message'|trans }}</p>
+                            </div>
+                            <div class="map-box">
+                                <div id="map-listing"></div>
+                            </div>
+                        </div>
+
+                        <div class="btn-block text-center">
+                            <button type="submit" class="btn btn-default">{{ 'listing.save'|trans }}</button>
+                        </div>
+                    </div>
+                    <!-- block2 -->
+                </div>
+                <!-- form-holder -->
+
+            </div>
+        </div>
+        <!-- tab-content -->
+    </fieldset>
+    {{ form_end(form) }}
+{%- endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#Geocoding #}
+    {% include '@CocoricoCore/Frontend/Listing/js/_geocoding_js.html.twig' with {
+    'map_elt': '#map-listing',
+    'marker_draggable': true
+    } only %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% trans_default_domain 'cocorico_booking' %}
+
+{% embed "@CocoricoCore/Dashboard/layout_show_bill.html.twig" %}
+    {% trans_default_domain 'cocorico_booking' %}
+
+    {% set booking =  booking_payin_refund.booking %}
+
+    {#Currency values#}
+    {% set amount_dec = booking_payin_refund.amountDecimal %}
+    {% set amount_fees_dec = booking.amountFeeAsAskerDecimal %}
+    {% set amount_excl_vat_dec = amount_fees_dec / (1 +  vatRate) %}
+    {% set amount_vat_dec = amount_fees_dec - amount_excl_vat_dec %}
+
+    {#Currency formated#}
+    {% set amount = amount_dec | format_price(app.request.locale, 2) %}
+    {% set amount_fees = amount_fees_dec | format_price(app.request.locale, 2) %}
+    {% set amount_vat = amount_vat_dec | format_price(app.request.locale, 2) %}
+    {% set amount_excl_vat = amount_excl_vat_dec | format_price(app.request.locale, 2) %}
+
+    {#Vars#}
+    {% set listing = booking.listing %}
+    {% set listing_translation = listing.translations[app.request.locale] %}
+    {% set user = booking.user %}
+    {% set user_timezone = booking.timeZoneAsker %}
+    {% set user_address = booking.user.getAddresses %}
+    {% set user_address = (user_address is empty) ? null : user_address[0] %}
+    {% set bill_date_title = 'booking.bill.date.title'|trans %}
+    {% set bill_date =  booking_payin_refund.getPayedAt ? booking_payin_refund.getPayedAt|localizeddate('short', 'none', 'fr', user_timezone) : '' %}
+    {% set isRefund = true %}
+{% endembed %}

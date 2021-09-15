@@ -1,0 +1,16 @@
+imports:
+    - { resource: "@CocoricoUserBundle/Resources/config/Services/forms.yml" }
+    - { resource: "@CocoricoUserBundle/Resources/config/Services/form_handlers.yml" }
+    - { resource: "@CocoricoUserBundle/Resources/config/Services/voters.yml" }
+    - { resource: "@CocoricoUserBundle/Resources/config/Services/validators.yml" }
+    - { resource: "@CocoricoUserBundle/Resources/config/Services/managers.yml" }
+    - { resource: "@CocoricoUserBundle/Resources/config/Services/subscribers.yml" }
+    - { resource: "@CocoricoUserBundle/Resources/config/Services/listeners.yml" }
+    - { resource: "@CocoricoUserBundle/Resources/config/Services/admin.yml" }
+
+services:
+    #Namers
+    cocorico_user.namer.image_namer:
+        class:  Cocorico\UserBundle\Namer\ImageNamer
+        tags:
+            - { name: image_namer }

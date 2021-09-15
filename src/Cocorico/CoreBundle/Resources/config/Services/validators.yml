@@ -1,0 +1,46 @@
+services:
+    #Validators
+    cocorico.listing_validator:
+        class: Cocorico\CoreBundle\Validator\Constraints\ListingValidator
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%cocorico.listing_img_max%"
+            - "%cocorico.listing_img_min%"
+            - "%cocorico.listing_category_min%"
+            - "%cocorico.listing_price_min%"
+            - "%cocorico.listing_countries%"
+        tags:
+            - { name: validator.constraint_validator, alias: listing }
+
+    cocorico.listing_availability_validator:
+        class: Cocorico\CoreBundle\Validator\Constraints\ListingAvailabilityValidator
+        arguments:
+            - "%cocorico.listing_price_min%"
+        tags:
+            - { name: validator.constraint_validator, alias: listing_availability }
+
+    cocorico.listing_availabilities_price_validator:
+        class: Cocorico\CoreBundle\Validator\Constraints\ListingAvailabilitiesPriceValidator
+        arguments:
+            - "%cocorico.listing_price_min%"
+        tags:
+            - { name: validator.constraint_validator, alias: listing_availabilities_price }
+
+    cocorico.booking_validator:
+        class: Cocorico\CoreBundle\Validator\Constraints\BookingValidator
+        arguments:
+            - "@cocorico.booking.manager"
+            - "@session"
+            - "%cocorico.booking.min_start_time_delay%"
+            - "%cocorico.booking.acceptation_delay%"
+            - "%cocorico.currency%"
+        tags:
+            - { name: validator.constraint_validator, alias: booking }
+
+    cocorico.listing_discount_validator:
+        class: Cocorico\CoreBundle\Validator\Constraints\ListingDiscountValidator
+        arguments:
+            - "%cocorico.listing_discount_min%"
+            - "%cocorico.listing_discount_max%"
+        tags:
+            - { name: validator.constraint_validator, alias: listing_discount }

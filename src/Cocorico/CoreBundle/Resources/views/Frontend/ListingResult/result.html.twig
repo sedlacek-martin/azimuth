@@ -1,0 +1,229 @@
+{% extends '::base.html.twig' %}
+
+{% trans_default_domain 'cocorico_listing' %}
+
+{% set location = listing_search_request.location %}
+
+{# SEO #}
+{% set seo_title = 'listing.search.result.title'|trans({'%listing_search_request%': location.address }) %}
+{% set seo_desc = '' %}
+{% set seo_meta_tile = 'listing.search.result.meta_title'|trans({'%listing_search_request%': location.address }, 'cocorico_meta') ~ " - " ~ cocorico_site_name %}
+{% set seo_meta_desc = 'listing.search.result.meta_desc'|trans({'%nb_results%': nb_listings}, 'cocorico_meta') %}
+
+{% if seo_content|default(null) %}
+    {% set seo_title = seo_content.title %}
+    {% set seo_desc = seo_content.description %}
+    {% set seo_meta_tile = seo_content.metaTitle %}
+    {% set seo_meta_desc = seo_content.metaDescription %}
+{% endif %}
+
+{% if horizontal_map_layout %}
+    {% set map_width = listing_overview_map_w %}
+    {% set map_height = listing_overview_map_h %}
+    {% set results_col_size = 3 %}
+{% else %}
+    {% set map_width = listing_search_map_w %}
+    {% set map_height = listing_search_map_h %}
+    {% set results_col_size = 6 %}
+{% endif %}
+
+{%- block meta_title -%}
+    {{ seo_meta_tile }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ seo_meta_desc }}
+{%- endblock -%}
+{# END SEO #}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #map-canvas {
+            width: {{ map_width }}px;
+            height: {{ map_height }}px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block layout %}
+    {% embed '@CocoricoCore/Frontend/layout.html.twig' %}
+        {% trans_default_domain 'cocorico_listing' %}
+        {% block breadcrumbs %}
+            <!-- breadcrumbs -->
+            {{ render(controller('CocoricoBreadcrumbBundle:Breadcrumbs:index',{
+                request: app.request
+            })) }}
+        {% endblock %}
+
+        {% block main %}
+            {#search form with filters#}
+            {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+
+            {{ form_start(form, {'attr': {'class': 'form-category alt col-xs-12'}}) }}
+
+            {% include '@CocoricoCore/Frontend/Common/form_search_fields.html.twig' with {
+                'form': form
+            } only %}
+
+            {% include '@CocoricoCore/Frontend/ListingResult/form_search_filters.html.twig' with {
+                'form': form
+            } only %}
+
+            {{ form_end(form) }}
+            {#end search form with filters#}
+
+            <h1 data-id="result-title">
+                <span data-id="title">{{ seo_title }}</span>
+                <small data-id="nb-result">
+                    {{ 'listing.search.result.results'|trans({'%nb_results%': nb_listings}) }}
+                </small>
+
+                {% if bundleExist('CocoricoListingAlertBundle') %}
+                    <div class="listing-alert">
+                        <a href="{{ path('cocorico_listing_alert_new') }}" data-id="listing-alert"
+                           class="btn btn-default">
+                            {{ "listing.search.result.alert.link"|trans }}
+                        </a>
+                    </div>
+                    <div data-id="listing-alert-dialog"></div>
+                {% endif %}
+            </h1>
+            {#TO NOT DELETE#}
+            <div data-id="seo-desc">
+                {{ seo_desc|raw }}
+            </div>
+
+            <!-- two-columns -->
+            <div class="twocolumns row">
+                <!-- maparea -->
+                <div class="maparea {% if horizontal_map_layout %}col-sm-12 map-horizontal{% else %}col-sm-4 col-xs-12{% endif %}">
+                    <div class="maparea {% if horizontal_map_layout %}map-horizontal{% endif %}">
+                        <div class="checkbox search-on-drag-cb-wrapper">
+                            <input type="checkbox" name="search-on-drag" id="search-on-drag">
+                            <label class="form-label" for="search-on-drag">
+                                {{ 'search-on-map-drag'|trans }}
+                            </label>
+                        </div>
+                        <div class="map-holder {% if horizontal_map_layout %} map-horizontal{% endif %}">
+                            <div id="map-canvas"></div>
+                            {% include '@CocoricoCore/Frontend/ListingResult/_marker.html.twig'  with {
+                            'markers': markers,
+                            } only %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- postarea -->
+                <section class="listing-area {% if horizontal_map_layout %}col-sm-12{% else %}col-sm-8 col-xs-12{% endif %}">
+                    <div class="listing-holder row">
+                        {% include '@CocoricoCore/Frontend/ListingResult/_result_listings.html.twig'  with {
+                            'listings': listings,
+                            'nb_listings': nb_listings,
+                            'results_col_size': results_col_size
+                        } only %}
+                    </div>
+                    {% include '@CocoricoCore/Frontend/Common/_pagination.html.twig' with {
+                    'pagination': pagination
+                    } only %}
+
+                </section>
+            </div>
+
+            {#TO NOT DELETE#}
+            <div data-id="seo-desc-moved"></div>
+        {% endblock %}
+
+        {% block modal %}
+            {% include 'CocoricoCoreBundle:Frontend/Common:_modal.html.twig' only %}
+        {% endblock %}
+
+        {#{% block footer %}#}
+        {#{{ parent() }}#}
+        {#{% endblock %}#}
+
+    {% endembed %}
+
+{% endblock layout %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#Extend search area if not enough results and if location search type is not done by distance #}
+    {% set extendSearch = nb_listings < listingSearchMinResult and listingSearchLocationType|default('viewport') != 'distance' %}
+
+    {#Geocoding #}
+    {% include '@CocoricoCore/Frontend/ListingResult/js/_geocoding_js.html.twig' with {
+    'map_elt': '#map-canvas',
+    'auto_complete_elt': '#location',
+    'default_lat': location.lat,
+    'default_lng': location.lng,
+    'extend_search': extendSearch,
+    'route': route
+    } only %}
+
+    {#Extend search call#}
+    {% set parentLocation, modalMessage = '', '' %}
+    {% if extendSearch %}
+        {% set parentLocation = location.getParentLocation() %}
+        {% set modalMessage = 'cocorico.search.extended.warning %location%'|trans({'%location%': parentLocation.address  }, 'cocorico') %}
+        <script>
+            $(function () {
+                var parentLocation = '{{ parentLocation|json_encode( constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_HEX_APOS') )|e('js') }}';
+                parentLocation = $.parseJSON(parentLocation);
+                extendSearchLocationFunc(parentLocation.address, parentLocation.type, '#modal', '{{ modalMessage }}');
+            });
+        </script>
+    {% endif %}
+
+    <script>
+        $(function () {
+            //Refresh map on load
+            refreshMapFunc('{{location.viewport }}', '{{ location.lat }}', '{{ location.lng }}');
+
+            //Set listings markers on load
+            //Set listings markers on load through data-markers attribute
+            setMarkersFunc($("span#data-markers").data("markers"));
+
+            // Set default favourites in the listing
+            setDefaultFavourites();
+
+            // Categories
+            initMultiSelect(
+                    '#categories',
+                    '{{ "multiselect.all_selected"|trans({}, "cocorico")|e('js') }}',
+                    '{{ "multiselect.none_selected"|trans({}, "cocorico")|e('js') }}',
+                    '{{ "multiselect.num_selected"|trans({}, "cocorico")|e('js') }}'
+            );
+
+            $(".datepicker").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+
+            //Listing alert (See form_search.html.twig, common.js)
+            var $dialog = $("div[data-id=listing-alert-dialog]").initDialogForm(400);
+
+            $("a[data-id=listing-alert]").on('click', function (e) {
+                e.preventDefault();
+                $dialog.openDialog($(this).attr("href"), "");
+                return false;
+            });
+
+            //Move seo desc to bottom
+            $("[data-id=seo-desc]").appendTo("[data-id=seo-desc-moved]");
+        });
+    </script>
+{% endblock %}
+
+
+
+{% block markup_jsonld %}
+    {{ parent() }}
+
+    {% include 'CocoricoSeoBundle:Frontend:ListingResult/_result_markup.jsonld.twig' ignore missing with {
+    'listings': listings
+    } only %}
+{% endblock %}

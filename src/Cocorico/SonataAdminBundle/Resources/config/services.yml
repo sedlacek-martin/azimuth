@@ -1,0 +1,2 @@
+imports:
+  - { resource: "@SonataAdminBundle/Resources/config/Services/forms.yml" }

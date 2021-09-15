@@ -1,0 +1,172 @@
+{% extends '::base.html.twig' %}
+
+{% trans_default_domain 'cocorico_listing' %}
+
+{%- block meta_title -%}
+    {{ 'listing.new.meta_title'|trans({}, 'cocorico_meta') ~ " - " ~ cocorico_site_name }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'listing.new.meta_desc'|trans({}, 'cocorico_meta') }}
+{%- endblock -%}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #map-listing {
+            width: {{ listing_new_map_w }}%;
+            height: {{ listing_new_map_h }}px;
+        }
+    </style>
+{% endblock %}
+
+{% block layout %}
+    {% embed '@CocoricoCore/Frontend/layout.html.twig' %}
+
+        {% trans_default_domain 'cocorico_listing' %}
+
+        {% block breadcrumbs %}{% endblock %}
+
+        {% block main %}
+            <div class="col-xs-12">
+
+                {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+                <div class="listing-section">
+                    <fieldset>
+                        <legend class="hidden">listing-section</legend>
+                        <!-- alert -->
+                        <div class="head">
+                            <h1>{{ 'listing.new.title'|trans }}</h1>
+                            <p><strong>{{ 'listing.new.publish.notice'|trans }}</strong></p>
+                        </div>
+
+                        {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+
+                        <div class="holder">
+                            {{ form_errors(form) }}
+                            <div class="row">
+                                <div class="form-selection col-md-12">
+                                    <div class="form-block block1 col-md-12">
+                                        <div class="selection-holder">
+                                            {{ render(controller('CocoricoCoreBundle:Frontend/ListingCategories:categoriesForm', {'listing': listing})) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-listing-info col-md-12">
+                                        <h2>{{ 'listing.description.title'|trans }}</h2>
+                                        {#For html customizations see views\form\fields_translations.html.twig#}
+                                        {{ form_widget(form.translations) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% include '@CocoricoCore/Frontend/Listing/_new_images.html.twig' with {'form': form, 'listing' : listing} only %}
+                            {% include '@CocoricoCore/Frontend/Listing/_new_location.html.twig' with {'form' : form} only %}
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="btns-area new-listing">
+                    {{ form_errors(form.tac) }}
+                    <div class="agreement">
+                        {{ form_widget(form.tac) }}
+                        <span class="label">
+                            {{ form_label(form.tac, null, {'required': false} ) }}
+                            <a href="{{ path('cocorico_page_show', { 'slug': 'nav.tac.slug'|trans }) }}"
+                               target="_blank">
+                                {{ 'listing.new.tac.link'|trans }}
+                            </a>*
+                        </span>
+                    </div>
+
+                    <div id="progress" class="progress">
+                        <div class="progress-bar progress-bar-success"></div>
+                    </div>
+
+                    <div class="text-center">
+                        <input id="listing-new-save" type="submit" class="btn btn-primary"
+                               value="{{ 'listing.new.save'|trans }}">
+                    </div>
+
+                </div>
+                {{ form_end(form) }}
+            </div>
+
+        {% endblock %}
+
+    {% endembed %}
+{% endblock layout %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#Geocoding #}
+    {% include '@CocoricoCore/Frontend/Listing/js/_geocoding_js.html.twig' with {
+        'map_elt': '#map-listing',
+        'marker_draggable': true
+    } only %}
+
+
+    <script>
+        $(function () {
+            //Disable submit button on click
+            $("[type=submit]").click(function (e) {
+                $(this).prop('disabled', true);
+            });
+
+            let showHideType = function($select) {
+                const $typeRadios = $('.listing-type');
+                let selectedValue = $select.val();
+                let $selectedOption = $select.find('option[value="' + selectedValue + '"]');
+                if ($selectedOption.attr('data-search') === 'true' && $selectedOption.attr('data-offer') === 'true') {
+                    $typeRadios.show();
+                } else {
+                    $typeRadios.hide();
+                }
+            }
+
+            const $categorySelect = $('#listing_categories_category');
+            showHideType($categorySelect);
+            $categorySelect.change(function(event) {
+                showHideType($(event.target));
+            })
+
+            // $('.listing-type-radio').find("input[type='radio']").change(function (event) {
+            //
+            //     const $allOptions = $categorySelect.find('option');
+            //     const $offerOptions = $categorySelect.find('option[data-offer="true"]');
+            //     const $searchOptions = $categorySelect.find('option[data-search="true"]');
+            //     let value = $(event.target).val();
+            //     if (value === '1') { //offer
+            //         console.log('offer')
+            //         $allOptions.attr('disabled', 'disabled');
+            //         $offerOptions.removeAttr('disabled');
+            //     } else if (value === '2') { //search
+            //         console.log('search');
+            //         $allOptions.attr('disabled', 'disabled');
+            //         $searchOptions.removeAttr('disabled', 'disabled');
+            //     }
+            //     if ($categorySelect.val() === null) {
+            //         let valToSelect = $categorySelect.find('option:not([disabled="disabled"])').first().val();
+            //         $categorySelect.val(valToSelect).trigger('change');
+            //     }
+            // })
+        });
+    </script>
+
+    {#Translations#}
+    {% include '@CocoricoCore/Frontend/Listing/js/_translator_js.html.twig' only %}
+
+    {#Files upload#}
+    {% include '@CocoricoCore/Frontend/Common/js/_upload_js.html.twig' with {
+        'upload_elt': '#listing_image_new',
+        'upload_images': '#listing_image_uploaded',
+        'upload_url': oneup_uploader_endpoint('listing_images') ~ "?listing_id=0" ,
+        'upload_max': listing_img_max - listing.images.count,
+    } only %}
+
+    {#Session #}
+    {% include '@CocoricoListingSession/Common/js/_init_timepicker_js.html.twig' ignore missing only %}
+{% endblock %}

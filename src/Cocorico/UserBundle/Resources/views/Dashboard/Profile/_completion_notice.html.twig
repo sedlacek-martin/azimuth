@@ -1,0 +1,21 @@
+{% trans_default_domain 'cocorico_user' %}
+
+<!-- alert -->
+{% if not user.hasCompleteInformation(1, 1) %}
+    {% set complete = user.getCompletionInformation(1, 1) %}
+    <div role="alert" class="alert alert-warning-new">
+        <i class="glyphicon glyphicon-exclamation-sign me-4" style="font-size: 1.5em"></i>
+
+        <p class="list-comma">
+            {{ 'user.edit.completion_notice'| trans }}
+            (
+                {% if not complete.description %}<span>{{ 'user.edit.completion_notice.description'| trans }}</span>{% endif %}
+                {% if not complete.image %}<span>{{ 'user.edit.completion_notice.image'| trans }}</span>{% endif %}
+                {% if not complete.location %}<span>{{ 'user.edit.completion_notice.location'| trans }}</span>{% endif %}
+                {% if not complete.languages %}<span>{{ 'user.edit.completion_notice.languages'| trans }}</span>{% endif %}
+            )
+        </p>
+
+
+    </div>
+{% endif %}
