@@ -157,4 +157,98 @@ class UserRepository extends EntityRepository
         return new ArrayCollection($qb->getQuery()->getResult());
     }
 
+    /**
+     * @param int|null $moId
+     * @return int
+     */
+    public function getWaitingActivationCount(int $moId = null): int
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id) as cnt')
+            ->where('u.trusted = 0');
+
+        if ($moId) {
+            $qb
+                ->leftJoin('u.memberOrganization', 'mo')
+                ->andWhere('mo.id = :moId')
+                ->setParameter('moId', $moId);
+        }
+        $result = $qb->getQuery()->getSingleResult();
+        return $result['cnt'];
+    }
+
+    /**
+     * @param string ...$roles
+     * @return User[]
+     */
+    public function findByRoles(string... $roles): array
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        foreach ($roles as $index => $role) {
+            $parameterName = 'role_' . $index;
+            $qb->orWhere("u.roles LIKE :{$parameterName}")
+                ->setParameter($parameterName, "%{$role}%");
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return int
+     * @throws NoResultException
+     */
+    public function getTotalCount(): int
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id) as cnt');
+
+        $result = $qb->getQuery()->getSingleResult();
+        return $result['cnt'];
+    }
+
+    /**
+     * @return int
+     * @throws NoResultException
+     */
+    public function getActivatedCount(): int
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c.id) as cnt')
+            ->andWhere('c.enabled = 1 AND c.trusted = 1');
+
+        $result = $qb->getQuery()->getSingleResult();
+        return $result['cnt'];
+    }
+
+    /**
+     * @param \DateTime|null $from
+     * @param \DateTime|null $to
+     * @return int|mixed|string
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function getAverageActivationTime(\DateTime $from = null, \DateTime $to = null)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->addSelect('SUM(TIME_DIFF(u.verifiedAt, u.createdAt)) as total')
+            ->addSelect('COUNT(u.id) as cnt')
+            ->andWhere('u.verifiedAt IS NOT NULL');
+        
+        if ($from) {
+           $qb->andWhere('u.verifiedAt > :from')
+               ->setParameter('from', $from->format('Y-m-d H:i:s'));
+        }
+
+        if ($to) {
+            $qb->andWhere('u.verifiedAt < :to')
+                ->setParameter('to', $to->format('Y-m-d H:i:s'));
+        }
+
+        return $qb->getQuery()->getSingleResult();
+        
+    }
+
+    
+
 }

@@ -4,32 +4,48 @@
 
 {% for message in thread.messages | reverse %}
     {% set user = message.sender %}
-    {#{% set user_timezone = user.timezone %}#}
-    {% set image_user = user.images|length ? user.images[0].name : UserImageConstants.IMAGE_DEFAULT %}
-    <article class="post">
-        <header class="head">
-            <div class="author-img">
-                <div class="img-holder">
-                    <img alt="{{ user.getName }}"
-                         src="{{ (UserImageConstants.IMAGE_FOLDER ~ image_user) | imagine_filter('user_xsmall') }}">
+    {% if message.verified or user.id == app.user.id %}
+        {#{% set user_timezone = user.timezone %}#}
+        {% set image_user = user.images|length ? user.images[0].name : UserImageConstants.IMAGE_DEFAULT %}
+        <article class="post">
+            <header class="head">
+                <div class="author-img">
+                    <div class="img-holder">
+                        <img alt="{{ user.getName }}"
+                             src="{{ (UserImageConstants.IMAGE_FOLDER ~ image_user) | imagine_filter('user_xsmall') }}">
+                    </div>
+
                 </div>
-                <a class="author-name" title="{{ user.getName }}"
-                   href="{{ path('cocorico_user_profile_show', { 'id': user.id }) }}">
-                    <span>{{ user.getName }}</span>
-                </a>
+                <div class="meta-message">
+                    <a class="author-name" title="{{ user.getName }}"
+                       href="{{ path('cocorico_user_profile_show', { 'id': user.id }) }}">
+                        <span>{{ user.getName }}</span>
+                    </a>
+                    <time class="pull-right">
+                        <i class="icon-clock"></i>
+                        {{ message.createdAt|localizeddate('short', 'short', 'fr', user_timezone) }}
+                        <em>({{ user_timezone|timezone_name }})</em
+                    </time>
+                </div>
+            </header>
+            <div class="post-content">
+                <p>{{ message.body|strip_private_info|nl2br }}</p>
+                {% if message.adminNote is not empty %}
+                    <div class="text-info">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                        {{ 'message.admin_note.text'|trans|upper }}:
+                        {{ message.adminNote }}
+                    </div>
+                {% endif %}
             </div>
-            <div class="meta">
-                <time>{{ message.createdAt|localizeddate('short', 'none', 'fr', user_timezone) }}</time>
-            </div>
-        </header>
-        <div class="post-content">
-            <p>{{ message.body|strip_private_info|nl2br }}</p>
-        </div>
-        <footer class="footer">
-            <span class="time">
-                <i class="icon-clock"></i>{{ message.createdAt|localizeddate('none', 'short', 'fr', user_timezone) }}
-                <small><em>({{ user_timezone|timezone_name }})</em></small>
-            </span>
-        </footer>
-    </article>
+            <footer class="footer">
+                {% if not message.verified %}
+                    <span class="pull-right text-danger" data-toggle="tooltip" data-placement="right" title=" {{ 'message.waiting_for_verification.help'|trans }}">
+                        <i class="glyphicon glyphicon-exclamation-sign" style="font-size: 1.1em"></i>
+                        {{ 'message.waiting_for_verification'|trans }}
+                    </span>
+                {% endif %}
+            </footer>
+        </article>
+    {% endif %}
 {% endfor %}

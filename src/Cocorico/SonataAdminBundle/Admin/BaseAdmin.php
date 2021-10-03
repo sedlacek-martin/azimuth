@@ -15,7 +15,7 @@ class BaseAdmin extends AbstractAdmin
     /**
      * @return ContainerInterface|null
      */
-    private function getContainer(): ?ContainerInterface
+    protected function getContainer(): ?ContainerInterface
     {
         return $this->getConfigurationPool()->getContainer();
     }
@@ -23,9 +23,9 @@ class BaseAdmin extends AbstractAdmin
     /**
      * @return TokenStorageInterface|null
      */
-    private function getTokenStorage(): ?TokenStorageInterface
+    protected function getTokenStorage(): ?TokenStorageInterface
     {
-       return $this->getContainer()->get('security.token_storage');
+        return $this->getContainer()->get('security.token_storage');
     }
 
 
@@ -64,19 +64,6 @@ class BaseAdmin extends AbstractAdmin
             return $this->getAuthorizationChecker()->isGranted($attributes, $subject);
         } catch (AuthenticationCredentialsNotFoundException $e) {
             return false;
-        }
-    }
-
-
-
-    /**
-     * @param string $action
-     * @param null $object
-     */
-    public function checkAccess($action, $object = null)
-    {
-        if (!$this->getAuthorizationChecker()->isGranted($action, $object)) {
-            throw new AccessDeniedException("Cant access this page!");
         }
     }
 }

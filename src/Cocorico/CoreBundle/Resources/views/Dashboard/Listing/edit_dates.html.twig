@@ -1,0 +1,83 @@
+{% extends '@CocoricoCore/Dashboard/Listing/layout.html.twig' %}
+{% form_theme form _self %}
+{% trans_default_domain 'cocorico_listing' %}
+
+ {% block nav_side_dashboard -%}
+     {% set nav_side_dashboard_current = 'dates' %}
+     {{ parent() }}
+ {%- endblock %}
+
+{% block content_dashboard -%}
+
+    {{ form_start(form, {'attr': {'id': 'edit-dates-form', 'class': 'form-area'}}) }}
+    <fieldset>
+        <legend class="hidden">form area</legend>
+        <!-- alert -->
+        {{ render(controller('CocoricoCoreBundle:Dashboard/Offerer/Listing:completionNotice', {'listing': listing})) }}
+        {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+        {{ form_errors(form) }}
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="pics">
+                <div class="form-holder">
+
+                    <h2>{{ 'listing.edit.dates.title'|trans }}</h2>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{ form_widget(form.dateRange) }}
+                        </div>
+                        <div class="col-lg-12 mt-5">
+                            <div class="datepicker-holder day-fields display-range">
+                                {{ form_row(form.expiryDate) }}
+                            </div>
+                            <small class="text-muted">{{ 'listing.form.expiry_date.help'|trans }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-block text-center">
+                    <button type="submit" class="btn btn-default">{{ 'listing.save'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    {{ form_end(form) }}
+{%- endblock %}
+
+{%- block date_range_widget -%}
+    <div class="row datepicker-holder day-fields display-{{ daysDisplayMode }}">
+        <div class="col-lg-6 col-md-12">
+            {{ form_errors(form.start) }}
+            {% if form.start.vars.label %}
+                <strong class="title" style="font-weight: bold !important;">
+                    {{ form_label(form.start) }}
+                </strong>
+            {% endif %}
+
+            <div class="input-append date field-holder">
+                {{ form_widget(form.start,{
+                    'type': 'text',
+                    'attr': {
+                        'class': 'form-control from ' ~ form.start.vars.attr.class|default(''),
+                    }
+                }) }}
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            {{ form_errors(form.end) }}
+            {% if form.end.vars.label %}
+                <strong class="title">{{ form_label(form.end) }}</strong>
+            {% endif %}
+
+            <div class="input-append date field-holder">
+                {{ form_widget(form.end,{
+                    'type': 'text',
+                    'attr': {
+                        'class': 'form-control to ' ~ form.end.vars.attr.class|default(''),
+                    }
+                }) }}
+            </div>
+        </div>
+    </div>
+
+{%- endblock -%}

@@ -14,6 +14,10 @@
         <source>- Select -</source>
         <target state="new">- Select -</target>
       </trans-unit>
+      <trans-unit id="cf9d2cb645237ab65e96569cd017d46681939662" resname="-- Select-- ">
+        <source>-- Select-- </source>
+        <target state="new">-- Select-- </target>
+      </trans-unit>
       <trans-unit id="d79da395b5d7a09c6439a5f2660d8c568186ab7e" resname="Abstract">
         <source>Abstract</source>
         <target state="new">Abstract</target>
@@ -34,29 +38,9 @@
         <source>Biography</source>
         <target state="new">Biography</target>
       </trans-unit>
-      <trans-unit id="2a1513fb97683f0b6d8d7ff1ab9af8b9bf3bf12e" resname="Booking User Address Batch">
-        <source>Booking User Address Batch</source>
-        <target>Booking User Address Batch</target>
-      </trans-unit>
-      <trans-unit id="7dd81984365f9d8ef16e3e84bd3613a8f8924be2" resname="Booking User Address Create">
-        <source>Booking User Address Create</source>
-        <target>Booking User Address Create</target>
-      </trans-unit>
-      <trans-unit id="05c1d2a9ca656afd725532c1e9eb5235f9930060" resname="Booking User Address Delete">
-        <source>Booking User Address Delete</source>
-        <target>Booking User Address Delete</target>
-      </trans-unit>
-      <trans-unit id="ca974754d31e000bc6ec4e5f149b04f0fd30946f" resname="Booking User Address Edit">
-        <source>Booking User Address Edit</source>
-        <target>Booking User Address Edit</target>
-      </trans-unit>
-      <trans-unit id="aabf43cb99080d02cb2bd18a6d9609020c414129" resname="Booking User Address List">
-        <source>Booking User Address List</source>
-        <target>Booking User Address List</target>
-      </trans-unit>
-      <trans-unit id="ca4242b2f1f0ba57867b54f515660d468d2a0f24" resname="Booking User Address Update">
-        <source>Booking User Address Update</source>
-        <target>Booking User Address Update</target>
+      <trans-unit id="a6b9d69f57d94a826930e45360e373533bfd130d" resname="Birthday">
+        <source>Birthday</source>
+        <target state="new">Birthday</target>
       </trans-unit>
       <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
         <source>Country</source>
@@ -130,9 +114,9 @@
         <source>Firstname</source>
         <target state="new">Firstname</target>
       </trans-unit>
-      <trans-unit id="9b1458893fdf24868765e6710e8c64ee8ed94388" resname="Fullname">
-        <source>Fullname</source>
-        <target state="new">Fullname</target>
+      <trans-unit id="64346b483c0adcfb6e6d4c2e4ce19f1cd2cde025" resname="Full Name">
+        <source>Full Name</source>
+        <target state="new">Full Name</target>
       </trans-unit>
       <trans-unit id="8a754c61c2ced0c5ff79a1827e02c9d643d6d926" resname="Gender">
         <source>Gender</source>
@@ -220,7 +204,7 @@
       </trans-unit>
       <trans-unit id="fe40e788d3b22487ca58c0d17a29bc0a3a74e2dd" resname="Requires User Identifier">
         <source>Requires User Identifier</source>
-        <target state="new">Requires User Identifier</target>
+        <target>Requires User Identifier 1234 </target>
       </trans-unit>
       <trans-unit id="d1f7dc891b5e5d1797163b556e805123c9369e4f" resname="Timezone">
         <source>Timezone</source>
@@ -454,10 +438,6 @@
         <source>form.gender</source>
         <target>Gender</target>
       </trans-unit>
-      <trans-unit id="d614f18c7cd965566ad37d24e273e8a6ea5fb5b2" resname="form.gender.legal">
-        <source>form.gender.legal</source>
-        <target>Gender</target>
-      </trans-unit>
       <trans-unit id="ad2644b8e49a53ebc956786823470bf19bf5d146" resname="form.last_name">
         <source>form.last_name</source>
         <target>Last name</target>
@@ -554,6 +534,10 @@
         <source>nav.user.show.link</source>
         <target>See my profile</target>
       </trans-unit>
+      <trans-unit id="1688c097c7da88f800d25d80d5d14cacde44f469" resname="profile.account_expiration.label">
+        <source>profile.account_expiration.label</source>
+        <target>Account expiry date:</target>
+      </trans-unit>
       <trans-unit id="92ff738052eda39b7f5fa7ba263c3e30dfa28ac8" resname="profile.birthday.title">
         <source>profile.birthday.title</source>
         <target>Birthday</target>
@@ -588,11 +572,11 @@
       </trans-unit>
       <trans-unit id="c82619608718e2de7908cdf8f3ec5b785b99933c" resname="reconfirm_request_already_requested">
         <source>reconfirm_request_already_requested</source>
-        <target state="new">reconfirm_request_already_requested</target>
+        <target>Reconfirm request has been already submitted</target>
       </trans-unit>
       <trans-unit id="e52ad7d8a5e95d387610aa975b559e85f5112ae6" resname="reconfirm_request_successful">
         <source>reconfirm_request_successful</source>
-        <target state="new">reconfirm_request_successful</target>
+        <target>Your re-confirm request was submitted successfully.</target>
       </trans-unit>
       <trans-unit id="73e465b6422f4fd0a51932c9a200d6d7fc733ae8" resname="registration.additional_info">
         <source>registration.additional_info</source>
@@ -600,7 +584,7 @@
       </trans-unit>
       <trans-unit id="979409b320492499e2a2515c79e606339ad0d9f0" resname="registration.additional_info.already_filled">
         <source>registration.additional_info.already_filled</source>
-        <target state="new">registration.additional_info.already_filled</target>
+        <target>You have already filled in your additional information</target>
       </trans-unit>
       <trans-unit id="05a49ed6f64cab08563ca93abb6d4f8776c53b77" resname="registration.additional_info.confirm_email">
         <source>registration.additional_info.confirm_email</source>
@@ -612,15 +596,15 @@
       </trans-unit>
       <trans-unit id="c133a269dda6a9800db12101e56b4a449f8a9262" resname="registration.additional_info.submit">
         <source>registration.additional_info.submit</source>
-        <target state="new">registration.additional_info.submit</target>
+        <target>Save</target>
       </trans-unit>
       <trans-unit id="d68aba5c2f5418c4f8779e02be8f6511df697bd7" resname="registration.additional_info.success">
         <source>registration.additional_info.success</source>
-        <target state="new">registration.additional_info.success</target>
+        <target>Your additional info was submitted successfully</target>
       </trans-unit>
       <trans-unit id="1fa5b2873fe30be026b854f6a51503b86c6ac81a" resname="registration.back">
         <source>registration.back</source>
-        <target state="new">registration.back</target>
+        <target>Back</target>
       </trans-unit>
       <trans-unit id="85a4eff0132a6f92eae3057837f285b3aedf38b8" resname="registration.check_email">
         <source>registration.check_email</source>
@@ -633,11 +617,11 @@
       </trans-unit>
       <trans-unit id="7a0a8fbc70fe82997f8a2ff89090f523ee63f72a" resname="registration.confirmed">
         <source>registration.confirmed</source>
-        <target state="new">registration.confirmed</target>
+        <target>Registration confirmed</target>
       </trans-unit>
       <trans-unit id="d1ca8dda1d74badc546fbc979ffdab122995ef7a" resname="registration.confirmed.title">
         <source>registration.confirmed.title</source>
-        <target state="new">registration.confirmed.title</target>
+        <target>Registration confirmed</target>
       </trans-unit>
       <trans-unit id="ca8b7df503d20f084dc7a96264d8b0cfa490e1fb" resname="registration.needVerification">
         <source>registration.needVerification</source>
@@ -674,6 +658,14 @@
       <trans-unit id="921fd7a5cc7f9e46eab31822855a22d9808b0477" resname="resetting.reset.submit">
         <source>resetting.reset.submit</source>
         <target>Change password</target>
+      </trans-unit>
+      <trans-unit id="7b61063f4063a7693a3343c1f134e320e11df3fc" resname="settings.edit.submit">
+        <source>settings.edit.submit</source>
+        <target>Save</target>
+      </trans-unit>
+      <trans-unit id="d799ee267a21b9d6c32fc13dd95fdc6814aee32f" resname="settings.edit_preferences.title">
+        <source>settings.edit_preferences.title</source>
+        <target>Account preferences</target>
       </trans-unit>
       <trans-unit id="1774f9c08d7572712b2f70f583709279a062652e" resname="user.about.language.select">
         <source>user.about.language.select</source>
@@ -735,6 +727,10 @@
       <trans-unit id="6b719769a1aabbaeb466ef96c84e6af4128054b3" resname="user.expire.reactivate.button">
         <source>user.expire.reactivate.button</source>
         <target>Reactivate your account</target>
+      </trans-unit>
+      <trans-unit id="6c02cdd2f322cb26c11069399ec612371fc8c9b8" resname="user.expire.reactivation_already_requested.text">
+        <source>user.expire.reactivation_already_requested.text</source>
+        <target>We are sorry, but you have already requested your account reactivation. Please wait, until the admin team will process your request.</target>
       </trans-unit>
       <trans-unit id="333084fa7fe516c3fa1d523bfa10b9a47027685b" resname="user.expired.h1">
         <source>user.expired.h1</source>
@@ -828,6 +824,14 @@ While being deactivated, your are denied to access the page content. However you
       <trans-unit id="afbac2dc1997b8b4069b2984d0449147e97765e5" resname="user_images.min {{ min_images }}">
         <source>user_images.min {{ min_images }}</source>
         <target>Min {{ min_images }}</target>
+      </trans-unit>
+      <trans-unit id="9235203579876ac9cb8911b987e650d3637b3981" resname="user_settings.edit.success">
+        <source>user_settings.edit.success</source>
+        <target>Settings have been successfully updated</target>
+      </trans-unit>
+      <trans-unit id="8f2508a32823cfa276fa3d7ca556a9d281208ee2" resname="user_settings.new_message_notification.label">
+        <source>user_settings.new_message_notification.label</source>
+        <target>Send notification on new messages to my email</target>
       </trans-unit>
       <trans-unit id="37e00c91f30773a4b84992ea9a33c850b8385a13" resname="user_translations_en_description_placeholder">
         <source>user_translations_en_description_placeholder</source>

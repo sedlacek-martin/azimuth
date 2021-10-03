@@ -1,11 +1,13 @@
 {% extends "CocoricoSonataAdminBundle::standard_layout.html.twig" %}
 
+{% trans_default_domain 'SonataAdminBundle' %}
+
 {% block navbar_title %}
     {{ block('title') }}
 {% endblock %}
 
 {% block title %}
-    Dashboard
+    {{ 'Dashboard'|trans }}
 {% endblock %}
 
 {% block content %}
@@ -15,20 +17,20 @@
                 <div class="col-lg-6">
                     <div class="panel border">
                         <div class="panel-heading bg-gray-light">
-                            <h4>Activator overview</h4>
+                            <h4>{{ 'activator_overview.title'|trans }}</h4>
                         </div>
                         <div class="panel-body">
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <td>New registrations</td>
+                                        <td>{{ 'activator_overview.new_registrations'|trans }}</td>
                                         <td class="text-bold" style="width: 10%;">
-                                            14
+                                            {{ activationCount }}
                                         </td>
                                         <td class="text-right" style="width: 10%;">
-                                            <a href="{{ url|default('#') }}" class="btn btn-sm btn-default edit_link"
+                                            <a href="{{ path('verification_list') }}" class="btn btn-sm btn-default edit_link"
                                                 title="{{ 'dashboard_action_new_registration'|trans({}, 'SonataAdminBundle') }}">
-                                                <i class="glyphicon glyphicon-eye-open"> </i>
+                                                <i class="glyphicon glyphicon-eye-open"></i>
                                                 {{ 'dashboard_action_new_registration'|trans({}, 'SonataAdminBundle') }}
                                             </a>
                                         </td>
@@ -44,18 +46,18 @@
                 <div class="col-lg-6">
                     <div class="panel border">
                         <div class="panel-heading bg-gray-light">
-                            <h4>Facilitator overview</h4>
+                            <h4>{{ 'facilitator_overview.title'|trans }}</h4>
                         </div>
                         <div class="panel-body">
                             <table class="table table-striped">
                                 <tbody>
                                 <tr>
-                                    <td>New Posts (your MO’s members)</td>
+                                    <td>{{ 'facilitator_overview.new_posts'|trans }}</td>
                                     <td class="text-bold" style="width: 10%;">
-                                        22
+                                        {{ validatePostCount }}
                                     </td>
                                     <td class="text-right" style="width: 10%;">
-                                        <a href="{{ url|default('#') }}" class="btn btn-sm btn-default edit_link"
+                                        <a href="{{ path('admin_cocorico_message_thread_list') }}" class="btn btn-sm btn-default edit_link"
                                            title="{{ 'dashboard_action_new_mo_posts'|trans({}, 'SonataAdminBundle') }}">
                                             <i class="glyphicon glyphicon-eye-open"> </i>
                                             {{ 'dashboard_action_new_mo_posts'|trans({}, 'SonataAdminBundle') }}
@@ -63,10 +65,12 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>New postings by other MOs mentioning you</td>
-                                    <td class="text-bold" style="width: 10%;">2</td>
+                                    <td>{{ 'facilitator_overview.new_meesages'|trans }}</td>
+                                    <td class="text-bold" style="width: 10%;">
+                                        {{ validateMessageCount }}
+                                    </td>
                                     <td class="text-right" style="width: 10%;">
-                                        <a href="{{ url|default('#') }}" class="btn btn-sm btn-default edit_link"
+                                        <a href="{{ path('admin_cocorico_message_thread_list') }}" class="btn btn-sm btn-default edit_link"
                                            title="{{ 'dashboard_action_new_posts_mentions'|trans({}, 'SonataAdminBundle') }}">
                                             <i class="glyphicon glyphicon-eye-open"> </i>
                                             {{ 'dashboard_action_new_posts_mentions'|trans({}, 'SonataAdminBundle') }}
@@ -82,5 +86,4 @@
             {% endif %}
         </div>
     </div>
-
 {% endblock %}

@@ -16,6 +16,7 @@ use Cocorico\MessageBundle\Entity\Thread;
 use Cocorico\MessageBundle\MessageBuilder\NewThreadMessageBuilder;
 use Cocorico\MessageBundle\MessageBuilder\ReplyMessageBuilder;
 use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\MessageBundle\EntityManager\MessageManager as FOSMessageManager;
@@ -35,6 +36,10 @@ class ThreadManager
     protected $fosMessageManager;
     protected $mailer;
     public $maxPerPage;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
 
     /**
      * Constructor.
@@ -47,6 +52,7 @@ class ThreadManager
     public function __construct(
         FOSThreadManager $fosThreadManager,
         FOSMessageManager $fosMessageManager,
+        EntityManagerInterface $em,
         TwigSwiftMailer $mailer,
         $maxPerPage
     ) {
@@ -54,6 +60,7 @@ class ThreadManager
         $this->fosMessageManager = $fosMessageManager;
         $this->mailer = $mailer;
         $this->maxPerPage = $maxPerPage;
+        $this->em = $em;
     }
 
     /**
@@ -71,29 +78,33 @@ class ThreadManager
      *
      *
      * @param ParticipantInterface $participant
-     * @param  String              $userType
-     * @param  integer             $page
+     * @param integer $page
      * @return Paginator object
      */
-    public function getListingInboxThreads(ParticipantInterface $participant, $userType = 'asker', $page = 1)
+    public function getListingInboxThreads(ParticipantInterface $participant, $page = 1): Paginator
     {
-        // get the query builder form the FOSThreadManager
-        /** @var QueryBuilder $queryBuilder */
-        if ($userType == 'asker') {
-            $queryBuilder = $this->fosThreadManager
-                ->getParticipantSentThreadsQueryBuilder($participant);
-        } else {
-            $queryBuilder = $this->fosThreadManager
-                ->getParticipantInboxThreadsQueryBuilder($participant);
-        }
+        $queryBuilder = $this->em->getRepository(Thread::class)
+            ->createQueryBuilder('t')
+            ->innerJoin('t.metadata', 'tm')
+            ->innerJoin('t.messages', 'm')
+            ->innerJoin('m.sender', 'ms')
+            ->innerJoin('tm.participant', 'p')
+            // the participant is in the thread participants
+            ->andWhere('p.id = :user_id')
+            ->setParameter('user_id', $participant->getId())
+            // the thread does not contain spam or flood
+            ->andWhere('t.isSpam = :isSpam')
+            ->setParameter('isSpam', false)
+            // the thread is not deleted by this participant
+            ->andWhere('tm.isDeleted = :isDeleted')
+            ->setParameter('isDeleted', false)
+            // sort by date of last message
+            ->orderBy('IFNULL(tm.lastMessageDate, tm.lastParticipantMessageDate)', 'DESC')
+            ->groupBy('t.id')
+            ->having('sum(case when ms.id = :user_id then 1 else m.verified end) > 0');
 
         //Pagination
         $queryBuilder
-            //Requests optimisations? The results are not the same
-            //todo: optimize this request
-//            ->select('t, tm, p, m, mm')
-//            ->innerJoin('t.messages', 'm')
-//            ->innerJoin('m.metadata', 'mm')
             ->setFirstResult(($page - 1) * $this->maxPerPage)
             ->setMaxResults($this->maxPerPage);
 
@@ -104,63 +115,8 @@ class ThreadManager
         //todo: resolve otherwise this problem
         $paginator = new Paginator($query, false);
 
-//        $paginator->setUseOutputWalkers(true);
+       // $paginator->setUseOutputWalkers(true);
         return $paginator;
-    }
-
-    /**
-     * Creates a new listing thread for the booking request by an asker
-     * In one word: new listing request.
-     *
-     * @param ParticipantInterface $participant
-     * @param Booking              $booking
-     */
-    public function createNewListingThread(ParticipantInterface $participant, Booking $booking)
-    {
-        /** @var  ThreadInterface $thread */
-        $thread = $this->fosThreadManager->createThread();
-        /** @var MessageInterface $message */
-        $message = $this->fosMessageManager->createMessage();
-
-        $threadBuilder = new NewThreadMessageBuilder($message, $thread);
-        $listing = $booking->getListing();
-        $threadBuilder
-            ->addRecipient($listing->getUser())
-            ->setSender($participant)
-            ->setBooking($booking)
-            ->setListing($listing)
-            ->setSubject($listing->getTitle())
-            ->setBody($booking->getMessage());
-
-        // send the message
-        $threadMessage = $threadBuilder->getMessage();
-        $this->fosThreadManager->saveThread($threadMessage->getThread(), false);
-        $this->fosMessageManager->saveMessage($threadMessage, false);
-
-        $threadMessage->getThread()->setIsDeleted(false);
-        $this->fosMessageManager->saveMessage($threadMessage);
-    }
-
-    /**
-     * replies to the existing booking request with refused or accepted status
-     * In one word: booking response.
-     *
-     * @param Booking              $booking
-     * @param string               $messageTxt
-     * @param ParticipantInterface $sender
-     */
-    public function addReplyThread(Booking $booking, $messageTxt, ParticipantInterface $sender)
-    {
-        /** @var MessageInterface $message */
-        $message = $this->fosMessageManager->createMessage();
-        $thread = $booking->getThread();
-        $replyBuilder = new ReplyMessageBuilder($message, $thread);
-        $replyBuilder
-            ->setSender($sender)
-            ->setBody($messageTxt);
-        // send the message
-        $threadMessage = $replyBuilder->getMessage();
-        $this->fosMessageManager->saveMessage($threadMessage, false);
     }
 
     /**

@@ -35,7 +35,7 @@ class ListingController extends Controller
 
     /**
      * @param  Listing $listing
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function statusIndexFormAction($listing)
     {
@@ -52,7 +52,7 @@ class ListingController extends Controller
 
     /**
      * @param  Listing $listing
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function statusNavSideFormAction($listing)
     {
@@ -102,9 +102,9 @@ class ListingController extends Controller
      * @Method({"POST"})
      *
      * @param Request $request
-     * @param         $listing
+     * @param Listing $listing
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editStatusAction(Request $request, Listing $listing)
     {
@@ -137,194 +137,6 @@ class ListingController extends Controller
         }
     }
 
-//    /**
-//     * @param  Listing $listing
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function priceFormAction($listing)
-//    {
-//        $form = $this->createPriceForm($listing);
-//
-//        return $this->render(
-//            '@CocoricoCore/Dashboard/Listing/form_price.html.twig',
-//            array(
-//                'form' => $form->createView(),
-//                'listing' => $listing,
-//                'feeAsOfferer' => $this->getFeeAsOfferer($listing->getUser())
-//            )
-//        );
-//    }
-//
-//    /**
-//     * @param Listing $listing
-//     *
-//     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
-//     */
-//    private function createPriceForm(Listing $listing)
-//    {
-//        $form = $this->get('form.factory')->createNamed(
-//            'listing_price',
-//            ListingEditPriceType::class,
-//            $listing,
-//            array(
-//                'method' => 'POST',
-//                'action' => $this->generateUrl(
-//                    'cocorico_dashboard_listing_edit_price',
-//                    array('id' => $listing->getId())
-//                ),
-//            )
-//        );
-//
-//        return $form;
-//    }
-//
-//    /**
-//     * Edit Listing status.
-//     *
-//     * @Route("/{id}/edit_price", name="cocorico_dashboard_listing_edit_price", requirements={"id" = "\d+"})
-//     * @Security("is_granted('edit', listing)")
-//     * @ParamConverter("listing", class="CocoricoCoreBundle:Listing")
-//     *
-//     * @Method({"GET", "POST"})
-//     *
-//     * @param Request $request
-//     * @param Listing $listing
-//     *
-//     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-//     */
-//    public function editPriceAction(Request $request, Listing $listing)
-//    {
-//        $form = $this->createPriceForm($listing);
-//        $form->handleRequest($request);
-//
-//        $formIsValid = $form->isSubmitted() && $form->isValid();
-//        if ($formIsValid) {
-//            $listing = $this->get("cocorico.listing.manager")->save($listing);
-//            $this->addFormSuccessMessagesToFlashBag('price');
-//
-//            return $this->redirectToRoute(
-//                'cocorico_dashboard_listing_edit_price',
-//                array(
-//                    'id' => $listing->getId()
-//                )
-//            );
-//        }
-//
-//
-//        if ($request->isXmlHttpRequest()) {
-//            return $this->render(
-//                '@CocoricoCore/Dashboard/Listing/form_price.html.twig',
-//                array(
-//                    'form' => $form->createView(),
-//                    'listing' => $listing,
-//                    'feeAsOfferer' => $this->getFeeAsOfferer($listing->getUser())
-//                )
-//            );
-//        } else {
-//            if (!$formIsValid) {
-//                $this->addFormErrorMessagesToFlashBag($form);
-//            }
-//
-//            return new RedirectResponse($request->headers->get('referer'));
-//        }
-//    }
-
-//    /**
-//     * @param User $user
-//     * @return float|mixed
-//     */
-//    private function getFeeAsOfferer(User $user)
-//    {
-//        $feeAsOfferer = $this->getParameter('cocorico.fee_as_offerer');
-//        if ($user->getFeeAsOfferer() || $user->getFeeAsOfferer() === 0) {
-//            $feeAsOfferer = $user->getFeeAsOfferer() / 100;
-//        }
-//
-//        return $feeAsOfferer;
-//    }
-
-    /**
-     * @param  Listing $listing
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function durationFormAction($listing)
-    {
-        $form = $this->createDurationForm($listing);
-
-        return $this->render(
-            '@CocoricoCore/Dashboard/Listing/form_duration.html.twig',
-            array(
-                'form' => $form->createView(),
-                'listing' => $listing
-            )
-        );
-    }
-
-    /**
-     * @param Listing $listing
-     *
-     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
-     */
-    private function createDurationForm(Listing $listing)
-    {
-        $form = $this->get('form.factory')->createNamed(
-            'listing_duration',
-            ListingEditDurationType::class,
-            $listing,
-            array(
-                'method' => 'POST',
-                'action' => $this->generateUrl(
-                    'cocorico_dashboard_listing_edit_duration',
-                    array('id' => $listing->getId())
-                ),
-            )
-        );
-
-        return $form;
-    }
-
-    /**
-     * Edit Listing duration.
-     *
-     * @Route("/{id}/edit_duration", name="cocorico_dashboard_listing_edit_duration", requirements={"id" = "\d+"})
-     * @Security("is_granted('edit', listing)")
-     * @ParamConverter("listing", class="CocoricoCoreBundle:Listing")
-     *
-     * @Method({"POST"})
-     *
-     * @param Request $request
-     * @param Listing $listing
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function editDurationAction(Request $request, Listing $listing)
-    {
-        $form = $this->createDurationForm($listing);
-        $form->handleRequest($request);
-
-        $formIsValid = $form->isSubmitted() && $form->isValid();
-        if ($formIsValid) {
-            $listing = $this->get("cocorico.listing.manager")->save($listing);
-            $this->addFormSuccessMessagesToFlashBag('price');
-        }
-
-        if ($request->isXmlHttpRequest()) {
-            return $this->render(
-                '@CocoricoCore/Dashboard/Listing/form_duration.html.twig',
-                array(
-                    'form' => $form->createView(),
-                    'listing' => $listing
-                )
-            );
-        } else {
-            if (!$formIsValid) {
-                $this->addFormErrorMessagesToFlashBag($form);
-            }
-
-            return new RedirectResponse($request->headers->get('referer'));
-        }
-    }
-
     /**
      * Lists all Listing entities.
      *
@@ -335,9 +147,9 @@ class ListingController extends Controller
      * @param  Request $request
      * @param  int     $page
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction(Request $request, $page)
+    public function indexAction(Request $request, $page): Response
     {
         $listingManager = $this->get('cocorico.listing.manager');
         $listings = $listingManager->findByOwner(
@@ -400,7 +212,7 @@ class ListingController extends Controller
 
     /**
      * @param  Listing $listing
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function completionNoticeAction(Listing $listing)
     {

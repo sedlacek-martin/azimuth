@@ -12,6 +12,7 @@
 namespace Cocorico\CoreBundle\Form\Type;
 
 use Cocorico\CoreBundle\Entity\ListingCategory;
+use Cocorico\CoreBundle\Entity\ListingCharacteristic;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -63,9 +64,13 @@ class ListingCategoryType extends AbstractType
                     'label' => false,
                     'choice_attr' => static function(?ListingCategory $choice) {
                         if (is_null($choice)) return [];
+                        $characteristics = $choice->getCharacteristics()->map(function(ListingCharacteristic $char) {
+                            return $char->getId();
+                        })->toArray();
                         return [
                             'data-offer' => $choice->isOffer() ? 'true' : 'false',
                             'data-search' => $choice->isSearch() ? 'true' : 'false',
+                            'data-characteristics' => json_encode($characteristics),
                         ];
                     }
                 )

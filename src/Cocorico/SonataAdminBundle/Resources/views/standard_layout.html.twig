@@ -88,6 +88,17 @@ file that was distributed with this source code.
         <script src="{{ asset('bundles/sonatacore/vendor/select2/select2_locale_' ~ locale|replace({'_':'-'}) ~ '.js') }}"></script>
         {% endif %}
         {% endif %}
+        <script>
+            $(window).load(function () {
+                $('.toggle-menu').click(function (event) {
+                    event.preventDefault();
+                    let toggleUrl = "{{ absolute_url(path('cocorico_admin__toggle_super_admin')) }}"
+                    jQuery.ajax({
+                        url: toggleUrl + '?opened-super-admin-menu=' + ($('.toggle-menu.collapsed').length > 0)
+                    })
+                });
+            });
+        </script>
     {% endblock %}
 
     <title>
@@ -261,14 +272,28 @@ file that was distributed with this source code.
                         {% block side_bar_nav %}
                             {{ knp_menu_render('CocoricoSonataAdminBundle:MenuBuilder:menu', {template: sonata_admin.adminPool.getTemplate('knp_menu_template')}) }}
                             {% if is_granted('ROLE_SUPER_ADMIN') %}
-                            <div class="menu-divider">SUPER ADMIN SETTINGS</div>
-                                {{ knp_menu_render('sonata_admin_sidebar', {template: sonata_admin.adminPool.getTemplate('knp_menu_template')}) }}
+                                <a class="menu-divider toggle-menu {% if not app.session.get('opened-super-admin-menu') %}collapsed{% endif %}" data-toggle="collapse" href="#super-admin-menu">
+                                    {{ 'menu.super_admin_settings'|trans|upper }}
+                                    <i class="glyphicon glyphicon-chevron-down pull-right" style="padding-right: 10px;"></i>
+                                </a>
+                                <div id="super-admin-menu" class="{% if not app.session.get('opened-super-admin-menu') %}collapse collapsed{% else %}collapse in{% endif %}">
+                                    {{ knp_menu_render('sonata_admin_sidebar', {template: sonata_admin.adminPool.getTemplate('knp_menu_template')}) }}
+                                    <ul class="sidebar-menu">
+                                        <li>
+                                            <a href="{{ path('cocorico_admin__super_admin_actions') }}">
+                                                <i class="glyphicon glyphicon-wrench"></i>
+                                                <span>{{ 'menu.tools'|trans({}, 'SonataAdminBundle') }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('cocorico_admin__statistics') }}">
+                                                <i class="glyphicon glyphicon-stats"></i>
+                                                <span>{{ 'menu.statistics'|trans({}, 'SonataAdminBundle') }}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             {% endif %}
-                            {#<a href="{{ admin.generateUrl('list') }}">#}
-                            {#<i class="fa fa-angle-double-right"></i>#}
-                            {#{{ admin.label|trans({}, group.label_catalogue) }}#}
-                            {#</a></li>#}
-
                         {% endblock side_bar_nav %}
                         {% block side_bar_after_nav %}
                             {% if app.user and is_granted(sonata_admin.adminPool.getOption('role_admin')) %}

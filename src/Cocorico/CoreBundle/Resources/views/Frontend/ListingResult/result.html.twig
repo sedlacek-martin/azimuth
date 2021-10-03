@@ -20,7 +20,7 @@
 {% if horizontal_map_layout %}
     {% set map_width = listing_overview_map_w %}
     {% set map_height = listing_overview_map_h %}
-    {% set results_col_size = 3 %}
+    {% set results_col_size = 4 %}
 {% else %}
     {% set map_width = listing_search_map_w %}
     {% set map_height = listing_search_map_h %}
@@ -75,26 +75,18 @@
             {{ form_end(form) }}
             {#end search form with filters#}
 
-            <h1 data-id="result-title">
-                <span data-id="title">{{ seo_title }}</span>
-                <small data-id="nb-result">
-                    {{ 'listing.search.result.results'|trans({'%nb_results%': nb_listings}) }}
-                </small>
-
-                {% if bundleExist('CocoricoListingAlertBundle') %}
-                    <div class="listing-alert">
-                        <a href="{{ path('cocorico_listing_alert_new') }}" data-id="listing-alert"
-                           class="btn btn-default">
-                            {{ "listing.search.result.alert.link"|trans }}
-                        </a>
-                    </div>
-                    <div data-id="listing-alert-dialog"></div>
-                {% endif %}
-            </h1>
-            {#TO NOT DELETE#}
-            <div data-id="seo-desc">
-                {{ seo_desc|raw }}
-            </div>
+            {% if not horizontal_map_layout %}
+                <h1 data-id="result-title">
+                    <span data-id="title">{{ seo_title }}</span>
+                    <small data-id="nb-result">
+                        {{ 'listing.search.result.results'|trans({'%nb_results%': nb_listings}) }}
+                    </small>
+                </h1>
+                {#TO NOT DELETE#}
+                <div data-id="seo-desc">
+                    {{ seo_desc|raw }}
+                </div>
+            {% endif %}
 
             <!-- two-columns -->
             <div class="twocolumns row">
@@ -118,6 +110,18 @@
 
                 <!-- postarea -->
                 <section class="listing-area {% if horizontal_map_layout %}col-sm-12{% else %}col-sm-8 col-xs-12{% endif %}">
+                    {% if horizontal_map_layout %}
+                        <h1 data-id="result-title" class="mb-4">
+                            <span data-id="title">{{ seo_title }}</span>
+                            <small data-id="nb-result">
+                                {{ 'listing.search.result.results'|trans({'%nb_results%': nb_listings}) }}
+                            </small>
+                        </h1>
+                        {#TO NOT DELETE#}
+                        <div data-id="seo-desc">
+                            {{ seo_desc|raw }}
+                        </div>
+                    {% endif %}
                     <div class="listing-holder row">
                         {% include '@CocoricoCore/Frontend/ListingResult/_result_listings.html.twig'  with {
                             'listings': listings,
@@ -154,6 +158,9 @@
 
     {#Extend search area if not enough results and if location search type is not done by distance #}
     {% set extendSearch = nb_listings < listingSearchMinResult and listingSearchLocationType|default('viewport') != 'distance' %}
+
+    {# Category dependend characteristics filters #}
+    {% include '@CocoricoCore/Frontend/ListingResult/js/category_characteristics_js.html.twig' %}
 
     {#Geocoding #}
     {% include '@CocoricoCore/Frontend/ListingResult/js/_geocoding_js.html.twig' with {

@@ -18,6 +18,7 @@ use Cocorico\MessageBundle\Event\MessageEvent;
 use Cocorico\MessageBundle\Event\MessageEvents;
 use Cocorico\MessageBundle\FormModel\NewThreadMessage;
 use Cocorico\MessageBundle\Repository\MessageRepository;
+use Cocorico\MessageBundle\Repository\ThreadRepository;
 use Cocorico\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -48,7 +49,7 @@ class MessageController extends Controller
 {
 
     /**
-     * lists the available messages
+     * Lists all the available messages
      *
      * @Method("GET")
      * @Route("/{page}", name="cocorico_dashboard_message", requirements={"page" = "\d+"}, defaults={"page" = 1})
@@ -65,10 +66,9 @@ class MessageController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $userType = $request->getSession()->get('profile', 'asker');
         $threadManager = $this->get('cocorico_message.thread_manager');
         /** @var Paginator $threads */
-        $threads = $threadManager->getListingInboxThreads($user, $userType, $page);
+        $threads = $threadManager->getListingInboxThreads($user, $page);
 
         return $this->render(
             'CocoricoMessageBundle:Dashboard/Message:inbox.html.twig',
@@ -97,7 +97,6 @@ class MessageController extends Controller
      * @ParamConverter("user", class="CocoricoUserBundle:User", options={"id" = "slug"})
      *
      * @param Request $request
-     * @param Listing|null $listing
      * @return RedirectResponse|Response
      * @throws RuntimeException
      */
@@ -151,9 +150,10 @@ class MessageController extends Controller
 
     /**
      * @param FormInterface $form
-     * @param Thread $thread
+     * @param NewThreadMessage $thread
      * @param User $user
      * @param string $slug
+     * @param string $route
      * @param string $title
      * @return Response|null
      */
@@ -163,14 +163,26 @@ class MessageController extends Controller
 
         $form->setData($thread);
 
+        /** @var User $actualUser */
+        $actualUser = $this->getUser();
+
         /** @var Message $message */
         $message = $formHandler->process($form);
+
 
         $translator = $this->get('translator');
         $session = $this->get('session');
 
+
         if ($message) {
-            $messageEvent = new MessageEvent($message->getThread(), $user, $this->getUser());
+            if ($actualUser->getMemberOrganization()->isMessagesConfirmation()) {
+                $message->setVerified(false);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($message);
+                $em->flush();
+            }
+
+            $messageEvent = new MessageEvent($message, $message->getThread(), $user, $actualUser);
             $this->get('event_dispatcher')->dispatch(MessageEvents::MESSAGE_POST_SEND, $messageEvent);
             $this->getRepository()->clearNbUnreadMessageCache($user->getId());
 
@@ -214,6 +226,9 @@ class MessageController extends Controller
      */
     public function threadAction(Request $request, $threadId)
     {
+        /** @var User $actualUser */
+        $actualUser = $this->getUser();
+
         /** @var Thread $thread */
         $thread = $this->get('fos_message.provider')->getThread($threadId);
         $this->getRepository()->clearNbUnreadMessageCache($this->getUser()->getId());
@@ -230,11 +245,19 @@ class MessageController extends Controller
             array('threadId' => $thread->getId())
         );
 
-        if ($formHandler->process($form)) {
+        $message = $formHandler->process($form);
+        if ($message) {
+
+            if ($actualUser->getMemberOrganization()->isMessagesConfirmation()) {
+                $message->setVerified(false);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($message);
+                $em->flush();
+            }
             $recipients = $thread->getOtherParticipants($this->getUser());
             $recipient = (count($recipients) > 0) ? $recipients[0] : $this->getUser();
 
-            $messageEvent = new MessageEvent($thread, $recipient, $this->getUser());
+            $messageEvent = new MessageEvent($message, $thread, $recipient, $this->getUser());
             $this->get('event_dispatcher')->dispatch(MessageEvents::MESSAGE_POST_SEND, $messageEvent);
 
             return new RedirectResponse($selfUrl);
@@ -289,14 +312,12 @@ class MessageController extends Controller
      */
     public function nbUnReadMessagesAction(Request $request)
     {
-        $response = array('asker' => 0, 'offerer' => 0, 'total' => 0);
+        $response = array('total' => 0);
         if ($request->isXmlHttpRequest()) {
+            /** @var User $user */
             $user = $this->getUser();
-            $nbMessages = $this->getRepository()->getNbUnreadMessage($user, true);
-
-            $response['asker'] = ($nbMessages[0]['asker']) ? $nbMessages[0]['asker'] : 0;
-            $response['offerer'] = $nbMessages[0]['offerer'] ? $nbMessages[0]['offerer'] : 0;
-            $response['total'] = $response['asker'] + $response['offerer'];
+            $nbMessages = $this->getRepository()->getNbUnreadMessage($user);
+            $response['total'] = (int) $nbMessages;
         }
 
         return new JsonResponse($response);

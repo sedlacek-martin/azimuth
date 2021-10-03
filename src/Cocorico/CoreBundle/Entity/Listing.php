@@ -14,7 +14,10 @@ namespace Cocorico\CoreBundle\Entity;
 use Cocorico\CoreBundle\Model\BaseListing;
 use Cocorico\CoreBundle\Model\ListingOptionInterface;
 use Cocorico\MessageBundle\Entity\Thread;
+use Cocorico\TimeBundle\Model\DateRange;
 use Cocorico\UserBundle\Entity\User;
+use DateInterval;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
@@ -115,15 +118,36 @@ class Listing extends BaseListing
      */
     private $options;
 
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="valid_from", type="date", nullable=true)
+     */
+    protected $validFrom;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="valid_to", type="date", nullable=true)
+     */
+    protected $validTo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expiry_date", type="date")
+     */
+    protected $expiryDate;
+
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->listingListingCharacteristics = new ArrayCollection();
-        $this->discounts = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->threads = new ArrayCollection();
         $this->options = new ArrayCollection();
+        $this->expiryDate = (new DateTime())->add(new DateInterval("P1Y"));
     }
 
 
@@ -543,6 +567,71 @@ class Listing extends BaseListing
             ) ? 1 : 0,
             "characteristic" => $characteristic,
         );
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getValidFrom(): ?DateTime
+    {
+        return $this->validFrom;
+    }
+
+    /**
+     * @param DateTime|null $validFrom
+     */
+    public function setValidFrom(?DateTime $validFrom): void
+    {
+        $this->validFrom = $validFrom;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getValidTo(): ?DateTime
+    {
+        return $this->validTo;
+    }
+
+    /**
+     * @param DateTime|null $validTo
+     */
+    public function setValidTo(?DateTime $validTo): void
+    {
+        $this->validTo = $validTo;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getExpiryDate(): DateTime
+    {
+        return $this->expiryDate;
+    }
+
+    /**
+     * @param DateTime $expiryDate
+     */
+    public function setExpiryDate(DateTime $expiryDate): void
+    {
+        $this->expiryDate = $expiryDate;
+    }
+
+    /**
+     * @return DateRange
+     */
+    public function getDateRange(): DateRange
+    {
+        return new DateRange($this->getValidFrom(), $this->getValidTo(), true);
+    }
+
+    /**
+     * @param DateRange $range
+     */
+    public function setDateRange(DateRange $range): void
+    {
+        $this->setValidFrom($range->getStart());
+        $this->setValidTo($range->getEnd());
     }
 
     public function getTitle()

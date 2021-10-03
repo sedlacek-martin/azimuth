@@ -37,6 +37,7 @@ services:
                 cocorico_time_zone: "%cocorico.time_zone%"
                 cocorico_from_email: "%cocorico.from_email%"
                 cocorico_contact_email: "%cocorico.contact_mail%"
+                cocorico_site_name: "%cocorico.site_name%"
             - templates:
                 listing_activated_offerer: "%cocorico.listing_activated_offerer.email.template%"
                 booking_request_offerer: "%cocorico.booking_request_offerer.email.template%"

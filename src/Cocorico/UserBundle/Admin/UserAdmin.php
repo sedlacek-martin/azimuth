@@ -25,6 +25,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserAdmin extends BaseUserAdmin
 {
+    public const RELEVANT_ROLES = [
+        'ROLE_FACILITATOR',
+        'ROLE_ACTIVATOR',
+        'ROLE_USER',
+        'ROLE_SUPER_ADMIN',
+    ];
+
     protected $baseRoutePattern = 'user';
     protected $bundles;
     protected $locales;
@@ -54,6 +61,16 @@ class UserAdmin extends BaseUserAdmin
         $roles = $container->getParameter('security.role_hierarchy.roles');
 
         $rolesChoices = User::flattenRoles($roles);
+
+        if (!$this->authIsGranted('ROLE_DEVELOPER')) {
+            $rolesChoices = array_filter($rolesChoices, function ($val) {
+                if (in_array($val, self::RELEVANT_ROLES)) {
+                    return true;
+                }
+
+                return false;
+            });
+        }
 
         $formMapper
             ->with('Main information')
@@ -268,9 +285,6 @@ class UserAdmin extends BaseUserAdmin
         $actions = [
             'actions' => [
                 'edit' => [],
-                'list_user_trusted' => [
-                    'template' => 'CocoricoSonataAdminBundle::list_action_trusted.html.twig',
-                ],
             ],
         ];
 
@@ -383,7 +397,6 @@ class UserAdmin extends BaseUserAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('create');
-        $collection->remove('delete');
         $collection->remove('show');
     }
 }

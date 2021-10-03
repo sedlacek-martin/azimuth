@@ -34,7 +34,6 @@
                         {% for listingListingCharacteristic in form.listingListingCharacteristicsOrderedByGroup %}
                             {% set listingCharacteristic = listingListingCharacteristic.vars.value.listingCharacteristic %}
                             {% set listingCharacteristicGroup =  listingCharacteristic.listingCharacteristicGroup.getName() %}
-                            {#{{ dump(listingCharacteristic) }}#}
                             {% if listingCharacteristicGroup != previousListingCharacteristicGroup %}
                                 {% if previousListingCharacteristicGroup %}
                                     {{ '</ul>' }}

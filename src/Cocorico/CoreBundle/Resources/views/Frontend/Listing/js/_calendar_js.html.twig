@@ -7,15 +7,15 @@
 {% trans_default_domain 'cocorico_listing' %}
 
 {#Default cell content#}
-{% if listingDefaultStatus == ListingAvailabilityConstants.STATUS_AVAILABLE %}
-    {% set status_class = "cal-available-evt" %}
-{% else %}
-    {% if timeUnitAllDay %}
-        {% set status_class = "cal-unavailable-evt" %}
-    {% else %}
-        {% set status_class = "cal-unavailable-evt cal-unavailable-evt-next" %}
-    {% endif %}
-{% endif %}
+{#{% if listingDefaultStatus == ListingAvailabilityConstants.STATUS_AVAILABLE %}#}
+{#    {% set status_class = "cal-available-evt" %}#}
+{#{% else %}#}
+{#    {% if timeUnitAllDay %}#}
+{#        {% set status_class = "cal-unavailable-evt" %}#}
+{#    {% else %}#}
+{#        {% set status_class = "cal-unavailable-evt cal-unavailable-evt-next" %}#}
+{#    {% endif %}#}
+{#{% endif %}#}
 
 <div id="default-cell-content" style="display: none">
     <a class="fc-day-grid-event fc-event fc-start fc-end {{ status_class }}">

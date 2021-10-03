@@ -58,6 +58,62 @@ class Message extends BaseMessage
      */
     protected $metadata;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="verified", type="boolean", nullable=false)
+     */
+    protected $verified = true;
+
+    /**
+     * @ORM\Column(name="admin_note", type="text", length=65535, nullable=true)
+     *
+     * @var string|null
+     */
+    protected $adminNote;
+
+    /**
+     * @ORM\Column(name="verified_at", type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
+    protected $verifiedAt;
+
+    /**
+     * @return bool
+     */
+    public function isVerified(): bool
+    {
+        return $this->verified;
+    }
+
+    /**
+     * @param bool $verified
+     */
+    public function setVerified(bool $verified): void
+    {
+        $this->verified = $verified;
+        if ($verified) {
+            $this->verifiedAt = new \DateTime();
+        }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAdminNote(): ?string
+    {
+        return $this->adminNote;
+    }
+
+    /**
+     * @param string|null $adminNote
+     */
+    public function setAdminNote(?string $adminNote): void
+    {
+        $this->adminNote = $adminNote;
+    }
+
     public function setCreatedAt($createdAt)
     {
         return $this->createdAt = $createdAt;

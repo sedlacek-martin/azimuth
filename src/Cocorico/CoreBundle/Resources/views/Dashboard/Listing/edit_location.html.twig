@@ -32,7 +32,13 @@
             <div role="tabpanel" class="tab-pane active" id="info">
 
                 <div class="form-holder">
-                    <h2>{{ 'listing.edit.location.title'|trans }}</h2>
+                    <h2>{{ 'listing.edit.location.title'|trans }}
+                        <span title="{{ 'listing.location.title.help'|trans }}"
+                                 data-placement="right"
+                                 data-toggle="tooltip" class="tooltip-button"
+                                 data-original-title="{{ 'listing.location.title.help'|trans }}">?
+                        </span>
+                    </h2>
 
                     <div class="form-block block2" id="listing-location">
                         <h3>{{ 'listing.location.title'|trans }}</h3>
@@ -73,11 +79,11 @@
                             <div class="col cell">
                                 <span class="label">
                                     {{ form_label(form.location.street_number) }}
-                                    <button title="{{ 'listing.location.help'|trans }}"
+                                    <button title="{{ 'listing.location.street_number.help'|trans }}"
                                             data-placement="right"
                                             data-toggle="tooltip" class="tooltip-button"
                                             type="button"
-                                            data-original-title="{{ 'listing.location.help'|trans }}">?
+                                            data-original-title="{{ 'listing.location.street_number.help'|trans }}">?
                                     </button>
                                 </span>
 
@@ -136,9 +142,14 @@
                                 <i class="glyphicon glyphicon-map-marker me-2" style="font-size: 1.3em;"></i>
 
                                 <p>{{ 'listing.location.drag_message'|trans }}</p>
+
                             </div>
                             <div class="map-box">
                                 <div id="map-listing"></div>
+                            </div>
+                            <div class="mt-4 text-muted">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                                <span>{{ 'listing.location.not_accured_shown.text'|trans }}</span>
                             </div>
                         </div>
 

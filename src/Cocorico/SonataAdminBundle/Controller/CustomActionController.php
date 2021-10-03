@@ -3,22 +3,37 @@
 namespace Cocorico\SonataAdminBundle\Controller;
 
 use Cocorico\CoreBundle\Entity\CountryInformation;
+use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Entity\MemberOrganization;
 use Cocorico\CoreBundle\Repository\CountryInformationRepository;
+use Cocorico\CoreBundle\Repository\ListingRepository;
+use Cocorico\MessageBundle\Entity\Message;
+use Cocorico\MessageBundle\Entity\Thread;
+use Cocorico\MessageBundle\Event\MessageEvent;
+use Cocorico\MessageBundle\Event\MessageEvents;
+use Cocorico\MessageBundle\Repository\MessageRepository;
 use Cocorico\SonataAdminBundle\Form\Type\ActivatorSettingsType;
 use Cocorico\SonataAdminBundle\Form\Type\FacilitatorSettingsType;
+use Cocorico\SonataAdminBundle\Form\Type\MessageAdminNoteType;
 use Cocorico\SonataAdminBundle\Form\Type\MoEditType;
+use Cocorico\SonataAdminBundle\Form\Type\SuperAdminMailType;
+use Cocorico\SonataAdminBundle\Form\Type\TestMailType;
 use Cocorico\UserBundle\Entity\User;
+use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
+use Cocorico\UserBundle\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * Booking Dashboard controller.
- *
  * @Route("/action/")
  */
 class CustomActionController extends Controller
@@ -37,11 +52,54 @@ class CustomActionController extends Controller
      */
     public function dashboardAction(): Response
     {
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $em->getRepository(User::class);
+        /** @var ListingRepository $listingRepository */
+        $listingRepository = $em->getRepository(Listing::class);
+        /** @var MessageRepository $messageRepository */
+        $messageRepository = $em->getRepository(Message::class);
+
+        $moId = null;
+        if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
+            $moId = $currentUser->getMemberOrganization()->getId();
+        }
+
+        $waitingActivationCount = $userRepository->getWaitingActivationCount($moId);
+        $postToValidateCount = $listingRepository->getWaitingForValidationCount($moId);
+        $messagesToVerify = $messageRepository->getWaitingForValidationCount($moId);
 
         return $this->render(
             'CocoricoSonataAdminBundle::CustomActions/dashboard.html.twig',
-            []
+            [
+                'activationCount' => $waitingActivationCount,
+                'validatePostCount' => $postToValidateCount,
+                'validateMessageCount' => $messagesToVerify,
+            ]
         );
+    }
+
+    /**
+     * @Route("toggle-super-admin", name="cocorico_admin__toggle_super_admin")
+     * @Method("GET")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function toggleSuperAdminMenuAction(Request $request): JsonResponse
+    {
+        $session = $this->get('session');
+        if ($request->query->get('opened-super-admin-menu') !== null) {
+            $session->set('opened-super-admin-menu', $request->query->getBoolean('opened-super-admin-menu', false));
+        }
+
+        return new JsonResponse(['hide_sidebar' => $session->get('opened-super-admin-menu', false)]);
+
     }
 
     /**
@@ -114,6 +172,11 @@ class CustomActionController extends Controller
             $em->persist($memberOrganization);
             $em->flush();
 
+            $this->addFlash(
+                'sonata_flash_success',
+                $this->get('translator')->trans('flash_action_activator_settings_success', [], 'SonataAdminBundle')
+            );
+
             return $this->redirectToRoute('cocorico_admin__activator_settings');
 
         }
@@ -150,6 +213,11 @@ class CustomActionController extends Controller
             $em->persist($memberOrganization);
             $em->flush();
 
+            $this->addFlash(
+                'sonata_flash_success',
+                $this->get('translator')->trans('flash_action_facilitator_settings_success', [], 'SonataAdminBundle')
+            );
+
             return $this->redirectToRoute('cocorico_admin__facilitator_settings');
 
         }
@@ -159,6 +227,295 @@ class CustomActionController extends Controller
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/listing/validate/{id}", name="cocorico_admin__listing_validate")
+     * @Method("GET")
+     */
+    public function listingValidateAction(Request $request, Listing $listing): RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($listing->getStatus() === Listing::STATUS_TO_VALIDATE ) {
+            try {
+                $listing->setStatus(Listing::STATUS_PUBLISHED);
+                $em->persist($listing);
+                $this->addFlash(
+                    'sonata_flash_success',
+                    $this->get('translator')->trans(
+                        'flash_action_listing_validate_success',
+                        array(),
+                        'SonataAdminBundle')
+                );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'sonata_flash_error',
+                    $this->get('translator')->trans(
+                        'flash_action_listing_validate_error',
+                        array(),
+                        'SonataAdminBundle')
+                );
+            }
+        }
+        $em->flush();
+
+        return new RedirectResponse(
+            $this->generateUrl('listing-validation_list')
+        );
+    }
+
+    /**
+     * @Route("message/validation/detail/{id}", name="cocorico_admin__message_validate_detail")
+     * @Method("GET")
+     *
+     * @param Thread $thread
+     * @return Response|null
+     */
+    public function messageValidationDetailAction(Thread $thread): ?Response
+    {
+        if (!$this->isGranted('ROLE_SUPER_ADMIN')
+            && !$this->isGranted('ROLE_FACILITATOR')) {
+            throw $this->createAccessDeniedException("You are not allowed to display this message thread");
+        }
+
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+        $currentMoId = $currentUser->getMemberOrganization()->getId();
+        $isSuperAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
+
+        $haveUserFromMO = false;
+        $threadMeta = $thread->getAllMetadata();
+        foreach ($threadMeta as $meta) {
+            if ($meta->getParticipant()->getMemberOrganization()->getId() === $currentMoId) {
+                $haveUserFromMO = true;
+                break;
+            }
+        }
+
+        if (!$haveUserFromMO && !$isSuperAdmin) {
+            throw $this->createAccessDeniedException("You are not allowed to display this message thread");
+        }
+
+        return $this->render('CocoricoSonataAdminBundle::CustomActions/message_validation_detail.html.twig', [
+                'thread' => $thread,
+                'isSuperAdmin' => $isSuperAdmin,
+                'currentUserMo' => $currentUser->getMemberOrganization(),
+            ]
+        );
+    }
+
+    /**
+     *
+     * @Route("message/validation/validate/{id}", name="cocorico_admin__message_validate")
+     * @Method("GET")
+     */
+    public function messageValidationValidateAction(Message $message): RedirectResponse
+    {
+        if (!$this->isGranted('ROLE_SUPER_ADMIN')
+            && !$this->isGranted('ROLE_FACILITATOR')) {
+            throw $this->createAccessDeniedException("You are not allowed to validate messages");
+        }
+
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+        $currentMoId = $currentUser->getMemberOrganization()->getId();
+        $isSuperAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
+
+        if (!$isSuperAdmin && $currentMoId !== $message->getSender()->getMemberOrganization()->getId()) {
+            throw $this->createAccessDeniedException("You are not allowed to validate this message");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $message->setVerified(true);
+        $thread = $message->getThread();
+
+        $sender = $message->getSender();
+        $recipients = $thread->getOtherParticipants($sender);
+        $recipient = (count($recipients) > 0) ? $recipients[0] : $this->getUser();
+
+        $messageEvent = new MessageEvent($message, $message->getThread(), $recipient, $sender);
+        $this->get('event_dispatcher')->dispatch(MessageEvents::MESSAGE_POST_SEND, $messageEvent);
+
+        $em->persist($message);
+        $em->flush();
+
+        $this->addFlash(
+            'sonata_flash_success',
+            $this->get('translator')->trans('flash_action_message_validate_success', [], 'SonataAdminBundle')
+        );
+
+        return $this->redirectToRoute('cocorico_admin__message_validate_detail', ['id' => $message->getThread()->getId()]);
+    }
+
+    /**
+     * @Route("message/validation/admin-note/{id}", name="cocorico_admin__message_admin_note")
+     * @Method({"GET", "POST"})
+     * @param Message $message
+     * @param Request $request
+     * @return RedirectResponse|Response|null
+     */
+    public function messageValidationAdminNoteAction(Message $message, Request $request)
+    {
+        if (!$this->isGranted('ROLE_SUPER_ADMIN')
+            && !$this->isGranted('ROLE_FACILITATOR')) {
+            throw $this->createAccessDeniedException("You are not allowed to add admin notes to messages");
+        }
+
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+        $currentMoId = $currentUser->getMemberOrganization()->getId();
+        $isSuperAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
+
+        if (!$isSuperAdmin && $currentMoId !== $message->getSender()->getMemberOrganization()->getId()) {
+            throw $this->createAccessDeniedException("You are not allowed to validate this message");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(MessageAdminNoteType::class, $message, [
+            'action' => $this->generateUrl('cocorico_admin__message_admin_note', ['id' => $message->getId()]),
+        ])->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($message);
+            $em->flush();
+
+            $this->addFlash(
+                'sonata_flash_success',
+                $this->get('translator')->trans('flash_action_message_add_admin_note_success', [], 'SonataAdminBundle')
+            );
+
+            return $this->redirectToRoute('cocorico_admin__message_validate_detail', ['id' => $message->getThread()->getId()]);
+        }
+
+        return $this->render('CocoricoSonataAdminBundle::CustomActions/message_validation_admin_note.html.twig', [
+                'message' => $message,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("super-admin/actions", name="cocorico_admin__super_admin_actions")
+     * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return RedirectResponse|Response|null
+     */
+    public function superAdminToolsAction(Request $request)
+    {
+        if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $roleFilterForm = $this->createForm(SuperAdminMailType::class, null, [
+            'action' => $this->generateUrl('cocorico_admin__super_admin_actions'),
+        ])->handleRequest($request);
+
+        if ($roleFilterForm->isSubmitted() && $roleFilterForm->isValid()) {
+            $data = $roleFilterForm->getData();
+
+            /** @var UserRepository $userRepository */
+            $userRepository = $em->getRepository(User::class);
+
+            $users = [];
+            if (!empty($data['roles'])) {
+                $users = $userRepository->findByRoles(...$data['roles']);
+            }
+            $users = array_map(function (User $user) {
+                return $user->getEmail();
+            }, $users);
+
+            $emails = implode(',', $users);
+            $mailToLink = "mailto:?bcc=" . $emails;
+            $userCount = count($users);
+        }
+
+        $testMailForm = $this->createForm(TestMailType::class, null, [
+            'action' => $this->generateUrl('cocorico_admin__super_admin_actions'),
+        ])->handleRequest($request);
+
+        if ($testMailForm->isSubmitted() && $testMailForm->isValid()) {
+            /** @var TwigSwiftMailer $mailer */
+            $mailer = $this->get('cocorico_user.mailer.twig_swift');
+
+            $data = $testMailForm->getData();
+            $email = $data['email'];
+
+            $mailer->sendTest($email);
+
+            $this->addFlash(
+                'sonata_flash_success',
+                $this->get('translator')->trans('flash_action_message_test_email_sent_success', [], 'SonataAdminBundle')
+            );
+
+            return $this->redirectToRoute('cocorico_admin__super_admin_actions');
+        }
+
+        return $this->render('CocoricoSonataAdminBundle::CustomActions/super_admin_action.html.twig', [
+                'userFilterForm' => $roleFilterForm->createView(),
+                'testMailForm' => $testMailForm->createView(),
+                'mailToLink' => $mailToLink ?? '',
+                'emails' => $emails ?? '',
+                'userCount' => $userCount ?? 0,
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     *
+     * @Route("super-admin/cache-clear", name="cocorico_admin__super_admin__cache_clear")
+     * @Method({"GET"})
+     */
+    public function cacheClearAction(Request $request)
+    {
+        if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+        }
+
+        $php = $this->getParameter('cocorico_config_php_cli_path');
+
+        //Clear cache
+        $command = $php . ' ../bin/console cache:clear --env=prod';
+
+        $process = new Process($command);
+        try {
+            $process->mustRun();
+            $content = $process->getOutput();
+            $this->addFlash(
+                'sonata_flash_success',
+                $this->get('translator')->trans('super_admin.cache_clear.success', [], 'SonataAdminBundle')
+            );
+        } catch (ProcessFailedException $e) {
+            $content = $e->getMessage();
+            $this->addFlash(
+                'sonata_flash_error',
+                $this->get('translator')->trans('super_admin.cache_clear.error', [], 'SonataAdminBundle')
+            );
+        }
+
+        $referer = $request->headers->get('referer');
+        if ($referer !== '') {
+            return $this->redirect($referer);
+        }
+
+        return $this->redirectToRoute('cocorico_admin__super_admin_actions');
+    }
+
+    /**
+     * @Route("test-email", name="cocorico_admin__test_email")
+     * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     */
+    public function sendTestMailAction(Request $request)
+    {
+
 
     }
 }

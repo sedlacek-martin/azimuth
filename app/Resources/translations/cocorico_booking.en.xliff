@@ -108,18 +108,6 @@
         <source>booking.duration:</source>
         <target>Total:</target>
       </trans-unit>
-      <trans-unit id="1f8b18d0d699e8cdef8ccc60f90ba5f21577e44c" resname="booking.edit.error">
-        <source>booking.edit.error</source>
-        <target>An error has occured</target>
-      </trans-unit>
-      <trans-unit id="f2cdc19eb8e84aea5c5c49413c844dcfeae1ffd4" resname="booking.edit.payin.error">
-        <source>booking.edit.payin.error</source>
-        <target>Error while payin</target>
-      </trans-unit>
-      <trans-unit id="fbf02df348aa5e34398fd1ab84d0c7e2f9bb8881" resname="booking.edit.success">
-        <source>booking.edit.success</source>
-        <target>The booking has been updated successfully</target>
-      </trans-unit>
       <trans-unit id="1c1287d4207cf0cf579c1746cd4cb025a400b9dc" resname="booking.expire_in:">
         <source>booking.expire_in:</source>
         <target>Expires in:</target>
@@ -184,18 +172,6 @@
         <source>booking.new.back</source>
         <target>Back to the listing page</target>
       </trans-unit>
-      <trans-unit id="de1727b52b15b37b38993a85d41786d382c35f3d" resname="booking.new.delivery.error">
-        <source>booking.new.delivery.error</source>
-        <target>Delivery unavailable</target>
-      </trans-unit>
-      <trans-unit id="ac0ca9b37979902af8065324b68a1854cba66a35" resname="booking.new.delivery.success">
-        <source>booking.new.delivery.success</source>
-        <target>Your delivery request has been updated</target>
-      </trans-unit>
-      <trans-unit id="56c15ae0e9dd3422fe84d16dc8e32cfb769a06f2" resname="booking.new.delivery_max.error">
-        <source>booking.new.delivery_max.error</source>
-        <target>This delivery place is too far away</target>
-      </trans-unit>
       <trans-unit id="a3ba46a9afe280f1ae5aea3cdd7cf7515843eb09" resname="booking.new.error.duration_invalid">
         <source>booking.new.error.duration_invalid</source>
         <target>Booking duration invalid</target>
@@ -204,57 +180,21 @@
         <source>booking.new.error.unavailable</source>
         <target>Listing unavailable for this dates</target>
       </trans-unit>
-      <trans-unit id="7b683e0a21108b3893a72fad3849803087e797a7" resname="booking.new.error.voucher">
-        <source>booking.new.error.voucher</source>
-        <target>Code invalid</target>
-      </trans-unit>
-      <trans-unit id="42f63b537bae10ae0037c14333bb589d2cae56d9" resname="booking.new.form.error">
-        <source>booking.new.form.error</source>
-        <target>An error has occured</target>
-      </trans-unit>
       <trans-unit id="c7de4f52f1bf3074e96c0f94b6fb806ad7c2e469" resname="booking.new.message.placeholder">
         <source>booking.new.message.placeholder</source>
         <target>Send a request message to the offerer</target>
-      </trans-unit>
-      <trans-unit id="1703c3a03d2cf45800ecb3b3f93e1a5b8bb6573f" resname="booking.new.options.success">
-        <source>booking.new.options.success</source>
-        <target>Your booking options have been updated</target>
       </trans-unit>
       <trans-unit id="083c618c0d6cea305c1e7472bcceb15434994011" resname="booking.new.provider.title">
         <source>booking.new.provider.title</source>
         <target>Say hello to your provider</target>
       </trans-unit>
-      <trans-unit id="28b9e3c63b01f9d312668d113cd7eb5c04157a3c" resname="booking.new.self_booking.error">
-        <source>booking.new.self_booking.error</source>
-        <target>You can't book to yourself</target>
-      </trans-unit>
-      <trans-unit id="925b7c8ca8556c7b560a5a904ec979fe4916a304" resname="booking.new.success">
-        <source>booking.new.success</source>
-        <target>You have booked this listing successfully</target>
-      </trans-unit>
       <trans-unit id="339b4d363003c41683cf58282a0895c975c66f6f" resname="booking.new.tac.link">
         <source>booking.new.tac.link</source>
         <target>the terms and conditions</target>
       </trans-unit>
-      <trans-unit id="ecc3fa0ac15c5eb33b33f1f1be3eeebd95d9ffcc" resname="booking.new.unknown.error">
-        <source>booking.new.unknown.error</source>
-        <target>Unknown error</target>
-      </trans-unit>
       <trans-unit id="b370314c697defb1d7393abebaf775f49845880b" resname="booking.new.validation.submit">
         <source>booking.new.validation.submit</source>
         <target>Validate booking</target>
-      </trans-unit>
-      <trans-unit id="0462988b55dd0888cce21c33dc9ad8ecff7e38c6" resname="booking.new.voucher.success">
-        <source>booking.new.voucher.success</source>
-        <target>Your voucher code is valid. You get a discount.</target>
-      </trans-unit>
-      <trans-unit id="34d6eabc34fbcd0e218de0639d3c36b1ae87127c" resname="booking.new.voucher_amount.error">
-        <source>booking.new.voucher_amount.error</source>
-        <target>The booking amount is insufficient to use this code.</target>
-      </trans-unit>
-      <trans-unit id="42217431f6de6e7c4326a18f5e57ba8d637b0539" resname="booking.new.voucher_code.error">
-        <source>booking.new.voucher_code.error</source>
-        <target>This code is not correct</target>
       </trans-unit>
       <trans-unit id="120b92535d73cd274ad24e0314361747252b8251" resname="booking.payin.amount.title">
         <source>booking.payin.amount.title</source>
@@ -435,10 +375,6 @@
       <trans-unit id="aa26cc6aa2b9905f8d3be1c2c377714f62638890" resname="entity.booking.status.refused">
         <source>entity.booking.status.refused</source>
         <target>Refused</target>
-      </trans-unit>
-      <trans-unit id="68af81ad015bd138bbb52a137e8a782c7136b7d3" resname="listing.form.tac">
-        <source>listing.form.tac</source>
-        <target>I accept</target>
       </trans-unit>
       <trans-unit id="2d041b5cc9ac200797cc97aa9cd0c6d87aad829a" resname="listing.show.book.now.submit">
         <source>listing.show.book.now.submit</source>

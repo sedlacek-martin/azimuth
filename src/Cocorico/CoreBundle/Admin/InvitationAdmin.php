@@ -2,6 +2,9 @@
 
 namespace Cocorico\CoreBundle\Admin;
 
+use Cocorico\CoreBundle\Entity\UserInvitation;
+use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
+use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -11,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
-class InvitationAdmin extends AbstractAdmin
+class InvitationAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
     protected $baseRoutePattern = 'invitations';
@@ -38,7 +41,6 @@ class InvitationAdmin extends AbstractAdmin
             ->add('used', null, array())
             ->add('expiration', null, array())
             ->add('createdAt', null, array());
-//            ->add('certified', null, ['editable' => true]);
 
         $listMapper->add(
             '_action',
@@ -59,8 +61,20 @@ class InvitationAdmin extends AbstractAdmin
             ->add('expiration', DateTimeType::class)
             ->add('used', CheckboxType::class, [
                 'required' => false,
+                'help' => 'invite.used.help'
             ]);
     }
+
+    /**
+     * @param UserInvitation $object
+     */
+    public function postPersist($object)
+    {
+        /** @var TwigSwiftMailer $mailer */
+        $mailer = $this->getContainer()->get('cocorico_user.mailer.twig_swift');
+        $mailer->sendUserInvited($object->getEmail());
+    }
+
 
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
@@ -68,36 +82,8 @@ class InvitationAdmin extends AbstractAdmin
             ->add('used', null,  []);
     }
 
-//    protected function configureDefaultFilterValues(array &$filterValues)
-//    {
-//        $filterValues['certified'] = [
-//            'type' => EqualType::TYPE_IS_EQUAL,
-//            'value' => BooleanType::TYPE_NO,
-//        ];
-//    }
-
     protected function configureRoutes(RouteCollection $collection)
     {
-//        $collection->remove('create');
-//        $collection->remove('delete');
     }
-
-//    public function createQuery($context = 'list')
-//    {
-//        $token= $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken();
-//        $currentUser = $token ? $token->getUser() : null;
-//        /** @var QueryBuilder $query */
-//        $query = parent::createQuery($context);
-//        //COUNTRY_ADMIN can only see users from his country
-//        if (isset($currentUser) && $currentUser->hasRole("ROLE_COUNTRY_ADMIN")) {
-//
-//            $query->join($query->getRootAliases()[0] . '.user', 'u')
-//                ->andWhere(
-//                    $query->expr()->eq('u.countryOfResidence', ':country')
-//                )->setParameter(':country', $currentUser->getCountryOfResidence());
-//        }
-//
-//        return $query;
-//    }
 
 }

@@ -97,6 +97,7 @@ doctrine:
                         GEO_DISTANCE: Cocorico\CoreBundle\DQL\GeoDistanceFunction
                     string_functions:
                         CAST: Cocorico\CoreBundle\DQL\CastFunction
+                        IFNULL: Cocorico\CoreBundle\DQL\IfNullFunction
 
         resolve_target_entities:
             #Don't put double quotes!
@@ -112,10 +113,10 @@ doctrine:
             json: Sonata\Doctrine\Types\JsonType
 
 
-doctrine_mongodb:
-    document_managers:
-        default:
-            auto_mapping: true
+#doctrine_mongodb:
+#    document_managers:
+#        default:
+#            auto_mapping: true
 
 
 jms_i18n_routing:

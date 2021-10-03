@@ -14,7 +14,7 @@
             {% set label_required = "" %}
             {% if required %}
                 {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
-                {% set label_required %}<span> *</span>{% endset %}
+{#                {% set label_required %}<span> *</span>{% endset %}#}
             {% endif %}
 
             {% if label is empty %}
@@ -66,7 +66,7 @@
             {% if not form.vars.valid %}
                 <div class="flashes">
                     <div class="alert alert-error-new">
-                        <i class="ico icon-error"></i>
+                        <i class="glyphicon glyphicon-remove me-4" style="font-size: 1.5em"></i>
 
                         <p>
                             {{ 'form.error'|trans }}

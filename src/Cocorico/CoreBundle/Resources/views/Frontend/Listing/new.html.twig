@@ -118,6 +118,7 @@
 
             let showHideType = function($select) {
                 const $typeRadios = $('.listing-type');
+                $typeRadios.find('input').first().click();
                 let selectedValue = $select.val();
                 let $selectedOption = $select.find('option[value="' + selectedValue + '"]');
                 if ($selectedOption.attr('data-search') === 'true' && $selectedOption.attr('data-offer') === 'true') {

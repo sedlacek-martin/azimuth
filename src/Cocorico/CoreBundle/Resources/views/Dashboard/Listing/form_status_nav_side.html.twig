@@ -1,6 +1,7 @@
 {% trans_default_domain 'cocorico_listing' %}
 
 <div id="status-form-container">
+
     {% if app.request.isXmlHttpRequest %}
         {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
     {% endif %}

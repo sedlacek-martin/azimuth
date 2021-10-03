@@ -17,6 +17,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ContactAdmin extends AbstractAdmin
@@ -219,12 +220,27 @@ class ContactAdmin extends AbstractAdmin
             'actions',
             array(
                 'actions' => array(
-                    //'show' => array(),
-                    'edit' => array(),
+                    'show' => array(),
                 )
             )
         );
     }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->with('User information')
+            ->add('firstName')
+            ->add('lastName')
+            ->add('email')
+            ->end()
+            ->with('Message')
+            ->add('subject')
+            ->add('message')
+            ->add('createdAt')
+            ->end();
+    }
+
 
     public function getBatchActions()
     {

@@ -1,0 +1,7 @@
+{% set url =  path('cocorico_admin__message_validate_detail', {'id': object.id}) %}
+
+<a href="{{ url }}" class="btn btn-sm btn-default edit_link"
+   title="{{ 'list_action_message_detail'|trans({}, 'SonataAdminBundle') }}">
+    <i class="glyphicon glyphicon-eye-open"> </i>
+    {{ 'list_action_message_detail'|trans({}, 'SonataAdminBundle') }}
+</a>

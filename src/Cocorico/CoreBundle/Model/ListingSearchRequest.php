@@ -37,7 +37,7 @@ class ListingSearchRequest implements TranslationContainerInterface
     //Number of flexibility days
     protected $flexibility;
     protected $priceRange;
-    protected $sortBy;
+    protected $sortBy = 'distance';
     protected $page;
     protected $maxPerPage;
     /** @var RequestStack requestStack */
@@ -47,14 +47,13 @@ class ListingSearchRequest implements TranslationContainerInterface
     protected $similarListings;
     protected $locale;
     protected $isXmlHttpRequest = false;
-    //todo: decouple category fields and delivery
-    protected $categoriesFields;
+//    todo: decouple category fields and delivery
+//    protected $categoriesFields;
     protected $delivery;
     protected $keywords;
 
     public static $sortByValues = array(
         'recommended' => 'listing.search.sort_by.recommended',
-//        'price' => 'listing.search.sort_by.price',
         'distance' => 'listing.search.sort_by.distance'
     );
 
@@ -93,12 +92,12 @@ class ListingSearchRequest implements TranslationContainerInterface
             $this->categories = $categories;
         }
 
-        //Categories fields
-        $this->categoriesFields = array();
-        $categoriesFields = $this->request->query->get("categories_fields");
-        if (is_array($categoriesFields)) {
-            $this->categoriesFields = $categoriesFields;
-        }
+//        //Categories fields
+//        $this->categoriesFields = array();
+//        $categoriesFields = $this->request->query->get("categories_fields");
+//        if (is_array($categoriesFields)) {
+//            $this->categoriesFields = $categoriesFields;
+//        }
 
         //Characteristics
         $this->characteristics = array();
@@ -364,21 +363,21 @@ class ListingSearchRequest implements TranslationContainerInterface
         $this->keywords = $keywords;
     }
 
-    /**
-     * @return array
-     */
-    public function getCategoriesFields()
-    {
-        return $this->categoriesFields;
-    }
-
-    /**
-     * @param array $categoriesFields
-     */
-    public function setCategoriesFields($categoriesFields)
-    {
-        $this->categoriesFields = $categoriesFields;
-    }
+//    /**
+//     * @return array
+//     */
+//    public function getCategoriesFields()
+//    {
+//        return $this->categoriesFields;
+//    }
+//
+//    /**
+//     * @param array $categoriesFields
+//     */
+//    public function setCategoriesFields($categoriesFields)
+//    {
+//        $this->categoriesFields = $categoriesFields;
+//    }
 
     /**
      * @return boolean

@@ -1,0 +1,7 @@
+{% set url =  path('cocorico_admin__listing_validate', {'id': object.id}) %}
+
+<a href="{{ url }}" class="btn btn-sm btn-default edit_link"
+   title="{{ 'list_action_listing_validate'|trans({}, 'SonataAdminBundle') }}">
+    <i class="glyphicon glyphicon-ok"></i>
+    {{ 'list_action_listing_validate'|trans({}, 'SonataAdminBundle') }}
+</a>

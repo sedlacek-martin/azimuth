@@ -1,0 +1,120 @@
+{% extends "CocoricoSonataAdminBundle::standard_layout.html.twig" %}
+
+{% trans_default_domain 'SonataAdminBundle' %}
+
+{% block navbar_title %}
+    <strong>{{ 'super_admin_actions.title'|trans }}</strong>
+{% endblock %}
+
+{% block title %}
+    {{ 'super_admin_actions.title'|trans }}
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel border">
+                    <div class="panel-heading bg-gray-light">
+                        <label>{{ form_label(userFilterForm.roles) }}</label>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                                {{ form_start(userFilterForm) }}
+                                {{ form_errors(userFilterForm) }}
+                                <div class="field-row form-group">
+                                    {{ form_errors(userFilterForm.roles) }}
+                                    <div class="sonata-ba-field sonata-ba-field-standard-natural" style="margin-left: 15px">
+                                        <div class="post-confirmation-settings">
+                                            {{ form_widget(userFilterForm.roles) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hidden">
+                                    {{ form_rest(userFilterForm) }}
+                                    {{ form_end(userFilterForm) }}
+                                </div>
+                                <button class="btn btn-default" type="submit" name="btn_create_and_edit">
+                                    <i class="glyphicon glyphicon-filter" aria-hidden="true"></i>
+                                    {{ 'super_admin_actions.generate_emails.button.text'|trans }}
+                                </button>
+
+                                {% if userCount > 0 %}
+                                    <hr>
+                                    <a href="{{ mailToLink }}" class="btn btn-success">
+                                        <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
+                                        {{ 'super_admin_actions.send_emails.link.text'|trans }}
+                                    </a>
+                                    <span>{{ 'super_admin_actions.userCount.text'|trans }}: {{ userCount }}</span>
+                                    <div style="margin-top: 10px;">
+                                        <label for="emails">
+                                            {{ 'super_admin_actions.send_emails.copy_here.label'|trans }}
+                                        </label>
+                                        <input type="text" name="emails" id="emails" value="{{ emails }}" style="width: 100%;">
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel border">
+                    <div class="panel-heading bg-gray-light">
+                        {{ 'super_admin_actions.cache_clear.heading'|trans }}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12 sonata-ba-form">
+                                <a class="btn btn-warning" href="{{ path('cocorico_admin__super_admin__cache_clear') }}">
+                                    <i class="glyphicon glyphicon-erase"></i>
+                                    {{ 'super_admin_actions.cache_clear.label'|trans }}
+                                </a>
+                                <div class="text-warning" style="margin-top: 10px;">
+                                    <i class="glyphicon glyphicon-warning-sign"></i>
+                                    {{ 'super_admin_actions.cache_clear.warning'|trans }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="panel border">
+                    <div class="panel-heading bg-gray-light">
+                        {{ 'super_admin_actions.test_email.heading'|trans }}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12 sonata-ba-form">
+                                {{ form_start(testMailForm) }}
+                                <div class="field-row form-group">
+                                    {{ form_errors(testMailForm.email) }}
+                                    <div class="control-label">
+                                        {{ form_label(testMailForm.email) }}:
+                                    </div>
+                                    <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                        {{ form_widget(testMailForm.email) }}
+                                    </div>
+
+                                </div>
+                                <button class="btn btn-default" type="submit" name="btn_create_and_edit">
+                                    <i class="glyphicon glyphicon-send" aria-hidden="true"></i>
+                                    {{ 'super_admin_actions.send_test_email.button.text'|trans }}
+                                </button>
+                                <div class="hidden">
+                                    {{ form_rest(testMailForm) }}
+                                    {{ form_end(testMailForm) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

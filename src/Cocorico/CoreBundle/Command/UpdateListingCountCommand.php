@@ -47,7 +47,8 @@ class UpdateListingCountCommand extends ContainerAwareCommand
         }
 
         $result = json_encode($data);
-        //Currencies json file
+
+        //Count json file
         $file = $this->getContainer()->getParameter('cocorico.listing_count');
         $fs = $this->getContainer()->get('filesystem');
         try {

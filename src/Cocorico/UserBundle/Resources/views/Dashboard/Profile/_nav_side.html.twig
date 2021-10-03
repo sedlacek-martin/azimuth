@@ -37,4 +37,8 @@
             </li>
         </ul>
     </nav>
+    <div class="profile-expire-nav small text-center">
+        {{ 'profile.account_expiration.label'|trans }}
+        {{ app.user.expiryDate|date('d.m.Y') }}
+    </div>
 </aside>

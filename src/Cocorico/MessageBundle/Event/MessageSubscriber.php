@@ -11,7 +11,9 @@
 
 namespace Cocorico\MessageBundle\Event;
 
+use Cocorico\MessageBundle\Entity\Message;
 use Cocorico\MessageBundle\Mailer\TwigSwiftMailer;
+use Cocorico\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -31,11 +33,18 @@ class MessageSubscriber implements EventSubscriberInterface
      */
     public function onMessagePostSend(MessageEvent $event, $eventName, EventDispatcherInterface $dispatcher)
     {
-        $thread = $event->getThread();
+        /** @var Message $message */
+        $message = $event->getMessage();
+        /** @var User $recipient */
         $recipient = $event->getRecipient();
         $sender = $event->getSender();
+        $thread = $event->getThread();
 
-        $this->mailer->sendNewThreadMessageToUser($thread->getId(), $recipient, $sender);
+        // only send email notification if message is verified
+        if ($message->isVerified() && $recipient->isNewMessageNotifications()) {
+            $this->mailer->sendNewThreadMessageToUser($thread->getId(), $recipient, $sender);
+        }
+
     }
 
 

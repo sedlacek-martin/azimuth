@@ -57,26 +57,32 @@ class ListingCharacteristicType extends AbstractType
 
                 /** @var ListingCharacteristic $listingCharacteristic */
                 foreach ($characteristics as $i => $listingCharacteristic) {
-                    $id = $listingCharacteristic->getId();
-                    if (count($listingCharacteristic->getListingCategories()) == 0) {
-                        $selected = array_key_exists($id, $data) ? $data[$id] : false;
-
-                        $form->add(
-                            $id,
-                            ChoiceType::class,
-                            array(
-                                'data' => $selected,
-                                'required' => false,
-                                /** @Ignore */
-                                'label' => $listingCharacteristic->getName(),
-                                'label_attr' => array(
-                                    'group' => $listingCharacteristic->getListingCharacteristicGroup()->getName()
-                                ),
-                                'mapped' => false,
-                                'choices' => $this->buildCharacteristicValuesChoices($listingCharacteristic),
-                            )
-                        );
+                    if (!$listingCharacteristic->isFilter()) {
+                        continue;
                     }
+
+                    $id = $listingCharacteristic->getId();
+
+                    $selected = array_key_exists($id, $data) ? $data[$id] : false;
+
+                    $form->add(
+                        $id,
+                        ChoiceType::class,
+                        array(
+                            'data' => $selected,
+                            'required' => false,
+                            /** @Ignore */
+                            'label' => $listingCharacteristic->getName(),
+                            'label_attr' => array(
+                                'group' => $listingCharacteristic->getListingCharacteristicGroup()->getName()
+                            ),
+                            'mapped' => false,
+                            'choices' => $this->buildCharacteristicValuesChoices($listingCharacteristic),
+                            'attr' => [
+                                'data-always-show' => $listingCharacteristic->getListingCategories()->count() === 0 ? 'true' : 'false',
+                            ]
+                        )
+                    );
                 }
             }
         );

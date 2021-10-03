@@ -22,37 +22,9 @@
         <source>Admin</source>
         <target>Admin</target>
       </trans-unit>
-      <trans-unit id="718a7e8a582e982e452dd5700addba4ffc1cf40d" resname="Body">
-        <source>Body</source>
-        <target>Body</target>
-      </trans-unit>
-      <trans-unit id="8495d49b9badc45109cb77149ec971f93c3cbdad" resname="Booking Batch">
-        <source>Booking Batch</source>
-        <target>Booking Batch</target>
-      </trans-unit>
-      <trans-unit id="23a7c90680d0c1c0520e16d2f5d88ea9f9dc4747" resname="Booking Create">
-        <source>Booking Create</source>
-        <target>Booking Create</target>
-      </trans-unit>
-      <trans-unit id="1b08cf9abe18fdb915faf35a73c1a1299d963e45" resname="Booking Delete">
-        <source>Booking Delete</source>
-        <target>Booking Delete</target>
-      </trans-unit>
-      <trans-unit id="303aa127a0d042f599b60b42baed036d6ecc2dac" resname="Booking Edit">
-        <source>Booking Edit</source>
-        <target>Booking Edit</target>
-      </trans-unit>
-      <trans-unit id="51d671e59c7bdd9c1a13d2b3395be43b17bdf587" resname="Booking List">
-        <source>Booking List</source>
-        <target>Booking List</target>
-      </trans-unit>
-      <trans-unit id="5824112ef17e1bd2039581476fc00a261ec38551" resname="Booking Update">
-        <source>Booking Update</source>
-        <target>Booking Update</target>
-      </trans-unit>
-      <trans-unit id="135229c7beadb48dd31d1567028d035586fb41f3" resname="Bookings">
-        <source>Bookings</source>
-        <target>Bookings</target>
+      <trans-unit id="b52b36b7269fbfc58ec24bb724691951a3decbe8" resname="Back">
+        <source>Back</source>
+        <target state="new">Back</target>
       </trans-unit>
       <trans-unit id="a3c686e711e4720f99b4562bb3dbaae7ab658cf2" resname="Category">
         <source>Category</source>
@@ -104,11 +76,19 @@
       </trans-unit>
       <trans-unit id="5db1542e683b0540dc5a4544657851d8020c91d9" resname="Created At">
         <source>Created At</source>
-        <target>Created At</target>
+        <target state="new">Created At</target>
       </trans-unit>
       <trans-unit id="d87f47b47e4d5794d53fe0734c49417bd046cde0" resname="Dashboard">
         <source>Dashboard</source>
         <target state="new">Dashboard</target>
+      </trans-unit>
+      <trans-unit id="84add5b2952787581cb9a8851eef63d1ec75d22b" resname="Email">
+        <source>Email</source>
+        <target state="new">Email</target>
+      </trans-unit>
+      <trans-unit id="b6ea992aab4668311bb94778e056dd0285f27621" resname="First Name">
+        <source>First Name</source>
+        <target state="new">First Name</target>
       </trans-unit>
       <trans-unit id="af2ad4a6d914427daf692248ce9d72c336a1bb31" resname="Footer Batch">
         <source>Footer Batch</source>
@@ -141,6 +121,10 @@
       <trans-unit id="474ae52625b87d7628ae7b20a499329a99e07119" resname="Id">
         <source>Id</source>
         <target>Id</target>
+      </trans-unit>
+      <trans-unit id="863cb39fbe7d70597076af1960b7ae4618d9e1bc" resname="Last Name">
+        <source>Last Name</source>
+        <target state="new">Last Name</target>
       </trans-unit>
       <trans-unit id="0cc4ad4d88a84f6160b5d5b24957c0b2ac04953d" resname="Listing Batch">
         <source>Listing Batch</source>
@@ -286,49 +270,25 @@
         <source>Listing Update</source>
         <target>Listing Update</target>
       </trans-unit>
-      <trans-unit id="e539f597db1f90ad18e9093b2b7f1268953063f4" resname="Listings">
-        <source>Listings</source>
-        <target>Listings</target>
-      </trans-unit>
       <trans-unit id="47e0034c76b8be903ba19ee728dbf58744f41f02" resname="Member organizations">
         <source>Member organizations</source>
         <target state="new">Member organizations</target>
       </trans-unit>
       <trans-unit id="68f4145fee7dde76afceb910165924ad14cf0d00" resname="Message">
         <source>Message</source>
-        <target>Message</target>
+        <target state="new">Message</target>
       </trans-unit>
-      <trans-unit id="8b542b664f93f0adc1e5b29329dfabdbd545c2ee" resname="Message Batch">
-        <source>Message Batch</source>
-        <target>Message Batch</target>
-      </trans-unit>
-      <trans-unit id="5ce4a85bc5575f0029d336a2c95b30d35ac0a4d3" resname="Message Create">
-        <source>Message Create</source>
-        <target>Message Create</target>
-      </trans-unit>
-      <trans-unit id="1b789e06379640a51a86dde9275230858a1b3a66" resname="Message Delete">
-        <source>Message Delete</source>
-        <target>Message Delete</target>
-      </trans-unit>
-      <trans-unit id="97aab0b8d6dd1c0681102c7a7c6ca43bc0b82e1b" resname="Message Edit">
-        <source>Message Edit</source>
-        <target>Message Edit</target>
-      </trans-unit>
-      <trans-unit id="63fc92d594c953c54907080563d8d6b557d1acb3" resname="Message List">
-        <source>Message List</source>
-        <target>Message List</target>
-      </trans-unit>
-      <trans-unit id="2b527f4e607c2ebefbee89382e0dd27eae5aca2d" resname="Message Update">
-        <source>Message Update</source>
-        <target>Message Update</target>
-      </trans-unit>
-      <trans-unit id="f1702b4686278becffc88baabe6f4b7a8355532c" resname="Messages">
-        <source>Messages</source>
-        <target>Messages</target>
+      <trans-unit id="923a2aca43981a24474d1b1589595144cc93508b" resname="Message conversations">
+        <source>Message conversations</source>
+        <target state="new">Message conversations</target>
       </trans-unit>
       <trans-unit id="709a23220f2c3d64d1e1d6d18c4d5280f8d82fca" resname="Name">
         <source>Name</source>
         <target>Name</target>
+      </trans-unit>
+      <trans-unit id="3898b9aa06204b6c19b999c3411e15a3ba8c987b" resname="Offer">
+        <source>Offer</source>
+        <target state="new">Offer</target>
       </trans-unit>
       <trans-unit id="636fe73cb2fc2d422175526ee35832ac8d16acb6" resname="Page Batch">
         <source>Page Batch</source>
@@ -382,45 +342,17 @@
         <source>Parameter Update</source>
         <target>Parameter Update</target>
       </trans-unit>
-      <trans-unit id="6437b7bf655854909262d5f53fbe3bc7a6665b48" resname="Rating">
-        <source>Rating</source>
-        <target>Rating</target>
+      <trans-unit id="a0ca0c3198947ded7419101f3e83d48a9cb41f2a" resname="Posts">
+        <source>Posts</source>
+        <target state="new">Posts</target>
       </trans-unit>
-      <trans-unit id="6cd3b443c0ebf5edaef8f602542e9e3f8baf8f5e" resname="Reservation Message">
-        <source>Reservation Message</source>
-        <target>Reservation Message</target>
+      <trans-unit id="c6bc88e33fe75988f9086f1d3b8f647feda7592b" resname="Posts validation">
+        <source>Posts validation</source>
+        <target state="new">Posts validation</target>
       </trans-unit>
-      <trans-unit id="d72d8a568fa4982c9732d941526eb0bc7580c348" resname="Review Batch">
-        <source>Review Batch</source>
-        <target>Review Batch</target>
-      </trans-unit>
-      <trans-unit id="bcb2710b3b397356f17defe81d9b6ab9da0c045c" resname="Review Create">
-        <source>Review Create</source>
-        <target>Review Create</target>
-      </trans-unit>
-      <trans-unit id="ace309a222eeee33fb87aef63387f148ff0055e7" resname="Review Delete">
-        <source>Review Delete</source>
-        <target>Review Delete</target>
-      </trans-unit>
-      <trans-unit id="878edf19afa0aa1a3447e570e88b5f4ed4976d34" resname="Review Edit">
-        <source>Review Edit</source>
-        <target>Review Edit</target>
-      </trans-unit>
-      <trans-unit id="473db986a021918b1b4cbccab14b9c80bc733b94" resname="Review List">
-        <source>Review List</source>
-        <target>Review List</target>
-      </trans-unit>
-      <trans-unit id="5e009ad2edbe3652fc4e28d7f21c4cf6391d5ac0" resname="Review Update">
-        <source>Review Update</source>
-        <target>Review Update</target>
-      </trans-unit>
-      <trans-unit id="b83c4cdafef5813f0872892b666e2b04466198c4" resname="Reviews">
-        <source>Reviews</source>
-        <target>Reviews</target>
-      </trans-unit>
-      <trans-unit id="17b874d289117b1353bc5080960074585aed4227" resname="Sender">
-        <source>Sender</source>
-        <target>Sender</target>
+      <trans-unit id="bce06414177f72ab70e6387b6af9f8ceef0d6049" resname="Search">
+        <source>Search</source>
+        <target state="new">Search</target>
       </trans-unit>
       <trans-unit id="5b6825d3c67a35898b7b65fd986a7fe6ca47771d" resname="Site">
         <source>Site</source>
@@ -430,29 +362,33 @@
         <source>Status</source>
         <target>Status</target>
       </trans-unit>
+      <trans-unit id="8d183dbdcea3b29906090bd83fa6fa37923cc8ec" resname="Subject">
+        <source>Subject</source>
+        <target state="new">Subject</target>
+      </trans-unit>
       <trans-unit id="1020d4545c096a444c10520339ea8a1149220be9" resname="Thread Batch">
         <source>Thread Batch</source>
-        <target>Thread Batch</target>
+        <target state="new">Thread Batch</target>
       </trans-unit>
       <trans-unit id="ab08da20c3e2f4c1e8ca674fd42e41df399c1edc" resname="Thread Create">
         <source>Thread Create</source>
-        <target>Thread Create</target>
+        <target state="new">Thread Create</target>
       </trans-unit>
       <trans-unit id="8619861056047238e98a79f77600d263d91969d5" resname="Thread Delete">
         <source>Thread Delete</source>
-        <target>Thread Delete</target>
+        <target state="new">Thread Delete</target>
       </trans-unit>
       <trans-unit id="93dff53399438becde1ab9a05c37634ddce6d6fa" resname="Thread Edit">
         <source>Thread Edit</source>
-        <target>Thread Edit</target>
+        <target state="new">Thread Edit</target>
       </trans-unit>
       <trans-unit id="a7bc04075346dd048d60c1dc360dd4763a3e4c2c" resname="Thread List">
         <source>Thread List</source>
-        <target>Thread List</target>
+        <target state="new">Thread List</target>
       </trans-unit>
       <trans-unit id="9d2dbc92dbbf80d00edb68ec84113f35e418638e" resname="Thread Update">
         <source>Thread Update</source>
-        <target>Thread Update</target>
+        <target state="new">Thread Update</target>
       </trans-unit>
       <trans-unit id="8ad8302d110b05d7e02330dac58628134fdcff02" resname="Translations">
         <source>Translations</source>
@@ -474,141 +410,53 @@
         <source>action_delete</source>
         <target>Delete</target>
       </trans-unit>
-      <trans-unit id="803aa4542bd0d44bcaf600e05a5a5384487a94b8" resname="admin.booking.alerted_expiring.label">
-        <source>admin.booking.alerted_expiring.label</source>
-        <target>Alerted expiring</target>
+      <trans-unit id="69ff5f8c4b3d74f3c00896c31e10b611fa23c6d7" resname="activator_overview.new_registrations">
+        <source>activator_overview.new_registrations</source>
+        <target>New registrations waiting for activation</target>
       </trans-unit>
-      <trans-unit id="b80ea936399574abb2eea43ee5238d72b719537b" resname="admin.booking.alerted_imminent.label">
-        <source>admin.booking.alerted_imminent.label</source>
-        <target>Alerted imminent</target>
+      <trans-unit id="50946af4f3c22ed183b41ff34171916c3d92f5fe" resname="activator_overview.title">
+        <source>activator_overview.title</source>
+        <target>Activator overview</target>
       </trans-unit>
-      <trans-unit id="9e0cb1d472a43eb362b59049c5694a4b65df0019" resname="admin.booking.amount_discount_voucher.label">
-        <source>admin.booking.amount_discount_voucher.label</source>
-        <target>Amount discount voucher</target>
+      <trans-unit id="bd71f8ac1c3d3462ee84a72a6feb1db96e3828b6" resname="activator_settings.edit_verified_domains.link_text">
+        <source>activator_settings.edit_verified_domains.link_text</source>
+        <target>Edit verified domains</target>
       </trans-unit>
-      <trans-unit id="9151eeee10fc46946e6e92538922d7d7af65c473" resname="admin.booking.amount_options.title">
-        <source>admin.booking.amount_options.title</source>
-        <target>Options amount</target>
+      <trans-unit id="2bea025f52ca9ae5ba9d36305d1ef0796a0b475a" resname="activator_settings.expiry_period.help_message">
+        <source>activator_settings.expiry_period.help_message</source>
+        <target>Number of days after which user has to be reactivated</target>
       </trans-unit>
-      <trans-unit id="0a340257a9f992669bd699cd1ba75f8336286884" resname="admin.booking.asker.label">
-        <source>admin.booking.asker.label</source>
-        <target>Asker</target>
+      <trans-unit id="bcdde2b4cc77ade2f9584dc5c9a193ae167e0c17" resname="activator_settings.title">
+        <source>activator_settings.title</source>
+        <target>Activator settings</target>
       </trans-unit>
-      <trans-unit id="aa6f071724745deceb7a6aa19fd81018e76f9454" resname="admin.booking.canceled_asker_booking_at.label">
-        <source>admin.booking.canceled_asker_booking_at.label</source>
-        <target>Booking canceled by asker at</target>
+      <trans-unit id="f403cc751f46f9f7c785544c1f7ecc860411ea8a" resname="activator_settings.user.expiry_period">
+        <source>activator_settings.user.expiry_period</source>
+        <target>User expiry period</target>
       </trans-unit>
-      <trans-unit id="44c07db2db3b82f328048d3c3c80b0762fdc541a" resname="admin.booking.code_voucher.label">
-        <source>admin.booking.code_voucher.label</source>
-        <target>Voucher code</target>
+      <trans-unit id="f50571875519d95813e59c85c27fff881fd6948d" resname="activator_settings.user.registration.activation">
+        <source>activator_settings.user.registration.activation</source>
+        <target>Other email addresses (manual activation of new accounts)</target>
       </trans-unit>
-      <trans-unit id="de31157454649204b5dbcf4d1c482d2cb3fd0e22" resname="admin.booking.created_at.label">
-        <source>admin.booking.created_at.label</source>
-        <target>Created At</target>
+      <trans-unit id="8575936528feb0667893197914763276bf0fabd1" resname="activator_settings.user.registration.user_identifier_description.label">
+        <source>activator_settings.user.registration.user_identifier_description.label</source>
+        <target state="new">activator_settings.user.registration.user_identifier_description.label</target>
       </trans-unit>
-      <trans-unit id="1b019ec3ed071ce76fee6fe602b33b77a6349c0e" resname="admin.booking.delivery">
-        <source>admin.booking.delivery</source>
-        <target>Delivery</target>
+      <trans-unit id="4f32218bd238dbb06d3749051927e3fb3af68745" resname="activator_settings.user.registration.user_identifier_required.label">
+        <source>activator_settings.user.registration.user_identifier_required.label</source>
+        <target state="new">activator_settings.user.registration.user_identifier_required.label</target>
       </trans-unit>
-      <trans-unit id="248a758904788198a400d332ab8a775769d09051" resname="admin.booking.delivery_address.label">
-        <source>admin.booking.delivery_address.label</source>
-        <target>Delivery address</target>
+      <trans-unit id="828c68508c3bbc0fadcfcff42b73fe59fa6ec331" resname="activator_settings.user.registration.verified_domains">
+        <source>activator_settings.user.registration.verified_domains</source>
+        <target>Whitelisted Scout domains (automatic activation of new accounts)</target>
       </trans-unit>
-      <trans-unit id="55a9fe288369ecbd05a7c628a4c76555246ea241" resname="admin.booking.delivery_amount.label">
-        <source>admin.booking.delivery_amount.label</source>
-        <target>admin.booking.delivery_amount.label</target>
+      <trans-unit id="91e74741237758f79d6d89049642faa7490c3a72" resname="activator_settings.ways_of_register.label">
+        <source>activator_settings.ways_of_register.label</source>
+        <target>Accepted ways of registering</target>
       </trans-unit>
-      <trans-unit id="807e64e15b176261dc3d0b33ceadf715859a47ea" resname="admin.booking.discount_voucher.label">
-        <source>admin.booking.discount_voucher.label</source>
-        <target>Voucher discount percent or amount</target>
-      </trans-unit>
-      <trans-unit id="77eb6a930a1bd5acaf3cdb9618c752aca8eef3c5" resname="admin.booking.end.label">
-        <source>admin.booking.end.label</source>
-        <target>Booking end day</target>
-      </trans-unit>
-      <trans-unit id="0957a6fb845bc519b17be221427fa3fdfe41cf9b" resname="admin.booking.end_time.label">
-        <source>admin.booking.end_time.label</source>
-        <target>Booking end time</target>
-      </trans-unit>
-      <trans-unit id="d52c84a7339da98d742e115a570be975ce5a8b03" resname="admin.booking.expire_at.label">
-        <source>admin.booking.expire_at.label</source>
-        <target>Expire At</target>
-      </trans-unit>
-      <trans-unit id="7f1af80a760853b4452b790d7684ac5322fecf5f" resname="admin.booking.hatchback.label">
-        <source>admin.booking.hatchback.label</source>
-        <target>admin.booking.hatchback.label</target>
-      </trans-unit>
-      <trans-unit id="582617bc386d20e79cec81588b71e822690f0bd9" resname="admin.booking.hatchback_amount.label">
-        <source>admin.booking.hatchback_amount.label</source>
-        <target>admin.booking.hatchback_amount.label</target>
-      </trans-unit>
-      <trans-unit id="c3309065c21b8919c1d444c558db153aaeec1df9" resname="admin.booking.listing_id.label">
-        <source>admin.booking.listing_id.label</source>
-        <target>Listing Id</target>
-      </trans-unit>
-      <trans-unit id="b9fbd56cf7483648157bf7df9dcdb57a523c73ef" resname="admin.booking.listing_title.label">
-        <source>admin.booking.listing_title.label</source>
-        <target>Listing </target>
-      </trans-unit>
-      <trans-unit id="dedf7f641d03fdd866d282cdc7f459e611fd448f" resname="admin.booking.mangopay_card_id.label">
-        <source>admin.booking.mangopay_card_id.label</source>
-        <target>Mangopay Card ID</target>
-      </trans-unit>
-      <trans-unit id="9f74e199b35905fa0c2ad252466831e19094846d" resname="admin.booking.mangopay_card_pre_auth_id.label">
-        <source>admin.booking.mangopay_card_pre_auth_id.label</source>
-        <target>Mangopay Card Pre Auth ID</target>
-      </trans-unit>
-      <trans-unit id="6144488021b5702f890e0a4b9bcd25a1fbf42d14" resname="admin.booking.mangopay_payin_pre_auth_id.label">
-        <source>admin.booking.mangopay_payin_pre_auth_id.label</source>
-        <target>Mangopay Payin Pre Auth ID</target>
-      </trans-unit>
-      <trans-unit id="843f66b7c19c823a511961d119f4c831aba22f1b" resname="admin.booking.new_booking_at.label">
-        <source>admin.booking.new_booking_at.label</source>
-        <target>New booking at</target>
-      </trans-unit>
-      <trans-unit id="e36325fb46d5d03c3b96c5ea34baed28365840a7" resname="admin.booking.offerer.label">
-        <source>admin.booking.offerer.label</source>
-        <target>Offerer</target>
-      </trans-unit>
-      <trans-unit id="77b329e8477294c0050a9c96364657bef3f719c5" resname="admin.booking.refused_booking_at.label">
-        <source>admin.booking.refused_booking_at.label</source>
-        <target>Refused booking at</target>
-      </trans-unit>
-      <trans-unit id="4831a617cb1e8153ff54396d192e4c3bc7523ff0" resname="admin.booking.start.label">
-        <source>admin.booking.start.label</source>
-        <target>Booking start day</target>
-      </trans-unit>
-      <trans-unit id="ee8a4303b9190e71152d2a7e3fcd742115c2dbb9" resname="admin.booking.start_time.label">
-        <source>admin.booking.start_time.label</source>
-        <target>Booking start time</target>
-      </trans-unit>
-      <trans-unit id="2842dd817f166672262625e977a646d0e2fa8334" resname="admin.booking.status.label">
-        <source>admin.booking.status.label</source>
-        <target>Status</target>
-      </trans-unit>
-      <trans-unit id="3fc2057bca15d6bbbe3a3825c09662429e9fb1f3" resname="admin.booking.timezone_asker.label">
-        <source>admin.booking.timezone_asker.label</source>
-        <target>Asker timezone</target>
-      </trans-unit>
-      <trans-unit id="212ce6077f70e2c3f065d50f0123c020dc224aff" resname="admin.booking.timezone_offerer.label">
-        <source>admin.booking.timezone_offerer.label</source>
-        <target>Offerer timezone</target>
-      </trans-unit>
-      <trans-unit id="3defa35a3f2970c9205a46cb5be7c1ad70480d9d" resname="admin.booking.title">
-        <source>admin.booking.title</source>
-        <target>Booking</target>
-      </trans-unit>
-      <trans-unit id="f8cb8a28d309e6384c6927bc1553bbf1e05fc839" resname="admin.booking.updated_at.label">
-        <source>admin.booking.updated_at.label</source>
-        <target>Updated At</target>
-      </trans-unit>
-      <trans-unit id="5a453940056e809db54b7cce34f0b3cce67ed794" resname="admin.booking.user_card.label">
-        <source>admin.booking.user_card.label</source>
-        <target>admin.booking.user_card.label</target>
-      </trans-unit>
-      <trans-unit id="c505ce3c9f9360faf87f28c942bb0b6fed7e22bc" resname="admin.booking.validated.label">
-        <source>admin.booking.validated.label</source>
-        <target>Validated</target>
+      <trans-unit id="aeca6f7cbdd38c48505b5d3f8fd66fa23e80a975" resname="add_admin_note.title">
+        <source>add_admin_note.title</source>
+        <target>Admin note</target>
       </trans-unit>
       <trans-unit id="13c420e895a38a2cfe083dcddbadd185a7662fac" resname="admin.contact.created_at.label">
         <source>admin.contact.created_at.label</source>
@@ -695,10 +543,6 @@
         <source>admin.listing.images.label</source>
         <target>Images</target>
       </trans-unit>
-      <trans-unit id="fef3959e4e3efe81460055add8854c7a313fbbca" resname="admin.listing.label">
-        <source>admin.listing.label</source>
-        <target>Listing</target>
-      </trans-unit>
       <trans-unit id="a45d55b4e939c7cde7013de40ed40fb29aa87f06" resname="admin.listing.location.label">
         <source>admin.listing.location.label</source>
         <target>Address</target>
@@ -761,11 +605,20 @@
       </trans-unit>
       <trans-unit id="25ddba4dca066a6d2085363fb2a4907432a437ed" resname="admin.listing_characteristic.categories.help">
         <source>admin.listing_characteristic.categories.help</source>
-        <target>Choose categories, for which these characteristics will be applied. If left empty, it will be used for all.</target>
+        <target><![CDATA[Choose categories, for which these characteristics will be applied. If left empty, it will be used for all.<br>
+<span class="text-danger h4"><i class="glyphicon glyphicon-warning-sign"></i> Please, be avare that changing this setting can delete already filled in characteristics for some posts</span>!]]></target>
       </trans-unit>
       <trans-unit id="c237f7430b263a62434aef05dfd5646b2d775389" resname="admin.listing_characteristic.categories.label">
         <source>admin.listing_characteristic.categories.label</source>
         <target>Categories</target>
+      </trans-unit>
+      <trans-unit id="7b6a15ffea7d2e94c69a37f85bd28c8a584578f9" resname="admin.listing_characteristic.filter.help">
+        <source>admin.listing_characteristic.filter.help</source>
+        <target>If this checkbox is checked, this characteristic will be shown in listing page filters</target>
+      </trans-unit>
+      <trans-unit id="be350faedda3cce238adba09e8d516ba46787a6f" resname="admin.listing_characteristic.filter.label">
+        <source>admin.listing_characteristic.filter.label</source>
+        <target>Use in filters</target>
       </trans-unit>
       <trans-unit id="e1982f501539fbfafb8415c260bdbf65195508f7" resname="admin.listing_characteristic.group.label">
         <source>admin.listing_characteristic.group.label</source>
@@ -847,81 +700,29 @@
         <source>admin.parameters.warning</source>
         <target>Warning! Use sparingly: The update can occasioning momentary perfomance problems.</target>
       </trans-unit>
-      <trans-unit id="f770dd493424dc3ace1358fdad34a4d43321cb5f" resname="admin.review.booking.label">
-        <source>admin.review.booking.label</source>
-        <target>Booking</target>
-      </trans-unit>
-      <trans-unit id="18418eba65ff205625eb45e329e363caf297da2a" resname="admin.review.comment.label">
-        <source>admin.review.comment.label</source>
-        <target>Rating comment</target>
-      </trans-unit>
-      <trans-unit id="c255d13e63b96a7d1a6eb25dd4c7b853b5be0ebb" resname="admin.review.created_at.label">
-        <source>admin.review.created_at.label</source>
-        <target>Date</target>
-      </trans-unit>
-      <trans-unit id="b7f5bbd5b72bba1497ddddad38b4b3c0c852c662" resname="admin.review.listing.label">
-        <source>admin.review.listing.label</source>
-        <target>Listing title</target>
-      </trans-unit>
-      <trans-unit id="d9510213b05de69ab0992b67039ba079c2ffa42b" resname="admin.review.rating.label">
-        <source>admin.review.rating.label</source>
-        <target>Rating</target>
-      </trans-unit>
-      <trans-unit id="10a4dad943bbd733a35ae8ce714e469853aa2563" resname="admin.review.reviewBy.label">
-        <source>admin.review.reviewBy.label</source>
-        <target>Review from</target>
-      </trans-unit>
-      <trans-unit id="71fda9868ff725116a5991c1773fefa379de6c38" resname="admin.review.reviewTo.label">
-        <source>admin.review.reviewTo.label</source>
-        <target>Review to</target>
-      </trans-unit>
-      <trans-unit id="bf0ea4810c8cf9a89f9db3c836501f97a492f832" resname="admin.review.search.label">
-        <source>admin.review.search.label</source>
-        <target>Search text in rating comment</target>
-      </trans-unit>
-      <trans-unit id="4ff0c62f62198e54cd4133fe8677722f35de00c8" resname="admin.review.title">
-        <source>admin.review.title</source>
-        <target>Review</target>
-      </trans-unit>
-      <trans-unit id="a5acce54d2bdc98d1f24c24d09c105edb70518f5" resname="admin.thread.booking.label">
-        <source>admin.thread.booking.label</source>
-        <target>Id Reservation</target>
-      </trans-unit>
       <trans-unit id="f3ffbb21b53aa530133fa3f258334746134d3ece" resname="admin.thread.createdAt.label">
         <source>admin.thread.createdAt.label</source>
-        <target>Date</target>
+        <target>Created at</target>
       </trans-unit>
       <trans-unit id="55bb1dc3bcd22056b6c010ae973c01b3e484527c" resname="admin.thread.created_at.label">
         <source>admin.thread.created_at.label</source>
-        <target>Date</target>
+        <target>Created at</target>
       </trans-unit>
       <trans-unit id="191e2c707706e1617554ef55a5a4c1d5db97e34c" resname="admin.thread.from.label">
         <source>admin.thread.from.label</source>
         <target>From</target>
       </trans-unit>
-      <trans-unit id="14d4ca948b2ac32fcce2caf512e0f7c49a3a7a26" resname="admin.thread.listing.label">
-        <source>admin.thread.listing.label</source>
-        <target>Listing title</target>
-      </trans-unit>
-      <trans-unit id="7ff88a0bcf4951a5aff1ca8a2edf8fa95b5b5552" resname="admin.thread.search.label">
-        <source>admin.thread.search.label</source>
-        <target>Search text</target>
-      </trans-unit>
-      <trans-unit id="eb0e2544789b913840e2490dd6ea6eb85526c15f" resname="admin.thread.to.label">
-        <source>admin.thread.to.label</source>
-        <target>To</target>
-      </trans-unit>
-      <trans-unit id="d196e6ca2c02f59e3784b277857e91fddfda32e9" resname="admin.thread.type.label">
-        <source>admin.thread.type.label</source>
-        <target>Type of message</target>
-      </trans-unit>
-      <trans-unit id="63711e60d3a69b6e6b232576d727a09e3d5e5296" resname="admin.thread.view.label">
-        <source>admin.thread.view.label</source>
-        <target>Threads</target>
+      <trans-unit id="282233b4c64b187dd445813462eb12cb28974d9e" resname="admin.thread.member_organization.label">
+        <source>admin.thread.member_organization.label</source>
+        <target>Member organization</target>
       </trans-unit>
       <trans-unit id="a8a5ee8076a1880cae5c72eaaab7c1f325cad810" resname="admin.user.roles.help">
         <source>admin.user.roles.help</source>
         <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="fabfd0060962b3b0623d72305b11a98701d4f414" resname="btn_back_to_list">
+        <source>btn_back_to_list</source>
+        <target>Back to list</target>
       </trans-unit>
       <trans-unit id="f6a078434f53d63bf97293747b1d796b514b44a1" resname="btn_create">
         <source>btn_create</source>
@@ -979,6 +780,74 @@
         <source>delete_or</source>
         <target>or</target>
       </trans-unit>
+      <trans-unit id="91ab1a1eaa1352e02d73894cbd78bf68588dcbd6" resname="facilitator_overview.new_meesages">
+        <source>facilitator_overview.new_meesages</source>
+        <target>New messages waiting for validation</target>
+      </trans-unit>
+      <trans-unit id="d202e975a6c5eee4f776becfd6a0b22d2992a862" resname="facilitator_overview.new_posts">
+        <source>facilitator_overview.new_posts</source>
+        <target>New posts waiting for validation</target>
+      </trans-unit>
+      <trans-unit id="3e5bed24f3fc82e02920a4cb68e49fdb1d50f3ef" resname="facilitator_overview.title">
+        <source>facilitator_overview.title</source>
+        <target>Facilitator overview</target>
+      </trans-unit>
+      <trans-unit id="1d521a41c9364a90a98494a8fcdd68900a8f93ae" resname="facilitator_settings.listing.publish.automatically">
+        <source>facilitator_settings.listing.publish.automatically</source>
+        <target>Automatically after creation by member users</target>
+      </trans-unit>
+      <trans-unit id="aff9e72055f0087112c5305bad6a49db4111dfc6" resname="facilitator_settings.listing.publish.confirmation">
+        <source>facilitator_settings.listing.publish.confirmation</source>
+        <target>Manually unlocked by facilitators</target>
+      </trans-unit>
+      <trans-unit id="07ce8555defc6c5e39436f9efb81819229a149b5" resname="facilitator_settings.messages.automatically">
+        <source>facilitator_settings.messages.automatically</source>
+        <target>Automatically after send</target>
+      </trans-unit>
+      <trans-unit id="36253ed178d1e4026432c0f967e1b3830396ade5" resname="facilitator_settings.messages.confirmation">
+        <source>facilitator_settings.messages.confirmation</source>
+        <target>Manual message review</target>
+      </trans-unit>
+      <trans-unit id="9e6e078c78c1eacda912ff696d6c7d99862353b8" resname="facilitator_settings.messages_confirmation.label">
+        <source>facilitator_settings.messages_confirmation.label</source>
+        <target>Send message</target>
+      </trans-unit>
+      <trans-unit id="4237d1c83b3336b031097dc1ac6ac00dc8452573" resname="facilitator_settings.post_confirmation.label">
+        <source>facilitator_settings.post_confirmation.label</source>
+        <target>Publis post</target>
+      </trans-unit>
+      <trans-unit id="6837126dbfe089cd43c29b96db459b770c2a763e" resname="facilitator_settings.title">
+        <source>facilitator_settings.title</source>
+        <target>Facilitator settings</target>
+      </trans-unit>
+      <trans-unit id="399499a5b4e3dcf1bf3828c428224ddf1e0988fb" resname="flash_action_activator_settings_success">
+        <source>flash_action_activator_settings_success</source>
+        <target>Activator settings successfully changed</target>
+      </trans-unit>
+      <trans-unit id="745597c00c2f466619660b97e05211ea93fbb333" resname="flash_action_facilitator_settings_success">
+        <source>flash_action_facilitator_settings_success</source>
+        <target>Facilitator settings successfully changed</target>
+      </trans-unit>
+      <trans-unit id="9da18cbaf9a3aef5edddf0cd79a98b42e8d161d5" resname="flash_action_listing_validate_error">
+        <source>flash_action_listing_validate_error</source>
+        <target>Error occurred while validating the post</target>
+      </trans-unit>
+      <trans-unit id="43190e5018f3d521451475ccf931a99381093224" resname="flash_action_listing_validate_success">
+        <source>flash_action_listing_validate_success</source>
+        <target>Post validated successfully</target>
+      </trans-unit>
+      <trans-unit id="542765d11a656fae4524a67a0c6491dbecf0e67a" resname="flash_action_message_add_admin_note_success">
+        <source>flash_action_message_add_admin_note_success</source>
+        <target>Admin note was sucessfully added to message</target>
+      </trans-unit>
+      <trans-unit id="48b15070bbc8d7185d2fb353718452c3f015945e" resname="flash_action_message_test_email_sent_success">
+        <source>flash_action_message_test_email_sent_success</source>
+        <target state="new">flash_action_message_test_email_sent_success</target>
+      </trans-unit>
+      <trans-unit id="113d54207b4fe09f5c7602de406e5e7230c6d3d2" resname="flash_action_message_validate_success">
+        <source>flash_action_message_validate_success</source>
+        <target>Message validated</target>
+      </trans-unit>
       <trans-unit id="d5487a6d65fef041ffa8915ab4ca86bd232cc9c4" resname="flash_action_trusted_error">
         <source>flash_action_trusted_error</source>
         <target>Error occurred while activating the account</target>
@@ -989,11 +858,11 @@
       </trans-unit>
       <trans-unit id="c4c6df9d6c28db6e4b9cbd981cb0b27146a21fdd" resname="flash_action_user_reconfirm_error">
         <source>flash_action_user_reconfirm_error</source>
-        <target state="new">flash_action_user_reconfirm_error</target>
+        <target>Error occurred while confirming user</target>
       </trans-unit>
       <trans-unit id="b295af7b6f5b9efc132bacde024c6a1f2f5bc89f" resname="flash_action_user_reconfirm_success">
         <source>flash_action_user_reconfirm_success</source>
-        <target state="new">flash_action_user_reconfirm_success</target>
+        <target>User reconfirmed sucesfully</target>
       </trans-unit>
       <trans-unit id="909c17740baf5eb4bf8fdb847730d595c564dc1a" resname="flash_batch_reset_fees_error">
         <source>flash_batch_reset_fees_error</source>
@@ -1043,6 +912,18 @@
         <source>link_edit_acl</source>
         <target>Edit ACL</target>
       </trans-unit>
+      <trans-unit id="d9b75010fd0008936308a360ad93bbdfc96dd34e" resname="list_action_listing_validate">
+        <source>list_action_listing_validate</source>
+        <target>Validate</target>
+      </trans-unit>
+      <trans-unit id="9293a95290667da9cd75b7432d2ee9450bd9c429" resname="list_action_message_detail">
+        <source>list_action_message_detail</source>
+        <target>Detail</target>
+      </trans-unit>
+      <trans-unit id="1777843d8b5c9f4e3453a7ad83251e660cfcaf93" resname="list_action_show_listing">
+        <source>list_action_show_listing</source>
+        <target>Show listing</target>
+      </trans-unit>
       <trans-unit id="0a953759b53dc11c386abe82b930e57dbbe89ec0" resname="list_action_trusted">
         <source>list_action_trusted</source>
         <target>Activate</target>
@@ -1059,6 +940,42 @@
         <source>list_user_listings</source>
         <target>Display his listings</target>
       </trans-unit>
+      <trans-unit id="957b4c1af1038068a1e3cbc7bcf6cf9d7369ab8c" resname="menu.statistics">
+        <source>menu.statistics</source>
+        <target state="new">menu.statistics</target>
+      </trans-unit>
+      <trans-unit id="7d6b9106a532179e04f0509637a376f15fbe41ca" resname="menu.tools">
+        <source>menu.tools</source>
+        <target state="new">menu.tools</target>
+      </trans-unit>
+      <trans-unit id="fe4143d9e61b3524ea951b9c5f9fec8301455824" resname="message.add_admin_note.link.text">
+        <source>message.add_admin_note.link.text</source>
+        <target>Add admin note</target>
+      </trans-unit>
+      <trans-unit id="31c9bdebba885d88fb71526e0e02d376ae5b53d7" resname="message.censored">
+        <source>message.censored</source>
+        <target>This message is censored because user don't belong to your MO</target>
+      </trans-unit>
+      <trans-unit id="3c3508000aacf80a55186a2665df4e5d0702d9bb" resname="message.edit_admin_note.link.text">
+        <source>message.edit_admin_note.link.text</source>
+        <target>Edit admin note</target>
+      </trans-unit>
+      <trans-unit id="1f8c1cb31527e06fb046c09f790ef4d6138a847e" resname="message.validate.admin_note.text">
+        <source>message.validate.admin_note.text</source>
+        <target>Admin note</target>
+      </trans-unit>
+      <trans-unit id="64168aab7a27a4d2ccc90a6ae221e11df4f222d7" resname="message.validate.link.text">
+        <source>message.validate.link.text</source>
+        <target>Validate</target>
+      </trans-unit>
+      <trans-unit id="1ad9a74728f93a6ccd090d05c6b660274ba19fe9" resname="message.validation.admin_note.label">
+        <source>message.validation.admin_note.label</source>
+        <target>Admin note</target>
+      </trans-unit>
+      <trans-unit id="b31de3717d107d75e5cef10959ad2fbd9330556d" resname="message.validation.message.label">
+        <source>message.validation.message.label</source>
+        <target>Message</target>
+      </trans-unit>
       <trans-unit id="5fd1ee9cd7febbc39e51a8a29a3c621648214ad6" resname="message_batch_all_confirmation">
         <source>message_batch_all_confirmation</source>
         <target>message_batch_all_confirmation</target>
@@ -1070,6 +987,14 @@
       <trans-unit id="3c812e2dc11dbc915b3a77521b3ba8a50ca23660" resname="message_form_group_empty">
         <source>message_form_group_empty</source>
         <target>message_form_group_empty</target>
+      </trans-unit>
+      <trans-unit id="5e186a0e2cfeab383d030a1b0802a78af80cf209" resname="message_validation_detail.title">
+        <source>message_validation_detail.title</source>
+        <target>Validate message</target>
+      </trans-unit>
+      <trans-unit id="d4983be48fca941e241cf44455debdefdbb82445" resname="messages.heading">
+        <source>messages.heading</source>
+        <target>Messages</target>
       </trans-unit>
       <trans-unit id="99b270e3e2f21c989cf73a039fa7a291f0ef53ee" resname="noscript_warning">
         <source>noscript_warning</source>
@@ -1091,13 +1016,69 @@
         <source>registration_type_verified_domain_help</source>
         <target>Account was registered using verified domain</target>
       </trans-unit>
+      <trans-unit id="abc1350f2b5be870ca8aaff871e8afdd0cc9c55a" resname="said">
+        <source>said</source>
+        <target>said</target>
+      </trans-unit>
       <trans-unit id="18fb8e1941f7541a3f553998c00e5cc7786a4132" resname="search_placeholder">
         <source>search_placeholder</source>
         <target>Search</target>
       </trans-unit>
-      <trans-unit id="733b3b5ffd9334e6ded56256a2c5608bd77f16e6" resname="sonata.admin.listing">
-        <source>sonata.admin.listing</source>
-        <target>Listing</target>
+      <trans-unit id="ff003fd79ed7dd19d22065efaf27a666217100b0" resname="super_admin.cache_clear.error">
+        <source>super_admin.cache_clear.error</source>
+        <target state="new">super_admin.cache_clear.error</target>
+      </trans-unit>
+      <trans-unit id="cfeb1159f0276f7d28c60aed5a3fa918b7d0104f" resname="super_admin.cache_clear.success">
+        <source>super_admin.cache_clear.success</source>
+        <target state="new">super_admin.cache_clear.success</target>
+      </trans-unit>
+      <trans-unit id="d7012eee09e8a9893e5532ba1f743f1391db6634" resname="super_admin_actions.cache_clear.heading">
+        <source>super_admin_actions.cache_clear.heading</source>
+        <target state="new">super_admin_actions.cache_clear.heading</target>
+      </trans-unit>
+      <trans-unit id="f14344388b14272fe4b1896fcc9d5da9cc4c6374" resname="super_admin_actions.cache_clear.label">
+        <source>super_admin_actions.cache_clear.label</source>
+        <target state="new">super_admin_actions.cache_clear.label</target>
+      </trans-unit>
+      <trans-unit id="c6094337b2ae33cfd83e6dc54e0029aef773e521" resname="super_admin_actions.cache_clear.warning">
+        <source>super_admin_actions.cache_clear.warning</source>
+        <target state="new">super_admin_actions.cache_clear.warning</target>
+      </trans-unit>
+      <trans-unit id="61c7ec41cc54a7011e1428f0bc14a892e23e7e95" resname="super_admin_actions.email_recepient.label">
+        <source>super_admin_actions.email_recepient.label</source>
+        <target state="new">super_admin_actions.email_recepient.label</target>
+      </trans-unit>
+      <trans-unit id="be71998581ae730f26989a4f27f2dd59e7d136ac" resname="super_admin_actions.emails_filter.label">
+        <source>super_admin_actions.emails_filter.label</source>
+        <target state="new">super_admin_actions.emails_filter.label</target>
+      </trans-unit>
+      <trans-unit id="cb63e59618ce38f0c41e9842aa1301dbdb61d2f5" resname="super_admin_actions.generate_emails.button.text">
+        <source>super_admin_actions.generate_emails.button.text</source>
+        <target state="new">super_admin_actions.generate_emails.button.text</target>
+      </trans-unit>
+      <trans-unit id="8113d76480e8ad0e143f6a89bcbd824396ef7f8a" resname="super_admin_actions.send_emails.copy_here.label">
+        <source>super_admin_actions.send_emails.copy_here.label</source>
+        <target state="new">super_admin_actions.send_emails.copy_here.label</target>
+      </trans-unit>
+      <trans-unit id="6efebe5cb75985f702529914391e6981b88a068e" resname="super_admin_actions.send_emails.link.text">
+        <source>super_admin_actions.send_emails.link.text</source>
+        <target state="new">super_admin_actions.send_emails.link.text</target>
+      </trans-unit>
+      <trans-unit id="4f1a104f74538e3e0d32108e85a7863523d38ce0" resname="super_admin_actions.send_test_email.button.text">
+        <source>super_admin_actions.send_test_email.button.text</source>
+        <target state="new">super_admin_actions.send_test_email.button.text</target>
+      </trans-unit>
+      <trans-unit id="1aa6fef3b06ca1b05e7e207009f4534365377fd4" resname="super_admin_actions.test_email.heading">
+        <source>super_admin_actions.test_email.heading</source>
+        <target state="new">super_admin_actions.test_email.heading</target>
+      </trans-unit>
+      <trans-unit id="25fbeff9b765d0be6014bc9929c0cc079792bdbf" resname="super_admin_actions.title">
+        <source>super_admin_actions.title</source>
+        <target state="new">super_admin_actions.title</target>
+      </trans-unit>
+      <trans-unit id="d2ac14dbbaedcf9d24d39f105495f4afd8f5e35e" resname="super_admin_actions.userCount.text">
+        <source>super_admin_actions.userCount.text</source>
+        <target state="new">super_admin_actions.userCount.text</target>
       </trans-unit>
       <trans-unit id="68f81c8aeddb1e1c5a107882fe214502d7c2bf04" resname="td_action">
         <source>td_action</source>
@@ -1118,6 +1099,14 @@
       <trans-unit id="37bf5bcd56340dd2c9dd0855420abd232e4ee3b7" resname="td_username">
         <source>td_username</source>
         <target>Author</target>
+      </trans-unit>
+      <trans-unit id="8f5dd42650ac658651c23692ea7b064e22945e5e" resname="thread.listing.title">
+        <source>thread.listing.title</source>
+        <target>Listing</target>
+      </trans-unit>
+      <trans-unit id="4589f7946e25279afbc55326b468082bd77888fa" resname="thread.user.title">
+        <source>thread.user.title</source>
+        <target>User</target>
       </trans-unit>
       <trans-unit id="bd1084ecb02deca4f6d8547ce67ac97add09f26c" resname="title_batch_confirmation">
         <source>title_batch_confirmation</source>

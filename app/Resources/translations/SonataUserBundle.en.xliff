@@ -56,7 +56,7 @@
       </trans-unit>
       <trans-unit id="8a2f9c4cf577fc1e85acba5faae49a13c969ecb8" resname="filter.label_reconfirm_requested">
         <source>filter.label_reconfirm_requested</source>
-        <target state="new">filter.label_reconfirm_requested</target>
+        <target>Reconfirm requested</target>
       </trans-unit>
       <trans-unit id="870bf6fe84487686a5c3087ee4fa61d0e8a58417" resname="filter.label_trusted">
         <source>filter.label_trusted</source>
@@ -88,7 +88,7 @@
       </trans-unit>
       <trans-unit id="133dc34ee95d141677558daa0c468ebcd45d247f" resname="form.label_expiry_date">
         <source>form.label_expiry_date</source>
-        <target state="new">form.label_expiry_date</target>
+        <target>Expiry date</target>
       </trans-unit>
       <trans-unit id="4005831bcbc16e8559dee8d011be8484c5e3bafb" resname="form.label_first_name">
         <source>form.label_first_name</source>
@@ -124,7 +124,7 @@
       </trans-unit>
       <trans-unit id="a7e2e4c98dcc88fda5a49ea18fc71e244e2e6dc6" resname="form.label_reconfirm_requested">
         <source>form.label_reconfirm_requested</source>
-        <target state="new">form.label_reconfirm_requested</target>
+        <target>Reconfirm requested</target>
       </trans-unit>
       <trans-unit id="b53c5ee9cc0c94fbdd4f3f4e8fffde0d99b2d918" resname="form.label_trusted">
         <source>form.label_trusted</source>
@@ -149,14 +149,6 @@
       <trans-unit id="0ddac6dabd4a0ad2d7a1f8175f9ccb8549b184fa" resname="list.label_id">
         <source>list.label_id</source>
         <target>ID</target>
-      </trans-unit>
-      <trans-unit id="f9d65533af1dba5fedf5c292f601a63590d03063" resname="list.label_reconfirm_requested">
-        <source>list.label_reconfirm_requested</source>
-        <target state="new">list.label_reconfirm_requested</target>
-      </trans-unit>
-      <trans-unit id="d2c34f80bacc948b678578b8c2e65ddf62614f0b" resname="list.label_trusted">
-        <source>list.label_trusted</source>
-        <target>Trusted</target>
       </trans-unit>
       <trans-unit id="62d5564c383b885ff0de25abd24a41080499970b" resname="security.login.password">
         <source>security.login.password</source>

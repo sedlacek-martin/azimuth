@@ -20,9 +20,6 @@ class CountryInformationRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c')
             ->where("c.country = '{$countryCode}'");
 
-//        dump($qb->getQuery());
-//        die;
-
         try {
             return $qb->getQuery()->getSingleResult();
         } catch (NoResultException | NonUniqueResultException $e) {

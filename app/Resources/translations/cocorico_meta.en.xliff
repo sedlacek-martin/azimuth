@@ -24,7 +24,7 @@
       </trans-unit>
       <trans-unit id="aeb82d33acdc02a7a0f5b6480df239d131f6e4ce" resname="confirmed.title">
         <source>confirmed.title</source>
-        <target state="new">confirmed.title</target>
+        <target>Confirmed</target>
       </trans-unit>
       <trans-unit id="855475bb058132617c6e3b515401462f03154acc" resname="contact.meta_desc">
         <source>contact.meta_desc</source>
@@ -36,7 +36,7 @@
       </trans-unit>
       <trans-unit id="dc67b3c4ed47fb73077d721444200c209811b992" resname="home.meta_confirmed">
         <source>home.meta_confirmed</source>
-        <target state="new">home.meta_confirmed</target>
+        <target>Confirmed</target>
       </trans-unit>
       <trans-unit id="d81e8518ab4f4f477d67cc1d3b3a48a3bb4a2399" resname="home.meta_desc">
         <source>home.meta_desc</source>

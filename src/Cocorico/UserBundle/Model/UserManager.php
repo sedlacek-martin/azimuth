@@ -366,7 +366,6 @@ class UserManager extends BaseUserManager implements UserManagerInterface
         $users = $this->getRepository()->findAllToNotifyExpire(30);
 
         foreach ($users as $user) {
-            dump($count);
             $count += (int) $this->notifyExpire($user);
         }
 

@@ -8,8 +8,8 @@ parameters:
     cocorico.contact_mail: contact@cocorico.io
     #To obfuscate see http://wbwip.com/wbw/emailencoder.html
     cocorico.contact_mail_obfuscated: "&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#099;&#111;&#099;&#111;&#114;&#105;&#099;&#111;&#046;&#105;&#111;"
-    cocorico.from_email: no-reply@cocorico.website
-    cocorico.webmaster_email: webmaster@cocorico.website
+    cocorico.from_email: info@azimuth-weconnect.eu
+    cocorico.webmaster_email: webmaster@azimuth-weconnect.eu
     cocorico.vat_number: FR 12 123 456 789
     cocorico.home_rss_feed: 'https://www.cocolabs.io/fr/feed/'
 
@@ -64,7 +64,7 @@ parameters:
     cocorico.days_max_edition: 360
 
     #Days display mode. (range or duration)
-    cocorico.days_display_mode: duration
+    cocorico.days_display_mode: range
 
     #Available hours for listing availabilities hours edition and booking hours request
     #Hours must be consecutive
@@ -118,7 +118,7 @@ parameters:
     cocorico.listing_discount_max: 90
 
     #Listing result per page
-    cocorico.listing_search_max_per_page: 10
+    cocorico.listing_search_max_per_page: 6
 
     #Listing search min result. Search is restarted in a largest zone if number of result is less than this limit.
     cocorico.listing_search_min_result: 0
@@ -147,7 +147,7 @@ parameters:
     #Ex : 720 -> the booking can be requested at least 12 hours before it start.
     #To use in not day mode
     #Ex: expiration_delay = 240 (4h) and acceptation_delay = 120 (2h) and min_start_time_delay = 720 (12h)
-    cocorico.booking.min_start_time_delay: 720 #MUST be >= (cocorico.booking.acceptation_delay) + 60
+    cocorico.booking.min_start_time_delay: 0 #MUST be >= (cocorico.booking.acceptation_delay) + 60
 
     #### ENVIRONMENT DEPENDANT ONLY TO FACILITATE TESTS ####
     #Booking expiration delay in minutes. MUST be greater than cocorico.booking.alert_expiration_delay

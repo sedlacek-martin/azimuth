@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ListingListingCharacteristic
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Cocorico\CoreBundle\Repository\ListingListingCharacteristicRepository")
  *
  * @ORM\Table(name="listing_listing_characteristic")
  *

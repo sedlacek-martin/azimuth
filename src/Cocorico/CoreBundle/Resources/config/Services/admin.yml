@@ -2,7 +2,7 @@ services:
     sonata.admin.listing:
         class: Cocorico\CoreBundle\Admin\ListingAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Listings", label: "Listings" }
+            - { name: sonata.admin, manager_type: orm, group: "Posts", label: "Posts" }
         arguments:
             - ~
             - Cocorico\CoreBundle\Entity\Listing
@@ -13,28 +13,10 @@ services:
             - [ setIncludeVat, ["%cocorico.include_vat%"]]
             - [ setBundlesEnabled, ["%kernel.bundles%"]]
 
-    sonata.admin.booking:
-        class: Cocorico\CoreBundle\Admin\BookingAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "Bookings", label: "Bookings" }
-        arguments:
-            - ~
-            - Cocorico\CoreBundle\Entity\Booking
-            - ~
-        calls:
-            - [ setTranslationDomain, [SonataAdminBundle]]
-            - [ setLocales, ["%cocorico.locales%"]]
-            - [ setTimeUnit, ["%cocorico.time_unit%"]]
-            - [ setBookingExpirationDelay, ["%cocorico.booking.expiration_delay%"]]
-            - [ setBookingAcceptationDelay, ["%cocorico.booking.acceptation_delay%"]]
-            - [ setIncludeVat, ["%cocorico.include_vat%"]]
-            - [ setBundlesEnabled, ["%kernel.bundles%"]]
-            - [ setTimezone, ["%cocorico.time_zone%"]]
-
     sonata.admin.listing_characteristic:
         class: Cocorico\CoreBundle\Admin\ListingCharacteristicAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Listings",  label: "Characteristic" }
+            - { name: sonata.admin, manager_type: orm, group: "Posts",  label: "Characteristic" }
         arguments:
             - ~
             - Cocorico\CoreBundle\Entity\ListingCharacteristic
@@ -46,7 +28,7 @@ services:
     sonata.admin.listing_characteristic_group:
         class: Cocorico\CoreBundle\Admin\ListingCharacteristicGroupAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Listings",  label: "Characteristic Group"}
+            - { name: sonata.admin, manager_type: orm, group: "Posts",  label: "Characteristic Group"}
         arguments:
             - ~
             - Cocorico\CoreBundle\Entity\ListingCharacteristicGroup
@@ -58,7 +40,7 @@ services:
     sonata.admin.listing_characteristic_type:
         class: Cocorico\CoreBundle\Admin\ListingCharacteristicTypeAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Listings",  label: "Characteristic Type" }
+            - { name: sonata.admin, manager_type: orm, group: "Posts",  label: "Characteristic Type" }
         arguments:
             - ~
             - Cocorico\CoreBundle\Entity\ListingCharacteristicType
@@ -82,7 +64,7 @@ services:
     sonata.admin.listing_category:
         class: Cocorico\CoreBundle\Admin\ListingCategoryAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Listings",  label: "Category" }
+            - { name: sonata.admin, manager_type: orm, group: "Posts",  label: "Category" }
         arguments:
             - ~
             - Cocorico\CoreBundle\Entity\ListingCategory
@@ -91,50 +73,6 @@ services:
             - [ setTranslationDomain, [SonataAdminBundle]]
             - [ setLocales, ["%cocorico.locales%"]]
             - [ setBundlesEnabled, ["%kernel.bundles%"]]
-
-#    sonata.admin.booking_bank_wire:
-#        class: Cocorico\CoreBundle\Admin\BookingBankWireAdmin
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, group: "Bookings", label: "Bank Wires"}
-#        arguments:
-#            - ~
-#            - Cocorico\CoreBundle\Entity\BookingBankWire
-#            - ~
-#        calls:
-#            - [ setTranslationDomain, [SonataAdminBundle]]
-#            - [ setLocales, ["%cocorico.locales%"]]
-#            - [ setTimeUnit, ["%cocorico.time_unit%"]]
-#            - [ setCurrency, ["%cocorico.currency%"]]
-#            - [ setBookingBankWireManager, ["@cocorico.booking_bank_wire.manager"]]
-#            - [ setBundlesEnabled, ["%kernel.bundles%"]]
-#            - [ setTimezone, ["%cocorico.time_zone%"]]
-#
-#    sonata.admin.booking_payin_refund:
-#        class: Cocorico\CoreBundle\Admin\BookingPayinRefundAdmin
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, group: "Bookings", label: "Payin Refunds" }
-#        arguments:
-#            - ~
-#            - Cocorico\CoreBundle\Entity\BookingPayinRefund
-#            - ~
-#        calls:
-#            - [ setTranslationDomain, [SonataAdminBundle]]
-#            - [ setLocales, ["%cocorico.locales%"]]
-#            - [ setTimeUnit, ["%cocorico.time_unit%"]]
-#            - [ setBundlesEnabled, ["%kernel.bundles%"]]
-#            - [ setTimezone, ["%cocorico.time_zone%"]]
-
-    sonata.admin.booking_user_address:
-        class: Cocorico\CoreBundle\Admin\BookingUserAddressAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
-        arguments:
-            - ~
-            - Cocorico\CoreBundle\Entity\BookingUserAddress
-            - ~
-        calls:
-            - [ setTranslationDomain, [cocorico_user]]
-            - [ setLocales, ["%cocorico.locales%"]]
 
     sonata.admin.invitations:
         class: Cocorico\CoreBundle\Admin\InvitationAdmin
@@ -184,22 +122,10 @@ services:
             - [ setTranslationDomain, [ cocorico_user ] ]
             - [ setLocales, [ "%cocorico.locales%" ] ]
 
-#    sonata.admin.listing_public:
-#        class: Cocorico\CoreBundle\Admin\ListingPublicAdmin
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true , group: "Listings", label: "Public listing verification" }
-#        arguments:
-#            - ~
-#            - Cocorico\CoreBundle\Entity\Listing
-#            - ~
-#        calls:
-#            - [ setTranslationDomain, [ cocorico_user ] ]
-#            - [ setLocales, [ "%cocorico.locales%" ] ]
-
     soanata.admin.listing_validation:
         class: Cocorico\CoreBundle\Admin\ListingValidationAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Listings", label: "Listings validation" }
+            - { name: sonata.admin, manager_type: orm, group: "Posts", label: "Posts validation" }
         arguments:
             - ~
             - Cocorico\CoreBundle\Entity\Listing

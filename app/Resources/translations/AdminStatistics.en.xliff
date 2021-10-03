@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="7c993c164d0a7b1f7448955d6a07ad2fcccc5aaf" resname="activated_user_count">
+        <source>activated_user_count</source>
+        <target state="new">activated_user_count</target>
+      </trans-unit>
+      <trans-unit id="900606b9de31685b52f4fca4c43427af084e002e" resname="activator_count">
+        <source>activator_count</source>
+        <target state="new">activator_count</target>
+      </trans-unit>
+      <trans-unit id="79de8cc449e2f3c753729aa3c4d993e75daf3368" resname="admin_count">
+        <source>admin_count</source>
+        <target state="new">admin_count</target>
+      </trans-unit>
+      <trans-unit id="198c3166bab72261551d13defd220dff669db885" resname="country_count">
+        <source>country_count</source>
+        <target state="new">country_count</target>
+      </trans-unit>
+      <trans-unit id="a9e7744616ab46dfbc22d86155f45824fecf2fda" resname="facilitator_count">
+        <source>facilitator_count</source>
+        <target state="new">facilitator_count</target>
+      </trans-unit>
+      <trans-unit id="d3a72d48ef1fd3fcbff4702b6c44c16fbcc4a862" resname="faq_access_count">
+        <source>faq_access_count</source>
+        <target state="new">faq_access_count</target>
+      </trans-unit>
+      <trans-unit id="7437ba3ed6a71616c656165d074034f5ee6f2504" resname="listing_count">
+        <source>listing_count</source>
+        <target state="new">listing_count</target>
+      </trans-unit>
+      <trans-unit id="0f516f048f2cfb588d7faa79ea33a208eadf9e00" resname="login_count">
+        <source>login_count</source>
+        <target state="new">login_count</target>
+      </trans-unit>
+      <trans-unit id="e14612df14e55c43af5bcbaca404ed0360e191aa" resname="member_organization_count">
+        <source>member_organization_count</source>
+        <target state="new">member_organization_count</target>
+      </trans-unit>
+      <trans-unit id="31cf79afcdda52ff412f5d116ffb513857f4e7f6" resname="message_count">
+        <source>message_count</source>
+        <target state="new">message_count</target>
+      </trans-unit>
+      <trans-unit id="79a8edfcb21065b597c4c9af8f55ad87fd876fd0" resname="page.title">
+        <source>page.title</source>
+        <target state="new">page.title</target>
+      </trans-unit>
+      <trans-unit id="c50bc401cfbec075f65685ea1e3b3b8b9397203e" resname="super_admin_count">
+        <source>super_admin_count</source>
+        <target state="new">super_admin_count</target>
+      </trans-unit>
+      <trans-unit id="9233abc5c332116fb1451aa31095345109e2f8f9" resname="thread_count">
+        <source>thread_count</source>
+        <target state="new">thread_count</target>
+      </trans-unit>
+      <trans-unit id="1d854f102f9c4edef220c97aff9a8bca50d3a431" resname="user_count">
+        <source>user_count</source>
+        <target state="new">user_count</target>
+      </trans-unit>
+      <trans-unit id="888a704304fd9c157166534372c259c1c4009fb2" resname="verification_time">
+        <source>verification_time</source>
+        <target state="new">verification_time</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

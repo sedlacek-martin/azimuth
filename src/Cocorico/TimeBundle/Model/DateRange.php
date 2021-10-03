@@ -29,13 +29,13 @@ class DateRange
      */
     public $nbDays;
 
-    public function __construct(\DateTime $start = null, \DateTime $end = null)
+    public function __construct(\DateTime $start = null, \DateTime $end = null, bool $keepNulls = false)
     {
-        if (!$start) {
+        if (!$start && !$keepNulls) {
             $start = new \DateTime();
         }
 
-        if (!$end) {
+        if (!$end && !$keepNulls) {
             $end = new \DateTime();
         }
 
@@ -44,7 +44,9 @@ class DateRange
 
         $this->start = $start;
         $this->end = $end;
-        $this->nbDays = $start->diff($end)->days;
+        if (!$keepNulls) {
+            $this->nbDays = $start->diff($end)->days;
+        }
     }
 
     /**

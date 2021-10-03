@@ -5,6 +5,7 @@ namespace Cocorico\UserBundle\Admin;
 
 
 use Cocorico\UserBundle\Entity\User;
+use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -28,23 +29,35 @@ class ActivationAdmin extends BaseUserAdmin
         $this->locales = $locales;
     }
 
+    protected function configureFormFields(FormMapper $formMapper): void
+    {
+    }
+
+
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
             ->addIdentifier('email', null, [])
-            ->add('fullname')
+            ->add('fullName', null, [])
+            ->add('birthday', null, [])
             ->add('verifiedDomainRegistration', null, [
                 'label' => 'Registration type',
                 'template' => 'CocoricoSonataAdminBundle::list_field_registration_type.html.twig',
             ])
-            ->add('enabled')
-            ->add('trusted')
-            ->add('reconfirmRequested');
+            ->add('enabled', null, [])
+            ->add('trusted', null, [])
+            ->add('reconfirmRequested', null, []);
+
+        if ($this->getUser() && $this->getUser()->getMemberOrganization()->isRequiresUserIdentifier()) {
+            $listMapper
+                ->add('organizationIdentifier', null, []);
+        }
 
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
             $listMapper
                 ->add('memberOrganization', null, []);
         }
+
 
         $actions = [
             'actions' => [
@@ -63,14 +76,6 @@ class ActivationAdmin extends BaseUserAdmin
             );
     }
 
-    protected function configureFormFields(FormMapper $formMapper): void
-    {
-        $formMapper
-            ->add('email', TextType::class, [
-            'disabled' => true,
-            ]);
-    }
-
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
@@ -85,22 +90,7 @@ class ActivationAdmin extends BaseUserAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('create');
-//        $collection->remove('delete');
-    }
-
-    /**
-     * @param User $user
-     */
-    public function postUpdate($user)
-    {
-        if ($user->isTrusted() && !$user->isTrustedEmailSent()) {
-            $container = $this->getConfigurationPool()->getContainer();
-            $mailer = $container->get('cocorico_user.mailer.twig_swift');
-            $user->setTrustedEmailSent(true);
-            $this->getModelManager()->update($user);
-
-            $mailer->sendAccountTrusted($user);
-        }
+        $collection->remove('edit');
     }
 
 
@@ -117,8 +107,4 @@ class ActivationAdmin extends BaseUserAdmin
 
         return $query;
     }
-
-
-
-
 }

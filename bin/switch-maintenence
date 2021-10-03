@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+cd /usr/home/azimutu/public_html/web/ &&
+mv
+
+
+
+cd vendor/jms/translation-bundle/JMS/TranslationBundle/Resources/views &&
+ln -s Translate translate &&
+cp /cocorico/app/config/parameters_persistant/base.html.twig /cocorico/vendor/jms/translation-bundle/JMS/TranslationBundle/Resources/views/base.html.twig &&
+cd /cocorico &&
+chmod -R 777 /cocorico/app/Resources/translations &&
+/usr/sbin/crond -b -l 8 &&
+echo "Done!"

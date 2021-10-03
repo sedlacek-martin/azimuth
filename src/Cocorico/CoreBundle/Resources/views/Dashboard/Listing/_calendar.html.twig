@@ -14,11 +14,11 @@
         {% set calendar_class = "time-unit-not-day" %}
     {% endif %}
 
-    {% if listingDefaultStatus == ListingAvailabilityConstants.STATUS_AVAILABLE %}
-        {% set status_class = "available-by-default" %}
-    {% else %}
-        {% set status_class = "unavailable-by-default" %}
-    {% endif %}
+{#    {% if listingDefaultStatus == ListingAvailabilityConstants.STATUS_AVAILABLE %}#}
+{#        {% set status_class = "available-by-default" %}#}
+{#    {% else %}#}
+{#        {% set status_class = "unavailable-by-default" %}#}
+{#    {% endif %}#}
 
     <div id="fc-calendar" class="calendar-block {{ calendar_class }} {{ status_class }}"></div>
 

@@ -27,6 +27,7 @@ class TwigSwiftMailer implements MailerInterface
     protected $requestStack;
     protected $fromEmail;
     protected $templates;
+    protected $siteName;
 
     /**
      * @param \Swift_Mailer         $mailer
@@ -52,6 +53,7 @@ class TwigSwiftMailer implements MailerInterface
         $this->fromEmail = $parameters['cocorico_from_email'];
         $this->locales = $parameters['cocorico_locales'];
         $this->locale = $parameters['cocorico_locale'];
+        $this->siteName = $parameters['cocorico_site_name'];
 
         if ($requestStack->getCurrentRequest()) {
             $this->locale = $requestStack->getCurrentRequest()->getLocale();
@@ -121,7 +123,7 @@ class TwigSwiftMailer implements MailerInterface
             $htmlBody = $template->renderBlock('body_html', $context);
 
             $message = (new \Swift_Message($subject))
-                ->setFrom($fromEmail)
+                ->setFrom($fromEmail, $this->siteName)
                 ->setTo($toEmail);
 
             if (!empty($htmlBody)) {

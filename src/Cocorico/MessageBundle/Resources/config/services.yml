@@ -53,5 +53,6 @@ services:
         arguments:
             - "@fos_message.thread_manager"
             - "@fos_message.message_manager"
+            - "@doctrine.orm.entity_manager"
             - "@cocorico_user.mailer.twig_swift"
             - "%cocorico.message_max_per_page%"

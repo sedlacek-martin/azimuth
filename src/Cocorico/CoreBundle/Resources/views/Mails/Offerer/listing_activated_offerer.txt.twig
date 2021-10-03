@@ -10,8 +10,6 @@
     {{ 'listing_activated_offerer.email.message'|trans({
         '%firstname%': user.firstName,
         '%listing_public_url%': listing_public_url,
-        '%listing_calendar_edit_url%': listing_calendar_edit_url,
-        '%default_booking_expiry_length%': (bookingExpirationDelay * 60)|format_seconds('h')
     }, 'cocorico_mail', user_locale) }}
 {% endblock %}
 

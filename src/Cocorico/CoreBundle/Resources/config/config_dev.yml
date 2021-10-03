@@ -2,10 +2,10 @@ framework:
      session:
         gc_probability: 1
 
-doctrine_mongodb:
-    document_managers:
-        default:
-            logging: true
+#doctrine_mongodb:
+#    document_managers:
+#        default:
+#            logging: true
 
 deploy:
     prod:

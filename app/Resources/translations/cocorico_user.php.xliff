@@ -34,30 +34,6 @@
         <source>Biography</source>
         <target state="new">Biography</target>
       </trans-unit>
-      <trans-unit id="2a1513fb97683f0b6d8d7ff1ab9af8b9bf3bf12e" resname="Booking User Address Batch">
-        <source>Booking User Address Batch</source>
-        <target state="new">Booking User Address Batch</target>
-      </trans-unit>
-      <trans-unit id="7dd81984365f9d8ef16e3e84bd3613a8f8924be2" resname="Booking User Address Create">
-        <source>Booking User Address Create</source>
-        <target state="new">Booking User Address Create</target>
-      </trans-unit>
-      <trans-unit id="05c1d2a9ca656afd725532c1e9eb5235f9930060" resname="Booking User Address Delete">
-        <source>Booking User Address Delete</source>
-        <target state="new">Booking User Address Delete</target>
-      </trans-unit>
-      <trans-unit id="ca974754d31e000bc6ec4e5f149b04f0fd30946f" resname="Booking User Address Edit">
-        <source>Booking User Address Edit</source>
-        <target state="new">Booking User Address Edit</target>
-      </trans-unit>
-      <trans-unit id="aabf43cb99080d02cb2bd18a6d9609020c414129" resname="Booking User Address List">
-        <source>Booking User Address List</source>
-        <target state="new">Booking User Address List</target>
-      </trans-unit>
-      <trans-unit id="ca4242b2f1f0ba57867b54f515660d468d2a0f24" resname="Booking User Address Update">
-        <source>Booking User Address Update</source>
-        <target state="new">Booking User Address Update</target>
-      </trans-unit>
       <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
         <source>Country</source>
         <target state="new">Country</target>
@@ -554,6 +530,10 @@
         <source>nav.user.show.link</source>
         <target state="new">nav.user.show.link</target>
       </trans-unit>
+      <trans-unit id="1688c097c7da88f800d25d80d5d14cacde44f469" resname="profile.account_expiration.label">
+        <source>profile.account_expiration.label</source>
+        <target state="new">profile.account_expiration.label</target>
+      </trans-unit>
       <trans-unit id="92ff738052eda39b7f5fa7ba263c3e30dfa28ac8" resname="profile.birthday.title">
         <source>profile.birthday.title</source>
         <target state="new">profile.birthday.title</target>
@@ -670,6 +650,14 @@
         <source>resetting.reset.submit</source>
         <target state="new">resetting.reset.submit</target>
       </trans-unit>
+      <trans-unit id="7b61063f4063a7693a3343c1f134e320e11df3fc" resname="settings.edit.submit">
+        <source>settings.edit.submit</source>
+        <target state="new">settings.edit.submit</target>
+      </trans-unit>
+      <trans-unit id="d799ee267a21b9d6c32fc13dd95fdc6814aee32f" resname="settings.edit_preferences.title">
+        <source>settings.edit_preferences.title</source>
+        <target state="new">settings.edit_preferences.title</target>
+      </trans-unit>
       <trans-unit id="1774f9c08d7572712b2f70f583709279a062652e" resname="user.about.language.select">
         <source>user.about.language.select</source>
         <target state="new">user.about.language.select</target>
@@ -729,6 +717,10 @@
       <trans-unit id="6b719769a1aabbaeb466ef96c84e6af4128054b3" resname="user.expire.reactivate.button">
         <source>user.expire.reactivate.button</source>
         <target state="new">user.expire.reactivate.button</target>
+      </trans-unit>
+      <trans-unit id="6c02cdd2f322cb26c11069399ec612371fc8c9b8" resname="user.expire.reactivation_already_requested.text">
+        <source>user.expire.reactivation_already_requested.text</source>
+        <target state="new">user.expire.reactivation_already_requested.text</target>
       </trans-unit>
       <trans-unit id="333084fa7fe516c3fa1d523bfa10b9a47027685b" resname="user.expired.h1">
         <source>user.expired.h1</source>
@@ -821,6 +813,14 @@
       <trans-unit id="afbac2dc1997b8b4069b2984d0449147e97765e5" resname="user_images.min {{ min_images }}">
         <source>user_images.min {{ min_images }}</source>
         <target state="new">user_images.min {{ min_images }}</target>
+      </trans-unit>
+      <trans-unit id="9235203579876ac9cb8911b987e650d3637b3981" resname="user_settings.edit.success">
+        <source>user_settings.edit.success</source>
+        <target state="new">user_settings.edit.success</target>
+      </trans-unit>
+      <trans-unit id="8f2508a32823cfa276fa3d7ca556a9d281208ee2" resname="user_settings.new_message_notification.label">
+        <source>user_settings.new_message_notification.label</source>
+        <target state="new">user_settings.new_message_notification.label</target>
       </trans-unit>
       <trans-unit id="37e00c91f30773a4b84992ea9a33c850b8385a13" resname="user_translations_en_description_placeholder">
         <source>user_translations_en_description_placeholder</source>

@@ -18,6 +18,7 @@ function initDatepicker() {
         var from = inputs.filter('input.from');
         var to = inputs.filter('input.to');
         var nbDays = holder.parent().find('#date_range_nb_days');
+        var maxDate = new Date("2050-01-01");
 
         inputs.each(function () {
             var input = jQuery(this);
@@ -30,12 +31,16 @@ function initDatepicker() {
             if (input.hasClass('no-min-date')) {
                 today = null;
             }
+            if (input.attr('data-max-date') !== undefined) {
+                maxDate = new Date(input.attr('data-max-date'));
+            }
         });
 
         inputs.datepicker({
             //dateFormat: "dd  /  mm  /  y",
             dateFormat: "dd/mm/yy",//abe++
             minDate: today,
+            maxDate: maxDate,
             onSelect: function (selectedDate) {
                 var input = jQuery(this);
                 var option = input.is(from) ? 'minDate' : 'maxDate';

@@ -1,0 +1,118 @@
+{% extends "CocoricoSonataAdminBundle::standard_layout.html.twig" %}
+
+{% trans_default_domain 'SonataAdminBundle' %}
+
+{% block navbar_title %}
+    <strong>{{ 'message_validation_detail.title'|trans }}</strong> | {{ thread.id }}
+{% endblock %}
+
+{% block actions %}
+    <a  class="btn btn-default" href="{{ path('admin_cocorico_message_thread_list') }}" style="margin-top: 8px;">
+        <i class="glyphicon glyphicon-chevron-left" aria-hidden="true"></i> {{ 'Back'|trans }}
+    </a>
+{% endblock %}
+
+{% block title %}
+    {{ 'message_validation_detail.title'|trans }}
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                        <div class="panel border">
+                            <div class="panel-body thread-info-holder">
+                                {% if thread.listing %}
+                                    <div>
+                                        {{ 'thread.listing.title'|trans }}:
+                                        <span class="text-bold">{{ thread.listing.title }}</span>
+                                    </div>
+                                    <div>{{ 'thread.user.title'|trans }}:
+                                        <span class="text-bold">{{ thread.listing.user.fullName }}</span>
+                                    </div>
+                                {% elseif thread.user %}
+                                    <div>{{ 'thread.user.title'|trans }}:
+                                        <span class="text-bold">{{ thread.user.fullName }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <h3>{{ 'messages.heading'|trans }}</h3>
+                        {% for message in thread.messages | reverse %}
+                            {% if loop.first %}
+                                {% set firstSender = message.sender.id %}
+                            {% endif %}
+                            {% set hasAccess = isSuperAdmin or currentUserMo.id == message.sender.memberOrganization.id %}
+                            <div class="message-holder border {% if firstSender == message.sender.id %}bg-gray-light{% endif %}">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <a href="{{ path('admin_cocorico_user_user_edit', {'id': message.sender.id}) }}">
+                                            {{ message.sender.fullname }}
+                                        </a>
+                                        {{ 'said'|trans }}:
+                                    </div>
+                                    <div class="col-lg-6 text-muted text-right">
+                                        <i class="glyphicon glyphicon-time"></i>
+                                        {{ message.createdAt|date('d.m.Y H:m') }}
+                                    </div>
+                                    <div class="col-lg-12" style="margin-top: 15px;">
+                                        <div style="display: flex; justify-content: space-between; align-items: flex-end">
+                                            <div style="max-width: 80%;">
+                                                {% if hasAccess %}
+                                                    <div>{{ message.body }}</div>
+                                                {% else %}
+                                                    <em class="text-muted">{{ 'message.censored'|trans }}</em>
+                                                {% endif %}
+                                                {% if message.adminNote is not empty %}
+                                                    <div class="text-info">
+                                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                                        {{ 'message.validate.admin_note.text'|trans|upper }}:
+                                                        {{ message.adminNote }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div style="max-width: 20%;" class="text-right">
+                                                {% if hasAccess %}
+                                                    {% if not message.verified %}
+                                                        <a href="{{ path('cocorico_admin__message_validate', {'id': message.id}) }}"
+                                                           class="btn btn-success">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                            {{ 'message.validate.link.text'|trans }}
+                                                        </a>
+                                                    {% endif %}
+                                                    <a href="{{ path('cocorico_admin__message_admin_note', {'id': message.id}) }}"
+                                                       class="btn btn-default">
+                                                        <i class="glyphicon glyphicon-pencil"></i>
+                                                        {% if message.adminNote is not empty %}
+                                                            {{ 'message.edit_admin_note.link.text'|trans }}
+                                                        {% else %}
+                                                            {{ 'message.add_admin_note.link.text'|trans }}
+                                                        {% endif %}
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-body">
+        <a  class="btn btn-default" href="{{ path('admin_cocorico_message_thread_list') }}">
+            <i class="glyphicon glyphicon-chevron-left" aria-hidden="true"></i> {{ 'Back'|trans }}
+        </a>
+    </div>
+
+{% endblock %}
+

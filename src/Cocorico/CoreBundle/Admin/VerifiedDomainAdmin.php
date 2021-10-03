@@ -2,6 +2,7 @@
 
 namespace Cocorico\CoreBundle\Admin;
 
+use Cocorico\CoreBundle\Repository\MemberOrganizationRepository;
 use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -34,7 +35,7 @@ class VerifiedDomainAdmin extends BaseAdmin
 
             ->addIdentifier('id', null, [])
             ->add('domain', null, array())
-            ->add('memberOrganization', null, array());
+            ->add('memberOrganization', null, []);
 
         $listMapper->add(
             '_action',
@@ -50,11 +51,23 @@ class VerifiedDomainAdmin extends BaseAdmin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $moFieldOptions = ['required' => true];
+
+        if ($this->getUser()) {
+            $userMoId = $this->getUser()->getMemberOrganization()->getId();
+            if (!$this->authIsGranted('ROLE_SUPER_ADMIN')) {
+                $moFieldOptions['query_builder'] = function (MemberOrganizationRepository $repository) use ($userMoId) {
+                    return $repository->createQueryBuilder('mo')
+                        ->where('mo.id = :moId')
+                        ->setParameter('moId', $userMoId);
+                };
+                $moFieldOptions['disabled'] = true;
+            }
+        }
+
         $formMapper
             ->add('domain', TextType::class)
-            ->add('memberOrganization', null, [
-                'required' => true,
-            ]);
+            ->add('memberOrganization', null, $moFieldOptions);
     }
 
     protected function configureDatagridFilters(DatagridMapper $filter)
@@ -63,18 +76,9 @@ class VerifiedDomainAdmin extends BaseAdmin
             ->add('memberOrganization', null,  []);
     }
 
-//    protected function configureDefaultFilterValues(array &$filterValues)
-//    {
-//        $filterValues['certified'] = [
-//            'type' => EqualType::TYPE_IS_EQUAL,
-//            'value' => BooleanType::TYPE_NO,
-//        ];
-//    }
 
     protected function configureRoutes(RouteCollection $collection)
     {
-//        $collection->remove('create');
-//        $collection->remove('delete');
     }
 
     public function createQuery($context = 'list')

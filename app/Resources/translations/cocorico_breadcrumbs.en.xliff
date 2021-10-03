@@ -14,10 +14,6 @@
         <source>Address</source>
         <target>Address</target>
       </trans-unit>
-      <trans-unit id="4281c52d617278a34a14cf5faf9c6fb11df197a6" resname="Asker">
-        <source>Asker</source>
-        <target>Asker</target>
-      </trans-unit>
       <trans-unit id="3310eafbbbcd08a70af2c5d250fb2ba82046f114" resname="Bank wire">
         <source>Bank wire</source>
         <target>Bank wire</target>
@@ -69,10 +65,6 @@
       <trans-unit id="af65ae0e9f04990618e53d608489530582356c11" resname="New comment">
         <source>New comment</source>
         <target>New comment</target>
-      </trans-unit>
-      <trans-unit id="b6efbc728e20a592f93cc71db4d9e5cfe7f9e414" resname="Offerer">
-        <source>Offerer</source>
-        <target>Offerer</target>
       </trans-unit>
       <trans-unit id="88b8328c7c39e37b8d82a35c17ed0db8a89f16ca" resname="Payment Information">
         <source>Payment Information</source>

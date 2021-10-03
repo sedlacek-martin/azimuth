@@ -14,6 +14,14 @@
         <source>account_created_user.email.subject</source>
         <target state="new">account_created_user.email.subject</target>
       </trans-unit>
+      <trans-unit id="04afacb30aa685ce0336a35accfaa60c48cdff02" resname="account_reactivated.email.message">
+        <source>account_reactivated.email.message</source>
+        <target state="new">account_reactivated.email.message</target>
+      </trans-unit>
+      <trans-unit id="5ba724ecec1018989ad51917f24a4031a1c4f09d" resname="account_reactivated.email.subject">
+        <source>account_reactivated.email.subject</source>
+        <target state="new">account_reactivated.email.subject</target>
+      </trans-unit>
       <trans-unit id="7a0dae8a15e7bec8d04c56eda31ade6711b1f17c" resname="account_trusted.email.message">
         <source>account_trusted.email.message</source>
         <target state="new">account_trusted.email.message</target>
@@ -229,6 +237,14 @@
       <trans-unit id="43db5e5dbe7d4765948be51787f937c23fbfc1b9" resname="user_expire_notification.email.subject">
         <source>user_expire_notification.email.subject</source>
         <target state="new">user_expire_notification.email.subject</target>
+      </trans-unit>
+      <trans-unit id="3fc89ac0d9597f7c051c2b92b671e2dd30f73890" resname="user_invite.email.message">
+        <source>user_invite.email.message</source>
+        <target state="new">user_invite.email.message</target>
+      </trans-unit>
+      <trans-unit id="6fde5d06f7778721b836b613f4e15530caa05a0d" resname="user_invite.email.subject">
+        <source>user_invite.email.subject</source>
+        <target state="new">user_invite.email.subject</target>
       </trans-unit>
       <trans-unit id="c021c8309c97569354f5dc6306a92314ecee6ea0" resname="wiretransfer_offerer.email.message">
         <source>wiretransfer_offerer.email.message</source>

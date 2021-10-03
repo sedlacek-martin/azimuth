@@ -22,7 +22,7 @@
         {% set translation = listing.translations[app.request.locale] %}
     {% endif %}
 
-    <div class="tab-content no-border">
+    <div class="tab-content no-border" style="padding-top: 0px !important;">
         <!-- reservations -->
         <div role="tabpanel" class="tab-pane active" id="messaging">
             <!-- form-ad-detail -->
@@ -40,7 +40,11 @@
                                 </div>
                                 <div class="box">
                                     <div class="row">
-                                        <strong class="listing-title col-lg-6">{{ translation.title }}</strong>
+                                        <div class="col-lg-6">
+                                            <strong class="listing-title">{{ translation.title }}</strong>
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                            <span style="font-size: 1.1em;">{{ thread.fromDate|date("d/m/Y") }} - {{ thread.toDate|date("d/m/Y") }}</span>
+                                        </div>
 
                                         <div class="author-detail col-lg-6">
                                             <div class="author-img">
@@ -48,27 +52,11 @@
                                                      alt="image description">
                                             </div>
                                             <div class="box">
-                                                {% if listing.user != app.user %}
-                                                    <strong class="author-name">
-                                                        {{ 'thread.offerer'|trans }}:
-                                                        <a href="{{ path('cocorico_user_profile_show', { 'id': user.id }) }}">
-                                                            {{ user.getName }}
-                                                        </a>
-                                                    </strong>
-                                                    {% if user.averageOffererRating %}
-                                                        {{ user.averageOffererRating | cocorico_star_rating }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    <strong class="author-name">
-                                                        {{ 'thread.asker'|trans }}:
-                                                        <a href="{{ path('cocorico_user_profile_show', { 'id': user.id }) }}">
-                                                            {{ user.getName }}
-                                                        </a>
-                                                    </strong>
-                                                    {% if user.averageAskerRating %}
-                                                        {{ user.averageAskerRating | cocorico_star_rating }}
-                                                    {% endif %}
-                                                {% endif %}
+                                                <strong class="author-name">
+                                                    <a href="{{ path('cocorico_user_profile_show', { 'id': user.id }) }}">
+                                                        {{ user.getName }}
+                                                    </a>
+                                                </strong>
                                             </div>
                                         </div>
                                     </div>

@@ -122,31 +122,31 @@ class ListingContext extends CommonContext
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * @param        $listingId
-     * @param  int   $day    number of day after today
-     * @param  int   $status ListingAvailability
-     * @return \Cocorico\CoreBundle\Document\ListingAvailability
-     */
-    public function setListingAvailability(
-        $listingId,
-        $day,
-        $status
-    ) {
-        //Availability
-        $now = new \DateTime(date('Y-m-d'));
-        $now->add(new \DateInterval('P' . $day . 'D'));
-        $availability = new ListingAvailability();
-        $availability->setDay($now);
-        $availability->setStatus($status);
-        $availability->setListingId($listingId);
-//        $availability->setPrice($price);
-        $this->getDocumentManager()->persist($availability);
-        $this->getDocumentManager()->flush();
-
-
-        return $availability;
-    }
+//    /**
+//     * @param        $listingId
+//     * @param  int   $day    number of day after today
+//     * @param  int   $status ListingAvailability
+//     * @return \Cocorico\CoreBundle\Document\ListingAvailability
+//     */
+//    public function setListingAvailability(
+//        $listingId,
+//        $day,
+//        $status
+//    ) {
+//        //Availability
+//        $now = new \DateTime(date('Y-m-d'));
+//        $now->add(new \DateInterval('P' . $day . 'D'));
+//        $availability = new ListingAvailability();
+//        $availability->setDay($now);
+//        $availability->setStatus($status);
+//        $availability->setListingId($listingId);
+////        $availability->setPrice($price);
+//        $this->getDocumentManager()->persist($availability);
+//        $this->getDocumentManager()->flush();
+//
+//
+//        return $availability;
+//    }
 
     /**
      * @Given /^I do a search on the home page$/

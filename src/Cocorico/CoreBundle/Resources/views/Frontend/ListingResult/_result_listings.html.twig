@@ -12,10 +12,6 @@
 
     {% set col_class %}col-sm-{{ results_col_size }}{% endset %}
     <article class="listing-post {{ col_class }} col-xs-12" data-lid="{{ listing.id }}">
-        <a href="javascript:void(0)" id="favourite-{{ listing.id }}" class="favourit">
-            <i class="icon-heart"></i>
-            <span class="hidden">favourit</span>
-        </a>
         <a href="{{ path('cocorico_listing_show', { 'slug': listing_translation.slug }) }}"
            class="listing-box">
             <div class="frame">
@@ -55,9 +51,7 @@
                                     {% endif %}
                                 </div>
                                 <strong class="title list-comma">
-                                    {%- for listingListingCategory in listing.listingListingCategories -%}
-                                        <span>{{ listingListingCategory.category.translations[app.request.locale].name }}</span>
-                                    {%- endfor -%}
+                                    <span>{{ listing.category.translations[app.request.locale].name }}</span>
                                 </strong>
                             </div>
                         </div>

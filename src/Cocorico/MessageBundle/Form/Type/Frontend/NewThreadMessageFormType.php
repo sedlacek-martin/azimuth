@@ -15,6 +15,7 @@ use Cocorico\CoreBundle\Form\Type\EntityHiddenType;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,6 +50,24 @@ class NewThreadMessageFormType extends AbstractType implements TranslationContai
                 HiddenType::class,
                 array('data' => 'Contact')
             )
+            ->add('fromDate', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'message_form.from_date.title',
+                'format' => 'dd/MM/yyyy',
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                ]
+            ])
+            ->add('toDate', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'message_form.from_date.title',
+                'format' => 'dd/MM/yyyy',
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                ]
+            ])
             ->add(
                 'body',
                 TextareaType::class,

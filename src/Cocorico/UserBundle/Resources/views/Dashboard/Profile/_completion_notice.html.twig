@@ -9,10 +9,18 @@
         <p class="list-comma">
             {{ 'user.edit.completion_notice'| trans }}
             (
-                {% if not complete.description %}<span>{{ 'user.edit.completion_notice.description'| trans }}</span>{% endif %}
-                {% if not complete.image %}<span>{{ 'user.edit.completion_notice.image'| trans }}</span>{% endif %}
-                {% if not complete.location %}<span>{{ 'user.edit.completion_notice.location'| trans }}</span>{% endif %}
-                {% if not complete.languages %}<span>{{ 'user.edit.completion_notice.languages'| trans }}</span>{% endif %}
+                {% if not complete.description %}
+                    <span>{{ 'user.edit.completion_notice.description'| trans({'%link%': path('cocorico_user_dashboard_profile_edit_about_me')}) }}</span>
+                {% endif %}
+                {% if not complete.image %}
+                    <span>{{ 'user.edit.completion_notice.image'| trans({'%link%': path('cocorico_user_dashboard_profile_edit_about_me')}) }}</span>
+                {% endif %}
+                {% if not complete.location %}
+                    <span>{{ 'user.edit.completion_notice.location'| trans({'%link%': path('cocorico_user_dashboard_profile_edit_scout_info')}) }}</span>
+                {% endif %}
+                {% if not complete.languages %}
+                    <span>{{ 'user.edit.completion_notice.languages'| trans({'%link%': path('cocorico_user_dashboard_profile_edit_about_me')}) }}</span>
+                {% endif %}
             )
         </p>
 

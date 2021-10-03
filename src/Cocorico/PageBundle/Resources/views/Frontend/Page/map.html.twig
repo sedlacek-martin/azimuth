@@ -14,7 +14,7 @@
             <div id="map-tooltip" style="position: absolute; display: none;"></div>
             <h4>{{ 'map.text'|trans({}, 'cocorico') }}</h4>
             <div class="min-height row main-map-content map-div-transition" style="justify-content: center; display: flex">
-                <div class="col-xs-8 map-div-transition" style="border: darkgray 1px solid">
+                <div class="col-xs-8 map-div-transition mb-5" style="border: darkgray 1px solid">
                     <div class="zoom-btn-container">
                         <div class="zoom-btn zoom-plus"><i class="glyphicon glyphicon-plus"></i></div>
                         <div class="zoom-btn zoom-minus"><i class="glyphicon glyphicon-minus"></i></div>
@@ -139,14 +139,16 @@
                     </circle>
                     </svg>
                 </div>
-                <div class='col-xs-4 map-div-transition ms-3' id="country-info-container" style="display: none">
-                    <h2 id="country-name"></h2>
-                    <div id='country-text'></div>
-                    <a href="#" id="country-more-link"
-                       class="" data-toggle="modal"
-                       data-target="#modal" style="font-weight: bold; width: 100%; margin-bottom: 15px;">
-                        {{ 'map.member_organizations.show'|trans }}
-                    </a>
+                <div class='col-xs-4 ms-3'>
+                    <div id="country-info-container" style="display: none;">
+                        <h2 id="country-name"></h2>
+                        <div id='country-text'></div>
+                        <a href="#" id="country-more-link"
+                           class="" data-toggle="modal"
+                           data-target="#modal" style="font-weight: bold; width: 100%; margin-bottom: 15px;">
+                            {{ 'map.member_organizations.show'|trans }}
+                        </a>
+                    </div>
                 </div>
             </div>
         {% endblock %}
@@ -163,9 +165,6 @@
         $(document).ready(function() {
             let ajaxRequest = null;
             let counts = JSON.parse('{{ listingCount|raw }}');
-            console.log(counts);
-
-
 
             let $allStates = $(".europe-map path");
             const maxCountryCount = counts['MAX'];
@@ -210,14 +209,24 @@
                     url: path.replace("slug_placeholder", $(this).attr("id")),
                 }).done(function(data) {
                     let moPath = "{{ path('cocorico_member_organizations_find', {'slug': 'slug_placeholder' }) }}";
+                    let emptyCountryPlaceholder = "{{ 'map.country_info_empty.text'|trans }}"
                     let $container = $('#country-info-container');
                     let $text = $("#country-text");
                     let $title = $("#country-name");
                     let $countryMore = $('#country-more-link');
+
                     if (data.found === true) {
                         $text.html(data.countryText);
-                        $title.html(data.countryName);
+                    } else {
+                        $text.html("<p class='text-muted'><em>" + emptyCountryPlaceholder + "</em></p>");
+                    }
+
+                    if (data.memberOrganizationFound === true) {
                         $countryMore.attr('href', moPath.replace("slug_placeholder", data.countryCode))
+                    }
+
+                    if  (data.found === true || data.memberOrganizationFound === true) {
+                        $title.html(data.countryName);
                         $container.show(500);
                     } else {
                         $container.hide(500);

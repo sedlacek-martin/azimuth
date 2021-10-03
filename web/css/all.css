@@ -338,11 +338,11 @@ a.text-info:hover {
 }
 
 .text-warning {
-    color: #8a6d3b;
+    color: #ffc107!important;
 }
 
 a.text-warning:hover {
-    color: #66512c;
+    color: #b48906 !important;
 }
 
 .text-danger {
@@ -5763,7 +5763,7 @@ span.btn:focus {
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu li {
-    font-size: 12px;
+    margin: 5px;
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu li + li {
@@ -6552,7 +6552,6 @@ span.btn:focus {
 
 .map-horizontal {
     height: initial !important;
-    margin-bottom: 25px;
 }
 
 .maparea iframe {
@@ -6647,6 +6646,11 @@ span.btn:focus {
     bottom: 0;
     overflow: hidden;
     position: absolute;
+    /*min-height: 95px;*/
+}
+
+.listing-post.map .foot {
+    /*min-height: 29px;*/
 }
 
 .listing-post .time-price {
@@ -6725,8 +6729,7 @@ span.btn:focus {
 .listing-post h2 {
     margin: 0;
     color: #58595b;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 22px;
 }
 
 .listing-post p {
@@ -6837,6 +6840,10 @@ span.btn:focus {
 
 .listing-post.small .post-content {
     padding: 15px 16px 9px;
+}
+
+.listing-post.small.map .post-content {
+    padding: 5px 8px 9px;
 }
 
 .listing-post.small .title {
@@ -7910,7 +7917,7 @@ element.style {
 
 .posts-holder .img-holder {
     max-width: 60px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     border-radius: 4px;
     margin: 0 auto 10px;
     border: solid 1px #eaebec;
@@ -7934,6 +7941,7 @@ element.style {
 .posts-holder .meta {
     overflow: hidden;
 }
+
 
 .posts-holder .meta time {
     display: block;
@@ -10589,7 +10597,7 @@ h1.listing-title a {
 
 .main-tabs .listing-post .foot {
     padding: 4px 15px 12px 11px;
-    background: rgba(255, 255, 255, 0.71);
+    background: rgba(255, 255, 255, 0.85);
 }
 
 .main-tabs .listing-post .time-price {
@@ -12762,7 +12770,7 @@ h1.listing-title a {
     margin: 0;
     color: #808285;
     background: #ffffff;
-    padding: 18px 19px 20px;
+    padding: 15px 19px 15px;
 }
 
 .postarea .posts-holder .post:before,
@@ -12786,7 +12794,7 @@ h1.listing-title a {
 }
 
 .postarea .posts-holder .post + .post {
-    margin: 20px 0 0;
+    margin: 15px 0 0;
     position: relative;
 }
 
@@ -12795,7 +12803,6 @@ h1.listing-title a {
 }
 
 .postarea .posts-holder .post .area .area {
-    padding: 0 0 26px;
 }
 
 .postarea .posts-holder .img-holder {
@@ -12826,7 +12833,7 @@ h1.listing-title a {
 }
 
 .postarea .posts-holder .footer {
-    margin: 1px 0 0;
+    margin: 10px 0 0;
     overflow: hidden;
 }
 
@@ -12921,7 +12928,7 @@ h1.listing-title a {
 }
 
 .postarea .meta p {
-    display: inline-block;
+    /*display: inline-block;*/
     vertical-align: top;
     margin: 0 11px 0 0;
 }
@@ -13382,13 +13389,10 @@ h1.listing-title a {
 }
 
 .form-ad-detail .listing-detail {
-    right: 10px;
-    max-width: 600px;
-    position: relative;
     background: #ffffff;
     border-radius: 5px;
-    margin: 0 auto 59px;
-    padding: 14px 20px 19px;
+    margin: 0 auto 30px;
+    padding: 15px 20px 15px;
     border: #e6e6e6 solid 1px;
 }
 
@@ -13413,7 +13417,6 @@ h1.listing-title a {
 }
 
 .form-ad-detail .area {
-    margin: 0 0 16px;
 }
 
 .form-ad-detail .area:before,
@@ -13449,7 +13452,6 @@ h1.listing-title a {
     display: block;
     font-size: 18px;
     line-height: 1.125;
-    margin: 0 0 85px;
 }
 
 .form-ad-detail .author-detail,
@@ -14224,7 +14226,7 @@ h1.listing-title a {
     position: absolute;
     border-radius: 5px;
     background: #ffffff;
-    z-index: 150 !important;
+    z-index: 1100 !important;
     border: #e6e6e6 solid 1px;
 }
 
@@ -18120,7 +18122,7 @@ body.loading {
     color: red;
 }
 
-.label {
+.label-bootstrap {
     display: inline;
     padding: .2em .6em .3em;
     font-size: 65%;
@@ -18180,3 +18182,39 @@ body.loading {
     background-color: #c9302c;
 }
 
+.new-message-indicator {
+    background-color: #fe9338;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-left: 3px;
+}
+
+.text-underline {
+    text-decoration: underline !important;
+}
+
+.required:after {
+    content: '*';
+}
+
+.profile-expire-nav {
+    border: #d6d6d6 solid 1px;
+    border-radius: 5px;
+    padding: 10px 5px 10px;
+    color: #999999;
+}
+
+.message-dates-holder {
+    margin-top: 15px;
+}
+
+.show-dates-link {
+    margin-top: 10px;
+    padding: 4px;
+}
+
+.show-dates-link a {
+    color: black;
+}

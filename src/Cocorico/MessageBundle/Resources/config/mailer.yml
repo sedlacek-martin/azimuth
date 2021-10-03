@@ -13,5 +13,6 @@ services:
                 cocorico_locales: "%cocorico.locales%"
                 cocorico_locale: "%cocorico.locale%"
                 cocorico_from_email: "%cocorico.from_email%"
+                cocorico_site_name: "%cocorico.site_name%"
             - templates:
                 new_thread_message_user: "%cocorico_message.new_thread_message_user.email.template%"

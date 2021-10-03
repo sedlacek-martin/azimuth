@@ -59,4 +59,18 @@ class CountryRepository extends EntityRepository
             return null;
         }
     }
+
+    /**
+     * @return int
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countAll(): int
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c.id) as cnt');
+
+        $result = $qb->getQuery()->getSingleResult();
+        return $result['cnt'];
+    }
 }

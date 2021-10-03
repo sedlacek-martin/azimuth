@@ -107,9 +107,9 @@
                                 </button>
 
                                 {% if admin.hasRoute('list') and admin.hasAccess('list') %}
-                                    <button type="submit" class="btn btn-success" name="btn_update_and_list"><i
-                                                class="fa fa-save"></i> <i class="fa fa-list"
-                                                                           aria-hidden="true"></i> {{ 'btn_update_and_return_to_list'|trans({}, 'SonataAdminBundle') }}
+                                    <button type="submit" class="btn btn-success" name="btn_update_and_list">
+                                        <i class="fa fa-save"></i> <i class="fa fa-list" aria-hidden="true"></i>
+                                        {{ 'btn_update_and_return_to_list'|trans({}, 'SonataAdminBundle') }}
                                     </button>
                                 {% endif %}
 
@@ -118,6 +118,13 @@
                                     <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}"><i
                                                 class="fa fa-minus-circle"
                                                 aria-hidden="true"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}
+                                    </a>
+                                {% endif %}
+
+                                {% if admin.hasRoute('list') and admin.hasAccess('list') %}
+                                    <a class="btn btn-default" href={{ path(admin.routes.get('list').getDefault('_sonata_name')) }}>
+                                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                        {{ 'btn_back_to_list'|trans({}, 'SonataAdminBundle') }}
                                     </a>
                                 {% endif %}
 
