@@ -461,18 +461,22 @@ function getNbUnReadMessages(url) {
     });
 }
 
-function getAnnouncements(url, showAlert) {
-    console.log(showAlert)
+function getAnnouncements(url, showAlert = false) {
     $.ajax({
         type: 'GET',
         url: url,
         success: function (result) {
-            if (result.count > 0) {
-                $('#announcements').html(result.count);
+            if (result.ok) {
                 $('#announcement-dropdown-content').html(result.view);
-                $('#announcement-dropdown-content-empty').hide();
-                if (showAlert) {
-                    showLoginAnnouncements();
+                if (result.count > 0) {
+                    $('#announcements').html(result.count);
+                    $('#announcement-dropdown-content-empty').hide();
+                    if (showAlert) {
+                        showLoginAnnouncements();
+                    }
+                } else {
+                    $('#announcements').html('');
+                    $('#announcement-dropdown-content-empty').show();
                 }
             }
         }

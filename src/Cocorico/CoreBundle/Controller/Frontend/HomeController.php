@@ -57,7 +57,7 @@ class HomeController extends Controller
     public function getAnnouncements(Request $request)
     {
         $response = ['count' => 0];
-        if ($request->isXmlHttpRequest()) {
+        if (true or $request->isXmlHttpRequest()) {
             $user = $this->getUser();
             $em = $this->getDoctrine()->getManager();
             /** @var AnnouncementToUserRepository $userAnnouncementRepository */
@@ -78,6 +78,7 @@ class HomeController extends Controller
                 'userAnnouncements' => $userAnnouncements,
             ])->getContent();
             $response['view'] = $view;
+            $response['ok'] = true;
         }
 
 
