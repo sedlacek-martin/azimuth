@@ -72,6 +72,8 @@ class UserAdmin extends BaseUserAdmin
             });
         }
 
+        $isSuperAdmin = $this->authIsGranted('ROLE_SUPER_ADMIN');
+
         $formMapper
             ->with('Main information')
             ->add(
@@ -94,6 +96,13 @@ class UserAdmin extends BaseUserAdmin
                 []
             )
             ->add(
+                'emailVerified',
+                null,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
                 'id',
                 null,
                 array(
@@ -106,7 +115,6 @@ class UserAdmin extends BaseUserAdmin
                 null,
                 array(
                     'required' => true,
-                    'disabled' => true,
                 )
             );
 
@@ -115,7 +123,6 @@ class UserAdmin extends BaseUserAdmin
                 null,
                 array(
                     'required' => true,
-                    'disabled' => true,
                 )
             )
             ->add(
@@ -123,7 +130,7 @@ class UserAdmin extends BaseUserAdmin
                 null,
                 array(
                     'required' => true,
-                    'disabled' => true,
+                    'disabled' => !$isSuperAdmin,
                 )
             )
             ->add(
@@ -140,14 +147,9 @@ class UserAdmin extends BaseUserAdmin
                     'required' => true,
                     'disabled' => true
                 )
-            )
-            ->add(
-                'memberOrganization',
-                null,
-                []
             );
 
-            if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
+            if ($isSuperAdmin) {
                 $formMapper
                     ->add('roles', 'choice', array(
                             'choices'  => $rolesChoices,
@@ -168,6 +170,20 @@ class UserAdmin extends BaseUserAdmin
             );
         }
         $formMapper->with('Additional information')
+            ->add(
+                'country',
+                'country',
+                [
+                    'disabled' => !$isSuperAdmin,
+                ]
+            )
+            ->add(
+                'memberOrganization',
+                null,
+                [
+                    'disabled' => !$isSuperAdmin,
+                ]
+            )
             ->add(
                 'translations',
                 TranslationsType::class,
@@ -191,7 +207,7 @@ class UserAdmin extends BaseUserAdmin
                 array(
                     'format' => 'dd - MMMM - yyyy',
                     'years' => range(date('Y') - 18, date('Y') - 80),
-                    'disabled' => true,
+                    'disabled' => !$isSuperAdmin,
                 )
             )
             ->add(
@@ -200,40 +216,10 @@ class UserAdmin extends BaseUserAdmin
                 array(
                     'label' => 'form.time_zone',
                     'required' => true,
-                    'disabled' => false,
+                    'disabled' => !$isSuperAdmin,
                 ),
                 array(
                     'translation_domain' => 'cocorico_user',
-                )
-            )
-            ->add(
-                'country',
-                'country',
-                array(
-                    'disabled' => true,
-                )
-            )
-            ->add(
-                'emailVerified',
-                null,
-                array(
-                    'required' => false,
-                )
-            )
-            ->add(
-                'nbBookingsOfferer',
-                null,
-                array(
-                    'required' => false,
-                    'disabled' => true,
-                )
-            )
-            ->add(
-                'nbBookingsAsker',
-                null,
-                array(
-                    'required' => false,
-                    'disabled' => true,
                 )
             )
             ->add(
@@ -279,7 +265,9 @@ class UserAdmin extends BaseUserAdmin
 
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
             $listMapper
-                ->add('memberOrganization', null, []);
+                ->add('memberOrganization', null, [
+                    'label' => 'form.label_member_organization',
+                ]);
         }
 
         $actions = [

@@ -1,0 +1,13 @@
+{% for userAnnouncement in userAnnouncements %}
+    <div class="announcement-item" data-id="{{ userAnnouncement.id }}">
+        <a href="{{ path('cocorico_announcement_show', {'id': userAnnouncement.id }) }}" data-toggle="modal" data-target="#announcement-modal">
+            <p><strong>{{ userAnnouncement.announcement.heading }}</strong></p>
+            <p class="small">{{ userAnnouncement.announcement.shortDescription }}</p>
+        </a>
+        <a class="announcement-close" data-keepOpenOnClick
+           data-id="{{ userAnnouncement.id }}"
+           data-url="{{ path('cocorico_announcement_dismiss', {'id': userAnnouncement.id}) }}">
+            <i class="glyphicon glyphicon-remove"></i>
+        </a>
+    </div>
+{% endfor %}

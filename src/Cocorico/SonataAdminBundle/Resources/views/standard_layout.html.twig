@@ -211,13 +211,15 @@ file that was distributed with this source code.
                             <div class="navbar-custom-menu">
                                 <ul class="nav navbar-nav">
                                     {% block sonata_top_nav_menu_add_block %}
-                                        <li class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                <i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> <i
-                                                        class="fa fa-caret-down" aria-hidden="true"></i>
-                                            </a>
-                                            {% include sonata_admin.adminPool.getTemplate('add_block') %}
-                                        </li>
+                                        {% if is_granted(sonata_admin.adminPool.getOption('role_super_admin')) %}
+                                            <li class="dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                    <i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> <i
+                                                            class="fa fa-caret-down" aria-hidden="true"></i>
+                                                </a>
+                                                {% include sonata_admin.adminPool.getTemplate('add_block') %}
+                                            </li>
+                                        {% endif %}
                                     {% endblock %}
                                     {% block sonata_top_nav_menu_user_block %}
                                         <li class="dropdown user-menu">
@@ -273,7 +275,7 @@ file that was distributed with this source code.
                             {{ knp_menu_render('CocoricoSonataAdminBundle:MenuBuilder:menu', {template: sonata_admin.adminPool.getTemplate('knp_menu_template')}) }}
                             {% if is_granted('ROLE_SUPER_ADMIN') %}
                                 <a class="menu-divider toggle-menu {% if not app.session.get('opened-super-admin-menu') %}collapsed{% endif %}" data-toggle="collapse" href="#super-admin-menu">
-                                    {{ 'menu.super_admin_settings'|trans|upper }}
+                                    {{ 'menu.super_admin_settings'|trans({}, 'SonataAdminBundle')|upper }}
                                     <i class="glyphicon glyphicon-chevron-down pull-right" style="padding-right: 10px;"></i>
                                 </a>
                                 <div id="super-admin-menu" class="{% if not app.session.get('opened-super-admin-menu') %}collapse collapsed{% else %}collapse in{% endif %}">

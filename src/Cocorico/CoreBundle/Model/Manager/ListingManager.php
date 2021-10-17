@@ -67,6 +67,7 @@ class ListingManager extends BaseManager
         $mo = $user->getMemberOrganization();
 
         $listingPublished = false;
+        $listingDeleted = false;
         //Published by default
         if (!$listing->getId()) {
             if ($mo->isPostConfirmation()) {
@@ -76,15 +77,19 @@ class ListingManager extends BaseManager
                 $listingPublished = true;
             }
         } else {
-            if ($mo->isPostConfirmation()) {
-                $listing->setStatus(BaseListing::STATUS_TO_VALIDATE);
-            }
             //todo: replace this tracking change by doctrine event listener. (See copost UserEntityListener)
             $uow = $this->em->getUnitOfWork();
             $uow->computeChangeSets();
             $changeSet = $uow->getEntityChangeSet($listing);
             if (array_key_exists('status', $changeSet) && $listing->getStatus() === BaseListing::STATUS_PUBLISHED) {
                 $listingPublished = true;
+            }
+
+            if (array_key_exists('status', $changeSet) && $listing->getStatus() === BaseListing::STATUS_DELETED) {
+                $listingDeleted = true;
+            }
+            if ($mo->isPostConfirmation() && !$listingDeleted) {
+                $listing->setStatus(BaseListing::STATUS_TO_VALIDATE);
             }
         }
         $listing->mergeNewTranslations();

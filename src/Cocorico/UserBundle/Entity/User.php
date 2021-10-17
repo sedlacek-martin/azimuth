@@ -11,6 +11,7 @@
 
 namespace Cocorico\UserBundle\Entity;
 
+use Cocorico\CoreBundle\Entity\AnnouncementToUser;
 use Cocorico\CoreBundle\Entity\Booking;
 use Cocorico\CoreBundle\Entity\BookingBankWire;
 use Cocorico\CoreBundle\Entity\BookingPayinRefund;
@@ -67,6 +68,14 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class User extends BaseUser implements ParticipantInterface
 {
+
+    const ADMIN_ROLES = [
+        'ROLE_ADMIN',
+        'ROLE_FACILITATOR',
+        'ROLE_ACTIVATOR',
+        'ROLE_SUPER_ADMIN',
+        'ROLE_DEVELOPER'
+    ];
 
     const MALE = 'male';
     const FEMALE = 'female';
@@ -569,6 +578,12 @@ class User extends BaseUser implements ParticipantInterface
     protected $verifiedAt;
 
     /**
+     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\AnnouncementToUser", mappedBy="user")
+     * @var AnnouncementToUser[]|Collection
+     */
+    protected $announcements;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -582,6 +597,7 @@ class User extends BaseUser implements ParticipantInterface
         $this->reviewsBy = new ArrayCollection();
         $this->reviewsTo = new ArrayCollection();
         $this->addresses = new ArrayCollection();
+        $this->announcements = new ArrayCollection();
         $this->bookingBankWires = new ArrayCollection();
         $this->bookingPayinRefunds = new ArrayCollection();
         $this->listingAlerts = new ArrayCollection();

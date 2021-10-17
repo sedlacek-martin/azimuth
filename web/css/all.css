@@ -121,6 +121,10 @@ hr {
     justify-content: space-between;
 }
 
+.justify-end {
+    justify-content: flex-end;
+}
+
 .align-item-center {
     align-items: center;
 }
@@ -18217,4 +18221,115 @@ body.loading {
 
 .show-dates-link a {
     color: black;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+#announcements:empty {
+    visibility: hidden;
+}
+
+#announcements {
+    background-color: #fe9338 !important;
+    margin-bottom: 5px;
+    position: relative;
+    left: -13px;
+    top: -13px;
+    padding: 3px 3px;
+    display: inline-block;
+    font-size: 8px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 10px;
+    min-width: 9px;
+}
+
+#announcement-bell {
+    font-size: 1.5em;
+}
+
+#announcement-dropdown {
+    min-width: 250px;
+}
+
+.announcement-item {
+    padding: 3px 5px;
+    position: relative;
+}
+
+.announcement-item a:hover {
+    color: gray;
+}
+
+div .announcement-item:not(:last-child) {
+    border-bottom: lightgray 1px solid;
+}
+
+.announcement-item p {
+    margin: 0;
+}
+
+.announcement-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: gray;
+    font-size: 0.8em;
+}
+
+.announcement-close:hover {
+    color: #e74c3c !important;
+}
+
+#announcement-dropdown-content:empty {
+    display: none;
+}
+
+.show-announcements-dropdown:hover {
+    color:gray !important;
+}
+
+#announcement-login-alert {
+    z-index: 33;
+    background-color: #fdcc5f;
+    min-width: 300px;
+    position: absolute;
+    border-radius: 6px;
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+#announcement-login-alert:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid #fdcc5f;
+    right: 40px;
+    top: -20px;
+}
+
+#announcement-login-alert span {
+    margin-right: 25px;
+}
+
+.announcement-alert-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 0.7em;
+}
+
+.announcement-alert-close:hover {
+    color:black
 }

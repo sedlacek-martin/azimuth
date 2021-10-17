@@ -13,6 +13,7 @@ namespace Cocorico\CoreBundle\Security\Voter;
 
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Model\BaseListing;
+use Cocorico\UserBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -21,12 +22,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ListingVoter extends Voter
 {
-    const BOOKING = 'booking';
     const EDIT = 'edit';
     const VIEW = 'view';
 
     const ATTRIBUTES = [
-        self::BOOKING,
         self::VIEW,
         self::EDIT,
     ];
@@ -48,7 +47,7 @@ class ListingVoter extends Voter
      */
     public function supports($attribute, $subject)
     {
-        if (!in_array($attribute, self::ATTRIBUTES)) {
+        if (!in_array(strtolower($attribute), self::ATTRIBUTES)) {
             return false;
         }
 
@@ -82,16 +81,17 @@ class ListingVoter extends Voter
      *
      * @return boolean
      */
-    protected function voteOnBooking(Listing $listing, TokenInterface $token)
+    protected function voteOnEdit(Listing $listing, TokenInterface $token): bool
     {
-        return (
-            $listing->getStatus() == Listing::STATUS_PUBLISHED
-            || (
-                $token->getUser() instanceof UserInterface &&
-                $token->getUser()->getId() === $listing->getUser()->getId() &&
-                $listing->getStatus() != Listing::STATUS_DELETED
-            )
-        );
+        $isOwner = $token->getUser() instanceof UserInterface &&
+            $token->getUser()->getId() === $listing->getUser()->getId();
+        $isFacilitator = $this->authorizationChecker->isGranted('ROLE_FACILITATOR');
+        $isSuperAdmin = $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
+        $isOwnMo = $token->getUser() instanceof User &&
+            $token->getUser()->getMemberOrganization()->getId() === $listing->getUser()->getMemberOrganization()->getId();
+
+        return $isOwner || $isSuperAdmin || ($isFacilitator && $isOwnMo);
+
     }
 
     /**
@@ -100,21 +100,7 @@ class ListingVoter extends Voter
      *
      * @return boolean
      */
-    protected function voteOnEdit(Listing $listing, TokenInterface $token)
-    {
-        return (
-            $token->getUser() instanceof UserInterface &&
-            $token->getUser()->getId() === $listing->getUser()->getId()
-        );
-    }
-
-    /**
-     * @param Listing $listing
-     * @param TokenInterface $token
-     *
-     * @return boolean
-     */
-    protected function voteOnView(Listing $listing, TokenInterface $token)
+    protected function voteOnView(Listing $listing, TokenInterface $token): bool
     {
         return (
             $listing->getStatus() == BaseListing::STATUS_PUBLISHED
@@ -123,7 +109,7 @@ class ListingVoter extends Voter
                 $token->getUser()->getId() === $listing->getUser()->getId() &&
                 $listing->getStatus() != BaseListing::STATUS_DELETED
             ) || (
-                $this->authorizationChecker->isGranted('ROLE_ADMIN')
+                $this->authorizationChecker->isGranted('ROLE_FACILITATOR')
             )
         );
     }

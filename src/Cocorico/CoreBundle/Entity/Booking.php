@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * Booking
+ * Bookingsuper_admin_actions.emails_filter.role_facilitator.label
  *
  * @ORM\Entity(repositoryClass="Cocorico\CoreBundle\Repository\BookingRepository")
  *

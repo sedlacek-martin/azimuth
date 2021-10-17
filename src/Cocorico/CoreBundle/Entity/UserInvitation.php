@@ -64,6 +64,13 @@ class UserInvitation
      */
     protected $createdAt;
 
+    /**
+     * @var MemberOrganization|null
+     *
+     * @ORM\ManyToOne(targetEntity="Cocorico\CoreBundle\Entity\MemberOrganization")
+     */
+    protected $memberOrganization;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -155,6 +162,24 @@ class UserInvitation
     public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return MemberOrganization|null
+     */
+    public function getMemberOrganization(): ?MemberOrganization
+    {
+        return $this->memberOrganization;
+    }
+
+    /**
+     * @param MemberOrganization|null $memberOrganization
+     * @return UserInvitation
+     */
+    public function setMemberOrganization(?MemberOrganization $memberOrganization): UserInvitation
+    {
+        $this->memberOrganization = $memberOrganization;
+        return $this;
     }
 
     public function __toString()

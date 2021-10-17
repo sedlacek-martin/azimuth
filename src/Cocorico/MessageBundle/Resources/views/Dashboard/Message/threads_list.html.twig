@@ -48,7 +48,7 @@
                     <div class="post-content">
                         <p>
                             <strong>{{ lastMessage.sender.getName }} {{ 'threads.list.say'|trans }}</strong>
-                            {{ lastMessage.body|strip_private_info|truncate(300, true) }}
+                            {{ lastMessage.body|truncate(300, true) }}
                             <a class="text-muted" href="{{ url('cocorico_dashboard_message_thread_view', {'threadId': thread.id}) }}">
                                 [{{ 'threads.list.more'|trans }}]
                             </a>

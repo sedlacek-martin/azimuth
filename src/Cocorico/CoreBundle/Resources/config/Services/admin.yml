@@ -2,7 +2,7 @@ services:
     sonata.admin.listing:
         class: Cocorico\CoreBundle\Admin\ListingAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Posts", label: "Posts" }
+            - { name: sonata.admin, manager_type: orm, group: "Posts", label: "Posts", showMosaicButton: false }
         arguments:
             - ~
             - Cocorico\CoreBundle\Entity\Listing
@@ -122,13 +122,37 @@ services:
             - [ setTranslationDomain, [ cocorico_user ] ]
             - [ setLocales, [ "%cocorico.locales%" ] ]
 
-    soanata.admin.listing_validation:
+    sonata.admin.listing_validation:
         class: Cocorico\CoreBundle\Admin\ListingValidationAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Posts", label: "Posts validation" }
         arguments:
             - ~
             - Cocorico\CoreBundle\Entity\Listing
+            - ~
+        calls:
+            - [ setTranslationDomain, [ SonataAdminBundle ] ]
+            - [ setLocales, [ "%cocorico.locales%" ] ]
+
+    sonata.admin.announcement:
+        class: Cocorico\CoreBundle\Admin\AnnouncementAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Announcement", label: "Announcements" }
+        arguments:
+            - ~
+            - Cocorico\CoreBundle\Entity\Announcement
+            - ~
+        calls:
+            - [ setTranslationDomain, [ SonataAdminBundle ] ]
+            - [ setLocales, [ "%cocorico.locales%" ] ]
+
+    sonata.admin.user_announcement:
+        class: Cocorico\CoreBundle\Admin\AnnouncementToUserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Announcement", label: "Users announcements" }
+        arguments:
+            - ~
+            - Cocorico\CoreBundle\Entity\AnnouncementToUser
             - ~
         calls:
             - [ setTranslationDomain, [ SonataAdminBundle ] ]

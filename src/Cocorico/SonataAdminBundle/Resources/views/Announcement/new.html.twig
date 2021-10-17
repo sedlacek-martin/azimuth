@@ -1,0 +1,148 @@
+{% extends "CocoricoSonataAdminBundle::standard_layout.html.twig" %}
+
+{% block navbar_title %}
+    {{ 'announcement.title'|trans }} |
+    {% if announcement.id is not null %}
+        {{ 'announcement.edit'|trans|capitalize }} <strong>{{ announcement.heading }}</strong>
+    {% else %}
+        <strong>{{ 'announcement.new' }}</strong>
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% if announcement.id is not null %}
+        {{ 'announcement.new'|trans|capitalize }}
+    {% else %}
+        {{ 'announcement.edit'|trans|capitalize }}
+    {% endif %}
+    {{ 'announcement.title'|trans }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="panel panel-body">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                        {{ form_errors(form) }}
+                        <div class="field-row form-group">
+                            {{ form_errors(form.heading) }}
+                            <div class="control-label">
+                                {{ form_label(form.heading) }}
+                            </div>
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                {{ form_widget(form.heading) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                        <div class="field-row form-group">
+                            {{ form_errors(form.shortDescription) }}
+                            <div class="control-label">
+                                {{ form_label(form.shortDescription) }}
+                            </div>
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                {{ form_widget(form.shortDescription) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 25px">
+                        {{ form_row(form.content) }}
+                    </div>
+                    <div class="col-lg-12 sonata-ba-form sonata-ba-field-standard-natural">
+                        <div class="field-row form-group">
+                            {{ form_errors(form.showAt) }}
+                            <div class="control-label">
+                                {{ form_label(form.showAt) }}
+                            </div>
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural datetime-picker">
+                                {{ form_widget(form.showAt) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div {% if announcement.id is not null %}class="hidden"{% endif %}>
+                        <div class="col-lg-12 sonata-ba-form">
+                            <div class="field-row form-group">
+                                {{ form_errors(form.memberOrganizations) }}
+                                <div class="control-label">
+                                    {{ form_label(form.memberOrganizations) }}
+                                    <span data-toggle="tooltip" data-placement="top" title="{{ 'announcements.member_organizations.help'|trans }}">
+                                        <i class="glyphicon glyphicon-question-sign text-info"></i>
+                                    </span>
+                                </div>
+                                <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                    {{ form_widget(form.memberOrganizations) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 sonata-ba-form">
+                            <div class="field-row form-group">
+                                {{ form_errors(form.includeAdmins) }}
+                                <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                    {{ form_widget(form.includeAdmins) }}{{ form_label(form.includeAdmins) }}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if announcement.id is not null %}
+                        <div class="col-lg-12">
+                            <div class="alert bg-gray">
+                                <p>
+                                    <i class="fa fa-user" style="margin-right: 5px;"></i>
+                                    {{ 'announcement.send_to_users_count.text'|trans }}:
+                                    <strong>{{ announcement.usersCount }}</strong>
+                                    <a href="{{ path('user-announcement_list', {'filter': {'announcement': {'value': announcement.id}}}) }}"
+                                       class="pull-right text-black" target="_blank">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                        {{ 'announcement.show_users' }}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="hidden">
+                        {{ form_rest(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-body">
+        {% if announcement.id is null %}
+            <div>
+                <p class="text-warning">
+                    <i class="glyphicon glyphicon-warning-sign"></i>
+                    {{ 'announcement.waiting_time.alert'|trans }}
+                </p>
+            </div>
+        {% endif %}
+        <button class="btn btn-success" type="submit" name="btn_create_and_edit">
+            <i class="fa fa-save" aria-hidden="true"></i>
+            {% if announcement.id is not null %}
+                {{ 'announcement.save'|trans }}
+            {% else %}
+                {{ 'announcement.send'|trans }}
+            {% endif %}
+
+        </button>
+
+        {% if announcement.id is not null %}
+            <a class="btn btn-danger" href={{ path('announcement_delete', {'id': announcement.id}) }}>
+                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}
+            </a>
+        {% endif %}
+        <a class="btn btn-default" href={{ path('announcement_list') }}>
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'btn_back_to_list'|trans({}, 'SonataAdminBundle') }}
+        </a>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

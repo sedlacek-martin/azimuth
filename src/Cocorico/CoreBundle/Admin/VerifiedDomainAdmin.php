@@ -2,13 +2,13 @@
 
 namespace Cocorico\CoreBundle\Admin;
 
+use Cocorico\CoreBundle\Entity\VerifiedDomain;
 use Cocorico\CoreBundle\Repository\MemberOrganizationRepository;
 use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class VerifiedDomainAdmin extends BaseAdmin
@@ -66,7 +66,9 @@ class VerifiedDomainAdmin extends BaseAdmin
         }
 
         $formMapper
-            ->add('domain', TextType::class)
+            ->add('domain', TextType::class, [
+                'label' => 'Domain (without @)',
+            ])
             ->add('memberOrganization', null, $moFieldOptions);
     }
 
@@ -77,9 +79,17 @@ class VerifiedDomainAdmin extends BaseAdmin
     }
 
 
-    protected function configureRoutes(RouteCollection $collection)
+    public function prePersist($object)
     {
+        if (!$object instanceof VerifiedDomain) {
+            return;
+        }
+
+        if ($object->getMemberOrganization() === null) {
+            $object->setMemberOrganization($this->getUser()->getMemberOrganization());
+        }
     }
+
 
     public function createQuery($context = 'list')
     {

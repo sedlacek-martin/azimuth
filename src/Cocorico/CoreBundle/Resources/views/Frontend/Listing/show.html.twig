@@ -6,7 +6,7 @@
 {% set categoryFieldBundleEnabled = bundleExist('CocoricoListingCategoryFieldBundle') %}
 
 {% set listing_translation = listing.translations[app.request.locale] %}
-{% set listing_description = listing_translation.description|strip_private_info %}
+{% set listing_description = listing_translation.description %}
 {% set listing_location = listing.location %}
 {#{% set price = listing.priceDecimal | format_price(app.request.locale, 0) %}#}
 {% set listing_user = listing.user %}
@@ -204,7 +204,7 @@
                                     </div>
                                     <!-- conditions -->
                                     <div role="tabpanel" class="tab-pane" id="conditions">
-                                        <p>{{ listing_translation.rules|strip_private_info|nl2br }}</p>
+                                        <p>{{ listing_translation.rules|nl2br }}</p>
                                     </div>
                                     <!-- features -->
                                     <div role="tabpanel" class="tab-pane" id="features">

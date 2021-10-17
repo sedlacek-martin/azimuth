@@ -14,6 +14,35 @@
     <div class="panel panel-body">
         <div class="row">
             <div class="col-lg-12">
+                <div class="panel border bg-gray" style="padding: 10px;">
+                    {{ form_start(form) }}
+                    <div class="row" style="display: flex; align-items: center;">
+                        <div class="col-md-5 col-sm-4">
+                            <div class="datepicker-holder">
+                                <strong>{{ 'filter.to.label'|trans }}:</strong>
+                                {{ form_widget(form.from) }}
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-4">
+                            <div class="datepicker-holder">
+                                <strong>{{ 'filter.to.label'|trans }}:</strong>
+                                {{ form_widget(form.to) }}
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-4 text-right">
+                            <button class="btn btn-success" type="submit">
+                                <i class="glyphicon glyphicon-filter" aria-hidden="true"></i>
+                                {{ 'filter.btn'|trans }}
+                            </button>
+                        </div>
+                        <div class="hidden">
+                            {{ form_rest(form) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
                 <div class="panel border">
                     <div class="panel-body">
                         <table class="table table-striped">
@@ -137,4 +166,13 @@
             </div>
         </div>
     </div>
+    <script>
+        $( function() {
+            $.datepicker.setDefaults( $.datepicker.regional[ "" ] );
+            $( ".datepicker" ).datepicker({
+                firstDay: 1,
+            });
+        } );
+    </script>
 {% endblock %}
+

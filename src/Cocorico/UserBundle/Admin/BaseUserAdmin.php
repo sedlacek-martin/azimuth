@@ -64,15 +64,4 @@ class BaseUserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
         }
         return null;
     }
-
-    /**
-     * @param string $action
-     * @param null $object
-     */
-    public function checkAccess($action, $object = null)
-    {
-        if (!$this->getAuthorizationChecker()->isGranted($action, $object)) {
-            throw new AccessDeniedException("Cant access this page!");
-        }
-    }
 }

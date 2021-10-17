@@ -22,7 +22,7 @@ class UserVoter extends BaseVoter
 
     function getAttributes(): array
     {
-        return [self::EDIT];
+        return [self::EDIT, self::DELETE];
     }
 
     function getClass(): string
@@ -32,12 +32,32 @@ class UserVoter extends BaseVoter
 
     public function voteOnEdit(User $user, TokenInterface $token): bool
     {
+        return $this->voteOnDelete($user, $token);
+    }
+
+    public function voteOnDelete(User $user, TokenInterface $token): bool
+    {
+        if ($this->authorizationChecker->isGranted('ROLE_DEVELOPER')) {
+            return true;
+        }
+
+        if ($user->hasRole('ROLE_DEVELOPER')) {
+            return false;
+        }
+
         if ($this->authorizationChecker->isGranted("ROLE_SUPER_ADMIN")) {
             return true;
         }
 
+        if ($user->hasRole('ROLE_SUPER_ADMIN')) {
+            return false;
+        }
+
         /** @var User $user */
-        $loggedInUser = $token->getUser();
-        return $user->getMemberOrganization()->getId() === $loggedInUser->getMemberOrganization()->getId();
+        $actualUser = $token->getUser();
+
+        $sameMo = $user->getMemberOrganization()->getId() === $actualUser->getMemberOrganization()->getId();
+
+        return $sameMo;
     }
 }

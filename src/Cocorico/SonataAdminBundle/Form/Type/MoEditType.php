@@ -13,7 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MoEditType extends AbstractType
 {
-
     private $request;
     private $locale;
     private $entityManager;

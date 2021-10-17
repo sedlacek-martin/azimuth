@@ -16,10 +16,12 @@ use Cocorico\MessageBundle\Entity\Message;
 use Cocorico\MessageBundle\Entity\Thread;
 use Cocorico\MessageBundle\Repository\MessageRepository;
 use Cocorico\MessageBundle\Repository\ThreadRepository;
+use Cocorico\SonataAdminBundle\Form\Type\StatisticsFilterType;
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -32,12 +34,26 @@ class StatisticsController extends Controller
 {
     /**
      * @Route("", name="cocorico_admin__statistics")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): ?Response
     {
-        $from = $request->get('from');
-        $to = $request->get('to');
+        if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+        }
+
+        $from = $to = null;
+
+        $form = $this->createForm(StatisticsFilterType::class, null, [
+            'action' => $this->generateUrl('cocorico_admin__statistics'),
+        ])->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $from = $data['from'] ? \DateTime::createFromFormat('m/d/Y H:i',  $data['from'] . "00:00") : null;
+            $to = $data['to'] ? \DateTime::createFromFormat('m/d/Y H:i',  $data['to'] . "00:00") : null;
+        }
 
         $em = $this->getDoctrine()->getManager();
 
@@ -71,8 +87,18 @@ class StatisticsController extends Controller
         $activatedUserCount = $userRepository->getActivatedCount();
 
         $verificationTimeData = $userRepository->getAverageActivationTime($from, $to);
-        $verificationTimeSeconds = $verificationTimeData['total'] / $verificationTimeData['cnt'];
-        $verificationTime = (new \DateInterval('PT' . $verificationTimeSeconds . 'S'))->format('%H:%I:%S');
+        $verificationTimeSeconds = $verificationTimeData['cnt'] ? round($verificationTimeData['total'] / $verificationTimeData['cnt']) : 0;
+
+        $dtF = new \DateTime('@0');
+        $dtT = new \DateTime("@$verificationTimeSeconds");
+        $diff = $dtF->diff($dtT);
+        if ($diff->days > 0) {
+            $verificationTime = $diff->format('%a days and %h hours');
+        } else if ($diff->h > 0) {
+            $verificationTime = $diff->format('%h hours and %i minutes');
+        } else {
+            $verificationTime = $diff->format('%i minutes and %s seconds');
+        }
 
         $loginCount = $userLoginRepository->countAll($from, $to);
 
@@ -84,6 +110,7 @@ class StatisticsController extends Controller
         $messageCount = $messageRepository->countAll($from, $to);
 
         return $this->render('CocoricoSonataAdminBundle::Statistics/index.html.twig', [
+            'form' => $form->createView(),
             'facilitatorCount' => $facilitatorCount,
             'activatorCount' => $activatorCount,
             'adminCount' => $adminCount,

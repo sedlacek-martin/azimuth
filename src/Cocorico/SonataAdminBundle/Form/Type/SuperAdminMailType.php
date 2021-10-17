@@ -2,6 +2,7 @@
 
 namespace Cocorico\SonataAdminBundle\Form\Type;
 
+use JMS\TranslationBundle\Model\Message;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,10 +10,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SuperAdminMailType extends AbstractType
 {
-    public const ROLE_CHOICES = [
-        'super_admin_actions.emails_filter.role_facilitator.label' => 'ROLE_FACILITATOR',
-        'super_admin_actions.emails_filter.role_activator.label' => 'ROLE_ACTIVATOR',
-    ];
+    protected static $facilitatorLabel = 'super_admin_actions.emails_filter.role_facilitator.label';
+    protected static $activatorLabel = 'super_admin_actions.emails_filter.role_activator.label';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,7 +21,10 @@ class SuperAdminMailType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'required' => false,
-                'choices' => self::ROLE_CHOICES,
+                'choices' => [
+                    self::$facilitatorLabel => 'ROLE_FACILITATOR',
+                    self::$activatorLabel => 'ROLE_ACTIVATOR',
+                ],
             ]);
     }
 
@@ -37,5 +39,19 @@ class SuperAdminMailType extends AbstractType
     public function getBlockPrefix(): string
     {
         return 'super_admin_actions_email_role_filter';
+    }
+
+    /**
+     * JMS Translation messages
+     *
+     * @return array
+     */
+    public static function getTranslationMessages()
+    {
+        $messages = array();
+        $messages[] = new Message(self::$facilitatorLabel, 'SonataAdminBundle');
+        $messages[] = new Message(self::$activatorLabel, 'SonataAdminBundle');
+
+        return $messages;
     }
 }

@@ -11,12 +11,12 @@
 {% endblock %}
 
 {% block content %}
+    {{ form_start(form) }}
     <div class="panel panel-body">
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
-                        {{ form_start(form) }}
                         {{ form_errors(form) }}
                         <div class="field-row form-group">
                             {{ form_errors(form.registrationAcceptDomain) }}
@@ -55,7 +55,7 @@
                         <div class="field-row form-group">
                             {{ form_errors(form.requiresUserIdentifier) }}
                             <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                                {{ form_widget(form.requiresUserIdentifier) }}{{ form_label(form.requiresUserIdentifier) }}:
+                                {{ form_widget(form.requiresUserIdentifier) }}{{ form_label(form.requiresUserIdentifier) }}
                             </div>
 
                         </div>
@@ -84,6 +84,7 @@
             <i class="fa fa-save" aria-hidden="true"></i> Save
         </button>
     </div>
+    {{ form_end(form) }}
 
 {% endblock %}
 

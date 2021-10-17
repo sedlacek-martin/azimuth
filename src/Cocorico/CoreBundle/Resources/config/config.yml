@@ -250,7 +250,7 @@ sonata_admin:
     title_logo: /images/weconnect_logo.svg
 
     security:
-        handler: sonata.admin.security.handler.role
+        handler: sonata.admin.security.handler.custom_voter
 
         role_admin: ROLE_ADMIN
         role_super_admin: ROLE_SUPER_ADMIN

@@ -50,7 +50,9 @@ class ActivationAdmin extends BaseUserAdmin
 
         if ($this->getUser() && $this->getUser()->getMemberOrganization()->isRequiresUserIdentifier()) {
             $listMapper
-                ->add('organizationIdentifier', null, []);
+                ->add('organizationIdentifier', null, [
+                    'template' => 'CocoricoSonataAdminBundle::list_field_mo_unique_identifier.html.twig',
+                ]);
         }
 
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {

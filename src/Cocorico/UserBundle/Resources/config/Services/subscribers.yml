@@ -14,3 +14,9 @@ services:
             - "@security.token_storage"
         tags:
             - { name: kernel.event_subscriber }
+
+    cocorico_user.on_login_subscriber:
+        class: Cocorico\UserBundle\Event\OnLoginSubscriber
+        arguments:
+        tags:
+            - { name: kernel.event_subscriber }
