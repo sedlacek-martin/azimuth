@@ -301,7 +301,7 @@
             onSelectAll: function () {
 
             },
-            enableHTML: false,
+            enableHTML: true,
             buttonClass: 'btn btn-default',
             inheritClass: false,
             buttonWidth: 'auto',

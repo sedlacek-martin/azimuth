@@ -22,3 +22,11 @@ services:
       - "@doctrine.orm.entity_manager"
     tags:
       - { name: form.type }
+
+  cocorico.form.type.announcement_new:
+    class: Cocorico\SonataAdminBundle\Form\Type\AnnouncementType
+    arguments:
+      - "@request_stack"
+      - "@doctrine.orm.entity_manager"
+    tags:
+      - { name: form.type }

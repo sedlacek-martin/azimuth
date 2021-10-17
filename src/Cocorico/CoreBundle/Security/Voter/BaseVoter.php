@@ -9,10 +9,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 abstract class BaseVoter extends Voter
 {
-    const EDIT = 'edit';
-    const LIST = 'list';
-    const CREATE = 'create';
-    const DELETE = 'delete';
+    const EDIT = 'EDIT';
+    const LIST = 'LIST';
+    const CREATE = 'CREATE';
+    const DELETE = 'DELETE';
+    const VIEW = 'VIEW';
+    const EXPORT = 'EXPORT';
 
     /**
      * @inheritDoc
@@ -20,7 +22,7 @@ abstract class BaseVoter extends Voter
     protected function supports($attribute, $subject)
     {
         $className = $this->getClass();
-        return ($subject instanceof $className) && in_array($attribute, $this->getAttributes());
+        return ($subject instanceof $className) && in_array(strtoupper($attribute), $this->getAttributes());
     }
 
     /**

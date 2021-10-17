@@ -50,17 +50,9 @@
                     {{ 'listing.show.location:'|trans({},'cocorico_listing') }}
                     <strong>{{ listing_location.city ~ ", " ~ listing_location.country|country_name }}</strong>
                 </li>
-{#                <li>#}
-{#                    {{ 'listing.show.cancellation_policy:'|trans({},'cocorico_listing') }}#}
-{#                    <strong>{{ listing.cancellationPolicyText|trans({},'cocorico_listing') }}</strong>#}
-{#                    <button data-placement="right" data-toggle="tooltip" class="tooltip-button"#}
-{#                            data-html="true" type="button"#}
-{#                            data-original-title="{{ cancellationPolicies() }}"> ?#}
-{#                    </button>#}
-{#                </li>#}
                 <li>
                     <strong>{{ 'listing.show.rules:'|trans }} :</strong>
-                    {{ listing_translation.rules|strip_private_info }}
+                    {{ listing_translation.rules }}
                 </li>
             </ul>
         </section>

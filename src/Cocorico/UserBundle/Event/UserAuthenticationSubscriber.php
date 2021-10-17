@@ -12,6 +12,7 @@
 namespace Cocorico\UserBundle\Event;
 
 use Cocorico\UserBundle\Entity\User;
+use JMS\TranslationBundle\Model\Message;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
@@ -22,6 +23,8 @@ class UserAuthenticationSubscriber implements EventSubscriberInterface
 {
     protected $session;
     protected $timezone;
+
+    const NOT_TRUSTED_ERROR = "Your account is not trusted yet";
 
     /**
      * UserAuthenticationSubscriber constructor.
@@ -43,7 +46,7 @@ class UserAuthenticationSubscriber implements EventSubscriberInterface
             $timezone = $user->getTimeZone();
         }
         if (!$user->isTrusted()) {
-            throw new CustomUserMessageAuthenticationException("Your account is not trusted yet");
+            throw new CustomUserMessageAuthenticationException(self::NOT_TRUSTED_ERROR);
         }
 
         $this->session->set('timezone', $timezone);
@@ -57,6 +60,18 @@ class UserAuthenticationSubscriber implements EventSubscriberInterface
         return array(
             SecurityEvents::INTERACTIVE_LOGIN => 'onSecurityInteractiveLogin',
         );
+    }
+
+    /**
+     * JMS Translation messages
+     *
+     * @return array
+     */
+    public static function getTranslationMessages()
+    {
+        $messages[] = new Message(self::NOT_TRUSTED_ERROR, 'cocorico_user');
+
+        return $messages;
     }
 
 }

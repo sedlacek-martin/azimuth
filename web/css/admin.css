@@ -76,3 +76,15 @@ table#revisions {
     color: #ffc107 !important;
 }
 
+.datetime-picker>div {
+    display: flex;
+}
+
+.datetime-picker>div>div {
+    width: 100%;
+}
+
+.datetime-picker div div .select2-container {
+    width: 30% !important;
+}
+

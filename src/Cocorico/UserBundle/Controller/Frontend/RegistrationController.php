@@ -186,6 +186,10 @@ class RegistrationController extends Controller
 
         if ($needVerification) {
             $this->get('session')->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans('registration.email_verified.success', array(), 'cocorico_user')
+            );
+            $this->get('session')->getFlashBag()->add(
                 'warning',
                 $this->get('translator')->trans('registration.needVerification', array(), 'cocorico_user')
             );

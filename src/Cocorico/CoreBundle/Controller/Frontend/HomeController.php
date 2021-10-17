@@ -11,8 +11,13 @@
 
 namespace Cocorico\CoreBundle\Controller\Frontend;
 
+use Cocorico\CoreBundle\Entity\Announcement;
+use Cocorico\CoreBundle\Entity\AnnouncementToUser;
+use Cocorico\CoreBundle\Repository\AnnouncementRepository;
+use Cocorico\CoreBundle\Repository\AnnouncementToUserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -44,6 +49,90 @@ class HomeController extends Controller
                 'listings' => $listings->getIterator(),
             )
         );
+    }
+
+    /**
+     * @Route("/get-announcements", name="cocorico_dashboard_announcements")
+     */
+    public function getAnnouncements(Request $request)
+    {
+        $response = ['count' => 0];
+        if ($request->isXmlHttpRequest()) {
+            $user = $this->getUser();
+            $em = $this->getDoctrine()->getManager();
+            /** @var AnnouncementToUserRepository $userAnnouncementRepository */
+            $userAnnouncementRepository = $em->getRepository(AnnouncementToUser::class);
+            /** @var AnnouncementToUser[] $userAnnouncements */
+            $userAnnouncements = $userAnnouncementRepository->getAnnouncementsWithCache($user);
+            $response['count'] = count(($userAnnouncements));
+            $response['announcements'] = [];
+            foreach ($userAnnouncements as $userAnnouncement) {
+                $announcement = $userAnnouncement->getAnnouncement();
+                $announcementData = [];
+                $announcementData['heading'] = $announcement->getHeading();
+                $announcementData['content'] = $announcement->getContent();
+                $announcementData['description'] = $announcement->getShortDescription();
+                $response['announcements'][$announcement->getId()] = $announcementData;
+            }
+            $view = $this->render('CocoricoCoreBundle:Frontend\Home:_announcements.html.twig', [
+                'userAnnouncements' => $userAnnouncements,
+            ])->getContent();
+            $response['view'] = $view;
+        }
+
+
+        return JsonResponse::create($response);
+    }
+
+    /**
+     * @Route("/announcement/show/{id}", name="cocorico_announcement_show")
+     *
+     * @param AnnouncementToUser $userAnnouncement
+     * @return Response|null
+     */
+    public function showAnnouncementAction(AnnouncementToUser $userAnnouncement): ?Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $userAnnouncement->setDisplayed(true);
+        $userAnnouncement->setDisplayedAt(new \DateTime());
+
+        $em->persist($userAnnouncement);
+        $em->flush();
+
+        /** @var AnnouncementToUserRepository $userAnnouncementRepository */
+        $userAnnouncementRepository = $em->getRepository(AnnouncementToUser::class);
+        $userAnnouncementRepository->clearCache($userAnnouncement->getUser()->getId());
+
+        return $this->render('CocoricoCoreBundle:Frontend\Home:announcement_show.html.twig', [
+            'announcement' => $userAnnouncement->getAnnouncement(),
+        ]);
+    }
+
+    /**
+     * @Route("/announcement/dismiss/{id}", name="cocorico_announcement_dismiss")
+     *
+     * @param Request $request
+     * @param AnnouncementToUser $userAnnouncement
+     * @return JsonResponse
+     */
+    public function dismissAnnouncementAction(Request $request, AnnouncementToUser $userAnnouncement): JsonResponse
+    {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $userAnnouncement->setDismissed(true);
+            $userAnnouncement->setDismissedAt(new \DateTime());
+
+            $em->persist($userAnnouncement);
+            $em->flush();
+
+            /** @var AnnouncementToUserRepository $userAnnouncementRepository */
+            $userAnnouncementRepository = $em->getRepository(AnnouncementToUser::class);
+            $userAnnouncementRepository->clearCache($userAnnouncement->getUser()->getId());
+        }
+
+        return JsonResponse::create();
     }
 
 

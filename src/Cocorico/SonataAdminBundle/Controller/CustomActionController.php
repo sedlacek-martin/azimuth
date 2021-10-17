@@ -108,6 +108,10 @@ class CustomActionController extends Controller
      */
     public function editMOInfoAction(MemberOrganization $memberOrganization, Request $request): ?Response
     {
+        if (!$this->isGranted('ROLE_SUPER_ADMIN') && !$this->isGranted('ROLE_FACILITATOR')) {
+            throw $this->createAccessDeniedException("You are not allowed to MO content");
+        }
+
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
             /** @var User $user */
             $user = $this->getUser();
@@ -235,6 +239,10 @@ class CustomActionController extends Controller
      */
     public function listingValidateAction(Request $request, Listing $listing): RedirectResponse
     {
+        if (!$this->isGranted('ROLE_ADMIN') || !$this->isGranted('EDIT', $listing)) {
+            throw $this->createAccessDeniedException('Cant validate this listing');
+        }
+
         $em = $this->getDoctrine()->getManager();
         if ($listing->getStatus() === Listing::STATUS_TO_VALIDATE ) {
             try {

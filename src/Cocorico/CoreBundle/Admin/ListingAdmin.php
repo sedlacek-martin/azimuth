@@ -237,12 +237,7 @@ class ListingAdmin extends BaseAdmin
                 array('label' => 'admin.listing.user_email.label')
             )
             ->add(
-                'user.phone',
-                null,
-                array('label' => 'admin.listing.user_phone.label')
-            )
-            ->add(
-                'listingListingCategories.category',
+                'category',
                 null,
                 array('label' => 'admin.listing.categories.label')
             )
@@ -302,16 +297,6 @@ class ListingAdmin extends BaseAdmin
                     'field_options' => array('format' => 'dd/MM/yyyy'),
                 ),
                 null
-            )
-            ->add(
-                'location.coordinate.city',
-                null,
-                array('label' => 'admin.listing.city.label')
-            )
-            ->add(
-                'location.coordinate.country',
-                null,
-                array('label' => 'admin.listing.country.label')
             );
     }
 
@@ -344,7 +329,10 @@ class ListingAdmin extends BaseAdmin
                 'title',
                 null,
                 array('label' => 'admin.listing.title.label')
-            );
+            )
+            ->add('category', null, [
+                'label' => 'admin.listing.category.label'
+            ]);
 
         $listMapper
             ->add(
@@ -360,8 +348,10 @@ class ListingAdmin extends BaseAdmin
             'actions',
             array(
                 'actions' => array(
-                    //'show' => array(),
                     'edit' => array(),
+                    'show' => [
+                        'template' => 'CocoricoSonataAdminBundle::list_action_listing_show.html.twig',
+                    ],
                 )
             )
         );

@@ -182,9 +182,20 @@
             if (isAuthenticated) {
                 //Unread messages
                 getNbUnReadMessages("{{ path('cocorico_dashboard_message_nb_unread') }}");
+                getAnnouncements("{{ path('cocorico_dashboard_announcements') }}", {% if app.session.get('loggedIn') == 2 %} true {% else %} false {% endif %});
             }
             //Handle Ajax Unauthorised access
             handleUnauthorisedAjaxAccess("{{ path("cocorico_user_login") }}");
+
+            $(document).delegate(".dropdown-menu [data-keepOpenOnClick]", "click", function(e) {
+                e.stopPropagation();
+            });
+
+            $(document).delegate(".announcement-close", "click", function(e) {
+                dismissAnnouncement($(e.target).parent('a'));
+            });
+
+
         });
     </script>
 {% endblock %}

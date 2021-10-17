@@ -33,13 +33,21 @@ class VerifiedDomainVoter extends BaseVoter
 
         /** @var User $user */
         $user = $token->getUser();
-        return $verifiedDomain->getMemberOrganization()->getId() === $user->getMemberOrganization()->getId();
 
+        return $verifiedDomain->getMemberOrganization()->getId() === $user->getMemberOrganization()->getId();
+    }
+
+    public function voteOnDelete(VerifiedDomain $verifiedDomain, TokenInterface $token): bool
+    {
+        return $this->voteOnEdit($verifiedDomain, $token);
     }
 
     function getAttributes(): array
     {
-        return [self::EDIT];
+        return [
+            self::EDIT,
+            self::DELETE,
+        ];
     }
 
     function getClass(): string

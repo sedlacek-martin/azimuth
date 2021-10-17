@@ -250,8 +250,7 @@ function initMultiSelect(elt, allSelectedText, noneSelectedText, numSelectedText
                     var label = ($(this).attr('label') !== undefined) ?
                         $(this).attr('label').replace(/&nbsp;&nbsp;&nbsp;/g, '').replace(' - ', '') :
                         $(this).html().replace(/&nbsp;&nbsp;&nbsp;/g, '').replace(' - ', '');
-                    selected += $.trim(label) + delimiter;
-                    console.log(label);
+                    selected += $.trim(label).split('&amp;').join('&') + delimiter;
                 });
                 return selected.substr(0, selected.length - 2);
             }
@@ -460,6 +459,58 @@ function getNbUnReadMessages(url) {
             }
         }
     });
+}
+
+function getAnnouncements(url, showAlert) {
+    console.log(showAlert)
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function (result) {
+            if (result.count > 0) {
+                $('#announcements').html(result.count);
+                $('#announcement-dropdown-content').html(result.view);
+                $('#announcement-dropdown-content-empty').hide();
+                if (showAlert) {
+                    showLoginAnnouncements();
+                }
+            }
+        }
+    });
+}
+
+function showLoginAnnouncements() {
+    let $alertBox = $('#announcement-login-alert');
+    $alertBox.removeClass('hidden');
+    let windowWidth = $(window).width();
+    let bellPosition = $('#announcements').offset();
+    let right = windowWidth - bellPosition.left - 50;
+    let top = bellPosition.top + 45;
+    $alertBox.css('right', right + 'px');
+    $alertBox.css('top', top + 'px');
+    $('.announcement-alert-close').click(dismissLoginAnnouncement);
+    $('.show-announcements-dropdown').click(dismissLoginAnnouncement);
+}
+
+function dismissLoginAnnouncement() {
+    let $alertBox = $('#announcement-login-alert');
+    $alertBox.hide();
+}
+
+function dismissAnnouncement(clickedElement) {
+    let url = clickedElement.attr('data-url');
+    $.ajax({
+        type: 'GET',
+        url: url,
+    });
+    let selector = '.announcement-item[data-id="' + clickedElement.attr('data-id') + '"]';
+    $('#announcement-dropdown-content').find(selector).remove();
+    let newCount = $('#announcements').html() - 1;
+    if (newCount == 0) {
+        newCount = '';
+        $('#announcement-dropdown-content-empty').show();
+    }
+    $('#announcements').html(newCount);
 }
 
 /**

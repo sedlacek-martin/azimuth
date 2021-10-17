@@ -15,13 +15,13 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="panel border">
+                    {{ form_start(userFilterForm) }}
                     <div class="panel-heading bg-gray-light">
                         <label>{{ form_label(userFilterForm.roles) }}</label>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
-                                {{ form_start(userFilterForm) }}
                                 {{ form_errors(userFilterForm) }}
                                 <div class="field-row form-group">
                                     {{ form_errors(userFilterForm.roles) }}
@@ -30,10 +30,6 @@
                                             {{ form_widget(userFilterForm.roles) }}
                                         </div>
                                     </div>
-                                </div>
-                                <div class="hidden">
-                                    {{ form_rest(userFilterForm) }}
-                                    {{ form_end(userFilterForm) }}
                                 </div>
                                 <button class="btn btn-default" type="submit" name="btn_create_and_edit">
                                     <i class="glyphicon glyphicon-filter" aria-hidden="true"></i>
@@ -54,6 +50,10 @@
                                         <input type="text" name="emails" id="emails" value="{{ emails }}" style="width: 100%;">
                                     </div>
                                 {% endif %}
+                                <div class="hidden">
+                                    {{ form_rest(userFilterForm) }}
+                                    {{ form_end(userFilterForm) }}
+                                </div>
                             </div>
                         </div>
                     </div>

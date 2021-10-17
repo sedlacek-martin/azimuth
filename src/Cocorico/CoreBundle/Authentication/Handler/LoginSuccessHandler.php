@@ -41,7 +41,6 @@ class LoginSuccessHandler extends DefaultAuthenticationSuccessHandler
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-//        $session = $request->getSession();
         /** @var User $user */
         $user = $token->getUser();
 
@@ -50,6 +49,9 @@ class LoginSuccessHandler extends DefaultAuthenticationSuccessHandler
         // create entry about user login
         $ip = $request->getClientIp();
         $login = UserLogin::create($user, $ip);
+
+        $request->getSession()->set('loggedIn', 1);
+
         $this->entityManager->persist($login);
         $this->entityManager->flush();
 

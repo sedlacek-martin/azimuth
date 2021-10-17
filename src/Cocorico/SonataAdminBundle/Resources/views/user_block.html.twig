@@ -3,15 +3,29 @@
         {% if app.user %}
             {% if is_granted('ROLE_ACTIVATOR')  or is_granted('ROLE_FACILITATOR') %}
                 <li>
-                    <span style="padding: 3px 20px;">
-                        Admin role:
-                        {% if is_granted('ROLE_ACTIVATOR') %}
-                            <strong>ACTIVATOR</strong>
-                        {% endif %}
-                        {% if is_granted('ROLE_FACILITATOR') %}
-                            <strong>FACILITATOR</strong>
-                        {% endif %}
-                    </span>
+                <li>
+                 <span style="padding: 3px 20px;">
+                     {{ 'user_block.user'|trans({}, 'SonataUserBundle') }}: <strong>{{ app.user.fullName }}</strong>
+                 </span>
+                </li>
+                    <div style="padding: 3px 20px;">
+                        <span>
+                            {{ 'user_block.admin_roles'|trans({}, 'SonataUserBundle') }}:
+                            {% if is_granted('ROLE_ACTIVATOR') %}
+                                <strong class="label label-info">ACTIVATOR</strong>
+                            {% endif %}
+                            {% if is_granted('ROLE_FACILITATOR') %}
+                                <strong class="label label-info">FACILITATOR</strong>
+                            {% endif %}
+                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                <strong class="label label-danger">SUPER ADMIN</strong>
+                            {% endif %}
+                            {% if is_granted('ROLE_DEVELOPER') %}
+                                <strong class="label label-danger">DEVELOPER</strong>
+                            {% endif %}
+
+                        </span>
+                    </div>
                 </li>
             {% endif %}
             {% if is_granted('ROLE_PREVIOUS_ADMIN') and sonata_user.impersonating %}
@@ -21,12 +35,6 @@
                     </a>
                 </li>
             {% endif %}
-
-            <li>
-                 <span style="padding: 3px 20px;">
-                     User: <strong>{{ app.user.firstName }}</strong>
-                 </span>
-            </li>
             <li>
                 <a href="{{ url('sonata_user_admin_security_logout') }}">
                     <i class="glyphicon glyphicon-log-out"></i>

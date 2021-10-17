@@ -3,7 +3,7 @@
 {% set user_images = user.images %}
 {% set user_description = "" %}
 {% if  user.translations[app.request.locale] is defined %}
-    {% set user_description = user.translations[app.request.locale].description|strip_private_info %}
+    {% set user_description = user.translations[app.request.locale].description %}
 {% endif %}
 
 {%- block meta_title -%}

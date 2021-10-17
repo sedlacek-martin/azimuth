@@ -61,3 +61,10 @@ services:
             - "%kernel.environment%"
         tags:
             - { name: routing.loader }
+
+    # Custom sonata admin security handler
+    sonata.admin.security.handler.custom_voter:
+        class: Cocorico\CoreBundle\Security\Voter\CustomAdminSecurityHandler
+        arguments:
+            - "@security.authorization_checker"
+            - [ ROLE_SUPER_ADMIN ]

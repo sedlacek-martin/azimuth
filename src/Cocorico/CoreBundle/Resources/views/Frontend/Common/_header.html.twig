@@ -5,7 +5,7 @@
     <!-- topbar -->
     <div class="topbar {% if is_granted('ROLE_PREVIOUS_ADMIN') %}danger{% endif %}">
         <div class="container">
-            <div class="row">
+            <div class="row d-flex align-item-center">
                 <div class="col-xs-6">
                     <ul class="list-inline">
                         <li>
@@ -20,21 +20,43 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-xs-6 d-flex justify-end align-item-center">
                     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                        <span>{{ 'impersonation.active'|trans }} ({{ app.user.firstName | capitalize }})</span>
+                        <span>{{ 'impersonation.active'|trans }} ({{ app.user.firstName | capitalize }})</span><br>
                         <a  class="link text-underline" href="{{ path('cocorico_home', {'_become_who_you_are': '_exit'}) }}">
                             {{ 'exit_impersonation'|trans|upper }}
                         </a>
                     {% elseif app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
-                        <i class="glyphicon glyphicon-user"></i>
-                        <span class="">
-                            {{ app.user.firstname | capitalize }} {{ app.user.lastname | capitalize }}
-                        </span>
+                        <div class="dropdown show" style="margin-right: 10px; border-right: lightgrey 1px solid;">
+                            <a class="dropdown-toggle show-announcements-dropdown" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="glyphicon glyphicon-bell" id="announcement-bell"></i>
+                                <span id="announcements"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" id="announcement-dropdown">
+                                <div id="announcement-dropdown-content"></div>
+                                <div id="announcement-dropdown-content-empty">
+                                    <em class="announcement-item text-muted">{{ 'announcements.empty'|trans }}</em>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inline-block">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span class="">
+                                {{ app.user.firstname | capitalize }} {{ app.user.lastname | capitalize }}
+                            </span>
+                        </div>
                     {% endif %}
                 </div>
             </div>
         </div>
+    </div>
+    <div id="announcement-login-alert" class="hidden">
+        <i class="glyphicon glyphicon-bullhorn me-4"></i>
+        <span>{{ 'announcement.new_on_login.alert'|trans }}</span>
+        <a class="announcement-alert-close text-muted">
+            <i class="glyphicon glyphicon-remove"></i>
+        </a>
     </div>
     {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") and app.user.isExpiredSoon(30) and not app.user.reconfirmRequested %}
         <div class="expiry-warning-topbar">
@@ -133,3 +155,19 @@
         </div>
     </div>
 </header>
+<div class="modal fade" id="announcement-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="true"
+     data-keyboard="true">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body home-content-body">
+                <strong class="title"></strong>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

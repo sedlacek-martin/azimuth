@@ -29,7 +29,7 @@
                 </div>
             </header>
             <div class="post-content">
-                <p>{{ message.body|strip_private_info|nl2br }}</p>
+                <p>{{ message.body|nl2br }}</p>
                 {% if message.adminNote is not empty %}
                     <div class="text-info">
                         <i class="glyphicon glyphicon-info-sign"></i>

@@ -48,9 +48,13 @@
                             <div class="message-holder border {% if firstSender == message.sender.id %}bg-gray-light{% endif %}">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <a href="{{ path('admin_cocorico_user_user_edit', {'id': message.sender.id}) }}">
+                                        {% if is_granted('EDIT', message.sender) %}
+                                            <a href="{{ path('admin_cocorico_user_user_edit', {'id': message.sender.id}) }}">
+                                                {{ message.sender.fullname }}
+                                            </a>
+                                        {% else %}
                                             {{ message.sender.fullname }}
-                                        </a>
+                                        {% endif %}
                                         {{ 'said'|trans }}:
                                     </div>
                                     <div class="col-lg-6 text-muted text-right">

@@ -28,6 +28,7 @@ use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -91,13 +92,36 @@ class RegistrationFormHandler
      */
     public function process($form, bool $confirmation = false): bool
     {
+        /** @var User $user */
         $user = $form->getData();
 
         if ('POST' === $this->request->getMethod()) {
             $form->handleRequest($this->request);
 
+            $verifiedDomain = null;
+            if ($user->getMemberOrganization()->isRegistrationAcceptDomain()) {
+                // check whether email is within the trusted domain
+                /** @var VerifiedDomainRepository $verifiedDomainRepository */
+                $verifiedDomainRepository = $this->em->getRepository(VerifiedDomain::class);
+                $verifiedDomain = $verifiedDomainRepository->findOneByMoAndDomain($user->getMemberOrganization()->getId(), $user->getEmailDomain());
+            }
+
+            /** @var UserInvitationRepository $userInvitationRepository */
+            $userInvitationRepository = $this->em->getRepository(UserInvitation::class);
+            $invitation = $userInvitationRepository->findOneByEmail($user->getEmail());
+
+            $hasVerifiedDomain = ($verifiedDomain !== null);
+            $hasInvite = ($invitation !== null && !$invitation->isUsed() && !$invitation->isExpired());
+
+            if (!$user->getMemberOrganization()->isRegistrationAcceptActivation() &&
+                !$hasInvite && !$hasVerifiedDomain) {
+                $form->addError(new FormError('Registration for this member organization is only available via invitation or verified domain'));
+
+                return false;
+            }
+
             if ($form->isValid()) {
-                $this->onSuccess($user, $confirmation);
+                $this->onSuccess($user, $confirmation, $hasVerifiedDomain, $hasInvite);
 
                 return true;
             }
@@ -109,17 +133,21 @@ class RegistrationFormHandler
     /**
      * @param User $user
      * @param bool $confirmation
+     * @param bool $verifiedDomain
+     * @param bool $invited
      */
-    protected function onSuccess(User $user, bool $confirmation)
+    protected function onSuccess(User $user, bool $confirmation, bool $verifiedDomain, bool $invited)
     {
-        $this->handleRegistration($user, $confirmation);
+        $this->handleRegistration($user, $confirmation, $verifiedDomain, $invited);
     }
 
     /**
      * @param User $user
-     * @param boolean $confirmation
+     * @param bool $confirmation
+     * @param bool $verifiedDomain
+     * @param bool $invited
      */
-    public function handleRegistration(User $user, bool $confirmation = false)
+    public function handleRegistration(User $user, bool $confirmation = false, bool $verifiedDomain = false, bool $invited = false)
     {
         //Set the default mother tongue for registering user
         $user->setMotherTongue($this->request->get('_locale'));
@@ -135,21 +163,11 @@ class RegistrationFormHandler
 
         if (!$user->isTrusted()) {
 
-            // check whether email is within the trusted domain
-            /** @var VerifiedDomainRepository $verifiedDomainRepository */
-            $verifiedDomainRepository = $this->em->getRepository(VerifiedDomain::class);
-            $verifiedDomain = $verifiedDomainRepository->findOneByMoAndDomain($user->getMemberOrganization()->getId(), $user->getEmailDomain());
-
-            /** @var UserInvitationRepository $userInvitationRepository */
-            $userInvitationRepository = $this->em->getRepository(UserInvitation::class);
-            $invitation = $userInvitationRepository->findOneByEmail($user->getEmail());
-
-            if ($verifiedDomain !== null ||
-                ($invitation !== null && !$invitation->isUsed() && !$invitation->isExpired())) {
+            if ($verifiedDomain || $invited) {
                 $user
                     ->setTrusted(true)
                     ->setTrustedEmailSent(true);
-            } else {
+            }  else {
                 $user->setTrusted(false);
                 $this->session->set('cocorico_user_need_verification', true);
             }

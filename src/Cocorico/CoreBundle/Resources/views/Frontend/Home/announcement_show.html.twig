@@ -1,0 +1,28 @@
+{% trans_default_domain 'cocorico' %}
+
+<div id="message-form-container">
+    <div class="modal-header" style="border-bottom: lightgrey 1px solid">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h3>{{ announcement.heading }}</h3>
+    </div>
+
+    <div class="modal-body mt-3">
+        <div>
+            {{ announcement.content|raw }}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="text-muted small pull-left">
+            {{ 'announcement.received_at' }}: {{ announcement.showAt|date('d.m.Y H:m') }}
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            getAnnouncements("{{ path('cocorico_dashboard_announcements') }}")
+        });
+    </script>
+</div>
+

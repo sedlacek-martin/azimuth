@@ -92,3 +92,5 @@ tmp/mangopay/MangoPaySdkStorage.tmp.php
 doc/phpdocs/sami.phar
 
 phpunit.xml
+
+*.sql
