@@ -33,12 +33,12 @@ services:
         tags:
             - { name: form.type }
 
-    cocorico.form.type.listing_edit_price:
-        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditPriceType
-        arguments:
-            - "@event_dispatcher"
-        tags:
-            - { name: form.type }
+#    cocorico.form.type.listing_edit_price:
+#        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditPriceType
+#        arguments:
+#            - "@event_dispatcher"
+#        tags:
+#            - { name: form.type }
 
     cocorico.form.type.listing_edit_images:
         class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditImagesType
@@ -67,27 +67,27 @@ services:
         tags:
             - { name: form.type }
 
-    cocorico.form.type.listing_edit_availabilities_status:
-        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesStatusType
-        parent: cocorico.form.type.listing_edit_availabilities
-        tags:
-            - { name: form.type }
+#    cocorico.form.type.listing_edit_availabilities_status:
+#        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesStatusType
+#        parent: cocorico.form.type.listing_edit_availabilities
+#        tags:
+#            - { name: form.type }
 
-    cocorico.form.type.listing_edit_availability_status:
-        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilityStatusType
-        tags:
-            - { name: form.type }
+#    cocorico.form.type.listing_edit_availability_status:
+#        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilityStatusType
+#        tags:
+#            - { name: form.type }
 
-    cocorico.form.type.listing_edit_availabilities_prices:
-        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesPricesType
-        parent: cocorico.form.type.listing_edit_availabilities
-        tags:
-            - { name: form.type }
+#    cocorico.form.type.listing_edit_availabilities_prices:
+#        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesPricesType
+#        parent: cocorico.form.type.listing_edit_availabilities
+#        tags:
+#            - { name: form.type }
 
-    cocorico.form.type.listing_edit_availability_price:
-        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilityPriceType
-        tags:
-            - { name: form.type }
+#    cocorico.form.type.listing_edit_availability_price:
+#        class: Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilityPriceType
+#        tags:
+#            - { name: form.type }
 
     cocorico.form.type.listing_new_categories:
         class: Cocorico\CoreBundle\Form\Type\Frontend\ListingNewCategoriesType
@@ -184,6 +184,12 @@ services:
         tags:
             - { name: form.type }
 
+    cocorico.form.type.listing_search_nav:
+        class: Cocorico\CoreBundle\Form\Type\Frontend\ListingSearchNavType
+        parent: cocorico.form.type.listing_search_result
+        tags:
+            - { name: form.type }
+
     cocorico.form.type.listing_characteristic:
         class: Cocorico\CoreBundle\Form\Type\ListingCharacteristicType
         arguments:
@@ -204,46 +210,46 @@ services:
         tags:
             - { name: form.type }
 
-    cocorico.form.type.booking_new:
-        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingNewType
-        arguments:
-            - "@cocorico.booking.manager"
-            - "@event_dispatcher"
-            - parameters:
-                  cocorico_booking_allow_single_day: "%cocorico.booking.allow_single_day%"
-                  cocorico_booking_end_day_included: "%cocorico.booking.end_day_included%"
-                  cocorico_booking_min_start_time_delay: "%cocorico.booking.min_start_time_delay%"
-                  cocorico_booking_acceptation_delay: "%cocorico.booking.acceptation_delay%"
-                  cocorico_currency: "%cocorico.currency%"
-                  cocorico_user_address_delivery: "%cocorico.user_address_delivery%"
-        tags:
-            - { name: form.type }
+#    cocorico.form.type.booking_new:
+#        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingNewType
+#        arguments:
+#            - "@cocorico.booking.manager"
+#            - "@event_dispatcher"
+#            - parameters:
+#                  cocorico_booking_allow_single_day: "%cocorico.booking.allow_single_day%"
+#                  cocorico_booking_end_day_included: "%cocorico.booking.end_day_included%"
+#                  cocorico_booking_min_start_time_delay: "%cocorico.booking.min_start_time_delay%"
+#                  cocorico_booking_acceptation_delay: "%cocorico.booking.acceptation_delay%"
+#                  cocorico_currency: "%cocorico.currency%"
+#                  cocorico_user_address_delivery: "%cocorico.user_address_delivery%"
+#        tags:
+#            - { name: form.type }
 
-    cocorico.form.type.booking_edit:
-        class: Cocorico\CoreBundle\Form\Type\Dashboard\BookingEditType
-        tags:
-            - { name: form.type }
-
-    cocorico.form.type.booking_price:
-        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingPriceType
-        arguments:
-            - "@event_dispatcher"
-            - "%cocorico.booking.allow_single_day%"
-            - "%cocorico.booking.end_day_included%"
-            - "%cocorico.days_display_mode%"
-            - "%cocorico.times_display_mode%"
-            - "%cocorico.time_unit%"
-        tags:
-            - { name: form.type }
-
-    #Booking user address
-    cocorico.form.type.booking_user_address:
-        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingUserAddressFormType
-        arguments:
-            - "@security.token_storage"
-            - "@security.authorization_checker"
-        tags:
-            - { name: form.type }
+#    cocorico.form.type.booking_edit:
+#        class: Cocorico\CoreBundle\Form\Type\Dashboard\BookingEditType
+#        tags:
+#            - { name: form.type }
+#
+#    cocorico.form.type.booking_price:
+#        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingPriceType
+#        arguments:
+#            - "@event_dispatcher"
+#            - "%cocorico.booking.allow_single_day%"
+#            - "%cocorico.booking.end_day_included%"
+#            - "%cocorico.days_display_mode%"
+#            - "%cocorico.times_display_mode%"
+#            - "%cocorico.time_unit%"
+#        tags:
+#            - { name: form.type }
+#
+#    #Booking user address
+#    cocorico.form.type.booking_user_address:
+#        class: Cocorico\CoreBundle\Form\Type\Frontend\BookingUserAddressFormType
+#        arguments:
+#            - "@security.token_storage"
+#            - "@security.authorization_checker"
+#        tags:
+#            - { name: form.type }
 
     #Form extensions
     cocorico.image_type_extension:

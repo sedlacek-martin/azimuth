@@ -7,18 +7,22 @@
 </div>
 <div class="mt-5">
     <ul class="info-list">
-        <li>
-            {{ 'form.user.scout_since:'|trans({}, 'cocorico_user') }}
-            <strong>{{ user.scoutSince }}</strong>
-        </li>
+        {% if user.scoutSince %}
+            <li>
+                {{ 'form.user.scout_since:'|trans({}, 'cocorico_user') }}
+                <strong>{{ user.scoutSince }}</strong>
+            </li>
+        {% endif %}
         <li>
             {{ 'form.user.age:'|trans({}, 'cocorico_user') }}
             <strong>{{ user.age }}</strong>
         </li>
-        <li>
-            {{ 'form.user.gender:'|trans({}, 'cocorico_user') }}
-            <strong>{{ user.gender|trans({}, 'cocorico_user') }}</strong>
-        </li>
+        {% if user.gender %}
+            <li>
+                {{ 'form.user.gender:'|trans({}, 'cocorico_user') }}
+                <strong>{{ user.gender|trans({}, 'cocorico_user') }}</strong>
+            </li>
+        {% endif %}
         <li>
             {{ 'user.profile.languages'|trans({}, 'cocorico_user') }}
             <strong class="list-comma">

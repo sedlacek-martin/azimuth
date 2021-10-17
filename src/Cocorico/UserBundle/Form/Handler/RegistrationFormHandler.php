@@ -36,8 +36,6 @@ class RegistrationFormHandler
 
     const ERROR = 0;
 
-
-
     protected $request;
     /** @var  TwigSwiftMailer */
     protected $mailer;
@@ -146,13 +144,14 @@ class RegistrationFormHandler
             $userInvitationRepository = $this->em->getRepository(UserInvitation::class);
             $invitation = $userInvitationRepository->findOneByEmail($user->getEmail());
 
-            if ($verifiedDomain === null && $invitation === null) {
-                $user->setTrusted(false);
-                $this->session->set('cocorico_user_need_verification', true);
-            } else {
+            if ($verifiedDomain !== null ||
+                ($invitation !== null && !$invitation->isUsed() && !$invitation->isExpired())) {
                 $user
                     ->setTrusted(true)
                     ->setTrustedEmailSent(true);
+            } else {
+                $user->setTrusted(false);
+                $this->session->set('cocorico_user_need_verification', true);
             }
         }
 

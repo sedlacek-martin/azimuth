@@ -15,6 +15,8 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Form\Type\ListingImageType;
 use Cocorico\CoreBundle\Form\Type\PriceType;
+use Cocorico\CoreBundle\Model\BaseListing;
+use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Cocorico\UserBundle\Repository\UserRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
@@ -27,7 +29,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class ListingAdmin extends AbstractAdmin
+class ListingAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
     protected $baseRoutePattern = 'listing';
@@ -185,44 +187,8 @@ class ListingAdmin extends AbstractAdmin
                     'label' => 'admin.listing.images.label'
                 )
             );
-//            ->add(
-//                'price',
-//                PriceType::class,
-//                array(
-//                    'disabled' => true,
-//                    'label' => 'admin.listing.price.label',
-//                    'include_vat' => $this->includeVat
-//                )
-//            );
-
-//        if (array_key_exists("CocoricoListingDepositBundle", $this->bundles)) {
-//            $formMapper
-//                ->add(
-//                    'amountDeposit',
-//                    PriceType::class,
-//                    array(
-//                        'disabled' => true,
-//                        'label' => 'listing_edit.form.deposit',
-//                        'required' => false,
-//                    ),
-//                    array(
-//                        'translation_domain' => 'cocorico_listing_deposit',
-//                    )
-//                );
-//        }
 
         $formMapper
-//            ->add(
-//                'cancellationPolicy',
-//                ChoiceType::class,
-//                array(
-//                    'choices' => array_flip(Listing::$cancellationPolicyValues),
-//                    'placeholder' => 'admin.listing.cancellation_policy.label',
-//                    'disabled' => true,
-//                    'label' => 'admin.listing.cancellation_policy.label',
-//                    'translation_domain' => 'cocorico_listing',
-//                )
-//            )
             ->add(
                 'location.completeAddress',
                 'text',
@@ -247,35 +213,7 @@ class ListingAdmin extends AbstractAdmin
                     'label' => 'admin.listing.updated_at.label'
                 )
             )
-//            ->end()
-//            ->with('Characteristics')
-//            ->add(
-//                'listingListingCharacteristics',
-//                null,
-//                array(
-//                    'expanded' => true,
-//                    'label' => 'admin.listing.characteristics.label'
-//                )
-//            )
             ->end();
-
-
-        if (array_key_exists("CocoricoCarrierBundle", $this->bundles)) {
-            $formMapper
-                ->with('admin.booking.delivery')
-                ->add(
-                    'pallets',
-                    'number',
-                    array(
-                        'label' => 'listing.form.pallets',
-                        'required' => true
-                    ),
-                    array(
-                        'translation_domain' => 'cocorico_carrier_listing',
-                    )
-                )
-                ->end();
-        }
     }
 
     /** @inheritdoc */
@@ -365,36 +303,6 @@ class ListingAdmin extends AbstractAdmin
                 ),
                 null
             )
-//            ->add(
-//                'priceMin',
-//                'doctrine_orm_callback',
-//                array(
-//                    'callback' => array($this, 'getPriceMinFilter'),
-//                    'field_type' => 'text',
-//                    'operator_type' => 'choice',
-//                    'operator_options' => array(
-//                        'choices' => array(
-//                            NumberType::TYPE_GREATER_EQUAL => '>=',
-//                        ),
-//                    ),
-//                    'label' => 'admin.listing.price_min.label'
-//                )
-//            )
-//            ->add(
-//                'priceMax',
-//                'doctrine_orm_callback',
-//                array(
-//                    'callback' => array($this, 'getPriceMaxFilter'),
-//                    'field_type' => 'text',
-//                    'operator_type' => 'choice',
-//                    'operator_options' => array(
-//                        'choices' => array(
-//                            NumberType::TYPE_LESS_EQUAL => '<='
-//                        )
-//                    ),
-//                    'label' => 'admin.listing.price_max.label'
-//                )
-//            )
             ->add(
                 'location.coordinate.city',
                 null,
@@ -407,50 +315,6 @@ class ListingAdmin extends AbstractAdmin
             );
     }
 
-//    public function getPriceMinFilter($queryBuilder, $alias, $field, $value)
-//    {
-//        if (!$value['type']) {
-//            $value['type'] = NumberType::TYPE_GREATER_EQUAL;
-//        }
-//
-//        return $this->getPriceFilter($queryBuilder, $alias, $field, $value);
-//    }
-//
-//    public function getPriceMaxFilter($queryBuilder, $alias, $field, $value)
-//    {
-//        if (!$value['type']) {
-//            $value['type'] = NumberType::TYPE_LESS_EQUAL;
-//        }
-//
-//        return $this->getPriceFilter($queryBuilder, $alias, $field, $value);
-//    }
-
-//    public function getPriceFilter($queryBuilder, $alias, $field, $value)
-//    {
-//        if (!$value['value']) {
-//            return false;
-//        }
-//
-//        $value['value'] = $value['value'] * 100;
-//
-//        if ($value['type'] === NumberType::TYPE_GREATER_EQUAL) {
-//            $queryBuilder
-//                ->andWhere($alias . '.price >= :valueMin')
-//                ->setParameter('valueMin', $value['value']);
-//
-//            return true;
-//        }
-//
-//        if ($value['type'] === NumberType::TYPE_LESS_EQUAL) {
-//            $queryBuilder
-//                ->andWhere($alias . '.price <= :valueMax')
-//                ->setParameter('valueMax', $value['value']);
-//
-//            return true;
-//        }
-//
-//        return false;
-//    }
 
     /** @inheritdoc */
     protected function configureListFields(ListMapper $listMapper)
@@ -476,28 +340,11 @@ class ListingAdmin extends AbstractAdmin
                 null,
                 array('label' => 'admin.listing.user_email.label')
             )
-//            ->add(
-//                'user.phone',
-//                null,
-//                array('label' => 'admin.listing.user_phone.label')
-//            )
             ->add(
                 'title',
                 null,
                 array('label' => 'admin.listing.title.label')
             );
-//            ->add(
-//                'priceDecimal',
-//                null,
-//                array(
-//                    'label' => 'admin.listing.price.label', //Price (€)',
-//                )
-//            )
-//            ->add(
-//                'averageRating',
-//                null,
-//                array('label' => 'admin.listing.average_rating.label')
-//            );
 
         $listMapper
             ->add(
@@ -507,17 +354,6 @@ class ListingAdmin extends AbstractAdmin
                     'label' => 'admin.listing.updated_at.label',
                 )
             );
-
-//        if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
-//            $listMapper
-//                ->add(
-//                    'impersonating',
-//                    'string',
-//                    array(
-//                        'template' => 'CocoricoSonataAdminBundle::impersonating.html.twig',
-//                    )
-//                );
-//        }
 
         $listMapper->add(
             '_action',
@@ -592,17 +428,14 @@ class ListingAdmin extends AbstractAdmin
 
     public function createQuery($context = 'list')
     {
-        $token= $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken();
-        $currentUser = $token ? $token->getUser() : null;
-        /** @var QueryBuilder $query */
-        $query = parent::createQuery($context);
-        //COUNTRY_ADMIN can only see users from his country
-        if (isset($currentUser) && $currentUser->hasRole("ROLE_COUNTRY_ADMIN")) {
 
-            $query->join($query->getRootAliases()[0] . '.user', 'u')
-                ->andWhere(
-                    $query->expr()->eq('u.countryOfResidence', ':country')
-                )->setParameter(':country', $currentUser->getCountryOfResidence());
+        $query = parent::createQuery($context);
+        if (!$this->authIsGranted('ROLE_SUPER_ADMIN') && $this->getUser() !== null) {
+            $query
+                ->join($query->getRootAliases()[0] . '.user', 'user')
+                ->join('user.memberOrganization', 'mo')
+                ->andWhere($query->expr()->eq('mo.id', ':moId'))
+                ->setParameter(':moId', $this->getUser()->getMemberOrganization()->getId());
         }
 
         return $query;

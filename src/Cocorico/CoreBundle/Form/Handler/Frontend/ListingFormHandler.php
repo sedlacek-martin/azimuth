@@ -66,8 +66,6 @@ class ListingFormHandler
         $listing = $this->addImages($listing);
         $listing = $this->addCategory($listing);
 
-//        dump($listing);
-//        die;
         return $listing;
         
     }

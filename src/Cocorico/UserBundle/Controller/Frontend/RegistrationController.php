@@ -163,6 +163,9 @@ class RegistrationController extends Controller
         $user->setEmailVerified(true);
         $user->setLastLogin(new \DateTime());
 
+        // reset the session
+        $this->get('session')->remove('cocorico_user_need_verification');
+
         $this->get('cocorico_user.form.handler.registration')->handleRegistration($user);
 
         return new RedirectResponse($this->get('router')->generate('cocorico_user_register_confirmed'));

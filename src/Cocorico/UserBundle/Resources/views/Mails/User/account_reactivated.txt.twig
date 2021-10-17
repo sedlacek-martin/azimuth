@@ -7,7 +7,7 @@
 {%- endblock %}
 
 {% block message %}
-    {{ 'account_reactivated.email.message'|trans({}, 'cocorico_mail', user_locale) }}
+    {{ 'account_reactivated.email.message'|trans({'%firstname%': user.firstName}, 'cocorico_mail', user_locale) }}
 {% endblock %}
 
 {% block body_text %}

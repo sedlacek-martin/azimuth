@@ -27,6 +27,7 @@ class TwigSwiftMailer implements MailerInterface
     protected $requestStack;
     protected $parameters;
     protected $fromEmail;
+    protected $siteName;
 
     /**
      * @param \Swift_Mailer         $mailer
@@ -49,6 +50,7 @@ class TwigSwiftMailer implements MailerInterface
 
         $this->locales = $parameters['locales'];
         $this->fromEmail = $parameters['from_email'];
+        $this->siteName = $parameters['site_name'];
         $this->locale = $parameters['locale'];
         if ($requestStack->getCurrentRequest()) {
             $this->locale = $requestStack->getCurrentRequest()->getLocale();
@@ -125,7 +127,9 @@ class TwigSwiftMailer implements MailerInterface
     public function sendWaitingForTrusted(UserInterface $user)
     {
         $template = $this->parameters['templates']['account_waiting_trusted'];
-        $context = [];
+        $context = [
+            'user' => $user,
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
@@ -136,9 +140,27 @@ class TwigSwiftMailer implements MailerInterface
     public function sendAccountReactivated(UserInterface $user)
     {
         $template = $this->parameters['templates']['account_reactivated'];
-        $context = [];
+        $context = [
+            'user' => $user,
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
+    }
+
+    public function sendUserInvited(string $email)
+    {
+        $template = $this->parameters['templates']['user_invite'];
+        $context = [];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $email);
+    }
+
+    public function sendTest(string $email)
+    {
+        $template = $this->parameters['templates']['test'];
+        $context = [];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $email);
     }
 
     /**
@@ -173,7 +195,7 @@ class TwigSwiftMailer implements MailerInterface
             $htmlBody = $template->renderBlock('body_html', $context);
 
             $message = (new \Swift_Message($subject))
-                ->setFrom($fromEmail)
+                ->setFrom($fromEmail, $this->siteName)
                 ->setTo($toEmail);
 
             if (!empty($htmlBody)) {
@@ -186,6 +208,7 @@ class TwigSwiftMailer implements MailerInterface
 
             $this->mailer->send($message);
         } catch (\Exception $e) {
+            throw $e;
         }
     }
 }

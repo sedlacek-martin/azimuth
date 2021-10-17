@@ -102,16 +102,49 @@
             if (e.target.id == "register-tab") {
                 $("#profile input[type=text]").val('');
             }
-        });
+        })
 
-        $('.member-organization-input').change(function (ev) {
-            const $selectedOption = $(this).find(':selected');
-            const countryCode = $selectedOption.data('country');
-            const $countryInput = $('.country-input');
-            $countryInput.val(countryCode).change();
-            // const phoneInput = document.querySelector(".phone-input");
-            // const iti = window.intlTelInputGlobals.getInstance(phoneInput);
-            // iti.setCountry(countryCode);
+        const $moInput = $('.member-organization-input');
+        let $options = $moInput.find('option');
+        $options.remove();
+        $moInput.attr('disabled', 'disabled');
+        $moInput.trigger('change');
+
+        $('.country-input').change(function (ev) {
+            const $input = $(this);
+            const $selectedOption = $input.find(':selected');
+
+            let url = "{{ path('cocorico_member_organization__get_all_country', {'country': 'placeholder'}) }}";
+            if ($selectedOption.val()) {
+                url = url.replace('placeholder', $selectedOption.val());
+                $.ajax({
+                    type: 'GET',
+                    async: false,
+                    url: url,
+                    success: function (result) {
+                        if (result.length === 0) {
+                            $moInput.attr('disabled', 'disabled');
+                            $('.member-organization-no-organization').show();
+                        } else {
+                            $moInput.removeAttr('disabled');
+                            $('.member-organization-no-organization').hide();
+                        }
+
+                        let $options = $moInput.find('option');
+                        $options.remove();
+                        $.each(result, function (index, value) {
+                            $moInput.append('<option value="' + value.id + '">' + value.name + '</option>');
+                        })
+                        $moInput.trigger('change');
+                    }
+                });
+            } else {
+                let $options = $moInput.find('option');
+                $options.remove();
+                $moInput.attr('disabled', 'disabled');
+            }
+            $moInput.trigger('change');
+
         });
     });
 </script>

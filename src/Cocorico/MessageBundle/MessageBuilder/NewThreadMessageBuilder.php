@@ -100,4 +100,18 @@ class NewThreadMessageBuilder extends AbstractMessageBuilder
         return $this;
     }
 
+    public function setFromDate($fromDate)
+    {
+        $this->thread->setFromDate($fromDate);
+
+        return $this;
+    }
+
+    public function setToDate($toDate)
+    {
+        $this->thread->setToDate($toDate);
+
+        return $this;
+    }
+
 }

@@ -68,7 +68,7 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
             $descriptions[$locale] = array(
                 /** @Ignore */
                 'label' => false,
-                'constraints' => array(new NotBlank()),
+                'required' => false,
                 'attr' => array(
                     'placeholder' => 'auto'
                 )
@@ -80,7 +80,7 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
             TranslationsType::class,
             array(
                 'locales' => $this->locales,
-                'required_locales' => $this->locales,
+                'required_locales' => [],
                 'fields' => array(
                     'description' => array(
                         'field_type' => 'textarea',
@@ -149,7 +149,8 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
                 )
             )
             ->add('gender', GenderType::class, [
-                'required' => true,
+                'required' => false,
+                'placeholder' => '-- Select-- '
             ])
             ->add(
                 'fromLang',
@@ -215,8 +216,8 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
                 'data_class' => $this->class,
                 'csrf_token_id' => 'profile',
                 'translation_domain' => 'cocorico_user',
-                'constraints' => new Valid(),
-                'validation_groups' => array('CocoricoProfile'),
+//                'constraints' => new Valid(),
+//                'validation_groups' => array('CocoricoProfile'),
             )
         );
     }

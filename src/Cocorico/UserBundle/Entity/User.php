@@ -191,7 +191,7 @@ class User extends BaseUser implements ParticipantInterface
      *
      * @ORM\Column(name="country", type="string", length=3, nullable=true)
      */
-    protected $country = 'CZ';
+    protected $country;
 
 
     /**
@@ -214,9 +214,9 @@ class User extends BaseUser implements ParticipantInterface
     protected $countryOfResidence = 'CZ';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="gender", type="string", length=10, nullable=false)
+     * @ORM\Column(name="gender", type="string", length=10, nullable=true)
      */
     protected $gender;
 
@@ -529,9 +529,10 @@ class User extends BaseUser implements ParticipantInterface
     protected $uniqueHash;
 
     /**
-     * @ORM\OneToOne(targetEntity="Cocorico\MessageBundle\Entity\Thread", mappedBy="user", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Cocorico\MessageBundle\Entity\Thread", mappedBy="user", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"createdAt" = "desc"})
      */
-    private $thread;
+    private $threads;
 
     /**
      * @var DateTime
@@ -553,6 +554,19 @@ class User extends BaseUser implements ParticipantInterface
      * @var bool
      */
     protected $reconfirmRequested = false;
+
+    /**
+     * @ORM\Column(name="new_message_notifications", type="boolean", nullable=false)
+     *
+     * @var bool
+     */
+    protected $newMessageNotifications = true;
+
+    /**
+     * @ORM\Column(name="verified_at", type="datetime", nullable=true)
+     * @var DateTime
+     */
+    protected $verifiedAt;
 
     /**
      * Constructor.
@@ -924,9 +938,9 @@ class User extends BaseUser implements ParticipantInterface
     }
 
     /**
-     * @param string $gender
+     * @param string|null $gender
      */
-    public function setGender(string $gender): void
+    public function setGender(?string $gender): void
     {
         $this->gender = $gender;
     }
@@ -1930,6 +1944,11 @@ class User extends BaseUser implements ParticipantInterface
     public function setTrusted(bool $trusted): User
     {
         $this->trusted = $trusted;
+
+        if ($trusted) {
+            $this->verifiedAt = new DateTime();
+        }
+
         return $this;
     }
 
@@ -2055,18 +2074,20 @@ class User extends BaseUser implements ParticipantInterface
     /**
      * @return Thread
      */
-    public function getThread()
+    public function getThreads()
     {
-        return $this->thread;
+        return $this->threads;
     }
 
     /**
-     * @param Thread $thread
+     * @param Thread[] $threads
      */
-    public function setThread($thread)
+    public function setThreads($threads)
     {
-        $thread->setUser($this);
-        $this->thread = $thread;
+        foreach ($threads as $thread) {
+            $thread->setUser($this);
+        }
+        $this->threads = $threads;
 
         return $this;
     }
@@ -2130,6 +2151,22 @@ class User extends BaseUser implements ParticipantInterface
     public function setReconfirmRequested(bool $reconfirmRequested): void
     {
         $this->reconfirmRequested = $reconfirmRequested;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNewMessageNotifications(): bool
+    {
+        return $this->newMessageNotifications;
+    }
+
+    /**
+     * @param bool $newMessageNotifications
+     */
+    public function setNewMessageNotifications(bool $newMessageNotifications): void
+    {
+        $this->newMessageNotifications = $newMessageNotifications;
     }
 
     /**

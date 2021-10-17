@@ -1,0 +1,28 @@
+{% trans_default_domain 'cocorico_listing' %}
+
+<script>
+    $(function () {
+        const updateCharacteristicFilters = function($categorySelect) {
+            $('.characteristics-filter[data-always-show="false"]').closest('li').hide();
+            let selectedCategories = $categorySelect.val();
+            if (selectedCategories !== null) {
+                selectedCategories.forEach(function (catId) {
+                    let $selectedOption = $categoriesSelect.find('option[value="' + catId + '"]');
+                    let relevantCharacteristics = JSON.parse($selectedOption.attr('data-characteristics'));
+                    if (relevantCharacteristics.length > 0) {
+                        relevantCharacteristics.forEach(function (charId) {
+                            $('#characteristics_' + charId).closest('li').show();
+                        })
+                    }
+                })
+            }
+        }
+
+        const $categoriesSelect = $('#categories');
+        updateCharacteristicFilters($categoriesSelect)
+
+        $categoriesSelect.change(function () {
+            updateCharacteristicFilters($(this));
+        });
+    });
+</script>

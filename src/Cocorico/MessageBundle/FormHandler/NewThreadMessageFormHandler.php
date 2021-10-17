@@ -47,8 +47,9 @@ class NewThreadMessageFormHandler extends AbstractMessageFormHandler
             ->setSubject($subject)
             ->addRecipient($message->getRecipient())
             ->setSender($this->getAuthenticatedParticipant())
-            ->setBody($message->getBody());
-
+            ->setBody($message->getBody())
+            ->setFromDate($message->getFromDate())
+            ->setToDate($message->getToDate());
 
         return $newThread->getMessage();
     }

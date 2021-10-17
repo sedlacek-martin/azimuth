@@ -78,18 +78,6 @@
         <source>entity.listing.type.search</source>
         <target state="new">entity.listing.type.search</target>
       </trans-unit>
-      <trans-unit id="f4c20a2055d3928af0f67db6a649501562b93870" resname="entity.listing_availability.status.available">
-        <source>entity.listing_availability.status.available</source>
-        <target state="new">entity.listing_availability.status.available</target>
-      </trans-unit>
-      <trans-unit id="d9c221784e352306c00d2022326110bf075921e5" resname="entity.listing_availability.status.booked">
-        <source>entity.listing_availability.status.booked</source>
-        <target state="new">entity.listing_availability.status.booked</target>
-      </trans-unit>
-      <trans-unit id="f6802a262317b911b0ed9a2da53c86575c509a27" resname="entity.listing_availability.status.unavailable">
-        <source>entity.listing_availability.status.unavailable</source>
-        <target state="new">entity.listing_availability.status.unavailable</target>
-      </trans-unit>
       <trans-unit id="11f9578d05e6f7bb58a3cdd00107e9f4e3882671" resname="error">
         <source>error</source>
         <target state="new">error</target>
@@ -97,14 +85,6 @@
       <trans-unit id="1cb7e62bfe757aa67c3da37cd0176741ab8e164d" resname="home.high.rank.section.header">
         <source>home.high.rank.section.header</source>
         <target state="new">home.high.rank.section.header</target>
-      </trans-unit>
-      <trans-unit id="7686201ef254f400070d9fb294e5743fede8e338" resname="listing.availability.edit.success">
-        <source>listing.availability.edit.success</source>
-        <target state="new">listing.availability.edit.success</target>
-      </trans-unit>
-      <trans-unit id="553e5a5a5aa38bbac244a267aba6e126b859282b" resname="listing.availability.new.success">
-        <source>listing.availability.new.success</source>
-        <target state="new">listing.availability.new.success</target>
       </trans-unit>
       <trans-unit id="d4cf5113ef86cf3511f74f61b5fdea479eb2553f" resname="listing.availability.save">
         <source>listing.availability.save</source>
@@ -121,10 +101,6 @@
       <trans-unit id="e861c12b3f2e309696d719e911fe260ca72737d1" resname="listing.cancellation_policy.help">
         <source>listing.cancellation_policy.help</source>
         <target state="new">listing.cancellation_policy.help</target>
-      </trans-unit>
-      <trans-unit id="057c7d9bab55cfec93c2f668f2ca90424f6b57f7" resname="listing.comments.header">
-        <source>listing.comments.header</source>
-        <target state="new">listing.comments.header</target>
       </trans-unit>
       <trans-unit id="89a665745f28f00d3b72f22e28568dd80863987e" resname="listing.confirm.delete">
         <source>listing.confirm.delete</source>
@@ -289,10 +265,6 @@
       <trans-unit id="50188a0ffc6931424baa91cf8905f518f2dcb99e" resname="listing.edit.success">
         <source>listing.edit.success</source>
         <target state="new">listing.edit.success</target>
-      </trans-unit>
-      <trans-unit id="ee82168e95bcb352171622ab1b2e7b4b1bc2f398" resname="listing.edit.various_information.title">
-        <source>listing.edit.various_information.title</source>
-        <target state="new">listing.edit.various_information.title</target>
       </trans-unit>
       <trans-unit id="2abe53493f2d54535cf17e971dc59d15a5a2be3b" resname="listing.edit_discount.success">
         <source>listing.edit_discount.success</source>
@@ -538,10 +510,6 @@
         <source>listing.search.sort_by.recommended</source>
         <target state="new">listing.search.sort_by.recommended</target>
       </trans-unit>
-      <trans-unit id="7967e0c9de2753e165f0ac3f71f97504a2156d73" resname="listing.show.calendar">
-        <source>listing.show.calendar</source>
-        <target state="new">listing.show.calendar</target>
-      </trans-unit>
       <trans-unit id="f5c75b851ea7ef9715252505d5032f652fdaf38b" resname="listing.show.categories">
         <source>listing.show.categories</source>
         <target state="new">listing.show.categories</target>
@@ -554,17 +522,9 @@
         <source>listing.show.characteristics</source>
         <target state="new">listing.show.characteristics</target>
       </trans-unit>
-      <trans-unit id="89814edfe335fbfce2cc3582fbc6ecf400d23995" resname="listing.show.comments">
-        <source>listing.show.comments</source>
-        <target state="new">listing.show.comments</target>
-      </trans-unit>
       <trans-unit id="6ccb7ab4251c8fe7d27af0820204dcc806023e09" resname="listing.show.description">
         <source>listing.show.description</source>
         <target state="new">listing.show.description</target>
-      </trans-unit>
-      <trans-unit id="a4e63be737bc06d46818e37203b501d474dde89d" resname="listing.show.favorites.add">
-        <source>listing.show.favorites.add</source>
-        <target state="new">listing.show.favorites.add</target>
       </trans-unit>
       <trans-unit id="49ff4bce3e52dd086b802ffa369d62b7e99d537b" resname="listing.show.location:">
         <source>listing.show.location:</source>
@@ -574,18 +534,6 @@
         <source>listing.show.map</source>
         <target state="new">listing.show.map</target>
       </trans-unit>
-      <trans-unit id="1144951758a718382c5c55de1f294cea1cf9efc6" resname="listing.show.max_duration:">
-        <source>listing.show.max_duration:</source>
-        <target state="new">listing.show.max_duration:</target>
-      </trans-unit>
-      <trans-unit id="b28dc20af3a8d02e4a0818f6decb8b4aea3ad536" resname="listing.show.min_duration:">
-        <source>listing.show.min_duration:</source>
-        <target state="new">listing.show.min_duration:</target>
-      </trans-unit>
-      <trans-unit id="8a805787a5562eab9db78b8d515d1865a74b9c85" resname="listing.show.nb_comments">
-        <source>listing.show.nb_comments</source>
-        <target state="new">listing.show.nb_comments</target>
-      </trans-unit>
       <trans-unit id="ec450c43b78fe468a9c80305e073e77a47cdf499" resname="listing.show.options">
         <source>listing.show.options</source>
         <target state="new">listing.show.options</target>
@@ -593,10 +541,6 @@
       <trans-unit id="17cb36f8f2e1f02eea4e5ff7248a692036d135f9" resname="listing.show.photos.title">
         <source>listing.show.photos.title</source>
         <target state="new">listing.show.photos.title</target>
-      </trans-unit>
-      <trans-unit id="c6c355b248d9a40842f3ae0d3519be3eaa790bf8" resname="listing.show.policy.title">
-        <source>listing.show.policy.title</source>
-        <target state="new">listing.show.policy.title</target>
       </trans-unit>
       <trans-unit id="edfb8ef84c3f95470bc8c1d320bbcbd712db8e77" resname="listing.show.rules">
         <source>listing.show.rules</source>
@@ -617,6 +561,10 @@
       <trans-unit id="7a08055de6d615b3adb7b056c01426462fcdb042" resname="listing.status_save">
         <source>listing.status_save</source>
         <target state="new">listing.status_save</target>
+      </trans-unit>
+      <trans-unit id="c15673b172f4d94aa1d7b33bdb6eb1b4036cda90" resname="listing.to_validate.label">
+        <source>listing.to_validate.label</source>
+        <target state="new">listing.to_validate.label</target>
       </trans-unit>
       <trans-unit id="1922ba0ee05e9f83903fa86926e5872b30d44e61" resname="listing.translate.button">
         <source>listing.translate.button</source>
@@ -766,10 +714,6 @@
         <source>listing_translations_fr_title_placeholder</source>
         <target state="new">listing_translations_fr_title_placeholder</target>
       </trans-unit>
-      <trans-unit id="f593afaeaa50ead82d20d07374c6331541e3195e" resname="nav.listing.calendar.link">
-        <source>nav.listing.calendar.link</source>
-        <target state="new">nav.listing.calendar.link</target>
-      </trans-unit>
       <trans-unit id="d529fbd59b804564c3cd52cdb93f8623857d58ac" resname="nav.listing.categories.link">
         <source>nav.listing.categories.link</source>
         <target state="new">nav.listing.categories.link</target>
@@ -797,10 +741,6 @@
       <trans-unit id="64826d1aab5cee61ad356fad98dd327db02da61e" resname="no_verified">
         <source>no_verified</source>
         <target state="new">no_verified</target>
-      </trans-unit>
-      <trans-unit id="71f8e7976e4cbc4561c9d62fb283e7f788202acb" resname="none">
-        <source>none</source>
-        <target state="new">none</target>
       </trans-unit>
       <trans-unit id="deaa330c72d94793c121327de0423c1dce952689" resname="search-on-map-drag">
         <source>search-on-map-drag</source>

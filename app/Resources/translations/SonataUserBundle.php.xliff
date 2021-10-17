@@ -150,14 +150,6 @@
         <source>list.label_id</source>
         <target state="new">list.label_id</target>
       </trans-unit>
-      <trans-unit id="f9d65533af1dba5fedf5c292f601a63590d03063" resname="list.label_reconfirm_requested">
-        <source>list.label_reconfirm_requested</source>
-        <target state="new">list.label_reconfirm_requested</target>
-      </trans-unit>
-      <trans-unit id="d2c34f80bacc948b678578b8c2e65ddf62614f0b" resname="list.label_trusted">
-        <source>list.label_trusted</source>
-        <target state="new">list.label_trusted</target>
-      </trans-unit>
       <trans-unit id="62d5564c383b885ff0de25abd24a41080499970b" resname="security.login.password">
         <source>security.login.password</source>
         <target state="new">security.login.password</target>

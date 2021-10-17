@@ -31,14 +31,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-
-    {% stylesheets
-    'css/vendor/fullcalendar.min.css'
-    'css/fullcalendar-override.css'
-
-    filter='cssrewrite, ?minifycsscompressor' output='css/compiled/fullcalendar.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
 {% endblock %}
 
 
@@ -75,7 +67,15 @@
                                     </a>
                                 {% endif %}
                                 {% if listing.toValidate %}
-                                    <span class="label label-danger">{{ 'listing.to_validate.label' }}</span>
+                                    <span class="label-bootstrap label-danger">{{ 'listing.to_validate.label'|trans }}</span>
+                                    {% if is_granted("ROLE_FACILITATOR") or is_granted("ROLE_SUPER_ADMIN") %}
+                                        <a href="{{ path('cocorico_admin__listing_validate', {'id': listing.id}) }}"
+                                           class="btn btn-sm btn-success"
+                                           title="{{ 'list_action_listing_validate'|trans({}, 'SonataAdminBundle') }}">
+                                            <i class="glyphicon glyphicon-ok"></i>
+                                            {{ 'list_action_listing_validate'|trans({}, 'SonataAdminBundle') }}
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
                             </h1>
                             <!-- tabs -->
@@ -99,18 +99,7 @@
                                                 {{ 'listing.show.map'|trans }}
                                             </a>
                                         </li>
-                                        <li role="presentation">
-                                            <a href="#calendar" data-toggle="tab"
-                                               data-text="{{ 'listing.show.calendar'|trans }}">
-                                                {{ 'listing.show.calendar'|trans }}
-                                            </a>
-                                        </li>
                                     </ul>
-                                    <a href="javascript:void(0)" id="favourite-{{ listing.id }}"
-                                       class="link-favourit favourit">
-                                        {{ 'listing.show.favorites.add'|trans }}
-                                        <i class="icon-heart"></i>
-                                    </a>
                                 </nav>
 
                                 <!-- Tab panes -->
@@ -156,13 +145,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div role="tabpanel" class="tab-pane" id="calendar">
-                                        <div class="date-slider alt">
-                                            {% include '@CocoricoCore/Dashboard/Listing/_calendar.html.twig' with {'edit_mode': false} only %}
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
 
@@ -180,12 +162,14 @@
                                                 {{ 'listing.show.description'|trans }}
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="#conditions" data-toggle="tab"
-                                               data-text="{{ 'listing.show.rules'|trans }}">
-                                                {{ 'listing.show.rules'|trans }}
-                                            </a>
-                                        </li>
+                                        {% if listing_translation.rules is not empty %}
+                                            <li>
+                                                <a href="#conditions" data-toggle="tab"
+                                                   data-text="{{ 'listing.show.rules'|trans }}">
+                                                    {{ 'listing.show.rules'|trans }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
                                         <li>
                                             <a href="#features" data-toggle="tab"
                                                data-text="{{ 'listing.show.characteristics'|trans }}">
@@ -209,12 +193,6 @@
                                                 </a>
                                             </li>
                                         {% endif %}
-                                        <li>
-                                            <a href="#comments" data-toggle="tab"
-                                               data-text="{{ 'listing.show.comments'|trans }}">
-                                                {{ 'listing.show.comments'|trans }}
-                                            </a>
-                                        </li>
                                     </ul>
                                 </nav>
 
@@ -246,24 +224,6 @@
                                         </div>
                                     {% endif %}
 
-                                    <!-- comments -->
-                                    <div role="tabpanel" class="tab-pane" id="comments">
-                                        {% if reviews|length > 0 %}
-                                            <div class="blog">
-                                                <div class="head">
-                                                    <h2>{{ 'listing.comments.header'|trans }}</h2>
-                                                    <!-- rating -->
-                                                    {% if listing.averageRating %}
-                                                        {{ listing.averageRating | cocorico_star_rating }}
-                                                    {% endif %}
-                                                </div>
-                                                <div class="posts-holder">
-                                                    <!-- post -->
-                                                    {% include 'CocoricoCoreBundle:Frontend/Listing:_rating_reviews.html.twig' with {'reviews': reviews} only %}
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -277,14 +237,6 @@
                             <!-- social-networks -->
                             {#{{ socialButtons({'title': translation.title}) }}#}
                             {% include 'CocoricoCoreBundle:Frontend/SocialButton:all.html.twig' with {'title': listing_translation.title} only %}
-
-                            <!-- rating -->
-                            {% if listing.averageRating %}
-                                {{ listing.averageRating | cocorico_star_rating }}
-                            {% endif %}
-                            <span class="counter">
-                                ({{ 'listing.show.nb_comments'|transchoice(listing.commentCount) }})
-                            </span>
                         </div>
 
                         <!-- members-list -->
@@ -340,56 +292,6 @@
                             {% include 'CocoricoUserBundle:Frontend/Profile:includes/profileInfo.html.twig' with {user: listing_user} %}
                         </section>
 
-                        {#booking form#}
-                        {#{{ render(controller('CocoricoCoreBundle:Frontend/BookingPrice:bookingPriceForm', {
-                            'listing': listing
-                        })) }}#}
-
-                        {% if listing.minDuration or listing.maxDuration %}
-                            <section class="widget prices-conditions">
-                                <h2>{{ 'listing.show.policy.title'|trans }}</h2>
-                                <ul>
-
-                                    {% if listing.minDuration %}
-                                        <li>
-                                            {{ 'listing.show.min_duration:'|trans() }}
-                                            <strong>
-                                                {{ listing.minDuration ~ " " ~ (-1)|add_time_unit_text }}
-                                            </strong>
-                                        </li>
-                                    {% endif %}
-
-                                    {% if listing.maxDuration %}
-                                        <li>
-                                            {{ 'listing.show.max_duration:'|trans() }}
-                                            <strong>
-                                                {{ listing.maxDuration ? listing.maxDuration ~ " " ~ (-1)|add_time_unit_text : "none"|trans }}
-                                            </strong>
-                                        </li>
-                                    {% endif %}
-
-                                    {#                                {% if listing.discounts.count %}#}
-                                    {#                                    {% set quantityText = {'%quantity_text%': 0|add_time_unit_text} %}#}
-                                    {#                                    {% set quantitiesText = {'%quantity_text%': (-1)|add_time_unit_text} %}#}
-                                    {#                                    <li>#}
-                                    {#                                        {{ 'listing.show.discounts:'|trans() }}#}
-                                    {#                                        <ul>#}
-                                    {#                                            {% for discount in listing.discounts %}#}
-                                    {#                                                <li>#}
-                                    {#                                                    <strong>{{ discount.discount }}% </strong>#}
-                                    {#                                                    {{ 'listing_edit.form.from_quantity'|trans(quantityText) }}#}
-                                    {#                                                    <strong>{{ discount.fromQuantity }} </strong>#}
-                                    {#                                                    {{ 'listing_edit.form.from_quantity.bought'|trans(quantitiesText) }}#}
-
-                                    {#                                                </li>#}
-                                    {#                                            {% endfor %}#}
-                                    {#                                        </ul>#}
-                                    {#                                    </li>#}
-                                    {#                                {% endif %}#}
-                                </ul>
-                            </section>
-                        {% endif %}
-
                         {# similar results#}
                         {{ render(controller('CocoricoCoreBundle:Frontend/ListingSearch:similarListing',
                         { 'id': listing.id }
@@ -411,31 +313,14 @@
 {% block javascripts %}
     {{ parent() }}
 
-    {#Calendar #}
-    {% javascripts
-    'js/vendor/fullcalendar/fullcalendar.min.js'
-    'js/vendor/fullcalendar/lang-all.js'
-
-    filter="jsqueeze" output='js/compiled/calendar.js' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    {% include '@CocoricoCore/Frontend/Listing/js/_calendar_js.html.twig' with {
-    'calendar_elt': '#fc-calendar',
-    'listing_id': listing.id,
-    'edit_mode': false,
-    'edit_type': false
-    } only %}
-
-
     {#Map and Geocoding#}
     {% set coordinate = listing.location.coordinate %}
 
     {% include '@CocoricoCore/Frontend/ListingResult/js/_geocoding_js.html.twig' with {
     'map_elt': '#map-listing',
     'auto_complete_elt': '#location',
-    'default_lat': coordinate.lat,
-    'default_lng': coordinate.lng,
+    'default_lat': coordinate.latRandom,
+    'default_lng': coordinate.lngRandom,
     'default_zoom': 16,
     'display_marker': displayMarker
     } only %}
@@ -452,17 +337,9 @@
                 strokeWeight: 2,
                 fillColor: '#0000EE',
                 fillOpacity: 0.1,
-                radius: 200
+                radius: 300
             });
             {% endif %}
-
-            //Compute booking price when page load if booking dates exists
-            submitDatePickerAjaxForm(function () {
-                jcf.replaceAll("#booking-price-form");
-            });
-
-            // Set default favourites in the listing
-            setDefaultFavourites();
 
             // Categories
             initMultiSelect(

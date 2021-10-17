@@ -72,7 +72,7 @@ class BreadcrumbsManager implements TranslationContainerInterface
 
         if (isset($breadcrumbLinks[$routeName]) && is_array($breadcrumbLinks[$routeName])) {
 
-            $this->addPreItems($request, strpos($routeName, 'dashboard') !== false);
+            $this->addPreItems($request);
 
             foreach ($breadcrumbLinks[$routeName] as $breadcrumb) {
                 $text = '';
@@ -110,30 +110,13 @@ class BreadcrumbsManager implements TranslationContainerInterface
      * Add first breadcrumb items
      *
      * @param Request $request
-     * @param bool    $forDashboard
      */
-    public function addPreItems(Request $request, $forDashboard)
+    public function addPreItems(Request $request)
     {
         $this->breadcrumbs->addItem(
             $this->translator->trans('Home', array(), 'cocorico_breadcrumbs'),
             $this->router->generate('cocorico_home')
         );
-
-        if ($forDashboard) {
-            //Asker or offerer
-            $url = $this->router->generate('cocorico_dashboard_message');
-            if ($request->getSession()->get('profile', 'asker') == 'asker') {
-                $this->breadcrumbs->addItem(
-                    $this->translator->trans('Asker', array(), 'cocorico_breadcrumbs'),
-                    $url
-                );
-            } else {
-                $this->breadcrumbs->addItem(
-                    $this->translator->trans('Offerer', array(), 'cocorico_breadcrumbs'),
-                    $url
-                );
-            }
-        }
     }
 
     /**
@@ -145,7 +128,7 @@ class BreadcrumbsManager implements TranslationContainerInterface
      */
     public function addThreadViewItems(Request $request, $threadObj, $user)
     {
-        $this->addPreItems($request, true);
+        $this->addPreItems($request);
         $this->breadcrumbs->addItem(
             $this->translator->trans('Messages', array(), 'cocorico_breadcrumbs'),
             $this->router->generate('cocorico_dashboard_message')
@@ -173,7 +156,7 @@ class BreadcrumbsManager implements TranslationContainerInterface
      */
     public function addListingShowItems(Request $request, $listing)
     {
-        $this->addPreItems($request, false);
+        $this->addPreItems($request);
         $this->breadcrumbs->addItem(
             $this->translator->trans('Search results', array(), 'cocorico_breadcrumbs')
         );
@@ -228,7 +211,7 @@ class BreadcrumbsManager implements TranslationContainerInterface
      */
     public function addListingResultItems(Request $request, $listingSearchRequest)
     {
-        $this->addPreItems($request, false);
+        $this->addPreItems($request);
         $this->breadcrumbs->addItem(
             $this->translator->trans('Search results', array(), 'cocorico_breadcrumbs')
         );
@@ -327,7 +310,7 @@ class BreadcrumbsManager implements TranslationContainerInterface
      */
     public function addProfileShowItems(Request $request, $user)
     {
-        $this->addPreItems($request, false);
+        $this->addPreItems($request);
         $this->breadcrumbs->addItem(
             $this->translator->trans('Profile', array(), 'cocorico_breadcrumbs')
         );

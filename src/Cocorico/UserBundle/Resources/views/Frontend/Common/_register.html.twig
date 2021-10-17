@@ -66,6 +66,25 @@
             </div>
 
             <div class="field-row validate-row col-md-12">
+                <div class="error-container">{{ form_errors(form_registration.country) }}</div>
+                <div class="label w-100">
+                    {{ form_label(form_registration.country, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.country.legal'|trans
+                        }
+                    }) }}
+                </div>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.country, {
+                        'attr': {
+                            'class': "form-control required no-arrow country-input"
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row col-md-12">
                 <div class="error-container">{{ form_errors(form_registration.memberOrganization) }}</div>
                 <div class="label w-100">
                     {{ form_label(form_registration.memberOrganization, null, {
@@ -83,25 +102,10 @@
                             'data-parsley-invalid-message': 'cocorico_user.memberOrganization.invalid'|trans({}, 'validators')
                         }
                     }) }}
-                </div>
-            </div>
-
-            <div class="field-row validate-row col-md-12">
-                <div class="error-container">{{ form_errors(form_registration.country) }}</div>
-                <div class="label w-100">
-                    {{ form_label(form_registration.country, null, {
-                        'label_attr': {
-                            'data-label-legal': 'form.country.legal'|trans
-                        }
-                    }) }}
-                </div>
-
-                <div class="field-holder">
-                    {{ form_widget(form_registration.country, {
-                        'attr': {
-                            'class': "form-control required no-arrow country-input"
-                        }
-                    }) }}
+                    <span class="member-organization-no-organization text-warning" style="display: none;">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i>
+                        {{ 'register.no_organization.help.text' }}
+                    </span>
                 </div>
             </div>
 
@@ -139,54 +143,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="field-row validate-row col-md-12">
-                <div class="error-container">{{ form_errors(form_registration.gender) }}</div>
-                <div class="label w-100">
-                    {{ form_label(form_registration.gender, null, {
-                        'label_attr': {
-                            'data-label-legal': 'form.gender.legal'|trans
-                        }
-                    }) }}
-                </div>
-
-                <div class="field-holder">
-                    {{ form_widget(form_registration.gender, {
-                        'attr': {
-                            'class': "form-control required"
-                        }
-                    }) }}
-                </div>
-            </div>
-
-{#            <div class="field-row validate-row col-md-12">#}
-{#                <div class="error-container">{{ form_errors(form_registration.phone) }}</div>#}
-{#                <div class="label w-100">{{ form_label(form_registration.phone) }}</div>#}
-
-{#                <div class="field-holder">#}
-{#                    {{ form_widget(form_registration.phone, {#}
-{#                        'attr': {#}
-{#                            'class': "form-control phone-input",#}
-{#                            'data-parsley-type': 'digits',#}
-{#                            'data-parsley-type-message': 'cocorico_user.phone.invalid'|trans({},'validators')#}
-{#                        }#}
-{#                    }) }}#}
-{#                </div>#}
-{#            </div>#}
-
-{#            <div class="field-row validate-row hidden">#}
-{#                <div class="error-container">{{ form_errors(form_registration.phonePrefix) }}</div>#}
-{#                <span class="label" style="margin-top:0">{{ form_label(form_registration.phonePrefix) }}</span>#}
-
-{#                <div class="field-holder code">#}
-{#                    {{ form_widget(form_registration.phonePrefix, {#}
-{#                        'attr': {#}
-{#                            'class': "form-control phone-prefix-input"#}
-{#                        }#}
-{#                    }) }}#}
-{#                </div>#}
-{#            </div>#}
-
 
             {% if not timeUnitIsDay %}
                 <div class="field-row validate-row col-md-12">

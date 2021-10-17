@@ -135,6 +135,12 @@ class UserInvitation
         $this->expiration = $expiration;
     }
 
+    public function isExpired(): bool
+    {
+        return $this->expiration < new \DateTime();
+
+    }
+
     /**
      * @return \DateTime
      */

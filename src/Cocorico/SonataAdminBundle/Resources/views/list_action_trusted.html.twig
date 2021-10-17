@@ -1,11 +1,22 @@
-{% if admin.isGranted('EDIT', object) and admin.hasRoute('edit') %}
-    {% set url =  path('cocorico_admin__trusted', {'id': object.id}) %}
 
-    {% if not object.trusted or object.reconfirmRequested %}
+{% set url =  path('cocorico_admin__trusted', {'id': object.id}) %}
+
+{% if not object.trusted or object.reconfirmRequested %}
+
+    <div style="display: flex;">
+        {% if object.age < 18 %}
+            <span data-toggle="tooltip" data-placement="left"
+                  title="{{ 'list_action_trusted.age_warning.help'|trans }}"
+                  style="font-size: 20px; line-height: 30px; margin-right: 5px;"
+            >
+            <i class="fa fa-exclamation-triangle text-warning"></i>
+        </span>
+        {% endif %}
         <a href="{{ url }}" class="btn btn-sm btn-default edit_link"
            title="{{ 'list_action_trusted'|trans({}, 'SonataAdminBundle') }}">
             <i class="glyphicon glyphicon-ok"> </i>
             {{ 'list_action_trusted'|trans({}, 'SonataAdminBundle') }}
         </a>
-    {% endif %}
+    </div>
+
 {% endif %}

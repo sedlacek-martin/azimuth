@@ -11,6 +11,7 @@
 
 namespace Cocorico\MessageBundle\Repository;
 
+use Cocorico\CoreBundle\Model\BaseListing;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -30,13 +31,12 @@ class MessageRepository extends EntityRepository
      * Tells how many unread messages this participant has
      *
      * @param ParticipantInterface|UserInterface $participant
-     * @param boolean $type
      * @return int the number of unread messages
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function getNbUnreadMessage(ParticipantInterface $participant, $type = false)
+    public function getNbUnreadMessage(ParticipantInterface $participant)
     {
         $builder = $this->createQueryBuilder('m');
 
@@ -46,34 +46,18 @@ class MessageRepository extends EntityRepository
             ->where('p.id = :participant_id')
             ->andWhere('m.sender != :sender')
             ->andWhere('mm.isRead = :isRead')
+            ->andWhere('m.verified = :isVerified')
             ->setParameter('participant_id', $participant->getId())
             ->setParameter('sender', $participant->getId())
+            ->setParameter('isVerified', true, PDO::PARAM_BOOL)
             ->setParameter('isRead', false, PDO::PARAM_BOOL);
 
-        // case when needed count of unread messages depending upon the user types
-        if ($type) {
-            $builder
-                ->select(" SUM(CASE WHEN l.user != :user THEN 1 ELSE 0 END) as asker ")
-                ->addSelect(" SUM(CASE WHEN l.user = :user THEN 1 ELSE 0 END) as offerer ")
-                ->leftJoin('m.thread', 't')
-                ->leftJoin('t.listing', 'l')
-                ->setParameter('user', $participant);
+        $builder->select($builder->expr()->count('mm.id'));
 
-            $query = $builder->getQuery();
-            $query->useResultCache(true, 3600, 'getNbUnreadMessageType' . $participant->getId());
-            $result = $query->getResult();
+        $query = $builder->getQuery();
+        $query->useResultCache(true, 3600, 'getNbUnreadMessage' . $participant->getId());
 
-        } else {
-            // case when needed count of all unread messages for a user
-            $builder->select($builder->expr()->count('mm.id'));
-
-            $query = $builder->getQuery();
-            $query->useResultCache(true, 3600, 'getNbUnreadMessage' . $participant->getId());
-
-            $result = $query->getSingleScalarResult();
-        }
-
-        return $result;
+        return $query->getSingleScalarResult();
     }
 
     /**
@@ -82,7 +66,54 @@ class MessageRepository extends EntityRepository
     public function clearNbUnreadMessageCache($userId)
     {
         $resultCache = $this->getEntityManager()->getConfiguration()->getResultCacheImpl();
-        $resultCache->delete('getNbUnreadMessageType' . $userId);
         $resultCache->delete('getNbUnreadMessage' . $userId);
+    }
+
+    /**
+     * @param int|null $moId
+     * @return int
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function getWaitingForValidationCount(int $moId = null): int
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->select('COUNT(m.id) as cnt')
+            ->where('m.verified = 0');
+
+        if ($moId) {
+            $qb
+                ->leftJoin('m.sender', 'u')
+                ->leftJoin('u.memberOrganization', 'mo')
+                ->andWhere('mo.id = :moId')
+                ->setParameter('moId', $moId);
+        }
+        $result = $qb->getQuery()->getSingleResult();
+        return $result['cnt'];
+    }
+
+    /**
+     * @param \DateTime|null $from
+     * @param \DateTime|null $to
+     * @return int
+     * @throws NoResultException
+     */
+    public function countAll(\DateTime $from = null, \DateTime $to = null): int
+    {
+        $qb = $this->createQueryBuilder('msg')
+            ->select('COUNT(msg.id) as cnt');
+
+        if ($from) {
+            $qb->andWhere('msg.createdAt > :from')
+                ->setParameter('from', $from->format('Y-m-d H:i:s'));
+        }
+
+        if ($to) {
+            $qb->andWhere('msg.createdAt < :to')
+                ->setParameter('to', $to->format('Y-m-d H:i:s'));
+        }
+
+        $result = $qb->getQuery()->getSingleResult();
+        return $result['cnt'];
     }
 }

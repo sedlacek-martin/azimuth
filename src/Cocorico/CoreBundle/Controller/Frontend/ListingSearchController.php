@@ -15,9 +15,11 @@ use Cocorico\CoreBundle\Entity\ListingImage;
 use Cocorico\CoreBundle\Event\ListingSearchActionEvent;
 use Cocorico\CoreBundle\Event\ListingSearchEvents;
 use Cocorico\CoreBundle\Form\Type\Frontend\ListingSearchHomeType;
+use Cocorico\CoreBundle\Form\Type\Frontend\ListingSearchNavType;
 use Cocorico\CoreBundle\Form\Type\Frontend\ListingSearchResultType;
 use Cocorico\CoreBundle\Form\Type\Frontend\ListingSearchType;
 use Cocorico\CoreBundle\Model\ListingSearchRequest;
+use Cocorico\CoreBundle\Model\Manager\ListingSearchManager;
 use Cocorico\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -45,14 +47,13 @@ class ListingSearchController extends Controller
         $actualRoute = $request->attributes->get('_route');
 
         $viewData = $this->searchBaseAction($request, $isXmlHttpRequest, $actualRoute);
-//        dump($request->attributes->get('_route') === "cocorico_listing_search_result_map");
-//        die;
         return $this->render(
             $isXmlHttpRequest ?
                 '@CocoricoCore/Frontend/ListingResult/result_ajax.html.twig' :
                 '@CocoricoCore/Frontend/ListingResult/result.html.twig',
                 array_merge($viewData, [
-                    'horizontal_map_layout' => $actualRoute === "cocorico_listing_search_result_map",
+//                    'horizontal_map_layout' => $actualRoute === "cocorico_listing_search_result_map",$actualRoute === "cocorico_listing_search_result_map",
+                    'horizontal_map_layout' => true,
                     'route' => $request->attributes->get('_route'),
                 ])
         );
@@ -64,12 +65,18 @@ class ListingSearchController extends Controller
      */
     public function mapAction(Request $request)
     {
+        /** @var ListingSearchRequest $listingSearchRequest */
         $listingSearchRequest = $this->get('cocorico.listing_search_request');
-        $listingSearchRequest->getLocation()->setAddress("Europe");
+        $listingSearchRequest->getLocation()->setAddress("Czechia");
         $listingSearchRequest->getLocation()->setViewport("((41.305296366930165, -12.741266900788446), (55.722966020356786, 39.993108099211554))");
         $listingSearchRequest->getLocation()->setAddressType("country");
 
         $form = $this->createSearchResultForm($listingSearchRequest, "cocorico_listing_search_result_map");
+
+        $page = $request->get('page');
+        if ($page) {
+            $listingSearchRequest->setPage($page);
+        }
 
         $results = $this->get("cocorico.listing_search.manager")->searchAll(
             $request->getLocale(),
@@ -100,7 +107,7 @@ class ListingSearchController extends Controller
                 'markers' => $markers['markers'],
                 'listing_search_request' => $listingSearchRequest,
                 'pagination' => array(
-                    'page' => 1,
+                    'page' => $listingSearchRequest->getPage(),
                     'pages_count' => ceil($nbListings / $listingSearchRequest->getMaxPerPage()),
                     'route' => $request->get('_route'),
                     'route_params' => $request->query->all()
@@ -126,6 +133,7 @@ class ListingSearchController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var ListingSearchRequest $listingSearchRequest */
             $listingSearchRequest = $form->getData();
 
             if ($request->get("_route") == "cocorico_listing_search_result_map" &&
@@ -135,10 +143,13 @@ class ListingSearchController extends Controller
                 $listingSearchRequest->getLocation()->setCountry($user->getCountryOfResidence());
             }
 
-            $results = $this->get("cocorico.listing_search.manager")->search(
+            /** @var ListingSearchManager $listingSearchManager */
+            $listingSearchManager = $this->get("cocorico.listing_search.manager");
+            $results = $listingSearchManager->search(
                 $listingSearchRequest,
                 $request->getLocale()
             );
+
             $nbListings = $results->count();
             $listings = $results->getIterator();
             $markers = $this->getMarkers($request, $results, $listings);
@@ -232,11 +243,8 @@ class ListingSearchController extends Controller
         $nbResults = $results->count();
 
         $imagePath = ListingImage::IMAGE_FOLDER;
-//        $currentCurrency = $this->get('session')->get('currency', $this->getParameter('cocorico.currency'));
         $locale = $request->getLocale();
         $liipCacheManager = $this->get('liip_imagine.cache.manager');
-//        $currencyExtension = $this->get('lexik_currency.currency_extension');
-//        $currencyExtension->getFormatter()->setLocale($locale);
         $listingSession = array_key_exists('CocoricoListingSessionBundle', $this->getParameter('kernel.bundles'));
         $markers = $listingsIds = array();
 
@@ -263,9 +271,9 @@ class ListingSearchController extends Controller
             //Categories
             $categories = '';
             $pin = '';
-            if (count($listing['listingListingCategories'])) {
-                $categories = $listing['listingListingCategories'][0]['category']['translations'][$locale]['name'];
-                $pin = $listing['listingListingCategories'][0]['category']['pin'];
+            if (count($listing['category'])) {
+                $categories = $listing['category']['translations'][$locale]['name'];
+                $pin = $listing['category']['pin'];
                 $pinImage = isset($pin) ? $pin['imagePath'] : '/images/pin.png';
             }
 
@@ -283,8 +291,8 @@ class ListingSearchController extends Controller
             $locIndex = $listing['location']['coordinate']['lat'] . "-" . $listing['location']['coordinate']['lng'];
             $markers[$locIndex][] = array(
                 'id' => $listing['id'],
-                'lat' => $listing['location']['coordinate']['lat'],
-                'lng' => $listing['location']['coordinate']['lng'],
+                'lat' => $listing['location']['coordinate']['latRandom'],
+                'lng' => $listing['location']['coordinate']['lngRandom'],
                 'title' => $listing['translations'][$locale]['title'],
                 'category' => $categories,
                 'pinImage' => $pinImage,
@@ -332,7 +340,7 @@ class ListingSearchController extends Controller
     public function searchNavFormAction()
     {
         $listingSearchRequest = $this->getListingSearchRequest();
-        $form = $this->createSearchNavForm($listingSearchRequest, 'cocorico_listing_search_result_map');
+        $form = $this->createSearchNavForm($listingSearchRequest);
 
         return $this->render(
             '@CocoricoCore/Frontend/Home/form_nav.html.twig',
@@ -340,7 +348,6 @@ class ListingSearchController extends Controller
                 'form' => $form->createView(),
             )
         );
-
     }
 
     /**
@@ -363,17 +370,17 @@ class ListingSearchController extends Controller
         return $form;
     }
 
-    private function createSearchNavForm(ListingSearchRequest $listingSearchRequest, $searchRoute = 'cocorico_listing_search_result_map')
+    private function createSearchNavForm(ListingSearchRequest $listingSearchRequest, $searchRoute = 'cocorico_listing_search_result')
     {
         $form = $this->get('form.factory')->createNamed(
-            'navForm',
-            ListingSearchHomeType::class,
+            '',
+            ListingSearchNavType::class,
             $listingSearchRequest,
             array(
                 'method' => 'GET',
                 'action' => $this->generateUrl($searchRoute),
             )
-        )->remove('categories');
+        );
 
         return $form;
     }

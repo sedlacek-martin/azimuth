@@ -10,7 +10,9 @@
  */
 namespace Cocorico\CoreBundle\Authentication\Handler;
 
+use Cocorico\CoreBundle\Entity\UserLogin;
 use Cocorico\UserBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -20,12 +22,18 @@ use Symfony\Component\Security\Http\HttpUtils;
 class LoginSuccessHandler extends DefaultAuthenticationSuccessHandler
 {
     /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
      * @param HttpUtils $httpUtils
      * @param array     $options
      */
-    public function __construct(HttpUtils $httpUtils, array $options)
+    public function __construct(HttpUtils $httpUtils, EntityManagerInterface $entityManager, array $options)
     {
         parent::__construct($httpUtils, $options);
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -33,23 +41,17 @@ class LoginSuccessHandler extends DefaultAuthenticationSuccessHandler
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        $session = $request->getSession();
+//        $session = $request->getSession();
         /** @var User $user */
         $user = $token->getUser();
-        $cookies = $request->cookies;
-
-        if ($cookies->has('userType')) {
-            $userType = $cookies->get('userType');
-        } else {
-            $userType = 'asker';
-            if ($user && $user->getListings()->count()) {
-                $userType = 'offerer';
-            }
-        }
 
         $response = parent::onAuthenticationSuccess($request, $token);
-        $session->set('profile', $userType);
-        $response->headers->setCookie(new Cookie('userType', $userType, 0, '/', null, false, false));
+
+        // create entry about user login
+        $ip = $request->getClientIp();
+        $login = UserLogin::create($user, $ip);
+        $this->entityManager->persist($login);
+        $this->entityManager->flush();
 
         return $response;
     }

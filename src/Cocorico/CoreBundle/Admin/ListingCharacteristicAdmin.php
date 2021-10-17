@@ -14,6 +14,10 @@ namespace Cocorico\CoreBundle\Admin;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Cocorico\CoreBundle\Entity\ListingCategory;
 use Cocorico\CoreBundle\Entity\ListingCharacteristic;
+use Cocorico\CoreBundle\Entity\ListingListingCharacteristic;
+use Cocorico\CoreBundle\Repository\ListingListingCharacteristicRepository;
+use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
+use Doctrine\ORM\EntityManagerInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -22,7 +26,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ListingCharacteristicAdmin extends AbstractAdmin
+class ListingCharacteristicAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
     protected $baseRoutePattern = 'listing-characteristic';
@@ -87,6 +91,10 @@ class ListingCharacteristicAdmin extends AbstractAdmin
                     'label' => 'admin.listing_characteristic.position.label'
                 )
             )
+            ->add('filter', null, [
+                'label' => 'admin.listing_characteristic.filter.label',
+                'help' => 'admin.listing_characteristic.filter.help'
+            ])
             ->add(
                 'listingCharacteristicType',
                 'sonata_type_model_list',
@@ -163,7 +171,10 @@ class ListingCharacteristicAdmin extends AbstractAdmin
                 'position',
                 null,
                 array('label' => 'admin.listing_characteristic.position.label')
-            );
+            )
+            ->add('filter', null, [
+                'label' => 'admin.listing_characteristic.filter.label',
+            ]);
 
 
         $listMapper->add(
@@ -207,6 +218,31 @@ class ListingCharacteristicAdmin extends AbstractAdmin
 
         return $actions;
     }
+
+    /**
+     * @param ListingCharacteristic $object
+     */
+    public function postUpdate($object)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        /** @var ListingListingCharacteristicRepository $llcRepository */
+        $llcRepository = $em->getRepository(ListingListingCharacteristic::class);
+
+        $llcRepository->deleteByCharacteristicAndCategory(
+            $object->getId(),
+            ...$object->getListingCategories()->map(function (ListingCategory $cat) {
+                return $cat->getId();
+            })->toArray()
+        );
+
+//        $llcRepository->deleteByCharacteristicAndCategory(
+//            $object,
+//            $object->getListingCategories()->toArray()
+//        );
+    }
+
 
     protected function configureRoutes(RouteCollection $collection)
     {

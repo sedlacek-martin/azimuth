@@ -49,7 +49,30 @@ table#revisions {
 }
 
 .menu-divider {
-    color: white;
+    color: white !important;
     margin: 10px 20px 0;
     border-top: #b8c7ce solid 1px;
+    line-height: 40px;
+    font-weight: bold;
 }
+
+.menu-divider i {
+    line-height: 40px;
+}
+
+.message-holder {
+    padding: 10px;
+}
+
+.message-holder:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.thread-info-holder {
+    font-size: 1.4em;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+

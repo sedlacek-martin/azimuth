@@ -29,7 +29,9 @@
                                 </div>
                             </div>
                         </div>
-                        {{ render(controller('CocoricoCoreBundle:Frontend/ListingSearch:searchHomeForm')) }}
+                        {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                            {{ render(controller('CocoricoCoreBundle:Frontend/ListingSearch:searchHomeForm')) }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -104,10 +106,12 @@
     {{ parent() }}
 
     {#Geocoding #}
-    {% include '@CocoricoCore/Frontend/ListingResult/js/_geocoding_js.html.twig' with {
-    'map_elt': '',
-    'auto_complete_elt': '#location'
-    } only %}
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+        {% include '@CocoricoCore/Frontend/ListingResult/js/_geocoding_js.html.twig' with {
+        'map_elt': '',
+        'auto_complete_elt': '#location'
+        } only %}
+    {% endif %}
 
     <script>
         // Categories

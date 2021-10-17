@@ -51,11 +51,6 @@ class ListingEditDescriptionType extends ListingEditType implements TranslationC
         }
 
         $builder
-            ->add('public', CheckboxType::class, [
-                'translation_domain' => 'cocorico_listing',
-                'label' => 'listing.form.public',
-                'required' => false,
-            ])
             ->add(
                 'translations',
                 TranslationsType::class,

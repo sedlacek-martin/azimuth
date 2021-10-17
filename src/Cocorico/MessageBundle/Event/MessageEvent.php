@@ -11,42 +11,53 @@
 
 namespace Cocorico\MessageBundle\Event;
 
+use FOS\MessageBundle\Model\MessageInterface;
 use FOS\MessageBundle\Model\ThreadInterface;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class MessageEvent extends Event
 {
-    protected $thread;
+    /** @var MessageInterface */
+    protected $message;
+
+    /** @var UserInterface */
     protected $recipient;
+
+    /** @var UserInterface */
     protected $sender;
 
+    /** @var ThreadInterface */
+    protected $thread;
+
     /**
+     * @param MessageInterface $message
      * @param ThreadInterface $thread
-     * @param UserInterface   $recipient
-     * @param UserInterface   $sender
+     * @param UserInterface $recipient
+     * @param UserInterface $sender
      */
-    public function __construct(ThreadInterface $thread, UserInterface $recipient, UserInterface $sender)
+    public function __construct(MessageInterface $message, ThreadInterface $thread, UserInterface $recipient, UserInterface $sender)
     {
+        $this->message = $message;
         $this->thread = $thread;
         $this->recipient = $recipient;
         $this->sender = $sender;
     }
 
     /**
-     * @return ThreadInterface
+     * @return MessageInterface
      */
-    public function getThread()
+    public function getMessage()
     {
-        return $this->thread;
+        return $this->message;
     }
 
     /**
-     * @param ThreadInterface $thread
+     * @param MessageInterface $message
      */
-    public function setThread(ThreadInterface $thread)
+    public function setMessage(MessageInterface $message)
     {
-        $this->thread = $thread;
+        $this->message = $message;
     }
 
     /**
@@ -64,4 +75,22 @@ class MessageEvent extends Event
     {
         return $this->sender;
     }
+
+    /**
+     * @return ThreadInterface
+     */
+    public function getThread(): ThreadInterface
+    {
+        return $this->thread;
+    }
+
+    /**
+     * @param ThreadInterface $thread
+     */
+    public function setThread(ThreadInterface $thread): void
+    {
+        $this->thread = $thread;
+    }
+
+
 }

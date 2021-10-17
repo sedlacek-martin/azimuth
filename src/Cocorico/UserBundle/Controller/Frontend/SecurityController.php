@@ -87,7 +87,6 @@ class SecurityController extends Controller implements TranslationContainerInter
             '@CocoricoUser/Frontend/Security/login.html.twig',
             array(
                 'form' => $form->createView(),
-                'skautIsLoginUrl'=> Skautis::getInstance($this->getParameter('skautis_appId'), $this->getParameter('skautis_testMode'))->getLoginUrl(),
             )
         );
     }

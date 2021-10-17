@@ -41,7 +41,7 @@
             {% endif %}
 
             <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {% autoescape false %}{{ label|trans({}, translation_domain) }}{% endautoescape %} {{ label_required }}
+            {% autoescape false %}{{ label|trans({}, translation_domain) }}{% endautoescape %}
             </label>
         {% endif %}
     {% endspaceless %}

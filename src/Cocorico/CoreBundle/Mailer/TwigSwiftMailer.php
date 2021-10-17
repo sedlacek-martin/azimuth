@@ -36,6 +36,7 @@ class TwigSwiftMailer implements MailerInterface
     protected $templates;
     protected $fromEmail;
     protected $adminEmail;
+    protected $siteName;
 
     /**
      * @param \Swift_Mailer         $mailer
@@ -65,6 +66,7 @@ class TwigSwiftMailer implements MailerInterface
 
         $this->fromEmail = $parameters['cocorico_from_email'];
         $this->adminEmail = $parameters['cocorico_contact_email'];
+        $this->siteName = $parameters['cocorico_site_name'];
 
         $this->timeUnit = $parameters['cocorico_time_unit'];
         $this->timeUnitIsDay = ($this->timeUnit % 1440 == 0) ? true : false;
@@ -89,19 +91,9 @@ class TwigSwiftMailer implements MailerInterface
         $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
         $template = $this->templates['listing_activated_offerer'];
 
-        $listingCalendarEditUrl = $this->router->generate(
-            'cocorico_dashboard_listing_edit_availabilities_status',
-            array(
-                'listing_id' => $listing->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
         $context = array(
             'user' => $user,
             'listing' => $listing,
-            'listing_calendar_edit_url' => $listingCalendarEditUrl,
         );
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
@@ -647,7 +639,6 @@ class TwigSwiftMailer implements MailerInterface
             'reconfirmUrl' => $reconfirmUrl,
         ];
 
-        dump($template, $user->getEmail());
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
 
@@ -832,7 +823,6 @@ class TwigSwiftMailer implements MailerInterface
 
             $this->mailer->send($message);
         } catch (\Exception $e) {
-            dump($e);
         }
 
     }

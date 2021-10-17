@@ -5,7 +5,13 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <strong class="title">{{ 'message.modal.title'|trans }} {{ user.name }}</strong> <br/>
+        <strong class="title">
+            {{ 'message.modal.title'|trans }} {{ user.name }}
+            {% if title is not empty %}
+                - {{ title }}
+            {% endif %}
+
+        </strong> <br/>
     </div>
 
     <div class="modal-body">
@@ -17,20 +23,57 @@
             <form id="message-form" class="form-msg" method="post"
                   action="{{ path(route, { 'slug': slug }) }}">
                 <fieldset>
-                    <strong class="title text-center">{{ title }}</strong>
-                    <br/>
-
                     <div class="no-scroll">
                         {{ form_errors(form.body) }}
                         {{ form_widget(form.body) }}
                     </div>
+                    {# only show dates for listing messages #}
+                    {% if route == 'cocorico_dashboard_message_new' %}
+                        <div class="show-dates-link">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseDates">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                                {{ 'message_form.show_dates_fields' }}
+                            </a>
+                        </div>
+                        <div class="collapse" id="collapseDates" style="overflow: hidden; height: 0;">
+                            <div class="message-dates-holder">
+                                <div class="row">
+                                    <div class="col-lg-6 datepicker-holder">
+                                        {{ form_errors(form.fromDate) }}
+                                        <strong>{{ form_label(form.fromDate) }}</strong>
+                                        <div class="input-append date field-holder">
+                                            {{ form_widget(form.fromDate,{
+                                                'type': 'text',
+                                                'attr': {
+                                                    'class': 'form-control from ' ~ form.fromDate.vars.attr.class|default(''),
+                                                }
+                                            }) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 datepicker-holder">
+                                        {{ form_errors(form.toDate) }}
+                                        <strong>{{ form_label(form.toDate) }}</strong>
+                                        <div class="input-append date field-holder">
+                                            {{ form_widget(form.toDate,{
+                                                'type': 'text',
+                                                'attr': {
+                                                    'class': 'form-control from ' ~ form.toDate.vars.attr.class|default(''),
+                                                }
+                                            }) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                 </fieldset>
-
-                {{ form_rest(form) }}
+                <div class="hidden">
+                    {{ form_rest(form) }}
+                </div>
             </form>
 
             <div class="modal-footer">
-                <a id="message-return" href="#" class="btn btn-default">
+                <a id="message-return" href="#" class="btn btn-default bg-">
                     {{ 'message.modal.action.return'|trans }}
                 </a>
                 <a id="message-submit" href="#" class="btn btn-default">
@@ -45,6 +88,8 @@
         $(function () {
             jcf.replaceAll("#message-form-container");
             $('[data-toggle="tooltip"]').tooltip({});
+
+            initDatepicker();
 
             //Submit form
             var $formContainer = $("#message-form-container");

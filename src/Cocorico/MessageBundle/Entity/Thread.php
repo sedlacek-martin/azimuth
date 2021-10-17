@@ -66,10 +66,24 @@ class Thread extends BaseThread
     /**
      * @var User|null
      *
-     * @ORM\OneToOne(targetEntity="\Cocorico\UserBundle\Entity\User", inversedBy="thread")
+     * @ORM\ManyToOne(targetEntity="\Cocorico\UserBundle\Entity\User", inversedBy="threads")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="from_date", type="date", nullable=true)
+     */
+    protected $fromDate;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="to_date", type="date", nullable=true)
+     */
+    protected $toDate;
 
     /**
      * @return Listing|null
@@ -101,6 +115,50 @@ class Thread extends BaseThread
     public function setUser(?User $user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubject(): string
+    {
+        if ($this->getListing()) {
+            return $this->getListing()->getTitle();
+        }
+
+        return $this->getUser()->getName();
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getFromDate(): ?\DateTime
+    {
+        return $this->fromDate;
+    }
+
+    /**
+     * @param \DateTime|null $fromDate
+     */
+    public function setFromDate(?\DateTime $fromDate): void
+    {
+        $this->fromDate = $fromDate;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getToDate(): ?\DateTime
+    {
+        return $this->toDate;
+    }
+
+    /**
+     * @param \DateTime|null $toDate
+     */
+    public function setToDate(?\DateTime $toDate): void
+    {
+        $this->toDate = $toDate;
     }
 
     public function __toString()

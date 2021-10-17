@@ -13,6 +13,7 @@ namespace Cocorico\CoreBundle\Model\Manager;
 
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Entity\ListingCategory;
+use Cocorico\CoreBundle\Entity\ListingCharacteristic;
 use Cocorico\CoreBundle\Entity\ListingImage;
 use Cocorico\CoreBundle\Entity\ListingListingCharacteristic;
 use Cocorico\CoreBundle\Entity\ListingTranslation;
@@ -120,7 +121,7 @@ class ListingManager extends BaseManager
      *
      * @return Listing
      */
-    public function refreshListingListingCharacteristics(Listing $listing)
+    public function refreshListingListingCharacteristics(Listing $listing): Listing
     {
         /** @var ListingCharacteristicRepository $listingCharacteristicRepository */
         $listingCharacteristicRepository = $this->em->getRepository('CocoricoCoreBundle:ListingCharacteristic');
@@ -137,16 +138,11 @@ class ListingManager extends BaseManager
         }
 
         //Associate new characteristics not already associated to listing
+        /** @var ListingCharacteristic $listingCharacteristic */
         foreach ($listingCharacteristics as $listingCharacteristic) {
             if( !$listingCharacteristic->getListingCategories()->isEmpty()) {
                 $characteristicCategories = $listingCharacteristic->getListingCategories();
-                $characteristicForListing = false;
-                foreach ($listing->getListingListingCategories() as $llCategory) {
-                    if ($characteristicCategories->contains($llCategory->getCategory())) {
-                        $characteristicForListing = true;
-                    }
-                }
-                if (!$characteristicForListing) {
+                if (!$characteristicCategories->contains($listing->getCategory())) {
                     continue;
                 }
             }

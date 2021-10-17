@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbeff52a28b68ec0e91d78d48c4279b4",
+    "content-hash": "86f557d436fca12d58386a69461e2f93",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
@@ -5327,64 +5327,6 @@
             ],
             "abandoned": "sonata-project/entity-audit-bundle",
             "time": "2017-07-24T15:38:35+00:00"
-        },
-        {
-            "name": "skautis/skautis",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/skaut/Skautis.git",
-                "reference": "090fddb9d7d6da2467f52be9f6ff4db16724c1c5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/skaut/Skautis/zipball/090fddb9d7d6da2467f52be9f6ff4db16724c1c5",
-                "reference": "090fddb9d7d6da2467f52be9f6ff4db16724c1c5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-soap": "*",
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "@stable",
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "4.5.*"
-            },
-            "suggest": {
-                "skautis/nette": "Integrace Skautis do Nette",
-                "skautis/skautis-bundle": "Integrace Skautis do Symfony"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Skautis\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "František Hána",
-                    "homepage": "https://github.com/sinacek"
-                },
-                {
-                    "name": "Jindřich Pilař",
-                    "homepage": "https://github.com/JindrichPilar"
-                }
-            ],
-            "description": "Library for API calls to SkautIS",
-            "homepage": "https://github.com/skaut/Skautis",
-            "keywords": [
-                "api",
-                "skaut",
-                "skautis",
-                "soap",
-                "wsdl"
-            ],
-            "time": "2017-03-07T09:02:13+00:00"
         },
         {
             "name": "sonata-project/admin-bundle",

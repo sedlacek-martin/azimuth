@@ -114,13 +114,11 @@
 
 .posts-holder .author-name {
     color: #58595b;
-    text-decoration: none;
-    word-wrap: normal;
-    float: right;
-    text-align: center;
-    padding-right: 0;
-    margin-right: -10px;
-    font-size: 12px;
+    font-weight: bolder;
+}
+
+.posts-holder .meta-message {
+    border-bottom: #efefef 1px solid;
 }
 
 /* Availabilities design dialog box */
@@ -976,7 +974,10 @@ li.time-fields {
 }
 
 #search-container .selection-holder > .select-holder:first-child {
-    width: 77%
+    width: 77%;
+    border-right: #e8e8e8 1px solid;
+    padding-right: 15px;
+
 }
 
 #search-container li.field-row {
@@ -1308,8 +1309,8 @@ images css for making it 4:3
 #reservations .postarea .posts-holder .post .post-area .img-holder a,
 #messaging .postarea .posts-holder .post .post-area .img-holder,
 #messaging .postarea .posts-holder .post .post-area .img-holder a {
-    width: 200px;
-    height: 150px;
+    width: 150px;
+    height: 107px;
     position: relative;
 }
 
@@ -1378,7 +1379,7 @@ images css for making it 4:3
 }
 
 .listing-post p {
-    margin: 0 0 0;
+    /*padding-left: 8px;*/
 }
 
 .price-section .info.price {
@@ -2688,7 +2689,7 @@ ul.collection {
 
 .form-category .sub-holder {
     margin: -40px 0 20px 0;
-    padding: 20px 19px 10px;
+    padding: 20px 19px 10px 0;
     border-radius: 0 0 4px 4px;
     border-color: #e8e8e8;
     border-style: solid;

@@ -5,9 +5,8 @@
 {% block layout %}
     {% include '@CocoricoCore/Frontend/Common/_header.html.twig' only %}
     <div class="error-page">
-        <h1>{{ 'page.error'|trans }} {{ status_code }} {{ status_text }}</h1>
-
-        <p></p>
+        <h1>{{ 'page.error'|trans }} {{ status_code }} | {{ status_text }}</h1>
+        <p>{{ 'page.error.description'|trans }}</p>
     </div>
     {% include '@CocoricoCore/Frontend/Common/_footer.html.twig' only %}
 {% endblock %}

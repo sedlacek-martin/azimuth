@@ -10,18 +10,6 @@
         <source>/admin/user/action/trusted/{id}</source>
         <target state="new">/admin/user/action/trusted/{id}</target>
       </trans-unit>
-      <trans-unit id="9b81dbdb23890155a309ef09d92759b18552ea0c" resname="cocorico_booking_new">
-        <source>/booking/{listing_id}/{start}/{end}/new</source>
-        <target>/booking/{listing_id}/{start}/{end}/new</target>
-      </trans-unit>
-      <trans-unit id="26cd4974c433beba7b353006962d40cb0959353d" resname="cocorico_booking_payment_new">
-        <source>/booking/payment/{booking_id}/new</source>
-        <target>/booking/payment/{booking_id}/new</target>
-      </trans-unit>
-      <trans-unit id="81a1cea4ee90d53ca7904aac09cd6dbda96fc3dc" resname="cocorico_booking_price">
-        <source>/booking/{listing_id}/price</source>
-        <target>/booking/{listing_id}/price</target>
-      </trans-unit>
       <trans-unit id="0b8e53ab3f45eb7281deef036265821371b94f41" resname="cocorico_contact_new">
         <source>/contact/new</source>
         <target>/contact/new</target>
@@ -30,41 +18,9 @@
         <source>/currency/{currency}/switch</source>
         <target>/currency/{currency}/switch</target>
       </trans-unit>
-      <trans-unit id="74bd1243338a017049950d359e7fb809fadf93fe" resname="cocorico_dashboard_booking_asker">
-        <source>/dashboard/asker/booking/{page}</source>
-        <target>/dashboard/asker/booking/{page}</target>
-      </trans-unit>
-      <trans-unit id="b34c3463355e4c72c34b7de91452a4daf33727ff" resname="cocorico_dashboard_booking_edit_asker">
-        <source>/dashboard/asker/booking/{id}/edit/{type}</source>
-        <target>/dashboard/asker/booking/{id}/edit/{type}</target>
-      </trans-unit>
-      <trans-unit id="4cd25adc92adf2ae8416b0896b13bf706c91bb34" resname="cocorico_dashboard_booking_edit_offerer">
-        <source>/dashboard/offerer/booking/{id}/edit/{type}</source>
-        <target>/dashboard/offerer/booking/{id}/edit/{type}</target>
-      </trans-unit>
-      <trans-unit id="7d6c4a6c034fd7bac6903c70006078345cf083f1" resname="cocorico_dashboard_booking_offerer">
-        <source>/dashboard/offerer/booking/{page}</source>
-        <target>/dashboard/offerer/booking/{page}</target>
-      </trans-unit>
-      <trans-unit id="d11a455af6cdac7476895e35352402ee9da820df" resname="cocorico_dashboard_booking_payin_refund_asker">
-        <source>/dashboard/asker/booking-payin-refund/{page}</source>
-        <target>/dashboard/asker/booking-payin-refund/{page}</target>
-      </trans-unit>
-      <trans-unit id="0e1352935a7292e5cee012659aec40dea594367a" resname="cocorico_dashboard_booking_payin_refund_show_bill_asker">
-        <source>/dashboard/asker/booking-payin-refund/{id}/show-bill</source>
-        <target>/dashboard/asker/booking-payin-refund/{id}/show-bill</target>
-      </trans-unit>
-      <trans-unit id="4157d378f24784fba994d56c7c575de9a9987e22" resname="cocorico_dashboard_booking_show_asker">
-        <source>/dashboard/asker/booking/{id}/show</source>
-        <target>/dashboard/asker/booking/{id}/show</target>
-      </trans-unit>
-      <trans-unit id="f55c7980e6e0aad3f792760c047666bcd8197b57" resname="cocorico_dashboard_booking_show_offerer">
-        <source>/dashboard/offerer/booking/{id}/show</source>
-        <target>/dashboard/offerer/booking/{id}/show</target>
-      </trans-unit>
-      <trans-unit id="12fd4b23bc5feaf1023b4b4e9f8a7fbe090c54d3" resname="cocorico_dashboard_booking_show_voucher">
-        <source>/dashboard/asker/booking/{id}/show-voucher</source>
-        <target>/dashboard/asker/booking/{id}/show-voucher</target>
+      <trans-unit id="d89a788cba1af525434edce0c0f1af12aa5b2bb8" resname="cocorico_dashboard_edit_user_settings">
+        <source>/dashboard/settings/</source>
+        <target state="new">/dashboard/settings/</target>
       </trans-unit>
       <trans-unit id="9890d54bec6ad922e870d6281014c3ce92ef413e" resname="cocorico_dashboard_listing">
         <source>/dashboard/listing/{page}</source>
@@ -73,14 +29,6 @@
       <trans-unit id="6526ae15e8dc1c008e9fde210f5045ce8fdac4af" resname="cocorico_dashboard_listing_duplicate">
         <source>/dashboard/listing/{id}/duplicate</source>
         <target>/dashboard/listing/{id}/duplicate</target>
-      </trans-unit>
-      <trans-unit id="25cb043f412e2ccb3a3babd079142820b79475ca" resname="cocorico_dashboard_listing_edit_availabilities_status">
-        <source>/dashboard/listing/{listing_id}/edit_availabilities_status</source>
-        <target>/dashboard/listing/{listing_id}/edit_availabilities_status</target>
-      </trans-unit>
-      <trans-unit id="ff5b4844cb008a0353536668a6b736e4102bfbf5" resname="cocorico_dashboard_listing_edit_availability_status">
-        <source>/dashboard/listing/{listing_id}/{day}/{start_time}/{end_time}/edit_availability_status</source>
-        <target>/dashboard/listing/{listing_id}/{day}/{start_time}/{end_time}/edit_availability_status</target>
       </trans-unit>
       <trans-unit id="41a3cb94e244fe988983f3fedeebb17285dd65e9" resname="cocorico_dashboard_listing_edit_categories">
         <source>/dashboard/listing/{id}/edit_categories</source>
@@ -94,13 +42,9 @@
         <source>/dashboard/listing/{id}/edit_characteristic</source>
         <target>/dashboard/listing/{id}/edit_characteristic</target>
       </trans-unit>
-      <trans-unit id="fc559d0e8f25b44a804997a0139edf552b1cb1cf" resname="cocorico_dashboard_listing_edit_discount">
-        <source>/dashboard/listing/{id}/edit_discount</source>
-        <target>/dashboard/listing/{id}/edit_discount</target>
-      </trans-unit>
-      <trans-unit id="831db6c825a3f00e87851c02db33b81af6834f49" resname="cocorico_dashboard_listing_edit_duration">
-        <source>/dashboard/listing/{id}/edit_duration</source>
-        <target>/dashboard/listing/{id}/edit_duration</target>
+      <trans-unit id="c26b953e728bc467f6a5a86d82989b49cf5917a7" resname="cocorico_dashboard_listing_edit_dates">
+        <source>/dashboard/listing/{id}/edit_dates</source>
+        <target state="new">/dashboard/listing/{id}/edit_dates</target>
       </trans-unit>
       <trans-unit id="17df96860187b09c1bfa9958bf057651f9c45027" resname="cocorico_dashboard_listing_edit_images">
         <source>/dashboard/listing/{id}/edit_images</source>
@@ -118,17 +62,9 @@
         <source>/dashboard/listing/{id}/edit_status</source>
         <target>/dashboard/listing/{id}/edit_status</target>
       </trans-unit>
-      <trans-unit id="15e1d700b5f6f0d9ed9ae5bb844a0b0245f479c0" resname="cocorico_dashboard_listing_new_availability_status">
-        <source>/dashboard/listing/{listing_id}/{day}/new_availability_status</source>
-        <target>/dashboard/listing/{listing_id}/{day}/new_availability_status</target>
-      </trans-unit>
       <trans-unit id="c3089ccff37d512160d1050da4e9d853576b297a" resname="cocorico_dashboard_listing_new_categories">
         <source>/listing/new_categories</source>
         <target>/listing/new_categories</target>
-      </trans-unit>
-      <trans-unit id="c4d4ae5e8dca6d141910b03487fd169c635b653d" resname="cocorico_dashboard_listing_price_simulator">
-        <source>/dashboard/listing/{id}/price_simulator</source>
-        <target>/dashboard/listing/{id}/price_simulator</target>
       </trans-unit>
       <trans-unit id="47c4987e42e638f69514881dd5f15a9aa461f5c5" resname="cocorico_dashboard_message">
         <source>/dashboard/message/{page}</source>
@@ -178,14 +114,6 @@
         <source>/language/translate</source>
         <target>/language/translate</target>
       </trans-unit>
-      <trans-unit id="0d035f070813a7d01ed570d64541854d8c9518d5" resname="cocorico_listing_availabilities">
-        <source>/listing_availabilities/{listing_id}/{start}/{end}</source>
-        <target>/listing-availabilities/{listing_id}/{start}/{end}</target>
-      </trans-unit>
-      <trans-unit id="b03dfac5699e4ae360dc374ea980b05a5e0b626a" resname="cocorico_listing_favourite">
-        <source>/listing/favourite</source>
-        <target>/listing/favourite</target>
-      </trans-unit>
       <trans-unit id="01cb8a3d37bc28ce8dc09c8da3480d57df437d9f" resname="cocorico_listing_image_delete">
         <source>/user-image/{id}/delete</source>
         <target>/listing_image/{id}/delete</target>
@@ -213,6 +141,10 @@
       <trans-unit id="d58e9c6ae3761d6f7e0e601f6455b43ace3a666f" resname="cocorico_listing_similar">
         <source>/listing/similar_result/{id}</source>
         <target>/listing/similar_result/{id}</target>
+      </trans-unit>
+      <trans-unit id="58a657256ec8f7ac567e0b736259b3a033156759" resname="cocorico_member_organization__get_all_country">
+        <source>/member-organization/get-all/{country}</source>
+        <target state="new">/member-organization/get-all/{country}</target>
       </trans-unit>
       <trans-unit id="f435e019ce5a3c89ca90e2c4bb74d24f30ffdc2d" resname="cocorico_member_organizations_find">
         <source>/page/member-organizations/{slug}</source>
@@ -245,10 +177,6 @@
       <trans-unit id="fbf2ae57044448f087f1a1e3b1141d5f36276778" resname="cocorico_user_dashboard_profile_edit_scout_info">
         <source>/dashboard/user/edit-scout-info</source>
         <target state="new">/dashboard/user/edit-scout-info</target>
-      </trans-unit>
-      <trans-unit id="3c96e3c605ccefef864eaf52d2eed6d263b9dc80" resname="cocorico_user_dashboard_profile_switch">
-        <source>/dashboard/user/profile-switch</source>
-        <target>/dashboard/user/profile-switch</target>
       </trans-unit>
       <trans-unit id="037d3aa92dc241c2f5b5e200556a2a4bb3b56ac6" resname="cocorico_user_expired">
         <source>/expired/</source>

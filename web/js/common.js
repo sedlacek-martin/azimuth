@@ -251,6 +251,7 @@ function initMultiSelect(elt, allSelectedText, noneSelectedText, numSelectedText
                         $(this).attr('label').replace(/&nbsp;&nbsp;&nbsp;/g, '').replace(' - ', '') :
                         $(this).html().replace(/&nbsp;&nbsp;&nbsp;/g, '').replace(' - ', '');
                     selected += $.trim(label) + delimiter;
+                    console.log(label);
                 });
                 return selected.substr(0, selected.length - 2);
             }
@@ -455,14 +456,7 @@ function getNbUnReadMessages(url) {
         success: function (result) {
             if (result.total > 0) {
                 $('#nb-unread-msg').html(" (" + result.total + ")");
-            }
-            if (result.asker > 0) {
-                $('#askerMsg').html(" (" + result.asker + ")");
-                $('#nb-unread-asker').html(" (" + result.asker + ")");
-            }
-            if (result.offerer > 0) {
-                $('#offererMsg').html(" (" + result.offerer + ")");
-                $('#nb-unread-offerer').html(" (" + result.offerer + ")");
+                $('.new-message-indicator').show()
             }
         }
     });
@@ -489,6 +483,7 @@ $.fn.extend({
      * @returns {*|jQuery}
      */
     initDialogForm: function (width, callbackClose) {
+        console.log('modal');
         return $(this).dialog({
             autoOpen: false,
             modal: true,

@@ -41,7 +41,7 @@
                             <div class="control-label">
                                 {{ form_label(form.userExpiryPeriod) }}:
                             </div>
-                            <div class="sonata-ba-field sonata-ba-field-standard-natural"  style="margin-left: 15px">
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural">
                                 {{ form_widget(form.userExpiryPeriod) }}
                                 <span data-toggle="tooltip" data-placement="top"
                                       title="{{ 'activator_settings.expiry_period.help_message'|trans }}">
@@ -49,6 +49,26 @@
                                 </span>
                             </div>
 
+                        </div>
+                    </div>
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                        <div class="field-row form-group">
+                            {{ form_errors(form.requiresUserIdentifier) }}
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                {{ form_widget(form.requiresUserIdentifier) }}{{ form_label(form.requiresUserIdentifier) }}:
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12 sonata-ba-form" style="margin-bottom: 10px">
+                        <div class="field-row form-group">
+                            {{ form_errors(form.userIdentifierDescription) }}
+                            <div class="control-label">
+                                {{ form_label(form.userIdentifierDescription) }}:
+                            </div>
+                            <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                {{ form_widget(form.userIdentifierDescription) }}
+                            </div>
                         </div>
                     </div>
                     <div class="hidden">

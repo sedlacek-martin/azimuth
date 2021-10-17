@@ -177,7 +177,7 @@ class ParameterAdmin extends AbstractAdmin
 
         //Clear cache
         $rootDir = $kernel->getRootDir();
-        $command = $php.' ./bin/console cache:clear --env='.$kernel->getEnvironment();
+        $command = $php . ' ../bin/console cache:clear --env='.$kernel->getEnvironment();
 
         $process = new Process($command);
         try {

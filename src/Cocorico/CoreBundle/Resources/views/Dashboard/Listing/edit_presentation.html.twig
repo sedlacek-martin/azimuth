@@ -26,14 +26,6 @@
                         <div class="col-md-8 col-xs-12">
                             <h2>{{ 'listing.edit.presentation.title'|trans }}</h2>
                         </div>
-                        <div class="col-md-4 col-xs-12 text-right" style="margin-top: 10px">
-                            {{ form_widget(form.public) }}
-                            {{ form_label(form.public) }}
-                            <button title="" data-placement="left" data-toggle="tooltip" class="tooltip-button"
-                                    type="button"
-                                    data-original-title="{{ 'listing.edit.presentation.public.help'|trans }}">?
-                            </button>
-                        </div>
                     </div>
                     {# For html customizations see views\form\fields_translations.html.twig #}
                     {{ form_widget(form.translations) }}

@@ -13,8 +13,10 @@ namespace Cocorico\PageBundle\Controller\Frontend;
 
 use Cocorico\CoreBundle\Entity\CountryInformation;
 use Cocorico\CoreBundle\Entity\MemberOrganization;
+use Cocorico\CoreBundle\Entity\PageAccess;
 use Cocorico\CoreBundle\Repository\CountryInformationRepository;
 use Cocorico\CoreBundle\Repository\MemberOrganizationRepository;
+use Cocorico\CoreBundle\Utils\CountryUtils;
 use Cocorico\CoreBundle\Utils\PHP;
 use Cocorico\PageBundle\Entity\Page;
 use Cocorico\PageBundle\Repository\PageRepository;
@@ -70,28 +72,20 @@ class PageController extends Controller
 
         /** @var CountryInformationRepository $countryInfoRepository */
         $countryInfoRepository = $em->getRepository(CountryInformation::class);
+        $memberOrganizationRepository = $em->getRepository(MemberOrganization::class);
 
         /** @var CountryInformation $country */
         $country = $countryInfoRepository->findOneBy(['country' => $slug]);
 
-        if ($country === null) {
-            return new JsonResponse([
-                'found' => (bool) $country,
-            ]);
-        }
+        /** @var MemberOrganization[] $memberOrganizations */
+        $memberOrganizations = $memberOrganizationRepository->findBy(['country' => $slug]);
 
-        $countryName = $country->getCountryName();
-        $countryDescription = $country->getDescription();
-
-//        /** @var Page $page */
-//        $page = $em->getRepository('CocoricoPageBundle:Page')->findOneBySlug(
-//            strtolower($slug),
-//            $request->getLocale()
-//        );
+        $countryDescription = $country ? $country->getDescription() : '';
 
         return new JsonResponse([
             'found' => (bool) $country,
-            'countryName' => $countryName,
+            'memberOrganizationFound' => count($memberOrganizations) > 0,
+            'countryName' => CountryUtils::getCountryName($slug),
             'countryText' => $countryDescription,
             'countryCode' => $slug,
         ]);
@@ -150,6 +144,10 @@ class PageController extends Controller
         if (!$page) {
             throw new NotFoundHttpException(sprintf('%s page not found.', $slug));
         }
+
+        $access = PageAccess::create($request->get('_route'), $this->getUser(), $slug);
+        $em->persist($access);
+        $em->flush();
 
         PHP::log($request->getHttpHost());
 

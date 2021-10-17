@@ -14,6 +14,7 @@ namespace Cocorico\CoreBundle\Entity;
 use Cocorico\CoreBundle\Model\BaseListingCategory;
 use Cocorico\CoreBundle\Model\ListingCategoryListingCategoryFieldInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
@@ -82,9 +83,16 @@ class ListingCategory extends BaseListingCategory
      */
     protected $search = true;
 
+    /**
+     * @var ListingCharacteristic[]|Collection
+     * @ORM\ManyToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingCharacteristic", mappedBy="listingCategories")
+     */
+    protected $characteristics;
+
     public function __construct()
     {
         $this->fields = new ArrayCollection();
+        $this->characteristics = new ArrayCollection();
     }
 
     /**
@@ -241,6 +249,22 @@ class ListingCategory extends BaseListingCategory
     public function setSearch(bool $search): void
     {
         $this->search = $search;
+    }
+
+    /**
+     * @return ListingCharacteristic[]|Collection
+     */
+    public function getCharacteristics()
+    {
+        return $this->characteristics;
+    }
+
+    /**
+     * @param ListingCharacteristic[]|Collection $characteristics
+     */
+    public function setCharacteristics($characteristics): void
+    {
+        $this->characteristics = $characteristics;
     }
 
     /**

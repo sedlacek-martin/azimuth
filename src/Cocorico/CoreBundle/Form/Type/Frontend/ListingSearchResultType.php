@@ -135,14 +135,6 @@ class ListingSearchResultType extends AbstractType
                     'display_mode' => $this->daysDisplayMode,
                 )
             );
-//            ->add(
-//                'price_range',
-//                PriceRangeType::class,
-//                array(
-//                    /** @Ignore */
-//                    'label' => false
-//                )
-//            );
 
         //CHARACTERISTICS
         $characteristics = $listingSearchRequest->getCharacteristics();
@@ -152,7 +144,7 @@ class ListingSearchResultType extends AbstractType
                 ListingCharacteristicType::class,
                 array(
                     'mapped' => false,
-                    'data' => $characteristics
+                    'data' => array_filter($characteristics),
                 )
             )
             ->add(
@@ -160,7 +152,8 @@ class ListingSearchResultType extends AbstractType
                 ChoiceType::class,
                 array(
                     'choices' => array_flip(ListingSearchRequest::$sortByValues),
-                    'placeholder' => 'listing_search.form.sort_by.empty_value',
+                    'data' => 'distance',
+                    'required' => true,
                 )
             )
             ->add(

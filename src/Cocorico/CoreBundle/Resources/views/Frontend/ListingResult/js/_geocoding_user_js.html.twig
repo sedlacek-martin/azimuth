@@ -7,12 +7,10 @@ If a user location is found then fill search address field with this value
 
 {#Auto fill location search field#}
 {% set user_address = false %}
+{% set userCountry = false %}
 {% set user = app.user %}
 {% if user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
-    {% if user.addresses|length %}
-        {% set address = user.addresses.first %}
-        {% set user_address = { 'zip': address.zip, 'city': address.city, 'country': address.country|country_name } %}
-    {% endif %}
+    {% set userCountry = user.country|country_name %}
 {% endif %}
 
 <script>
@@ -22,12 +20,10 @@ If a user location is found then fill search address field with this value
         guessUserLocation();
 
         function guessUserLocation() {
-            var userAddress = {{ user_address| json_encode | raw  }};
-
-            if (userAddress && userAddress.zip && userAddress.country) {//Database user address
+            let userCountry = '{{ userCountry }}'
+            if (userCountry !== 'false' && userCountry) {//Database user address
                 userLocation = {
-                    "location": userAddress.zip,
-                    "country": userAddress.country
+                    "country": userCountry
                 };
                 fillAddressField(userLocation);
             } else if (navigator.geolocation) {//HTML5 geolocation

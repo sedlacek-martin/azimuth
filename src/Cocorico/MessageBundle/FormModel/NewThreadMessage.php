@@ -48,6 +48,16 @@ class NewThreadMessage extends AbstractMessage
     protected $user;
 
     /**
+     * @var \DateTime|null
+     */
+    protected $fromDate;
+
+    /**
+     * @var \DateTime|null
+     */
+    protected $toDate;
+
+    /**
      * @return Listing|null
      */
     public function getListing(): ?Listing
@@ -114,6 +124,42 @@ class NewThreadMessage extends AbstractMessage
     {
         $this->recipient = $recipient;
 
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getFromDate(): ?\DateTime
+    {
+        return $this->fromDate;
+    }
+
+    /**
+     * @param \DateTime|null $fromDate
+     * @return NewThreadMessage
+     */
+    public function setFromDate(?\DateTime $fromDate): NewThreadMessage
+    {
+        $this->fromDate = $fromDate;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getToDate(): ?\DateTime
+    {
+        return $this->toDate;
+    }
+
+    /**
+     * @param \DateTime|null $toDate
+     * @return NewThreadMessage
+     */
+    public function setToDate(?\DateTime $toDate): NewThreadMessage
+    {
+        $this->toDate = $toDate;
         return $this;
     }
 }

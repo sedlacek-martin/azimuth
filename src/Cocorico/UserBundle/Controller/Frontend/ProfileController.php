@@ -12,6 +12,8 @@
 namespace Cocorico\UserBundle\Controller\Frontend;
 
 use Cocorico\CoreBundle\Entity\Listing;
+use Cocorico\MessageBundle\Entity\Thread;
+use Cocorico\MessageBundle\Repository\ThreadRepository;
 use Cocorico\UserBundle\Entity\User;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -50,7 +52,14 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $userListings = $this->get('doctrine')->getManager()->getRepository('CocoricoCoreBundle:Listing')->findByOwner(
+        $em = $this->getDoctrine()->getManager();
+        /** @var ThreadRepository $threadRepository */
+        $threadRepository = $em->getRepository(Thread::class);
+
+        /** @var Thread $thread */
+        $thread = $threadRepository->findOneByUsers($this->getUser()->getId(), $user->getId());
+
+        $userListings = $em->getRepository('CocoricoCoreBundle:Listing')->findByOwner(
             $user->getId(),
             $request->getLocale(),
             array(Listing::STATUS_PUBLISHED)
@@ -64,7 +73,8 @@ class ProfileController extends Controller
             'CocoricoUserBundle:Frontend/Profile:show.html.twig',
             array(
                 'user' => $user,
-                'user_listings' => $userListings
+                'user_listings' => $userListings,
+                'thread' => $thread,
             )
         );
     }

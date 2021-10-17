@@ -31,6 +31,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Coordinate
 {
+    const MAX_JITTER = 25;
+
     use ORMBehaviors\Timestampable\Timestampable;
     /**
      * @var integer
@@ -52,6 +54,18 @@ class Coordinate
      * @ORM\Column(name="lng", type="decimal", precision=11, scale=7, nullable=false)
      */
     protected $lng;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(name="lat_random", type="decimal", precision=11, scale=7, nullable=false)
+     */
+    protected $latRandom;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(name="lng_random", type="decimal", precision=11, scale=7, nullable=false)
+     */
+    protected $lngRandom;
 
     /**
      * @Assert\NotBlank(message="assert.not_blank")
@@ -197,6 +211,7 @@ class Coordinate
     public function setLat($lat)
     {
         $this->lat = $lat;
+        $this->latRandom = floatval($lat) + $this->getJitter();
 
         return $this;
     }
@@ -220,6 +235,7 @@ class Coordinate
     public function setLng($lng)
     {
         $this->lng = $lng;
+        $this->lngRandom = floatval($lng) + $this->getJitter();
 
         return $this;
     }
@@ -232,6 +248,46 @@ class Coordinate
     public function getLng()
     {
         return $this->lng;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatRandom()
+    {
+        return $this->latRandom;
+    }
+
+    /**
+     * @param mixed $latRandom
+     */
+    public function setLatRandom($latRandom): void
+    {
+        $this->latRandom = $latRandom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLngRandom()
+    {
+        return $this->lngRandom;
+    }
+
+    /**
+     * @param mixed $lngRandom
+     */
+    public function setLngRandom($lngRandom): void
+    {
+        $this->lngRandom = $lngRandom;
+    }
+
+    /**
+     * @return float|int
+     */
+    protected function getJitter()
+    {
+        return rand(-self::MAX_JITTER, self::MAX_JITTER)/10000;
     }
 
     /**

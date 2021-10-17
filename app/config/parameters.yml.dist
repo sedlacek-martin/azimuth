@@ -93,3 +93,5 @@ parameters:
     ##Set to true in dev env to avoid to ask to mangopay to manually validate a bank wire
     ##Set to false in prod env
     cocorico.bankwire_checking_simulation: false
+
+    cocorico_config_php_cli_path: php

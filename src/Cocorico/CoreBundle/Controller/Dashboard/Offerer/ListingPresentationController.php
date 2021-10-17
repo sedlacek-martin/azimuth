@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +40,7 @@ class ListingPresentationController extends Controller
      * @Method({"GET", "PUT", "POST"})
      *
      * @param Request $request
-     * @param         $listing
+     * @param Listing $listing
      *
      * @return RedirectResponse|Response
      */
@@ -79,9 +80,9 @@ class ListingPresentationController extends Controller
      *
      * @param Listing $listing The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
-    private function createEditPresentationForm(Listing $listing)
+    private function createEditPresentationForm(Listing $listing): Form
     {
         $form = $this->get('form.factory')->createNamed(
             'listing',

@@ -39,6 +39,8 @@ class MenuBuilder implements ContainerAwareInterface
                 'routeParameters' => ['id' => $user->getMemberOrganization()->getId()],
             ]);
             $facilitation->addChild('Posts validation', ['route' => 'listing-validation_list']);
+            $facilitation->addChild('Messages validation', ['route' => 'admin_cocorico_message_thread_list']);
+            $facilitation->addChild('All posts', ['route' => 'admin_cocorico_core_listing_list']);
         }
 
         if ($authChecker->isGranted('ROLE_ACTIVATOR')) {
@@ -46,38 +48,12 @@ class MenuBuilder implements ContainerAwareInterface
             $activation->addChild('Settings', ['route' => 'cocorico_admin__activator_settings']);
             $pendingActivations = $activation->addChild('Pending activations', [
                 'route' => 'verification_list',
-//                'routeParameters' => [
-//                    'filter' => [
-//                        'trusted' => ['value' => '2'],
-//                        'reconfirmRequested' => ['value' => '1'],
-//                    ]
-//                ],
-//                'extras' => [
-//                    'routes' => [
-//                        [
-//                            'route' => 'admin_cocorico_user_user_list',
-//                            'parameters' => [
-//                                'filter' => [
-//                                    'trusted' => ['value' => '2'],
-//                                    'reconfirmRequested' => ['value' => '1'],
-//                                ]
-//                            ]
-//                        ],
-//                    ],
-//                ],
             ]);
             $activation->addChild('Invite new', ['route' => 'invitations_create']);
             $activation->addChild('All invitations', ['route' => 'invitations_list']);
             $activation->addChild('Verified domains', ['route' => 'verified-domain_list']);
-
-            // This ensures to correctly display active menu item
-            if ($request->get('_route') === 'admin_cocorico_user_user_list' && isset($request->get('filter')['trusted'])) {
-                $pendingActivations->setCurrent(true);
-            }
         }
         $menu->addChild('All Users', ['route' => 'admin_cocorico_user_user_list']);
-
-
 
         return $menu;
     }

@@ -17,6 +17,16 @@
         <source>account_created_user.email.subject</source>
         <target>Your account on %sitename% has been created</target>
       </trans-unit>
+      <trans-unit id="04afacb30aa685ce0336a35accfaa60c48cdff02" resname="account_reactivated.email.message">
+        <source>account_reactivated.email.message</source>
+        <target xml:space="preserve">Congratulations, %firstname%! 
+
+Your account has been successfully reactivated. Login and continue using the Azimuth tool!</target>
+      </trans-unit>
+      <trans-unit id="5ba724ecec1018989ad51917f24a4031a1c4f09d" resname="account_reactivated.email.subject">
+        <source>account_reactivated.email.subject</source>
+        <target>Account reactivated</target>
+      </trans-unit>
       <trans-unit id="7a0dae8a15e7bec8d04c56eda31ade6711b1f17c" resname="account_trusted.email.message">
         <source>account_trusted.email.message</source>
         <target>Your account has been successfully verified by our administrator! You can start exploring.</target>
@@ -280,17 +290,13 @@ You can contact %asker_firstname% %asker_lastname% on this <a href="%booking_req
         <source>listing_activated_offerer.email.message</source>
         <target><![CDATA[Congratulations %firstname%!
 
-Your listing is now publicly visible. In order to push it to the top of the search results keep in mind the following:
+Your post is now publicly visible. 
 
-	- Keep your calendar updated. A listing with a recently updated calendar will show higher up in the rankings. <a href="%listing_calendar_edit_url%">(update your calendar)</a>
-	- You have %default_booking_expiry_length% to either accept or refuse requests. If you let them expire you’ll get negative points and your listing will rank down.
-	- Try to reply to messages quickly, faster response times are appreciated by users and provide a better ranking for your listing.
-
-<a href=%listing_public_url%>You can view your public listing here</a>]]></target>
+<a href=%listing_public_url%>You can view your post here</a>]]></target>
       </trans-unit>
       <trans-unit id="38171fd8643b8134e79d43ff77c5369bec1dda89" resname="listing_activated_offerer.email.subject">
         <source>listing_activated_offerer.email.subject</source>
-        <target>Your listing has been published</target>
+        <target>Your post has been published</target>
       </trans-unit>
       <trans-unit id="b30941fcbc1d20fefdfb2ea166f6500e881906ce" resname="new_thread_message_user.email.message">
         <source>new_thread_message_user.email.message</source>
@@ -391,6 +397,14 @@ By clicking on the following <a href="%asker_to_offerer_review_url%">link</a>. y
         <source>reminder_to_rate_offerer_asker.email.subject</source>
         <target>Please review %offerer_name% (%booking_uid%)</target>
       </trans-unit>
+      <trans-unit id="9f2fc1055852dfa393930f7d7f60409edca02168" resname="test.email.message">
+        <source>test.email.message</source>
+        <target state="new">test.email.message</target>
+      </trans-unit>
+      <trans-unit id="da4401b2af885cc20654fe438cfe1193858f1ad4" resname="test.email.subject">
+        <source>test.email.subject</source>
+        <target state="new">test.email.subject</target>
+      </trans-unit>
       <trans-unit id="daee16e3d855da0bc3c0fe343b6a58eb7c9fd948" resname="the_sitename_team.email.footer">
         <source>the_sitename_team.email.footer</source>
         <target>The %sitename% team</target>
@@ -418,6 +432,17 @@ After reconfirmation, your account expiry date will be extended by %extend_days%
       <trans-unit id="43db5e5dbe7d4765948be51787f937c23fbfc1b9" resname="user_expire_notification.email.subject">
         <source>user_expire_notification.email.subject</source>
         <target>Your account will expire soon</target>
+      </trans-unit>
+      <trans-unit id="3fc89ac0d9597f7c051c2b92b671e2dd30f73890" resname="user_invite.email.message">
+        <source>user_invite.email.message</source>
+        <target><![CDATA[You have been invited to join the Azimuth platform.
+You can register your new free account using this <a href="%register_link%">link</a>.
+
+If you use this email address in the registration process, you won't be required to go throw the verification process.]]></target>
+      </trans-unit>
+      <trans-unit id="6fde5d06f7778721b836b613f4e15530caa05a0d" resname="user_invite.email.subject">
+        <source>user_invite.email.subject</source>
+        <target>Azimuth invitation</target>
       </trans-unit>
       <trans-unit id="c021c8309c97569354f5dc6306a92314ecee6ea0" resname="wiretransfer_offerer.email.message">
         <source>wiretransfer_offerer.email.message</source>

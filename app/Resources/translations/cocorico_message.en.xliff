@@ -34,10 +34,6 @@
         <source>results</source>
         <target>{0} No result|{1} 1 result|]1,Inf] %count% results</target>
       </trans-unit>
-      <trans-unit id="fb84bc4b4ce3a4d0a160fd7cdc5194556a046442" resname="thread.asker">
-        <source>thread.asker</source>
-        <target>Asker</target>
-      </trans-unit>
       <trans-unit id="4999796530eb9a9549e982c3e8c2a9ec9868a6ec" resname="thread.book">
         <source>thread.book</source>
         <target>Show listing</target>
@@ -46,9 +42,13 @@
         <source>thread.new.contact_me</source>
         <target>Contact me</target>
       </trans-unit>
-      <trans-unit id="d99962cf893ac8bee73a67004253045ee2968758" resname="thread.offerer">
-        <source>thread.offerer</source>
-        <target>Offerer</target>
+      <trans-unit id="15473dd90fc5acaff8a66e636b1f1ab0bad7cfd3" resname="thread.new.contact_user">
+        <source>thread.new.contact_user</source>
+        <target>Contact user</target>
+      </trans-unit>
+      <trans-unit id="eb7bf583c540f883dbfc8996f5ff294a4b11522b" resname="thread.open.contact_user">
+        <source>thread.open.contact_user</source>
+        <target state="new">thread.open.contact_user</target>
       </trans-unit>
       <trans-unit id="3fc03112eaf66ecb05369ea514c9ecc2ae80053c" resname="thread.send">
         <source>thread.send</source>
@@ -65,14 +65,6 @@
       <trans-unit id="bc97b2ce86bedc6db244dcadaf7679ed2cfca010" resname="threads.list.more">
         <source>threads.list.more</source>
         <target>More</target>
-      </trans-unit>
-      <trans-unit id="1c9df5547fa7ac366323969c7a55a40a8645fdd3" resname="threads.list.open">
-        <source>threads.list.open</source>
-        <target>Open</target>
-      </trans-unit>
-      <trans-unit id="81d82993d14a61625157ccbfc27ea8d44233aed2" resname="threads.list.participants">
-        <source>threads.list.participants</source>
-        <target>Participant:</target>
       </trans-unit>
       <trans-unit id="3f5e300c2192edf6ac5451cd36de9199bcc3d7ea" resname="threads.list.reply">
         <source>threads.list.reply</source>

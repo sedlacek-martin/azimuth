@@ -69,6 +69,9 @@ class ListingValidationAdmin extends BaseAdmin
                 'list_user_show_listing' => [
                     'template' => 'CocoricoSonataAdminBundle::list_action_listing_show.html.twig',
                 ],
+                'listing_validate' => [
+                    'template' => 'CocoricoSonataAdminBundle::list_action_listing_validate.html.twig',
+                ],
                 'delete' => [],
             ],
         ];
@@ -153,7 +156,7 @@ class ListingValidationAdmin extends BaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('create');
-        $collection->remove('delete');
+//        $collection->remove('delete');
         $collection->remove('edit');
     }
 

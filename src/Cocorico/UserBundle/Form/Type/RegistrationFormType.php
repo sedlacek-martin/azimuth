@@ -13,6 +13,7 @@ namespace Cocorico\UserBundle\Form\Type;
 
 use Cocorico\CoreBundle\Entity\MemberOrganization;
 use Cocorico\CoreBundle\Form\Type\GenderType;
+use Cocorico\UserBundle\Entity\User;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,6 +26,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
@@ -34,6 +38,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 class RegistrationFormType extends AbstractType implements TranslationContainerInterface
 {
     public static $tacError = 'cocorico_user.tac.error';
+    public static $moCountryMismatchError = 'cocorico_user.mo_country_mismatch.error';
     protected $timeUnitIsDay;
 
     /**
@@ -52,25 +57,6 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add(
-//                'personType',
-//                ChoiceType::class,
-//                array(
-//                    'label' => 'form.person_type',
-//                    'choices' => array_flip(User::$personTypeValues),
-//                    'expanded' => true,
-//                    'empty_data' => User::PERSON_TYPE_NATURAL,
-//                    'required' => true,
-//                )
-//            )
-//            ->add(
-//                'companyName',
-//                TextType::class,
-//                array(
-//                    'label' => 'form.company_name',
-//                    'required' => false,
-//                )
-//            )
             ->add(
                 'firstName',
                 TextType::class,
@@ -85,24 +71,6 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
                     'label' => 'form.last_name',
                 )
             )
-            ->add('gender', GenderType::class, [
-                'required' => true,
-            ])
-//            ->add(
-//                'phonePrefix',
-//                TextType::class,
-//                array(
-//                    'label' => 'form.user.phone_prefix',
-//                    'empty_data' => '+33',
-//                )
-//            )
-//            ->add(
-//                'phone',
-//                TelType::class,
-//                array(
-//                    'label' => 'form.user.phone',
-//                )
-//            )
             ->add(
                 'email',
                 EmailType::class,
@@ -114,7 +82,7 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
                 array(
                     'label' => 'form.user.birthday',
                     'widget' => 'choice',
-                    'years' => range(date('Y') - 18, date('Y') - 100),
+                    'years' => range(date('Y') - 13, date('Y') - 100),
                     'required' => true,
                 )
             )
@@ -122,20 +90,12 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
                 'country',
                 CountryType::class,
                 array(
+                    'placeholder' => '- Select -',
                     'label' => 'form.user.country',
                     'required' => true,
                     'preferred_choices' => array("CZ", "FR", "ES", "DE", "RU"),
                 )
             )
-//            ->add(
-//                'countryOfResidence',
-//                CountryType::class,
-//                array(
-//                    'label' => 'form.user.country_of_residence',
-//                    'required' => true,
-//                    'preferred_choices' => array("CZ", "FR", "ES", "DE", "RU"),
-//                )
-//            )
             ->add(
                 'plainPassword',
                 RepeatedType::class,
@@ -188,6 +148,19 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
                     )
                 );
         }
+
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+
+            /** @var User $user */
+                $user = $event->getData();
+                $form = $event->getForm();
+
+                if ($user->getMemberOrganization()->getCountry() !== $user->getCountry()) {
+                    $form->addError(new FormError(self::$moCountryMismatchError));
+                }
+                $event->setData($user);
+            }
+        );
     }
 
     /**
@@ -222,6 +195,7 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
     public static function getTranslationMessages()
     {
         $messages = array();
+        $messages[] = new Message(self::$tacError, 'cocorico');
         $messages[] = new Message(self::$tacError, 'cocorico');
 
         return $messages;

@@ -10,21 +10,9 @@
         <source></source>
         <target state="new"></target>
       </trans-unit>
-      <trans-unit id="4553617369a88b3ab4dfdca6c8d4b1a6def76cee" resname="booking.form.message.error">
-        <source>booking.form.message.error</source>
-        <target state="new">booking.form.message.error</target>
-      </trans-unit>
       <trans-unit id="695e169995f96bb1dbd6e45296991ca1e428c6a0" resname="booking.form.tac.error">
         <source>booking.form.tac.error</source>
         <target state="new">booking.form.tac.error</target>
-      </trans-unit>
-      <trans-unit id="9cc287ca6419b68c601007f17a971052386de774" resname="booking.new.error.amount_invalid {{ min_price }}">
-        <source>booking.new.error.amount_invalid {{ min_price }}</source>
-        <target state="new">booking.new.error.amount_invalid {{ min_price }}</target>
-      </trans-unit>
-      <trans-unit id="d68c0502ecf8fe9d7b36ded833d44d297405b990" resname="booking.new.error.unavailable">
-        <source>booking.new.error.unavailable</source>
-        <target state="new">booking.new.error.unavailable</target>
       </trans-unit>
       <trans-unit id="4da89bd144135116aad9c6584946213240130eb1" resname="cocorico.friday">
         <source>cocorico.friday</source>
@@ -234,18 +222,6 @@
         <source>nav.admin.link</source>
         <target state="new">nav.admin.link</target>
       </trans-unit>
-      <trans-unit id="7922207fb51f1d5e34be3c837b7ae78b4587854a" resname="nav.asker.link">
-        <source>nav.asker.link</source>
-        <target state="new">nav.asker.link</target>
-      </trans-unit>
-      <trans-unit id="64b6d2da31ab9586cf0bb982e17ac89b0c341592" resname="nav.dashboard.bookings.link">
-        <source>nav.dashboard.bookings.link</source>
-        <target state="new">nav.dashboard.bookings.link</target>
-      </trans-unit>
-      <trans-unit id="b34b7d4b69d704f8578cff80e633119b04efdeb3" resname="nav.dashboard.comments.link">
-        <source>nav.dashboard.comments.link</source>
-        <target state="new">nav.dashboard.comments.link</target>
-      </trans-unit>
       <trans-unit id="00968900491344d2b7b09d638da429219ae8f879" resname="nav.dashboard.link">
         <source>nav.dashboard.link</source>
         <target state="new">nav.dashboard.link</target>
@@ -261,6 +237,10 @@
       <trans-unit id="3dadf751fe0bf63fffa61621c6903a1bf4f05b24" resname="nav.dashboard.profile.link">
         <source>nav.dashboard.profile.link</source>
         <target state="new">nav.dashboard.profile.link</target>
+      </trans-unit>
+      <trans-unit id="4c111f99fae4157b43dec0d96b5750d8e741f4d2" resname="nav.dashboard.settings.link">
+        <source>nav.dashboard.settings.link</source>
+        <target state="new">nav.dashboard.settings.link</target>
       </trans-unit>
       <trans-unit id="e8629094abfbd50452630f5812402e808d0e0e12" resname="nav.expires_soon.message">
         <source>nav.expires_soon.message</source>
@@ -302,14 +282,6 @@
         <source>nav.map.link</source>
         <target state="new">nav.map.link</target>
       </trans-unit>
-      <trans-unit id="c196e5e09e7055e5a42642875a4c0891203888db" resname="nav.offerer.link">
-        <source>nav.offerer.link</source>
-        <target state="new">nav.offerer.link</target>
-      </trans-unit>
-      <trans-unit id="ba2536233c0617ffe497b6ac3e607cc89d42290e" resname="nav.offers.link">
-        <source>nav.offers.link</source>
-        <target state="new">nav.offers.link</target>
-      </trans-unit>
       <trans-unit id="405cbec13b0e25e8c2f8c13ce8d130ef15189168" resname="nav.register.link">
         <source>nav.register.link</source>
         <target state="new">nav.register.link</target>
@@ -325,6 +297,10 @@
       <trans-unit id="2a004ec467e55618ba224e27867bcb893ae731bc" resname="page.error">
         <source>page.error</source>
         <target state="new">page.error</target>
+      </trans-unit>
+      <trans-unit id="a20dcd56f01153580063a3d28a218adec5614e3f" resname="page.error.description">
+        <source>page.error.description</source>
+        <target state="new">page.error.description</target>
       </trans-unit>
       <trans-unit id="cdae46d3a5003ced136ae32725222f26085e174a" resname="page.forbidden">
         <source>page.forbidden</source>

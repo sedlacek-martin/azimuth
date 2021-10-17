@@ -57,9 +57,16 @@ class ListingCharacteristic extends BaseListingCharacteristic
     private $listingCharacteristicGroup;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingCategory")
+     * @ORM\ManyToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingCategory", inversedBy="characteristics")
      */
     private $listingCategories;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="filter", type="boolean", nullable=false)
+     */
+    protected $filter = true;
 
     /**
      * Constructor
@@ -67,6 +74,7 @@ class ListingCharacteristic extends BaseListingCharacteristic
     public function __construct()
     {
         $this->listingListingCharacteristics = new ArrayCollection();
+        $this->listingCategories = new ArrayCollection();
     }
 
     /**
@@ -187,6 +195,22 @@ class ListingCharacteristic extends BaseListingCharacteristic
     {
         $this->listingCategories = $listingCategories;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFilter(): bool
+    {
+        return $this->filter;
+    }
+
+    /**
+     * @param bool $filter
+     */
+    public function setFilter(bool $filter): void
+    {
+        $this->filter = $filter;
     }
 
     /**

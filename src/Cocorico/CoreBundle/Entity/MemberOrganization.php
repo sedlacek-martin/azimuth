@@ -74,42 +74,42 @@ class MemberOrganization
      *
      * @ORM\Column(name="requires_user_identifier", type="boolean", nullable=false)
      */
-    protected $requiresUserIdentifier;
+    protected $requiresUserIdentifier = false;
 
     /**
      * @var int
      *
      * @ORM\Column(name="user_expiry_period", type="integer", nullable=false)
      */
-    protected $userExpiryPeriod;
+    protected $userExpiryPeriod = 365;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="registration_accept_domain", type="boolean", nullable=false)
      */
-    protected $registrationAcceptDomain;
+    protected $registrationAcceptDomain = true;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="registration_accept_activation", type="boolean", nullable=false)
      */
-    protected $registrationAcceptActivation;
+    protected $registrationAcceptActivation = true;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="post_confirmation", type="boolean", nullable=false)
      */
-    protected $postConfirmation;
+    protected $postConfirmation = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="messages_confirmation", type="boolean", nullable=false)
      */
-    protected $messagesConfirmation;
+    protected $messagesConfirmation = false;
 
 
 
@@ -336,7 +336,7 @@ class MemberOrganization
 
     public function __toString()
     {
-        return $this->getName();
+        return $this->getName() ?? '';
     }
 
 

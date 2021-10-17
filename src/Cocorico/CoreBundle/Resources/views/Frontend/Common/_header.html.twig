@@ -9,26 +9,30 @@
                 <div class="col-xs-6">
                     <ul class="list-inline">
                         <li>
-                            <a href="tel:{{ cocorico_phone|replace({'(0)': '', ' ': ''}) }}"
-                               tabindex="10">
-                                <i class="icon-phone"></i>{{ cocorico_phone }}
-                            </a>
-                        </li>
-                        <li>
                             <a tabindex="11" href="mailto:{{ cocorico_contact_mail_obfuscated|raw }}">
                                 <i class="icon-mail-alt"></i>{{ cocorico_contact_mail_obfuscated|raw }}
                             </a>
                         </li>
+                        <li>
+                            <a tabindex="12" href="http://feedback-azimuth.herokuapp.com">
+                                <img src="{{ asset('images/bug.svg') }}" width="16px"> {{ 'leave_feedback_report_bug'|trans }}
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                 <div class="col-xs-6 text-right">
-                    <span>{{ 'impersonation.active'|trans }}</span>
-                    <a  class="link" href="{{ path('cocorico_home', {'_become_who_you_are': '_exit'}) }}">
-                        {{ 'exit_impersonation'|trans|upper }}
-                    </a>
+                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <span>{{ 'impersonation.active'|trans }} ({{ app.user.firstName | capitalize }})</span>
+                        <a  class="link text-underline" href="{{ path('cocorico_home', {'_become_who_you_are': '_exit'}) }}">
+                            {{ 'exit_impersonation'|trans|upper }}
+                        </a>
+                    {% elseif app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span class="">
+                            {{ app.user.firstname | capitalize }} {{ app.user.lastname | capitalize }}
+                        </span>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
         </div>
     </div>
@@ -63,16 +67,19 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-{#                            <li>#}
-{#                                <a href="{{ path('cocorico_listing_map') }}" id="nav-all-offers"#}
-{#                                   tabindex="4">{{ 'nav.offers.link'|trans }}#}
-{#                                </a>#}
-{#                            </li>#}
                             <li>
-                                <a href="{{ path('cocorico_page_map') }}"
-                                   tabindex="5">{{ 'nav.map.link'|trans }}
+                                <a href="{{ path('cocorico_page_map') }}" tabindex="5">
+                                    {{ 'nav.explore_unregistered.link'|trans }}
                                 </a>
                             </li>
+                            {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
+                                <li>
+                                    <a href="{{ path('cocorico_listing_map') }}" tabindex="4">
+                                        {{ 'nav.explore_registered.link'|trans }}
+                                    </a>
+                                </li>
+                            {% endif %}
+
 
                             {# User info #}
                             {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
@@ -80,8 +87,8 @@
                                     <a id="dashboard-link" class="dropdown-toggle"
                                        href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"
                                        title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        {{ 'nav.dashboard.link'|trans }} ({{ app.user.firstName | capitalize }})
-                                        <span id="nb-unread-msg"></span>
+                                        {{ 'nav.dashboard.link'|trans }}
+                                        <span class="new-message-indicator" style="display: none"></span>
                                         <span class="icon-down-open-mini"></span>
                                     </a>
                                     {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}
@@ -114,7 +121,7 @@
                             {{ 'nav.admin.link'|trans }}
                             </a>
                         {% endif %}
-                        {% if not is_granted("ROLE_SUPER_ADMIN") %}
+                        {% if not is_granted("ROLE_SUPER_ADMIN") and is_granted("IS_AUTHENTICATED_FULLY") %}
                             <a href="{{ path('cocorico_listing_new') }}" class="btn btn-primary navbar-right" tabindex=11">
                                 {{ 'nav.listing.new.link'|trans }}
                             </a>

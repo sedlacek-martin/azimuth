@@ -12,6 +12,7 @@
 namespace Cocorico\CoreBundle\Repository;
 
 use Cocorico\CoreBundle\Entity\Listing;
+use Cocorico\CoreBundle\Model\BaseListing;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
@@ -37,7 +38,7 @@ class ListingRepository extends EntityRepository
             ->addSelect("partial u.{id, firstName}")
             //->addSelect("partial ln.{id}")
             ->addSelect("partial ln.{id, city, route, country}")
-            ->addSelect("partial co.{id, lat, lng}")
+            ->addSelect("partial co.{id, lat, lng, latRandom, lngRandom}")
             ->addSelect("partial ui.{id, name}")
             ->addSelect("'' AS DUMMY")//To maintain fields on same array level when extra fields are added
 
@@ -373,4 +374,55 @@ class ListingRepository extends EntityRepository
 
         return $queryBuilder;
     }
+
+    /**
+     * @param int $moId
+     * @return int
+     * @throws NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getWaitingForValidationCount(int $moId = null): int
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select('COUNT(l.id) as cnt')
+            ->where('l.status = :validateStatus')
+            ->setParameter('validateStatus', BaseListing::STATUS_TO_VALIDATE);
+
+        if ($moId) {
+            $qb
+                ->leftJoin('l.user', 'u')
+                ->leftJoin('u.memberOrganization', 'mo')
+                ->andWhere('mo.id = :moId')
+                ->setParameter('moId', $moId);
+        }
+        $result = $qb->getQuery()->getSingleResult();
+        return $result['cnt'];
+    }
+
+    /**
+     * @param \DateTime|null $from
+     * @param \DateTime|null $to
+     * @return int
+     * @throws NoResultException
+     */
+    public function countAll(\DateTime $from = null, \DateTime $to = null): int
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select('COUNT(l.id) as cnt');
+
+        if ($from) {
+            $qb->andWhere('l.createdAt > :from')
+                ->setParameter('from', $from->format('Y-m-d H:i:s'));
+        }
+
+        if ($to) {
+            $qb->andWhere('l.createdAt < :to')
+                ->setParameter('to', $to->format('Y-m-d H:i:s'));
+        }
+
+        $result = $qb->getQuery()->getSingleResult();
+        return $result['cnt'];
+    }
 }
+
+

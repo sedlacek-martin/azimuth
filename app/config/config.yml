@@ -68,7 +68,7 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        server_version: 9.4
+        server_version: '10.3.25'
         driver:   pdo_mysql
         host:     "%database_host%"
         port:     "%database_port%"
@@ -82,15 +82,15 @@ doctrine:
 #        naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
-doctrine_mongodb:
-    connections:
-        default:
-            server: "%mongodb_server%"
-            options: {}
-    default_database: "%mongodb_database_name%"
-    document_managers:
-        default:
-            auto_mapping: true
+#doctrine_mongodb:
+#    connections:
+#        default:
+#            server: "%mongodb_server%"
+#            options: {}
+#    default_database: "%mongodb_database_name%"
+#    document_managers:
+#        default:
+#            auto_mapping: true
 
 
 # Swiftmailer Configuration
