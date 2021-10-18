@@ -16,12 +16,11 @@
       </trans-unit>
       <trans-unit id="ac829dba1f97945e59fd87f2618384bfe8516497" resname="home.header.title">
         <source>home.header.title</source>
-        <target><![CDATA[<span class="thin-text">Reservation system</span><br><span class="text">for Scout centers</span>
-]]></target>
+        <target><![CDATA[<span class="thin-text">Find partners for your next</span><br><span class="text">international Scout and Guide project</span>]]></target>
       </trans-unit>
       <trans-unit id="3af93b9b8cfe074ceff3fff27255261635f40424" resname="home.subinfo.desc1">
         <source>home.subinfo.desc1</source>
-        <target>Thanks to this application, you can easily get in touch with new friends with the same hobbies.</target>
+        <target>Thanks to Azimuth, you can easily get in touch with new Scouts and Guides to create international projects.</target>
       </trans-unit>
       <trans-unit id="908e5b384bbeb42623be6a1743cf010dc3b48483" resname="home.subinfo.desc2">
         <source>home.subinfo.desc2</source>
@@ -29,11 +28,11 @@
       </trans-unit>
       <trans-unit id="ebab0f46f60ef21c52a8bf36f8101816c5705927" resname="home.subinfo.desc3">
         <source>home.subinfo.desc3</source>
-        <target>Our system isn't the bottleneck of new explorations.</target>
+        <target>Azimuth isn't the bottleneck of new explorations.</target>
       </trans-unit>
       <trans-unit id="4c15d8bf2bdf8150e45e9f30b559ea8565a47042" resname="home.subinfo.title1">
         <source>home.subinfo.title1</source>
-        <target>Connect with new friends</target>
+        <target>Connect across Europe</target>
       </trans-unit>
       <trans-unit id="28172413ec09c98bffa9f072e9bd873932e70145" resname="home.subinfo.title2">
         <source>home.subinfo.title2</source>

@@ -10,6 +10,14 @@
         <source> - Select - </source>
         <target state="new"> - Select - </target>
       </trans-unit>
+      <trans-unit id="ccb5086135c231c4a6bc0bf67cc905bffa3c8eca" resname="All member organizations">
+        <source>All member organizations</source>
+        <target state="new">All member organizations</target>
+      </trans-unit>
+      <trans-unit id="b72720e381217c14850ffbb506aaf7deb111470a" resname="All organizations">
+        <source>All organizations</source>
+        <target state="new">All organizations</target>
+      </trans-unit>
       <trans-unit id="4281c52d617278a34a14cf5faf9c6fb11df197a6" resname="Asker">
         <source>Asker</source>
         <target>Asker</target>
@@ -33,6 +41,10 @@
       <trans-unit id="72e4c870309b0aaef61e80f369017539df2d6545" resname="Descriptions">
         <source>Descriptions</source>
         <target>Descriptions</target>
+      </trans-unit>
+      <trans-unit id="af37998c123d8c6dab84950ae511c4e9158186be" resname="Domain (without @)">
+        <source>Domain (without @)</source>
+        <target state="new">Domain (without @)</target>
       </trans-unit>
       <trans-unit id="ad58365328f402e51feb2e161def382676873928" resname="Enabled (email confirmed)">
         <source>Enabled (email confirmed)</source>
@@ -129,6 +141,10 @@
       <trans-unit id="f6dade8e850cdaca91701fb0fe31d32642002716" resname="admin.listing.categories.label">
         <source>admin.listing.categories.label</source>
         <target>admin.listing.categories.label</target>
+      </trans-unit>
+      <trans-unit id="e5074847843cbd0a75e6a7eea864b980788bb685" resname="admin.listing.category.label">
+        <source>admin.listing.category.label</source>
+        <target>Category</target>
       </trans-unit>
       <trans-unit id="c8cf0690ec3d283cb80449563346a17c44e909dc" resname="admin.listing.certified.label">
         <source>admin.listing.certified.label</source>
@@ -290,6 +306,38 @@
         <source>admin.thread.member_organization.label</source>
         <target>Member organization</target>
       </trans-unit>
+      <trans-unit id="87e9fbfb3883b4f27bc9deb9d660758f411cdee8" resname="announcement.edit">
+        <source>announcement.edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="f61416b5820e11a3413775cdee4b7bb03dd80177" resname="announcement.new">
+        <source>announcement.new</source>
+        <target>New</target>
+      </trans-unit>
+      <trans-unit id="75bffb4ca028cc2042b7cccf1c7bdb1c594f19e1" resname="announcement.save">
+        <source>announcement.save</source>
+        <target>Save</target>
+      </trans-unit>
+      <trans-unit id="a7475cc23532bbafc9873bf5148a7f9b0ca93226" resname="announcement.send">
+        <source>announcement.send</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="610720442f5814b1ee42091b9f9131f85557e80c" resname="announcement.send_to_users_count.text">
+        <source>announcement.send_to_users_count.text</source>
+        <target>Number of users, which received this announcement </target>
+      </trans-unit>
+      <trans-unit id="1f1c3c54f7dea0a94df10b677ab81838e7f1bf44" resname="announcement.title">
+        <source>announcement.title</source>
+        <target>Announcement</target>
+      </trans-unit>
+      <trans-unit id="5547d75a85ea8fbc15211ce2258f63c4dc780e50" resname="announcement.waiting_time.alert">
+        <source>announcement.waiting_time.alert</source>
+        <target>Please, be aware that sending announcement to large number of users can take some time. Please wait until the page loads after sending.</target>
+      </trans-unit>
+      <trans-unit id="fb125468cc85c47d9975dfe2d7a88a4551b82f9e" resname="announcements.member_organizations.help">
+        <source>announcements.member_organizations.help</source>
+        <target>If no member organisation selected, it will use ALL</target>
+      </trans-unit>
       <trans-unit id="7493734ead0bdedfe7aea277ad64272939c9c914" resname="form.address.address">
         <source>form.address.address</source>
         <target>form.address.address</target>
@@ -306,6 +354,10 @@
         <source>form.address.zip</source>
         <target>form.address.zip</target>
       </trans-unit>
+      <trans-unit id="12d06ba6f0391beb0cefd4382b4ac945f1789890" resname="form.label_member_organization">
+        <source>form.label_member_organization</source>
+        <target>Member organization</target>
+      </trans-unit>
       <trans-unit id="d3e5d85b8b1db5de05d522481c67cd3654d4b197" resname="form.time_zone">
         <source>form.time_zone</source>
         <target>form.time_zone</target>
@@ -314,6 +366,10 @@
         <source>list_action_trusted.age_warning.help</source>
         <target>This user is under age of 18!</target>
       </trans-unit>
+      <trans-unit id="63e537934f93cbdef8e3d3eebc911b78a1c5eb39" resname="listing.form.pallets">
+        <source>listing.form.pallets</source>
+        <target>Pallets</target>
+      </trans-unit>
       <trans-unit id="4a2d344edfd37643e6533cfbd2c2d58defa68b2b" resname="map.country_info_empty.text">
         <source>map.country_info_empty.text</source>
         <target>Description for this country is empty</target>
@@ -321,10 +377,6 @@
       <trans-unit id="011d8c4fb9d2fb87a166b3f1eab01973c3f5c03a" resname="map.member_organizations.show">
         <source>map.member_organizations.show</source>
         <target>Show member organizations</target>
-      </trans-unit>
-      <trans-unit id="f35b7186eb9956a5f7bef9d430521d6611033557" resname="menu.super_admin_settings">
-        <source>menu.super_admin_settings</source>
-        <target state="new">menu.super_admin_settings</target>
       </trans-unit>
       <trans-unit id="c1a59a17b17d84b41aa48000776c6a6e4fb26450" resname="message.admin_note.text">
         <source>message.admin_note.text</source>
@@ -337,6 +389,10 @@
       <trans-unit id="93cd5ac1dae3ed4d380fbfa53953f5976bd5a59d" resname="message.waiting_for_verification.help">
         <source>message.waiting_for_verification.help</source>
         <target>This message will be send to the recipient after admin's verification</target>
+      </trans-unit>
+      <trans-unit id="059212966698b85a0c164e834cc4388428362e1f" resname="message_form.from_date.title">
+        <source>message_form.from_date.title</source>
+        <target>From date</target>
       </trans-unit>
     </body>
   </file>

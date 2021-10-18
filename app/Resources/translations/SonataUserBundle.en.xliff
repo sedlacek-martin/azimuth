@@ -108,15 +108,7 @@
       </trans-unit>
       <trans-unit id="6135f0d1e01c34820b5ae3b0f5bee68f14ebd519" resname="form.label_mother_tongue">
         <source>form.label_mother_tongue</source>
-        <target>Where are you from</target>
-      </trans-unit>
-      <trans-unit id="314c8ce85451cc64580cf4c03f0153182ba713e5" resname="form.label_nb_bookings_asker">
-        <source>form.label_nb_bookings_asker</source>
-        <target>Bookings as asker</target>
-      </trans-unit>
-      <trans-unit id="6841ad85d96f09359dced016dbfd443a58acd8a3" resname="form.label_nb_bookings_offerer">
-        <source>form.label_nb_bookings_offerer</source>
-        <target>Bookings as offerer</target>
+        <target>Mother tongue</target>
       </trans-unit>
       <trans-unit id="be117d58ffc6879ff0cd84f859e17f60dc595d34" resname="form.label_plain_password">
         <source>form.label_plain_password</source>
@@ -249,6 +241,14 @@
       <trans-unit id="b16c610452a5e04873ae25d234e7eb93c55f1638" resname="title_user_authentication">
         <source>title_user_authentication</source>
         <target>Authentication</target>
+      </trans-unit>
+      <trans-unit id="e730e65931a34501d011cb2be0b353aaa54de7e1" resname="user_block.admin_roles">
+        <source>user_block.admin_roles</source>
+        <target>Admin roles</target>
+      </trans-unit>
+      <trans-unit id="4bed7d639e6b60e637ef17db63438d885fe4c635" resname="user_block.user">
+        <source>user_block.user</source>
+        <target>User</target>
       </trans-unit>
       <trans-unit id="30296748403bb9ca684e2020409f15bd250f6639" resname="user_block_logout">
         <source>user_block_logout</source>

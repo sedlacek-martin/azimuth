@@ -32,7 +32,7 @@
       </trans-unit>
       <trans-unit id="fbe2f800f0f4a7c6f623967e6fa7235892cbe24d" resname="Bad credentials.">
         <source>Bad credentials.</source>
-        <target>Bad credentials</target>
+        <target>Incorrect username or password</target>
       </trans-unit>
       <trans-unit id="53c2de2d09cbdfd49e998fe7a94498fe7cf5beb0" resname="Biography">
         <source>Biography</source>
@@ -204,7 +204,7 @@
       </trans-unit>
       <trans-unit id="fe40e788d3b22487ca58c0d17a29bc0a3a74e2dd" resname="Requires User Identifier">
         <source>Requires User Identifier</source>
-        <target>Requires User Identifier 1234 </target>
+        <target state="new">Requires User Identifier</target>
       </trans-unit>
       <trans-unit id="d1f7dc891b5e5d1797163b556e805123c9369e4f" resname="Timezone">
         <source>Timezone</source>
@@ -438,6 +438,10 @@
         <source>form.gender</source>
         <target>Gender</target>
       </trans-unit>
+      <trans-unit id="d614f18c7cd965566ad37d24e273e8a6ea5fb5b2" resname="form.gender.legal">
+        <source>form.gender.legal</source>
+        <target>Gender</target>
+      </trans-unit>
       <trans-unit id="ad2644b8e49a53ebc956786823470bf19bf5d146" resname="form.last_name">
         <source>form.last_name</source>
         <target>Last name</target>
@@ -588,7 +592,7 @@
       </trans-unit>
       <trans-unit id="05a49ed6f64cab08563ca93abb6d4f8776c53b77" resname="registration.additional_info.confirm_email">
         <source>registration.additional_info.confirm_email</source>
-        <target>In addition, please, confirm your email address by clicking the link sent to your inbox.</target>
+        <target>Make sure to confirm your email address by clicking the link sent to your inbox. If you do not receive an email (check your spam folder!), please contact an admin: azimuth@europak-online.net</target>
       </trans-unit>
       <trans-unit id="f2202014b60f29a018d7983cacaec2eccdeae5af" resname="registration.additional_info.h1">
         <source>registration.additional_info.h1</source>
@@ -600,7 +604,8 @@
       </trans-unit>
       <trans-unit id="d68aba5c2f5418c4f8779e02be8f6511df697bd7" resname="registration.additional_info.success">
         <source>registration.additional_info.success</source>
-        <target>Your additional info was submitted successfully</target>
+        <target xml:space="preserve">Your registration was submitted successfully.
+An email has been sent to your inbox (%email%). It contains an activation link you must click to activate your account. If you can't find it, make sure to check your spam-folder</target>
       </trans-unit>
       <trans-unit id="1fa5b2873fe30be026b854f6a51503b86c6ac81a" resname="registration.back">
         <source>registration.back</source>
@@ -608,8 +613,8 @@
       </trans-unit>
       <trans-unit id="85a4eff0132a6f92eae3057837f285b3aedf38b8" resname="registration.check_email">
         <source>registration.check_email</source>
-        <target xml:space="preserve">An email has been sent to your inbox (%email%). It contains an activation link you must click to activate your account.
-                </target>
+        <target xml:space="preserve">Your registration was submitted successfully.
+An email has been sent to your inbox (%email%). It contains an activation link you must click to activate your account. If you can't find it, make sure to check your spam-folder</target>
       </trans-unit>
       <trans-unit id="4ba3f8b403cb294758fe412284220b37835a86a8" resname="registration.check_email.h1">
         <source>registration.check_email.h1</source>
@@ -622,6 +627,10 @@
       <trans-unit id="d1ca8dda1d74badc546fbc979ffdab122995ef7a" resname="registration.confirmed.title">
         <source>registration.confirmed.title</source>
         <target>Registration confirmed</target>
+      </trans-unit>
+      <trans-unit id="545306bba0a3c23f2dfeb052c54914adbe3dcb2b" resname="registration.email_verified.success">
+        <source>registration.email_verified.success</source>
+        <target>Email verified successfully </target>
       </trans-unit>
       <trans-unit id="ca8b7df503d20f084dc7a96264d8b0cfa490e1fb" resname="registration.needVerification">
         <source>registration.needVerification</source>
