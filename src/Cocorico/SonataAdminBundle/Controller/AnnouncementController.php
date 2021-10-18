@@ -47,11 +47,11 @@ class AnnouncementController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $message = 'flash_action_announcement_saved';
+            $new = false;
             $em->persist($announcement);
             // only for newly created announcements
             if ($announcement->getId() === null) {
-                $message = 'flash_action_announcement_send';
+                $new = true;
                 $memberOrganizations = $form->get('memberOrganizations')->getData();
                 $includeAdmins = $form->get('includeAdmins')->getData();
                 /** @var UserRepository $userRepository */
@@ -92,10 +92,19 @@ class AnnouncementController extends Controller
 
             $em->flush();
 
-            $this->addFlash(
-                'sonata_flash_success',
-                $this->get('translator')->trans($message, [], 'SonataAdminBundle')
-            );
+            if ($new) {
+                $this->addFlash(
+                    'sonata_flash_success',
+                    $this->get('translator')->trans('flash_action_announcement_send', [], 'SonataAdminBundle')
+                );
+            } else {
+                $this->addFlash(
+                    'sonata_flash_success',
+                    $this->get('translator')->trans('flash_action_announcement_saved', [], 'SonataAdminBundle')
+                );
+            }
+
+
 
             return $this->redirectToRoute('announcement_list');
         }

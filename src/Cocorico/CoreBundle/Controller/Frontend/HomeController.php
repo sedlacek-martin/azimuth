@@ -31,9 +31,9 @@ class HomeController extends Controller
      * @Route("/", name="cocorico_home")
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         $userAuthenticated = $this->getUser() !== null;
         $listings = $this->get("cocorico.listing_search.manager")->getHighestRanked(
@@ -54,7 +54,7 @@ class HomeController extends Controller
     /**
      * @Route("/get-announcements", name="cocorico_dashboard_announcements")
      */
-    public function getAnnouncements(Request $request)
+    public function getAnnouncements(Request $request): JsonResponse
     {
         $response = ['count' => 0];
         if (true or $request->isXmlHttpRequest()) {
@@ -66,21 +66,20 @@ class HomeController extends Controller
             $userAnnouncements = $userAnnouncementRepository->getAnnouncementsWithCache($user);
             $response['count'] = count(($userAnnouncements));
             $response['announcements'] = [];
-            foreach ($userAnnouncements as $userAnnouncement) {
-                $announcement = $userAnnouncement->getAnnouncement();
-                $announcementData = [];
-                $announcementData['heading'] = $announcement->getHeading();
-                $announcementData['content'] = $announcement->getContent();
-                $announcementData['description'] = $announcement->getShortDescription();
-                $response['announcements'][$announcement->getId()] = $announcementData;
-            }
+//            foreach ($userAnnouncements as $userAnnouncement) {
+//                $announcement = $userAnnouncement->getAnnouncement();
+//                $announcementData = [];
+//                $announcementData['heading'] = $announcement->getHeading();
+//                $announcementData['content'] = $announcement->getContent();
+//                $announcementData['description'] = $announcement->getShortDescription();
+//                $response['announcements'][$announcement->getId()] = $announcementData;
+//            }
             $view = $this->render('CocoricoCoreBundle:Frontend\Home:_announcements.html.twig', [
                 'userAnnouncements' => $userAnnouncements,
             ])->getContent();
             $response['view'] = $view;
             $response['ok'] = true;
         }
-
 
         return JsonResponse::create($response);
     }
@@ -139,7 +138,7 @@ class HomeController extends Controller
 
     /**
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function rssFeedsAction()
     {

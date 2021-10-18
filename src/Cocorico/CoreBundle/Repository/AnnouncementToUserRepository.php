@@ -10,9 +10,12 @@ class AnnouncementToUserRepository extends EntityRepository
     public function getAnnouncementsWithCache(User $user)
     {
         $qb = $this->createQueryBuilder('au')
+            ->leftJoin('au.announcement', 'a')
             ->andWhere('au.user = :user')
             ->andWhere('au.dismissed = 0')
             ->andWhere('au.displayed = 0')
+            ->andWhere('a.showAt <= :now')
+            ->setParameter('now', new \DateTime())
             ->setParameter('user', $user);
 
         $query = $qb->getQuery();

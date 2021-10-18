@@ -514,16 +514,4 @@ class CustomActionController extends Controller
 
         return $this->redirectToRoute('cocorico_admin__super_admin_actions');
     }
-
-    /**
-     * @Route("test-email", name="cocorico_admin__test_email")
-     * @Method({"GET", "POST"})
-     *
-     * @param Request $request
-     */
-    public function sendTestMailAction(Request $request)
-    {
-
-
-    }
 }

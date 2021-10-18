@@ -26,7 +26,8 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        #assets_version: SomeVersionScheme
+    assets:
+        version: "%application_version%"
     default_locale:  "%cocorico.locale%"
     trusted_hosts:   ~
     trusted_proxies: ~

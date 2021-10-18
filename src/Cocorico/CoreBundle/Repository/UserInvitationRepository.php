@@ -18,7 +18,7 @@ class UserInvitationRepository extends EntityRepository
             return $this->createQueryBuilder('ui')
                 ->andWhere('ui.email = :email')
                 ->andWhere('ui.used = 0')
-                ->andWhere('ui.expiration <= :now')
+                ->andWhere('ui.expiration >= :now')
                 ->setParameter('email', $email)
                 ->setParameter('now', new \DateTime())
                 ->getQuery()

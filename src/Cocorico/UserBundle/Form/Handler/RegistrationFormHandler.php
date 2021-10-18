@@ -112,16 +112,24 @@ class RegistrationFormHandler
 
             $hasVerifiedDomain = ($verifiedDomain !== null);
             $hasInvite = ($invitation !== null && !$invitation->isUsed() && !$invitation->isExpired());
+            $inviteCountryOk = $invitation && $invitation->getMemberOrganization()->getId() === $user->getMemberOrganization()->getId();
+
+            $inviteOk = $hasInvite && $inviteCountryOk;
 
             if (!$user->getMemberOrganization()->isRegistrationAcceptActivation() &&
-                !$hasInvite && !$hasVerifiedDomain) {
+                !$inviteOk && !$hasVerifiedDomain) {
                 $form->addError(new FormError('Registration for this member organization is only available via invitation or verified domain'));
 
                 return false;
             }
 
             if ($form->isValid()) {
-                $this->onSuccess($user, $confirmation, $hasVerifiedDomain, $hasInvite);
+                if ($inviteOk && $invitation) {
+                    $invitation->setUsed(true);
+                    $this->em->persist($invitation);
+                    $this->em->flush();
+                }
+                $this->onSuccess($user, $confirmation, $hasVerifiedDomain, $inviteOk);
 
                 return true;
             }
