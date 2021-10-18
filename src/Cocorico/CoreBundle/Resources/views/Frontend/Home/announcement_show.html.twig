@@ -1,4 +1,5 @@
 {% trans_default_domain 'cocorico' %}
+{% set  user_timezone = app.user.timezone %}
 
 <div id="message-form-container">
     <div class="modal-header" style="border-bottom: lightgrey 1px solid">
@@ -15,7 +16,8 @@
     </div>
     <div class="modal-footer">
         <div class="text-muted small pull-left">
-            {{ 'announcement.received_at' }}: {{ announcement.showAt|date('d.m.Y H:m') }}
+            {{ 'announcement.received_at' }}: {{ announcement.showAt|localizeddate('short', 'short', 'fr', user_timezone) }}
+            <em>({{ user_timezone|timezone_name }})</em>
         </div>
     </div>
 

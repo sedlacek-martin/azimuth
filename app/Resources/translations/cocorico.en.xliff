@@ -10,9 +10,17 @@
         <source></source>
         <target></target>
       </trans-unit>
+      <trans-unit id="1026bbd7e95956e971a15cf7fff35005d9d646c3" resname="announcement.new_on_login.alert">
+        <source>announcement.new_on_login.alert</source>
+        <target>You have a new unread announcement. You can read it here now!</target>
+      </trans-unit>
+      <trans-unit id="f37bb7bb1c2f920e198e1a8cb2f8b15a6f33fd4d" resname="announcements.empty">
+        <source>announcements.empty</source>
+        <target>No new announcements</target>
+      </trans-unit>
       <trans-unit id="695e169995f96bb1dbd6e45296991ca1e428c6a0" resname="booking.form.tac.error">
         <source>booking.form.tac.error</source>
-        <target>Please accept the Terms and conditions in order to make a booking</target>
+        <target>Please accept the Terms and conditions in order to create a post</target>
       </trans-unit>
       <trans-unit id="4da89bd144135116aad9c6584946213240130eb1" resname="cocorico.friday">
         <source>cocorico.friday</source>
@@ -142,7 +150,7 @@
       </trans-unit>
       <trans-unit id="67cf5390e62e92e302c2101585471ebf0c1c3d02" resname="footer.legal_notices.link">
         <source>footer.legal_notices.link</source>
-        <target>Legal notices</target>
+        <target>Privacy policy</target>
       </trans-unit>
       <trans-unit id="e961dfa45f7be14560d14913711c071c88968d3c" resname="footer.the_team.link">
         <source>footer.the_team.link</source>
@@ -166,7 +174,7 @@
       </trans-unit>
       <trans-unit id="608f923956d941a70bae569cdeda6dc0e329ff6e" resname="leave_feedback_report_bug">
         <source>leave_feedback_report_bug</source>
-        <target>Leave a feedback or report a bug</target>
+        <target>Report a bug or leave a feedback on function and design</target>
       </trans-unit>
       <trans-unit id="745132bd15d9bcfd7316d5588bf300eac5bfbc6d" resname="listing.file.button.text">
         <source>listing.file.button.text</source>
@@ -206,7 +214,7 @@
       </trans-unit>
       <trans-unit id="0cfa9dae844b9f6d808eccc3642074fc08814198" resname="map.text">
         <source>map.text</source>
-        <target>Here you can see all member organizations.</target>
+        <target>Obtain information about all member organisations in Europe</target>
       </trans-unit>
       <trans-unit id="3ce7d80377ca0b6ecb1fd9ff70cab49aa6f4006f" resname="message.body.not_blank">
         <source>message.body.not_blank</source>
@@ -274,7 +282,7 @@
       </trans-unit>
       <trans-unit id="dd86d14d6bac7137d6121b41fd4994663f7ea987" resname="nav.legal_notices.slug">
         <source>nav.legal_notices.slug</source>
-        <target>legal-notices</target>
+        <target>privacy-policy-and-cookies</target>
       </trans-unit>
       <trans-unit id="e02bfbaa7fa4edd8c578a1be1def202e6c3220ac" resname="nav.listing.new.link">
         <source>nav.listing.new.link</source>

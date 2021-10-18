@@ -399,11 +399,11 @@ By clicking on the following <a href="%asker_to_offerer_review_url%">link</a>. y
       </trans-unit>
       <trans-unit id="9f2fc1055852dfa393930f7d7f60409edca02168" resname="test.email.message">
         <source>test.email.message</source>
-        <target state="new">test.email.message</target>
+        <target>This is testing email send from Azimuth contact tool</target>
       </trans-unit>
       <trans-unit id="da4401b2af885cc20654fe438cfe1193858f1ad4" resname="test.email.subject">
         <source>test.email.subject</source>
-        <target state="new">test.email.subject</target>
+        <target>TEST AZIMUTH MAIL</target>
       </trans-unit>
       <trans-unit id="daee16e3d855da0bc3c0fe343b6a58eb7c9fd948" resname="the_sitename_team.email.footer">
         <source>the_sitename_team.email.footer</source>

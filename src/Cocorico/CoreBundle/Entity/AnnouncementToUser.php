@@ -42,7 +42,7 @@ class AnnouncementToUser
     public $dismissed = false;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime|null
      */
     public $dismissedAt;
@@ -54,7 +54,7 @@ class AnnouncementToUser
     public $displayed = false;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime|null
      */
     public $displayedAt;

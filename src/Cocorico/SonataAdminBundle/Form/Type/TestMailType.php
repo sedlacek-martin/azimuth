@@ -15,7 +15,7 @@ class TestMailType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'super_admin_actions.email_recepient.label',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'style' => 'width: 100%;',
                 ]

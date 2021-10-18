@@ -93,7 +93,7 @@
       </trans-unit>
       <trans-unit id="1cb7e62bfe757aa67c3da37cd0176741ab8e164d" resname="home.high.rank.section.header">
         <source>home.high.rank.section.header</source>
-        <target>OUR LAST OFFERS</target>
+        <target>MOST RECENT POSTS</target>
       </trans-unit>
       <trans-unit id="d4cf5113ef86cf3511f74f61b5fdea479eb2553f" resname="listing.availability.save">
         <source>listing.availability.save</source>
@@ -279,6 +279,10 @@
         <source>listing.edit.success</source>
         <target>Update successful</target>
       </trans-unit>
+      <trans-unit id="2abe53493f2d54535cf17e971dc59d15a5a2be3b" resname="listing.edit_discount.success">
+        <source>listing.edit_discount.success</source>
+        <target>listing.edit_discount.success</target>
+      </trans-unit>
       <trans-unit id="ad3c51ecd23caf13a406aae0f4916388ea27adef" resname="listing.edit_price.success">
         <source>listing.edit_price.success</source>
         <target>Saved</target>
@@ -329,7 +333,7 @@
       </trans-unit>
       <trans-unit id="fcd16e23d8d246f6620d6a406dc27e2c89fbbbba" resname="listing.form.location.route">
         <source>listing.form.location.route</source>
-        <target>Route</target>
+        <target>Street</target>
       </trans-unit>
       <trans-unit id="e76583a31fd130b75a65cbbfdf4a68855f48bf09" resname="listing.form.location.street_number">
         <source>listing.form.location.street_number</source>
@@ -381,11 +385,11 @@
       </trans-unit>
       <trans-unit id="321acb0eaaec57c693afdbbbc664948f6f6d573c" resname="listing.form.valid_from.label">
         <source>listing.form.valid_from.label</source>
-        <target>Valid from</target>
+        <target>Start date</target>
       </trans-unit>
       <trans-unit id="fc61207976f0c21ab4e5b303109285798549d28c" resname="listing.form.valid_to.label">
         <source>listing.form.valid_to.label</source>
-        <target>Valid to</target>
+        <target>End date</target>
       </trans-unit>
       <trans-unit id="961c32cb515ab9b31b79e094a1e95a948f631010" resname="listing.images.cancel.link">
         <source>listing.images.cancel.link</source>
@@ -529,7 +533,7 @@
       </trans-unit>
       <trans-unit id="f95d3cebd6aa233ad275dbe4a8b453b5ef7ef1a8" resname="listing.search.result.no_results">
         <source>listing.search.result.no_results</source>
-        <target>No results found. Please change your criterias</target>
+        <target>No results found. Please change your criteria</target>
       </trans-unit>
       <trans-unit id="e0c7225719f33b2cab0a2b344bd1f92c1963ad00" resname="listing.search.result.results">
         <source>listing.search.result.results</source>
@@ -712,6 +716,10 @@
       <trans-unit id="5792a5686f229ac793f59b6e5ac0e5fe2f3a2a4f" resname="listing_search.form.flexibility_day">
         <source>listing_search.form.flexibility_day</source>
         <target>day(s)</target>
+      </trans-unit>
+      <trans-unit id="118dfbd26735a9d9eac9e76aec5cdf8621019cc2" resname="listing_search.form.sort_by.empty_value">
+        <source>listing_search.form.sort_by.empty_value</source>
+        <target>Sort by</target>
       </trans-unit>
       <trans-unit id="6536bbf97e221f5a8e0f83aa57e2873b46538a44" resname="listing_search.form.start">
         <source>listing_search.form.start</source>

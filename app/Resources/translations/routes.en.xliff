@@ -10,6 +10,18 @@
         <source>/admin/user/action/trusted/{id}</source>
         <target state="new">/admin/user/action/trusted/{id}</target>
       </trans-unit>
+      <trans-unit id="94e160906cc50d177025e7d5ec1c5cac29cb3e7f" resname="cocorico_announcement_dismiss">
+        <source>/announcement/dismiss/{id}</source>
+        <target state="new">/announcement/dismiss/{id}</target>
+      </trans-unit>
+      <trans-unit id="8346c4800cee97e7c2af4950b27f70bd8b501a24" resname="cocorico_announcement_show">
+        <source>/announcement/show/{id}</source>
+        <target state="new">/announcement/show/{id}</target>
+      </trans-unit>
+      <trans-unit id="26cd4974c433beba7b353006962d40cb0959353d" resname="cocorico_booking_payment_new">
+        <source>/booking/payment/{booking_id}/new</source>
+        <target state="new">/booking/payment/{booking_id}/new</target>
+      </trans-unit>
       <trans-unit id="0b8e53ab3f45eb7281deef036265821371b94f41" resname="cocorico_contact_new">
         <source>/contact/new</source>
         <target>/contact/new</target>
@@ -17,6 +29,10 @@
       <trans-unit id="5a3ded790dd4800705dda263f60329df12891745" resname="cocorico_currency_switch">
         <source>/currency/{currency}/switch</source>
         <target>/currency/{currency}/switch</target>
+      </trans-unit>
+      <trans-unit id="0ddef3b6f317d61b9bbc849104de03e2c90fc8ff" resname="cocorico_dashboard_announcements">
+        <source>/get-announcements</source>
+        <target state="new">/get-announcements</target>
       </trans-unit>
       <trans-unit id="d89a788cba1af525434edce0c0f1af12aa5b2bb8" resname="cocorico_dashboard_edit_user_settings">
         <source>/dashboard/settings/</source>
@@ -45,6 +61,10 @@
       <trans-unit id="c26b953e728bc467f6a5a86d82989b49cf5917a7" resname="cocorico_dashboard_listing_edit_dates">
         <source>/dashboard/listing/{id}/edit_dates</source>
         <target state="new">/dashboard/listing/{id}/edit_dates</target>
+      </trans-unit>
+      <trans-unit id="fc559d0e8f25b44a804997a0139edf552b1cb1cf" resname="cocorico_dashboard_listing_edit_discount">
+        <source>/dashboard/listing/{id}/edit_discount</source>
+        <target state="new">/dashboard/listing/{id}/edit_discount</target>
       </trans-unit>
       <trans-unit id="17df96860187b09c1bfa9958bf057651f9c45027" resname="cocorico_dashboard_listing_edit_images">
         <source>/dashboard/listing/{id}/edit_images</source>
@@ -113,6 +133,10 @@
       <trans-unit id="cefbea7a19e1292e3dac85a028346e6d1be091ad" resname="cocorico_language_translate">
         <source>/language/translate</source>
         <target>/language/translate</target>
+      </trans-unit>
+      <trans-unit id="b03dfac5699e4ae360dc374ea980b05a5e0b626a" resname="cocorico_listing_favourite">
+        <source>/listing/favourite</source>
+        <target state="new">/listing/favourite</target>
       </trans-unit>
       <trans-unit id="01cb8a3d37bc28ce8dc09c8da3480d57df437d9f" resname="cocorico_listing_image_delete">
         <source>/user-image/{id}/delete</source>
