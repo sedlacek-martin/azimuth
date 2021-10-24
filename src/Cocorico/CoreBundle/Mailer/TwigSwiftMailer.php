@@ -35,6 +35,7 @@ class TwigSwiftMailer implements MailerInterface
     protected $timezone;
     protected $templates;
     protected $fromEmail;
+    protected $bccEmail;
     protected $adminEmail;
     protected $siteName;
 
@@ -67,6 +68,7 @@ class TwigSwiftMailer implements MailerInterface
         $this->fromEmail = $parameters['cocorico_from_email'];
         $this->adminEmail = $parameters['cocorico_contact_email'];
         $this->siteName = $parameters['cocorico_site_name'];
+        $this->bccEmail = $parameters['cocorico_bcc_email'];
 
         $this->timeUnit = $parameters['cocorico_time_unit'];
         $this->timeUnitIsDay = ($this->timeUnit % 1440 == 0) ? true : false;
@@ -642,6 +644,32 @@ class TwigSwiftMailer implements MailerInterface
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
 
+    public function sendActivatorNotification(User $user, int $activationCount): void
+    {
+        $template = $this->templates['activator_notification'];
+
+        $context = [
+            'user' => $user,
+            'new_activations_count' => $activationCount
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
+    }
+
+    public function sendFacilitatorNotification(User $user, int $postValidationCount, int $messageValidationCount): void
+    {
+        $template = $this->templates['facilitator_notification'];
+
+        $context = [
+            'user' => $user,
+            'post_validations' => $postValidationCount,
+            'message_validations' => $messageValidationCount,
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
+
+    }
+
     /**
      * @param Booking $booking
      */
@@ -811,7 +839,8 @@ class TwigSwiftMailer implements MailerInterface
 
             $message = (new \Swift_Message($subject))
                 ->setFrom($fromEmail)
-                ->setTo($toEmail);
+                ->setTo($toEmail)
+                ->setBcc($this->bccEmail);
 
             if (!empty($htmlBody)) {
                 $message

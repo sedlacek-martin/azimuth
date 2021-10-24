@@ -400,6 +400,30 @@ class ListingRepository extends EntityRepository
     }
 
     /**
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return array
+     */
+    public function getWaitingForValidationCountByMo(\DateTime $from, \DateTime $to): array
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->leftJoin('l.user', 'u')
+            ->leftJoin('u.memberOrganization', 'mo')
+            ->select('COUNT(l.id) as cnt, mo.id as mo_id')
+            ->andWhere('l.status = :validateStatus')
+            ->andWhere('u.createdAt >= :from')
+            ->andWhere('u.createdAt <= :to')
+            ->groupBy('mo.id')
+            ->setParameter('validateStatus', BaseListing::STATUS_TO_VALIDATE)
+            ->setParameter('from', $from)
+            ->setParameter('to', $to);
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
+
+    /**
      * @param \DateTime|null $from
      * @param \DateTime|null $to
      * @return int

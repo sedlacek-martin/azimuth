@@ -27,6 +27,13 @@
 
             <h2>{{ 'listing.images.to_upload.title'|trans }}</h2>
             <ul id="files-to-upload" class="images-list"></ul>
+            {% if listing.images|length == 0 %}
+                <div class="text-muted">
+                    <i class="icon-info"></i>
+                    <em>{{ 'listing.images.default_prvided_if_empty.text'|trans }}</em>
+                </div>
+            {% endif %}
+
         </div>
 
         <!-- files-list -->

@@ -68,35 +68,6 @@ class ListingValidator extends ConstraintValidator
                 ->addViolation();
         }
 
-//        //Categories
-//        if ($listing->getListingListingCategories()->count() < $this->minCategories) {
-//            $this->context->buildViolation($constraint::$messageMinCategories)
-//                ->atPath('listingListingCategories')
-//                ->setParameter('{{ min_categories }}', $this->minCategories)
-//                ->setTranslationDomain('cocorico_listing')
-//                ->addViolation();
-//        }
-
-        //Price
-        /*if ($listing->getPrice() < $this->minPrice) {
-            $this->context->buildViolation($constraint::$messageMinPrice)
-                ->atPath('price')
-                ->setParameter('{{ min_price }}', $this->minPrice / 100)
-                ->setTranslationDomain('cocorico_listing')
-                ->addViolation();
-        }*/
-
-        //Duration
-        if ($listing->getMinDuration() && $listing->getMaxDuration() &&
-            $listing->getMinDuration() > $listing->getMaxDuration()
-        ) {
-            $this->context->buildViolation($constraint::$messageDuration)
-                ->atPath('min_duration')
-                ->setTranslationDomain('cocorico_listing')
-                ->addViolation();
-        }
-
-
         //Location
         if ($this->countries && !in_array($listing->getLocation()->getCountry(), $this->countries)) {
             $this->context->buildViolation($constraint::$messageCountryInvalid)
@@ -104,20 +75,6 @@ class ListingValidator extends ConstraintValidator
                 ->setTranslationDomain('cocorico_listing')
                 ->addViolation();
         }
-
-        //Status
-//        $oldListing = $this->emr->getUnitOfWork()->getOriginalEntityData($listing);
-//
-//        if (is_array($oldListing) and !empty($oldListing)) {
-//            $oldStatus = $oldListing['status'];
-//            if ($oldStatus == $listing::STATUS_INVALIDATED && $listing->getStatus() != $listing::STATUS_INVALIDATED) {
-//                $listing->setStatus($oldStatus);
-//                $this->context->buildViolation($constraint::$messageStatusInvalidated)
-//                    ->atPath('status')
-//                    ->setTranslationDomain('cocorico_listing')
-//                    ->addViolation();
-//            }
-//        }
     }
 
 }

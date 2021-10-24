@@ -92,14 +92,6 @@ class Listing extends BaseListing
      */
     private $listingListingCharacteristics;
 
-//    /**
-//     *
-//     * @ORM\OneToMany(targetEntity="ListingDiscount", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true)
-//     * @ORM\OrderBy({"fromQuantity" = "asc"})
-//     */
-//    private $discounts;
-
-
     /**
      * @ORM\OneToMany(targetEntity="Booking", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"createdAt" = "desc"})
@@ -255,7 +247,7 @@ class Listing extends BaseListing
     }
 
     /**
-     * @return mixed
+     * @return ListingCategory
      */
     public function getCategory()
     {
@@ -560,7 +552,6 @@ class Listing extends BaseListing
                 ($strict && $this->getDescription()) ||
                 (!$strict && strlen($this->getDescription()) > 250)
             ) ? 1 : 0,
-//            "price" => $this->getPrice() ? 1 : 0,
             "image" => (
                 ($strict && count($this->getImages()) >= $minImages) ||
                 (!$strict && count($this->getImages()) > $minImages)

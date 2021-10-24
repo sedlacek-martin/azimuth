@@ -13,6 +13,7 @@ use Cocorico\MessageBundle\Event\MessageEvent;
 use Cocorico\MessageBundle\Event\MessageEvents;
 use Cocorico\MessageBundle\Repository\MessageRepository;
 use Cocorico\SonataAdminBundle\Form\Type\ActivatorSettingsType;
+use Cocorico\SonataAdminBundle\Form\Type\AdminPreferencesType;
 use Cocorico\SonataAdminBundle\Form\Type\FacilitatorSettingsType;
 use Cocorico\SonataAdminBundle\Form\Type\MessageAdminNoteType;
 use Cocorico\SonataAdminBundle\Form\Type\MoEditType;
@@ -192,7 +193,6 @@ class CustomActionController extends Controller
         );
     }
 
-
     /**
      * @Route("facilitator/settings", name="cocorico_admin__facilitator_settings")
      * @Method({"GET", "POST"})
@@ -231,6 +231,44 @@ class CustomActionController extends Controller
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("preferences", name="cocorico_admin__preferences")
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return RedirectResponse|Response|null
+     */
+    public function adminPreferencesAction(Request $request)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(AdminPreferencesType::class, $user, [
+            'action' => $this->generateUrl('cocorico_admin__preferences'),
+        ])->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash(
+                'sonata_flash_success',
+                $this->get('translator')->trans('flash_action_preferences_success', [], 'SonataAdminBundle')
+            );
+
+            return $this->redirectToRoute('cocorico_admin__preferences');
+
+        }
+
+        return $this->render('CocoricoSonataAdminBundle::CustomActions/preferences.html.twig', [
+                'user' => $user,
+                'form' => $form->createView(),
+            ]
+        );
+
     }
 
     /**

@@ -20,6 +20,8 @@ parameters:
     cocorico.reminder_to_rate_offerer_asker.email.template: "CocoricoCoreBundle:Mails/Asker:reminder_to_rate_offerer_asker.txt.twig"
     cocorico.admin_message.email.template: "CocoricoCoreBundle:Mails:admin_message.txt.twig"
     cocorico.user_expire_notification.email.template: "CocoricoUserBundle:Mails/User:user_expire.txt.twig"
+    cocorico.activator_notification.email.template: "CocoricoCoreBundle:Mails:activator_notification.txt.twig"
+    cocorico.facilitator_notification.email.template: "CocoricoCoreBundle:Mails:facilitator_notification.txt.twig"
 
 services:
     cocorico.mailer.twig_swift:
@@ -36,6 +38,7 @@ services:
                 cocorico_locale: "%cocorico.locale%"
                 cocorico_time_zone: "%cocorico.time_zone%"
                 cocorico_from_email: "%cocorico.from_email%"
+                cocorico_bcc_email: "%cocorico.bcc_email%"
                 cocorico_contact_email: "%cocorico.contact_mail%"
                 cocorico_site_name: "%cocorico.site_name%"
             - templates:
@@ -60,3 +63,5 @@ services:
                 payment_error_asker: "%cocorico.payment_error_asker.email.template%"
                 admin_message: "%cocorico.admin_message.email.template%"
                 user_expire_notification: "%cocorico.user_expire_notification.email.template%"
+                activator_notification: "%cocorico.activator_notification.email.template%"
+                facilitator_notification: "%cocorico.facilitator_notification.email.template%"

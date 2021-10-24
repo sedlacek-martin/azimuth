@@ -2,15 +2,15 @@
 
 namespace Cocorico\SonataAdminBundle\Form\Type;
 
-use Cocorico\CoreBundle\Entity\MemberOrganization;
+use Cocorico\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FacilitatorSettingsType extends AbstractType
+class AdminPreferencesType extends AbstractType
 {
     private $request;
     private $locale;
@@ -30,23 +30,9 @@ class FacilitatorSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('postConfirmation', ChoiceType::class, [
-                'choices' => [
-                    'facilitator_settings.listing.publish.automatically' => '0',
-                    'facilitator_settings.listing.publish.confirmation' => '1',
-                ],
-                'label' => false,
-                'expanded' => true,
-                'multiple' => false,
-            ])
-            ->add('messagesConfirmation', ChoiceType::class, [
-                'choices' => [
-                    'facilitator_settings.messages.automatically' => '0',
-                    'facilitator_settings.messages.confirmation' => '1',
-                ],
-                'label' => false,
-                'expanded' => true,
-                'multiple' => false,
+            ->add('disableAdminNotifications', CheckboxType::class, [
+                'label' => 'preferences.disable_notifications',
+                'required' => false,
             ]);
     }
 
@@ -54,13 +40,16 @@ class FacilitatorSettingsType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'class' => MemberOrganization::class,
+                'class' => User::class,
                 'translation_domain' => 'SonataAdminBundle',
             ]);
     }
 
     public function getBlockPrefix()
     {
-        return 'facilitator_settings';
+        return 'admin_preferences';
     }
+
+
+
 }

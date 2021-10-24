@@ -93,6 +93,30 @@ class MessageRepository extends EntityRepository
     }
 
     /**
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return array
+     */
+    public function getWaitingForValidationCountByMo(\DateTime $from, \DateTime $to): array
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->leftJoin('m.sender', 'u')
+            ->leftJoin('u.memberOrganization', 'mo')
+            ->select('COUNT(m.id) as cnt, mo.id as mo_id')
+            ->where('m.verified = 0')
+            ->andWhere('u.createdAt >= :from')
+            ->andWhere('u.createdAt <= :to')
+            ->groupBy('mo.id')
+            ->setParameter('from', $from)
+            ->setParameter('to', $to);
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+
+    }
+
+    /**
      * @param \DateTime|null $from
      * @param \DateTime|null $to
      * @return int

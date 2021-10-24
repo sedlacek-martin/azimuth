@@ -118,7 +118,7 @@ security:
         - { path: ^/(%cocorico.locales_string%)/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(%cocorico.locales_string%)/expired/reconfirm, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(%cocorico.locales_string%)/expired, role: IS_AUTHENTICATED_FULLY }
-        - { path: ^/(%cocorico.locales_string%)/listing/show, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(%cocorico.locales_string%)/listing/show, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/(%cocorico.locales_string%)/listing, role: IS_AUTHENTICATED_FULLY }
         #Oauth Logins
         - { path: ^/(%cocorico.locales_string%)/oauth/fb-login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
