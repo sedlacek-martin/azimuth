@@ -176,6 +176,7 @@ class ListingManager extends BaseManager
             $nbImages = $listing->getImages()->count();
 
             foreach ($images as $i => $image) {
+                $image = trim($image);
                 $listingImage = new ListingImage();
                 $listingImage->setListing($listing);
                 $listingImage->setName($image);
@@ -194,6 +195,25 @@ class ListingManager extends BaseManager
         }
 
         return $listing;
+    }
+
+    /**
+     * @param Listing $listing
+     * @param bool $persist
+     */
+    public function addDefaultImage(Listing $listing, bool $persist = false): void
+    {
+        $defaultImages = $listing->getCategory()->getDefaultImageName();
+        if (empty($defaultImages)) {
+            return;
+        }
+
+        $defaultImagesArray = explode(",", trim($defaultImages, ","));
+        if (count($defaultImagesArray) === 0) {
+            return;
+        }
+
+        $this->addImages($listing, $defaultImagesArray, $persist);
     }
 
     /**

@@ -8,7 +8,6 @@
 {% set listing_translation = listing.translations[app.request.locale] %}
 {% set listing_description = listing_translation.description %}
 {% set listing_location = listing.location %}
-{#{% set price = listing.priceDecimal | format_price(app.request.locale, 0) %}#}
 {% set listing_user = listing.user %}
 
 {%- block meta_title -%}

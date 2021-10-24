@@ -246,9 +246,27 @@ class UserRepository extends EntityRepository
         }
 
         return $qb->getQuery()->getSingleResult();
-        
     }
 
-    
+    /**
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return array
+     */
+    public function getWaitingActivationCountByMo(\DateTime $from, \DateTime $to): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->leftJoin('u.memberOrganization', 'mo')
+            ->select('COUNT(u.id) as cnt, mo.id as mo_id')
+            ->where('u.trusted = 0')
+            ->andWhere('u.createdAt >= :from')
+            ->andWhere('u.createdAt <= :to')
+            ->groupBy('mo.id')
+            ->setParameter('from', $from)
+            ->setParameter('to', $to);
 
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
 }

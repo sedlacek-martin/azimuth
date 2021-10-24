@@ -98,6 +98,11 @@ class ListingFormHandler
     {
         /** @var Listing $listing */
         $listing = $form->getData();
+
+        if ($listing->getImages()->isEmpty()) {
+            $this->listingManager->addDefaultImage($listing);
+        }
+
         $this->listingManager->save($listing);
 
         return true;

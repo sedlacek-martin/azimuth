@@ -257,9 +257,6 @@ class ListingSearchController extends Controller
             $imageName = count($listing['images']) ? $listing['images'][0]['name'] : ListingImage::IMAGE_DEFAULT;
             $image = $liipCacheManager->getBrowserPath($imagePath . $imageName, 'listing_medium', array());
 
-            //Price
-//            $price = $currencyExtension->convertAndFormat($listing['price'] / 100, $currentCurrency, false);
-
             //Duration
             $duration = null;
             if ($listingSession && array_key_exists('duration', $listing)) {

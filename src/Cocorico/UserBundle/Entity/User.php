@@ -584,6 +584,13 @@ class User extends BaseUser implements ParticipantInterface
     protected $announcements;
 
     /**
+     * @ORM\Column(name="disable_admin_notifications", type="boolean", nullable=false)
+     *
+     * @var bool
+     */
+    protected $disableAdminNotifications = false;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -2132,6 +2139,10 @@ class User extends BaseUser implements ParticipantInterface
         return $this->getExpiryDate() < new \DateTime('now');
     }
 
+    /**
+     * @param int $days
+     * @return bool
+     */
     public function isExpiredSoon($days = 30): bool
     {
         return $this->getExpiryDate() < (new DateTime('now'))->add(new DateInterval("P{$days}D"));
@@ -2183,6 +2194,24 @@ class User extends BaseUser implements ParticipantInterface
     public function setNewMessageNotifications(bool $newMessageNotifications): void
     {
         $this->newMessageNotifications = $newMessageNotifications;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisableAdminNotifications(): bool
+    {
+        return $this->disableAdminNotifications;
+    }
+
+    /**
+     * @param bool $disableAdminNotifications
+     * @return User
+     */
+    public function setDisableAdminNotifications(bool $disableAdminNotifications): User
+    {
+        $this->disableAdminNotifications = $disableAdminNotifications;
+        return $this;
     }
 
     /**
