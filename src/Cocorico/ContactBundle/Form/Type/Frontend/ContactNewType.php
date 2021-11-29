@@ -11,9 +11,14 @@
 
 namespace Cocorico\ContactBundle\Form\Type\Frontend;
 
+use Cocorico\ContactBundle\Entity\ContactCategory;
+use Cocorico\ContactBundle\Repository\ContactCategoryRepository;
+use Cocorico\UserBundle\Entity\User;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
@@ -26,40 +31,79 @@ class ContactNewType extends AbstractType implements TranslationContainerInterfa
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var User $user */
+        $user = $options['user'];
+
+        if (!$user instanceof User) {
+            $builder
+                ->add(
+                    'firstName',
+                    null,
+                    array(
+                        'label' => 'contact.form.first_name.label',
+                        'data' => $user ? $user->getFirstName() : '',
+                        'attr' => [
+                            'data-type' => 'first-name'
+                        ]
+                    )
+                )
+                ->add(
+                    'lastName',
+                    null,
+                    array(
+                        'label' => 'contact.form.last_name.label',
+                        'data' => $user ? $user->getLastName() : '',
+                        'attr' => [
+                            'data-type' => 'last-name'
+                        ]
+                    )
+                )
+                ->add(
+                    'email',
+                    EmailType::class,
+                    array(
+                        'label' => 'contact.form.email.label',
+                        'data' => $user ? $user->getEmail() : '',
+                        'attr' => [
+                            'data-type' => 'email'
+                        ]
+                    )
+
+                );
+        }
+
         $builder
-            ->add(
-                'firstName',
-                null,
-                array(
-                    'label' => 'contact.form.first_name.label'
-                )
-            )
-            ->add(
-                'lastName',
-                null,
-                array(
-                    'label' => 'contact.form.last_name.label'
-                )
-            )
-            ->add(
-                'email',
-                null,
-                array(
-                    'label' => 'contact.form.email.label'
-                )
-            )
-            ->add(
-                'phone',
-                null,
-                array(
-                    'label' => 'contact.form.phone.label'
-                )
-            )
+            ->add('category',
+            EntityType::class,
+            [
+                'label' => 'contact.form.category.label',
+                'class' => ContactCategory::class,
+                'required' => true,
+                'placeholder' => '- Select -',
+                'query_builder' => function (ContactCategoryRepository $repository) use ($options)  {
+                    return $repository->createQueryBuilder('qb')
+                        ->andWhere('qb.public = :public')
+                        ->setParameter('public',$options['public'] );
+                },
+                'choice_attr' => function(ContactCategory $choice, $key, $value) {
+                    return [
+                        'is-public' => $choice->isPublic() ? 'true' : 'false',
+                        'allow-subject' => $choice->isAllowSubject() ? 'true' : 'false',
+                        'data-subject' => $choice->getSubject(),
+                    ];
+                },
+                'attr' => [
+                    'data-type' => 'category'
+                ]
+            ])
             ->add(
                 'subject',
                 null,
                 array(
-                    'label' => 'contact.form.subject.label'
+                    'label' => 'contact.form.subject.label',
+                    'attr' => [
+                        'data-type' => 'subject'
+                    ]
                 )
             )
             ->add(
@@ -82,6 +126,9 @@ class ContactNewType extends AbstractType implements TranslationContainerInterfa
                 'translation_domain' => 'cocorico_contact',
                 'constraints' => new Valid(),
                 'validation_groups' => array('CocoricoContact'),
+                'allow_extra_fields' => true,
+                'public' => true,
+                'user' => null,
             )
         );
     }

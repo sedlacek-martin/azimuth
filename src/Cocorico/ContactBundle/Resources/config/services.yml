@@ -29,5 +29,7 @@ services:
                 cocorico_contact_from_email: "%cocorico.from_email%"
                 cocorico_contact_contact_email: "%cocorico.contact_mail%"
                 cocorico_site_name: "%cocorico.site_name%"
+                cocorico_bcc_email: "%cocorico.bcc_email%"
             - templates:
                 contact_message: "CocoricoContactBundle:Mails:contact_message.txt.twig"
+                contact_reply: "CocoricoContactBundle:Mails:contact_reply.txt.twig"

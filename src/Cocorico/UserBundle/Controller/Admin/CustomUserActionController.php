@@ -57,6 +57,7 @@ class CustomUserActionController extends Controller
                 $newExpiryDate = (new \DateTime())->add(new \DateInterval("P{$extensionPeriod}D"));
                 $user->setExpiryDate($newExpiryDate);
                 $user->setReconfirmRequested(false);
+                $user->setReconfirmRequestedAt(null);
                 $mailer->sendAccountReactivated($user);
                 $em->persist($user);
 

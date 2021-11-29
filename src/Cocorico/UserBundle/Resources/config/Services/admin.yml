@@ -1,16 +1,4 @@
 services:
-    sonata.admin.user_address:
-        class: Cocorico\UserBundle\Admin\UserAddressAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
-        arguments:
-            - ~
-            - Cocorico\UserBundle\Entity\UserAddress
-            - ~
-        calls:
-            - [ setTranslationDomain, [cocorico_user]]
-            - [ setLocales, ["%cocorico.locales%"]]
-
     sonata.admin.activation:
         class: Cocorico\UserBundle\Admin\ActivationAdmin
         tags:

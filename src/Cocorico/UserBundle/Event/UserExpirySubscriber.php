@@ -12,11 +12,19 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class UserExpirySubscriber implements EventSubscriberInterface
 {
-
-    //TODO: add more routes
     public const ALLOWED_ROUTES = [
         'cocorico_user_expired',
         'cocorico_user_dashboard_profile_edit_about_me',
+        'cocorico_user_reconfirm',
+        'cocorico_user_dashboard_profile_edit_scout_info',
+        'cocorico_user_dashboard_profile_edit_contact',
+        'cocorico_user_profile_show',
+        'cocorico_user_dashboard_profile_delete',
+    ];
+
+    public const ALLOWED_ROLES = [
+        'ROLE_DEVELOPER',
+        'ROLE_SUPER_ADMIN',
     ];
 
     /**
@@ -57,6 +65,11 @@ class UserExpirySubscriber implements EventSubscriberInterface
     protected function checkExpiry(GetResponseEvent $event, User $user)
     {
         $request = $event->getRequest();
+
+        $intersectedRoles = array_intersect($user->getRoles(), self::ALLOWED_ROLES);
+        if (count($intersectedRoles) > 0) {
+            return;
+        }
 
         if ($user->isExpired()) {
             if (!in_array($request->get('_route'), self::ALLOWED_ROUTES)) {

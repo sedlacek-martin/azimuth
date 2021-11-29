@@ -20,23 +20,69 @@
 
             {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' only %}
 
-            <div id="form-contact" class="form-contact validate-form">
-                <h1>{{ 'contact.new.form.title'|trans({},'cocorico_contact') }}</h1>
+            <div class="col-md-8 col-md-offset-2">
+                <div id="form-contact" class="form-contact validate-form">
 
-                {{ form_start(form) }}
+                    <h1>{{ 'contact.new.form.title'|trans({},'cocorico_contact') }}</h1>
+                    <p class="mb-5 text-muted">
+                        {% if app.user is null %}
+                            {{ 'contact.new.form.unregistered.text'|trans({},'cocorico_contact') }}
+                        {% else %}
+                            {{ 'contact.new.form.registered.text'|trans({},'cocorico_contact') }}
+                        {% endif %}
+                    </p>
 
-                {{ form_widget(form) }}
+                    {{ form_start(form) }}
 
-                <div class="field-row">
-                    <button type="submit" class="btn btn-primary right">
-                        {{ 'contact.form.submit.button'|trans({},'cocorico_contact') }}
-                    </button>
+                    {{ form_widget(form) }}
+
+                    <div class="field-row d-flex justify-center">
+                        <button class="g-recaptcha btn btn-primary"
+                                data-sitekey="{{ cocorico_google_recaptcha }}"
+                                data-callback='onSubmit'
+                                data-action='submit'>
+                            {{ 'contact.form.submit.button'|trans({},'cocorico_contact') }}
+                        </button>
+                    </div>
+
+                    {{ form_end(form) }}
                 </div>
-
-                {{ form_end(form) }}
             </div>
 
         {% endblock %}
 
     {% endembed %}
 {% endblock layout %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onSubmit(token) {
+            $('#form-contact').find('form').submit();
+        }
+        $(function () {
+            const $categorySelect = $('[data-type=category]');
+
+            $categorySelect.change(function (event) {
+              const $select = $(event.target);
+              categoryChange($select);
+          })
+
+          categoryChange($categorySelect);
+
+          function categoryChange($select) {
+              let selectedValue = $select.val();
+              let $selectedOption = $select.find('option[value="' + selectedValue + '"]');
+              const $subject = $('[data-type=subject]');
+              if ($selectedOption.attr('allow-subject') === 'true') {
+                  $subject.val('');
+                  $subject.parent().parent().show();
+              } else {
+                  $subject.val($selectedOption.attr('data-subject'));
+                  $subject.parent().parent().hide();
+              }
+
+          }
+        });
+    </script>
+{% endblock %}

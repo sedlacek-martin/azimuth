@@ -2,11 +2,16 @@
 
 namespace Cocorico\SonataAdminBundle\Controller;
 
+use Cocorico\ContactBundle\Entity\Contact;
+use Cocorico\ContactBundle\Model\BaseContact;
+use Cocorico\ContactBundle\Repository\ContactRepository;
 use Cocorico\CoreBundle\Entity\CountryInformation;
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Entity\MemberOrganization;
+use Cocorico\CoreBundle\Entity\UserInvitation;
 use Cocorico\CoreBundle\Repository\CountryInformationRepository;
 use Cocorico\CoreBundle\Repository\ListingRepository;
+use Cocorico\CoreBundle\Security\Voter\BaseVoter;
 use Cocorico\MessageBundle\Entity\Message;
 use Cocorico\MessageBundle\Entity\Thread;
 use Cocorico\MessageBundle\Event\MessageEvent;
@@ -14,6 +19,7 @@ use Cocorico\MessageBundle\Event\MessageEvents;
 use Cocorico\MessageBundle\Repository\MessageRepository;
 use Cocorico\SonataAdminBundle\Form\Type\ActivatorSettingsType;
 use Cocorico\SonataAdminBundle\Form\Type\AdminPreferencesType;
+use Cocorico\SonataAdminBundle\Form\Type\ContactReplyType;
 use Cocorico\SonataAdminBundle\Form\Type\FacilitatorSettingsType;
 use Cocorico\SonataAdminBundle\Form\Type\MessageAdminNoteType;
 use Cocorico\SonataAdminBundle\Form\Type\MoEditType;
@@ -25,6 +31,7 @@ use Cocorico\UserBundle\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,6 +72,8 @@ class CustomActionController extends Controller
         $listingRepository = $em->getRepository(Listing::class);
         /** @var MessageRepository $messageRepository */
         $messageRepository = $em->getRepository(Message::class);
+        /** @var ContactRepository $contactRepository */
+        $contactRepository = $em->getRepository(Contact::class);
 
         $moId = null;
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
@@ -74,6 +83,8 @@ class CustomActionController extends Controller
         $waitingActivationCount = $userRepository->getWaitingActivationCount($moId);
         $postToValidateCount = $listingRepository->getWaitingForValidationCount($moId);
         $messagesToVerify = $messageRepository->getWaitingForValidationCount($moId);
+        $facilitatorContact = $contactRepository->getCountByRole('ROLE_FACILITATOR');
+        $activatorContact = $contactRepository->getCountByRole('ROLE_ACTIVATOR');
 
         return $this->render(
             'CocoricoSonataAdminBundle::CustomActions/dashboard.html.twig',
@@ -81,6 +92,8 @@ class CustomActionController extends Controller
                 'activationCount' => $waitingActivationCount,
                 'validatePostCount' => $postToValidateCount,
                 'validateMessageCount' => $messagesToVerify,
+                'facilitatorContactCount' => $facilitatorContact,
+                'activatorContactCount' => $activatorContact,
             ]
         );
     }
@@ -551,5 +564,127 @@ class CustomActionController extends Controller
         }
 
         return $this->redirectToRoute('cocorico_admin__super_admin_actions');
+    }
+
+    /**
+     * @Route("invitation/resend/{id}", name="cocorico_admin__resend_invitation")
+     * @Method({"GET"})
+     * @param UserInvitation $invitation
+     * @return RedirectResponse
+     */
+    public function resendInvitation(UserInvitation $invitation): RedirectResponse
+    {
+        if (!$invitation->isExpired()) {
+            $this->addFlash(
+                'sonata_flash_error',
+                $this->get('translator')->trans('invitation.resend.is_not_expired.error', [], 'SonataAdminBundle')
+            );
+            return $this->redirectToRoute('invitations_list');
+        }
+
+        if ($invitation->isUsed()) {
+            $this->addFlash(
+                'sonata_flash_error',
+                $this->get('translator')->trans('invitation.resend.already_used.error', [], 'SonataAdminBundle')
+            );
+            return $this->redirectToRoute('invitations_list');
+        }
+
+        /** @var TwigSwiftMailer $mailer */
+        $mailer = $this->get('cocorico_user.mailer.twig_swift');
+        $mailer->sendUserInvited($invitation->getEmail());
+
+        $this->addFlash(
+            'sonata_flash_success',
+            $this->get('translator')->trans('invitation.resend.success', [], 'SonataAdminBundle')
+        );
+
+        return $this->redirectToRoute('invitations_list');
+    }
+
+    /**
+     * @param Contact $contact
+     * @return FormInterface
+     */
+    private function createContactReplyForm(Contact $contact): FormInterface
+    {
+        return $this->createForm(ContactReplyType::class, $contact, [
+            'action' => $this->generateUrl('cocorico_admin__contact_resolve', ['id' => $contact->getId()]),
+        ]);
+    }
+
+    /**
+     * @param int $contactId
+     * @return Response|null
+     */
+    public function renderContactReplyFormAction(int $contactId): ?Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var ContactRepository $contactRepository */
+        $contactRepository = $em->getRepository(Contact::class);
+
+        $contact = $contactRepository->find($contactId);
+
+        $form = $this->createContactReplyForm($contact);
+
+        return $this->render('CocoricoSonataAdminBundle::CustomActions/_contact_reply.html.twig', [
+                'contact' => $contact,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("contact/resolve/{id}", name="cocorico_admin__contact_resolve")
+     * @Method({"POST"})
+     * @param Contact $contact
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function contactResolveAction(Contact $contact, Request $request): RedirectResponse
+    {
+        if (!$this->isGranted(BaseVoter::EDIT, $contact)) {
+            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createContactReplyForm($contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($contact->getStatus() === BaseContact::STATUS_READ) {
+                $this->addFlash(
+                    'sonata_flash_error',
+                    $this->get('translator')->trans('admin.contact.resolve.already_resolved.error', [], 'SonataAdminBundle')
+                );
+
+                return $this->redirectToRoute('admin_cocorico_contact_contact_list');
+            }
+
+            $contact->setStatus(BaseContact::STATUS_READ);
+
+            /** @var \Cocorico\ContactBundle\Mailer\TwigSwiftMailer $mailer */
+            $mailer = $this->get('cocorico_contact.mailer.twig_swift');
+
+            if (!$contact->isReplySend() && !empty($contact->getReply())) {
+                $mailer->sendReply($contact);
+                $contact->setReplySend(true);
+            }
+
+            $em->persist($contact);
+            $em->flush();
+
+            $this->addFlash(
+                'sonata_flash_success',
+                $this->get('translator')->trans('admin.contact.resolve.success', [], 'SonataAdminBundle')
+            );
+
+            return $this->redirectToRoute('admin_cocorico_contact_contact_list');
+        }
+
+        return new RedirectResponse($request->headers->get('referer'));
     }
 }

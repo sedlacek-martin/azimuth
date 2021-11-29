@@ -144,7 +144,7 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection<User>
      */
     public function findAllExpired(): ArrayCollection
     {
@@ -152,7 +152,7 @@ class UserRepository extends EntityRepository
             ->addSelect('u')
             ->andWhere('u.expiryDate < :today');
 
-        $qb->setParameter(':notifyDate', (new \DateTime())->format('Y-m-d H:i:s'));
+        $qb->setParameter(':today', (new \DateTime())->format('Y-m-d H:i:s'));
 
         return new ArrayCollection($qb->getQuery()->getResult());
     }
@@ -192,6 +192,20 @@ class UserRepository extends EntityRepository
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findByRoleAndMo(string $role, string $memberOrganizationId)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        $qb->andWhere("u.roles LIKE :role")
+            ->andWhere("u.memberOrganization = :moId")
+            ->setParameter('role', "%{$role}%")
+            ->setParameter('moId', $memberOrganizationId);
+
+
+        return $qb->getQuery()->getResult();
+
     }
 
     /**
@@ -268,5 +282,23 @@ class UserRepository extends EntityRepository
         $result = $qb->getQuery()->getResult();
 
         return $result;
+    }
+
+    public function getReconfirmCountByMo(\DateTime $from, \DateTime $to): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->leftJoin('u.memberOrganization', 'mo')
+            ->select('COUNT(u.id) as cnt, mo.id as mo_id')
+            ->where('u.reconfirmRequested = 1')
+            ->andWhere('u.reconfirmRequestedAt >= :from')
+            ->andWhere('u.reconfirmRequestedAt <= :to')
+            ->groupBy('mo.id')
+            ->setParameter('from', $from)
+            ->setParameter('to', $to);
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+
     }
 }

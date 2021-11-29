@@ -12,7 +12,6 @@
     {% embed '@CocoricoCore/Frontend/layout_simple.html.twig' %}
         {% block main %}
             {% trans_default_domain 'cocorico_user' %}
-
             {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
             <h1>{{ 'user.expired.h1'|trans }}</h1>
             <p>{{ 'user.expired.text'|trans }}</p>

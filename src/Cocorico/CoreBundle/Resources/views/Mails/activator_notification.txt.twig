@@ -9,7 +9,8 @@
 {% block message %}
     {{ 'activator_notification.email.message'|trans({
         '%firstname%': user.firstName,
-        '%new_activations_count%': new_activations_count
+        '%new_activations_count%': new_activations_count,
+        '%new_reconfirm_count%': new_reconfirm_count
     }, 'cocorico_mail', user_locale) }}
 {% endblock %}
 

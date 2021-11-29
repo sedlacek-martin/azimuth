@@ -140,7 +140,7 @@ class ListingSearchController extends Controller
                 $listingSearchRequest->getLocation()->getCountry() == null) {
                 /** @var User $user */
                 $user = $this->getUser();
-                $listingSearchRequest->getLocation()->setCountry($user->getCountryOfResidence());
+                $listingSearchRequest->getLocation()->setCountry($user->getCountry());
             }
 
             /** @var ListingSearchManager $listingSearchManager */
@@ -274,16 +274,6 @@ class ListingSearchController extends Controller
                 $pinImage = isset($pin) ? $pin['imagePath'] : '/images/pin.png';
             }
 
-            //Ratings
-            $rating1 = $rating2 = $rating3 = $rating4 = $rating5 = 'hidden';
-            if ($listing['averageRating']) {
-                $rating1 = ($listing['averageRating'] >= 1) ? '' : 'inactive';
-                $rating2 = ($listing['averageRating'] >= 2) ? '' : 'inactive';
-                $rating3 = ($listing['averageRating'] >= 3) ? '' : 'inactive';
-                $rating4 = ($listing['averageRating'] >= 4) ? '' : 'inactive';
-                $rating5 = ($listing['averageRating'] >= 5) ? '' : 'inactive';
-            }
-
             //Allow to group markers with same location
             $locIndex = $listing['location']['coordinate']['lat'] . "-" . $listing['location']['coordinate']['lng'];
             $markers[$locIndex][] = array(
@@ -294,12 +284,6 @@ class ListingSearchController extends Controller
                 'category' => $categories,
                 'pinImage' => $pinImage,
                 'image' => $image,
-                'rating1' => $rating1,
-                'rating2' => $rating2,
-                'rating3' => $rating3,
-                'rating4' => $rating4,
-                'rating5' => $rating5,
-//                'price' => $price,
                 'duration' => $duration,
                 'certified' => $listing['certified'] ? 'certified' : 'hidden',
                 'url' => $this->generateUrl(

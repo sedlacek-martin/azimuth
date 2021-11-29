@@ -22,7 +22,7 @@
 
         {% block content %}
             {% autoescape false %}
-            {{ message|nl2br }}
+            {{ message|raw|nl2br }}
             {% endautoescape %}
         {% endblock %}
     {% endembed %}

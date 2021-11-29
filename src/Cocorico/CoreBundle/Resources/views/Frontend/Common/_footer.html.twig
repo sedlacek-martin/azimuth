@@ -29,24 +29,9 @@
                     </div>
                     <!-- navarea -->
                     <nav class="navarea">
-                        <ul class="list-unstyled pull-left">
-                            <li class="title">{{ 'footer.about.title'|trans }}</li>
-                            <li>
-                                <a href="{{ path('cocorico_page_show', { 'slug': 'nav.who_we_are.slug'|trans }) }}">
-                                    {{ 'footer.who_we_are.link'|trans }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('cocorico_page_show', { 'slug': 'nav.how_it_works.slug'|trans }) }}">
-                                    {{ 'footer.how_it_works.link'|trans }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('cocorico_page_show', { 'slug': 'nav.the_team.slug'|trans }) }}">
-                                    {{ 'footer.the_team.link'|trans }}
-                                </a>
-                            </li>
-                        </ul>
+                        {{ render(controller('CocoricoCMSBundle:Frontend/Footer:index',{
+                            request: app.request
+                        })) }}
                         <ul class="list-unstyled pull-left">
                             <li class="title">{{ 'footer.help.title'|trans }}</li>
                             <li>
@@ -65,11 +50,6 @@
             </div>
         </div>
     </aside>
-
-
-    {{ render(controller('CocoricoCMSBundle:Frontend/Footer:index',{
-        request: app.request
-    })) }}
 
     <!-- footer of the page -->
     <footer id="footer" class="container text-center">

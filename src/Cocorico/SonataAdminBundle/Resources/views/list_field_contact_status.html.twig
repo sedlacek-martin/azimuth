@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object.new %}
+        <span class="label label-warning">{{ value|trans({}, field_description.options.data_trans) }}</span>
+    {% else %}
+        {{ value|trans({}, field_description.options.data_trans) }}
+    {% endif %}
+{% endblock %}

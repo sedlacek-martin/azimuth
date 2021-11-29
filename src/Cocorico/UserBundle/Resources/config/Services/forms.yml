@@ -12,14 +12,14 @@ services:
         tags:
             - { name: form.type, alias: user_registration }
 
-    cocorico_user.form.type.user_address:
-        class: Cocorico\UserBundle\Form\Type\UserAddressFormType
-        tags:
-            - { name: form.type }
-
     cocorico_user.form.type.contact:
         class: Cocorico\UserBundle\Form\Type\ProfileContactFormType
         arguments:
             - "%cocorico.time_unit%"
         tags:
             - { name: form.type, alias: user_address }
+
+    cocorico_user.form.type.password_check:
+        class: Cocorico\UserBundle\Form\Type\PasswordCheckFormType
+        tags:
+            - { name: form.type, alias: user_password_check }

@@ -53,9 +53,13 @@ class InvitationAdmin extends BaseAdmin
             'actions',
             array(
                 'actions' => array(
-                    'delete' => array(),
-                    'edit' => array(),
-                )
+                    'delete' => [],
+                    'edit' => [],
+                    'list_resend' => [
+                        'template' => 'CocoricoSonataAdminBundle::list_action_resend_invitation.html.twig',
+                    ],
+                ),
+
             )
         );
     }

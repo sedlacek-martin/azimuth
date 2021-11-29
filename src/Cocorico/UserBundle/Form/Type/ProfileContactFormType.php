@@ -34,7 +34,7 @@ class ProfileContactFormType extends AbstractType
      */
     public function __construct($timeUnit)
     {
-        $this->timeUnitIsDay = ($timeUnit % 1440 == 0) ? true : false;
+        $this->timeUnitIsDay = $timeUnit % 1440 == 0;
     }
 
     /**
@@ -47,26 +47,10 @@ class ProfileContactFormType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
-                    'label' => 'form.user.email'
+                    'label' => 'form.user.email',
+                    'disabled' => true,
                 )
             )
-//            ->add(
-//                'phonePrefix',
-//                TextType::class,
-//                array(
-//                    'label' => 'form.user.phone_prefix',
-//                    'required' => false,
-//                    'empty_data' => ''
-//                )
-//            )
-//            ->add(
-//                'phoneFull',
-//                TelType::class,
-//                array(
-//                    'label' => 'form.user.phone',
-//                    'required' => false
-//                )
-//            )
             ->add(
                 'plainPassword',
                 RepeatedType::class,
@@ -85,16 +69,6 @@ class ProfileContactFormType extends AbstractType
                     'required' => false
                 )
             );
-//            ->add(
-//                'addresses',
-//                CollectionType::class,
-//                array(
-//                    'entry_type' => UserAddressFormType::class,
-//                    /** @Ignore */
-//                    'label' => false,
-//                    'required' => false,
-//                )
-//            );
 
         if (!$this->timeUnitIsDay) {
             $builder

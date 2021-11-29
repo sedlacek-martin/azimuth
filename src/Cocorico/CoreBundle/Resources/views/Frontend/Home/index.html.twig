@@ -41,13 +41,17 @@
             <!-- infoarea -->
             <div class="infoarea container">
                 <div class="row">
+                    <!-- flashes -->
+                    <div class="col-lg-12">
+                        {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' %}
+                    </div>
                     <!-- info-box -->
                     <div class="col-xs-12 col-sm-6 col-md-4 info-box">
                         <img src="{{ asset('images/icon1.png') }}" alt="icon description" class="pull-left icon">
 
                         <div class="textbox">
                             <h2>
-                                <a href="#">{{ 'home.subinfo.title1'|trans|raw }}</a>
+                                {{ 'home.subinfo.title1'|trans|raw }}
                             </h2>
 
                             <p>
@@ -61,7 +65,7 @@
 
                         <div class="textbox">
                             <h2>
-                                <a href="#">{{ 'home.subinfo.title2'|trans|raw }}</a>
+                                {{ 'home.subinfo.title2'|trans|raw }}
                             </h2>
 
                             <p>
@@ -76,7 +80,7 @@
 
                         <div class="textbox">
                             <h2>
-                                <a href="#">{{ 'home.subinfo.title3'|trans|raw }}</a>
+                                {{ 'home.subinfo.title3'|trans|raw }}
                             </h2>
 
                             <p>
@@ -87,11 +91,17 @@
                 </div>
             </div>
 
-            {% include 'CocoricoCoreBundle:Frontend/Home:_high_rank.html.twig'  with {
-            'listings': listings
-            } only %}
 
-            {{ render(controller('CocoricoCoreBundle:Frontend/Home:rssFeeds')) }}
+            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                {% include 'CocoricoCoreBundle:Frontend/Home:_high_rank.html.twig'  with {
+                    'listings': listings
+                } only %}
+            {% elseif page is defined and page is not null %}
+                <div>
+                    {{ page.description | raw }}
+                </div>
+            {% endif %}
+
 
         {% endblock %}
 

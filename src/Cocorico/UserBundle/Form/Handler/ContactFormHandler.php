@@ -48,30 +48,6 @@ class ContactFormHandler
     }
 
     /**
-     * @param UserInterface $user
-     * @return User
-     */
-    public function init(UserInterface $user)
-    {
-        /** @var User $user */
-        if (!$user->getAddressesOfType(UserAddress::TYPE_BILLING)->count()) {
-            $address = new UserAddress();
-            $address->setType(UserAddress::TYPE_BILLING);
-            $address->setUser($user);
-            $user->addAddress($address);
-        }
-
-        if ($this->addressDelivery && !$user->getAddressesOfType(UserAddress::TYPE_DELIVERY)->count()) {
-            $address = new UserAddress();
-            $address->setType(UserAddress::TYPE_DELIVERY);
-            $address->setUser($user);
-            $user->addAddress($address);
-        }
-
-        return $user;
-    }
-
-    /**
      * @param Form $form
      * @return int equal to :
      * 1: Success

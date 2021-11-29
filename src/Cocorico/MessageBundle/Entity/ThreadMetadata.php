@@ -36,12 +36,14 @@ class ThreadMetadata extends BaseThreadMetadata
      *   targetEntity="Cocorico\MessageBundle\Entity\Thread",
      *   inversedBy="metadata"
      * )
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @var ThreadInterface
      */
     protected $thread;
 
     /**
      * @ORM\ManyToOne(targetEntity="Cocorico\UserBundle\Entity\User")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @var ParticipantInterface
      */
     protected $participant;

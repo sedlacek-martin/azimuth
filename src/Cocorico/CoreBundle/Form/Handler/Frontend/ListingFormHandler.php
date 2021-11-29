@@ -10,11 +10,12 @@
  */
 namespace Cocorico\CoreBundle\Form\Handler\Frontend;
 
-use Cocorico\CoreBundle\Entity\Booking;
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Model\BaseListing;
 use Cocorico\CoreBundle\Model\Manager\ListingManager;
+use Cocorico\CoreBundle\Utils\HtmlUtils;
 use Cocorico\UserBundle\Entity\User;
+use Symfony\Component\Form\Exception\RuntimeException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -75,8 +76,8 @@ class ListingFormHandler
      *
      * @param Form $form
      *
-     * @return Booking|string
-     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     * @return bool
+     * @throws RuntimeException
      */
     public function process($form)
     {
@@ -92,7 +93,7 @@ class ListingFormHandler
     /**
      * @param Form $form
      * @return bool
-     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     * @throws RuntimeException
      */
     private function onSuccess(Form $form)
     {
@@ -101,6 +102,10 @@ class ListingFormHandler
 
         if ($listing->getImages()->isEmpty()) {
             $this->listingManager->addDefaultImage($listing);
+        }
+
+        foreach ($listing->getTranslations() as $translation) {
+            $translation->setDescription(HtmlUtils::purifyBasicHtml($translation->getDescription()));
         }
 
         $this->listingManager->save($listing);

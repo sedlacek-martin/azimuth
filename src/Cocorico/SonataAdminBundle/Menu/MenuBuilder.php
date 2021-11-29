@@ -54,6 +54,10 @@ class MenuBuilder implements ContainerAwareInterface
             $activation->addChild('Verified domains', ['route' => 'verified-domain_list']);
         }
         $menu->addChild('All Users', ['route' => 'admin_cocorico_user_user_list']);
+        $menu->addChild('Contact messages', [
+            'route' => 'admin_cocorico_contact_contact_list',
+            'attributes' => ['class' => 'test-alert'],
+        ]);
 
         return $menu;
     }

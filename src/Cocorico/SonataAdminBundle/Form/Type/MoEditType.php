@@ -41,24 +41,12 @@ class MoEditType extends AbstractType
             ->add('description', CKEditorType::class, [
                 'label' => 'MO full description',
                 'required' => false,
-                'config' => [
-                    'filebrowser_image_browse_url' =>[
-                        'route' => 'elfinder',
-                        'route_parameters' =>['instance' => 'ckeditor'],
-                    ],
-                ],
             ])
             ->add('countryDescription', CKEditorType::class, [
                 'mapped' => false,
                 'label' => 'Country description',
                 'required' => false,
                 'data' => $options['country_description'],
-                'config' => [
-                    'filebrowser_image_browse_url' => [
-                        'route' => 'elfinder',
-                        'route_parameters' =>['instance' => 'ckeditor'],
-                    ],
-                ],
             ]);
     }
 

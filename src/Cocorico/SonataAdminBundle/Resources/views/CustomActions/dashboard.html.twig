@@ -35,6 +35,19 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>{{ 'activator_overview.new_contacts'|trans }}</td>
+                                        <td class="text-bold" style="width: 10%;">
+                                            {{ activatorContactCount }}
+                                        </td>
+                                        <td class="text-right" style="width: 10%;">
+                                            <a href="{{ path('admin_cocorico_contact_contact_list') }}" class="btn btn-sm btn-default edit_link"
+                                               title="{{ 'dashboard_action_contact'|trans({}, 'SonataAdminBundle') }}">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                                {{ 'dashboard_action_contact'|trans({}, 'SonataAdminBundle') }}
+                                            </a>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -74,6 +87,19 @@
                                            title="{{ 'dashboard_action_new_messages'|trans({}, 'SonataAdminBundle') }}">
                                             <i class="glyphicon glyphicon-eye-open"> </i>
                                             {{ 'dashboard_action_new_messages'|trans({}, 'SonataAdminBundle') }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'facilitator_overview.new_contacts'|trans }}</td>
+                                    <td class="text-bold" style="width: 10%;">
+                                        {{ facilitatorContactCount }}
+                                    </td>
+                                    <td class="text-right" style="width: 10%;">
+                                        <a href="{{ path('admin_cocorico_contact_contact_list') }}" class="btn btn-sm btn-default edit_link"
+                                           title="{{ 'dashboard_action_contact'|trans({}, 'SonataAdminBundle') }}">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                            {{ 'dashboard_action_contact'|trans({}, 'SonataAdminBundle') }}
                                         </a>
                                     </td>
                                 </tr>

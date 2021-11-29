@@ -1,0 +1,76 @@
+{% trans_default_domain 'cocorico_message' %}
+
+<div id="delete-form-container">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong class="title">
+            {{ 'profile.delete.modal.title'|trans }}
+
+        </strong> <br/>
+    </div>
+
+    <div class="modal-body">
+        {% if app.request.isXmlHttpRequest %}
+            {% include 'CocoricoCoreBundle:Frontend/Common:_flash.html.twig' only %}
+        {% endif %}
+
+            <p>{{ 'profile.delete.modal.text'|trans }}</p>
+            {{ form_start(form) }}
+
+            <div class="field-row">
+                {{ form_errors(form.password) }}
+                <span class="label">{{ form_label(form.password) }}</span>
+
+                <div class="field-holder">
+                    {{ form_widget(form.password, {'attr': {'class': "form-control"}}) }}
+                </div>
+            </div>
+
+            <div class="hidden">
+                {{ form_rest(form) }}
+            </div>
+
+    </div>
+    <div class="modal-footer">
+        <a id="delete-return" href="#" class="btn btn-default">
+            {{ 'profile.delete.modal.action.return'|trans }}
+        </a>
+        <a id="delete-submit" href="#" class="btn btn-danger">
+            {{ 'profile.delete.modal.action.delete'|trans }}
+        </a>
+    </div>
+
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({});
+
+            //Submit form
+            let $formContainer = $("#delete-form-container");
+            let $form = $formContainer.find('form');
+            $formContainer.submitAjaxForm(function () {
+                jcf.replaceAll("#delete-form-container");
+            });
+
+            $("#delete-submit").on("click", function (e) {
+                $(this).parent('.modal-footer').html('<img src="{{ asset('images/loading.gif') }}" />');
+                e.preventDefault();
+                $form.submit();
+                return false;
+            });
+
+            $("#delete-return").on("click", function (e) {
+                e.preventDefault();
+                $("#modal").modal('hide');
+                return false;
+            });
+
+            {% if deleteSuccess %}
+                window.location.href = "{{ path('cocorico_user_delete_success') }}";
+            {% endif %}
+        });
+    </script>
+</div>
+

@@ -5,36 +5,34 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
-#        ROLE_COUNTRY_ADMIN:
-#            - ROLE_ADMIN
-#            - ROLE_SONATA_ADMIN_PAGE_ALL
-#            - ROLE_SONATA_ADMIN_LISTING_ALL
-#            - ROLE_SONATA_ADMIN_BOOKING_ALL
-#            - ROLE_SONATA_USER_ADMIN_USER_ALL
-#            - ROLE_SONATA_ADMIN_REGISTER_ALL
-#            - ROLE_SONATA_ADMIN_THREAD_ALL
-#            - ROLE_SONATA_ADMIN_MESSAGE_ALL
-#            - ROLE_SONATA_ADMIN_REVIEW_ALL
+        ROLE_ADMIN:
+            - ROLE_USER
+            - ROLE_SONATA_ADMIN
+            - ROLE_SONATA_USER_ADMIN_USER_LIST
+            - ROLE_SONATA_ADMIN_CONTACT_LIST
 
-        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
         ROLE_FACILITATOR:
             - ROLE_ADMIN
-            - ROLE_SONATA_USER_ADMIN_USER_LIST
             - ROLE_SONATA_ADMIN_LISTING_LIST
             - ROLE_SONATA_ADMIN_LISTING_VALIDATION_LIST
             - ROLE_SONATA_ADMIN_THREAD_LIST
 
         ROLE_ACTIVATOR:
             - ROLE_ADMIN
-            - ROLE_SONATA_USER_ADMIN_USER_LIST
             - ROLE_SONATA_ADMIN_INVITATIONS_LIST
             - ROLE_SONATA_ADMIN_INVITATIONS_CREATE
             - ROLE_SONATA_ADMIN_ACTIVATION_LIST
             - ROLE_SONATA_ADMIN_VERIFIED-DOMAIN_LIST
             - ROLE_SONATA_ADMIN_VERIFIED-DOMAIN_CREATE
+
+        ROLE_SUPER_ADMIN:
+            - ROLE_ADMIN
+            - ROLE_FACILITATOR
+            - ROLE_ACTIVATOR
+            - ROLE_ALLOWED_TO_SWITCH
             -
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_FACILITATOR, ROLE_ACTIVATOR, ROLE_ALLOWED_TO_SWITCH]
-        ROLE_DEVELOPER:   [ROLE_SUPER_ADMIN]
+        ROLE_DEVELOPER:
+            - ROLE_SUPER_ADMIN
 
     providers:
         fos_userbundle:
@@ -73,17 +71,6 @@ security:
                 default_target_path: /
                 target_path_parameter: redirect_to
                 success_handler: cocorico.authentication_success_listener
-            oauth:
-                resource_owners:
-                    facebook:           "/%locale%/oauth/fb-login"
-                login_path:        cocorico_user_login
-                failure_path:      cocorico_user_login
-                check_path:        cocorico_user_login_check
-                use_referer: true
-                always_use_default_target_path: false
-                default_target_path: /
-                oauth_user_provider:
-                    service: cocorico_user.oauth.user.provider.entity
 
             logout:
                 path: cocorico_user_logout
@@ -120,6 +107,8 @@ security:
         - { path: ^/(%cocorico.locales_string%)/expired, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/(%cocorico.locales_string%)/listing/show, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/(%cocorico.locales_string%)/listing, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/(%cocorico.locales_string%)/user/delete/success, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
         #Oauth Logins
         - { path: ^/(%cocorico.locales_string%)/oauth/fb-login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #Dashboard

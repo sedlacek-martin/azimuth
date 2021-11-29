@@ -57,12 +57,6 @@ class CountryInformationAdmin extends AbstractAdmin
         $formMapper
             ->add('country', 'country')
             ->add('description', CKEditorType::class, [
-                'config' => [
-                    'filebrowser_image_browse_url' =>[
-                        'route' => 'elfinder',
-                        'route_parameters' =>['instance' => 'ckeditor'],
-                    ],
-                ],
             ]);
     }
 
