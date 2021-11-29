@@ -34,6 +34,22 @@
         <source>new_message.label:</source>
         <target>New message</target>
       </trans-unit>
+      <trans-unit id="3c68cab0b08b812d687837003082fefee200faff" resname="profile.delete.modal.action.delete">
+        <source>profile.delete.modal.action.delete</source>
+        <target state="new">profile.delete.modal.action.delete</target>
+      </trans-unit>
+      <trans-unit id="b667c0ad6d42d1a1229070ede7c7baf7efa85150" resname="profile.delete.modal.action.return">
+        <source>profile.delete.modal.action.return</source>
+        <target state="new">profile.delete.modal.action.return</target>
+      </trans-unit>
+      <trans-unit id="c022507c201102231d59f671fed1fb6297bfa364" resname="profile.delete.modal.text">
+        <source>profile.delete.modal.text</source>
+        <target state="new">profile.delete.modal.text</target>
+      </trans-unit>
+      <trans-unit id="de43f41e1a18557821e643378421cae2172b8f15" resname="profile.delete.modal.title">
+        <source>profile.delete.modal.title</source>
+        <target state="new">profile.delete.modal.title</target>
+      </trans-unit>
       <trans-unit id="cdf7e925f5746741c316f5fbcf39ad0dfca90775" resname="results">
         <source>results</source>
         <target>{0} No result|{1} 1 result|]1,Inf] %count% results</target>
