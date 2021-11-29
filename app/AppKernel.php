@@ -41,7 +41,6 @@ class AppKernel extends Kernel
             new FOS\MessageBundle\FOSMessageBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
@@ -56,7 +55,6 @@ class AppKernel extends Kernel
             new Cocorico\SonataUserBundle\CocoricoSonataUserBundle(),
             new Cocorico\MessageBundle\CocoricoMessageBundle(),
             new Cocorico\ContactBundle\CocoricoContactBundle(),
-            new Cocorico\ReviewBundle\CocoricoReviewBundle(),
             new Cocorico\ConfigBundle\CocoricoConfigBundle(),
             new Cocorico\TimeBundle\CocoricoTimeBundle(),
 

@@ -52,13 +52,13 @@
     "doctrine/doctrine-migrations-bundle": "^1.3",
     "doctrine/orm": "^2.5",
     "egulias/email-validator": "^2.1",
+    "ezyang/htmlpurifier": "^4.13",
     "friendsofsymfony/ckeditor-bundle": "^2.1",
     "friendsofsymfony/message-bundle": "^1.3",
     "friendsofsymfony/user-bundle": "^2.0",
     "geocoder-php/google-maps-provider": "^4.1",
     "guzzlehttp/guzzle": "^6.3",
     "helios-ag/fm-elfinder-bundle": "^6.2",
-    "hwi/oauth-bundle": "^0.5",
     "incenteev/composer-parameter-handler": "^2.1",
     "jms/di-extra-bundle": "^1.9",
     "jms/i18n-routing-bundle": "^2.0",
@@ -108,7 +108,6 @@
   },
   "scripts": {
     "symfony-scripts": [
-      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
