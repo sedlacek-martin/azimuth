@@ -70,15 +70,6 @@ Copy and paste web/.htaccess.dev.dist and rename it to web/.htaccess. (It's conf
     
     #Windows
     .\bin\init-db.bat --env=dev
-        
-### MongoDB initialisation:
-
-    #Linux
-    chmod 744 bin/init-mongodb
-    ./bin/init-mongodb php --env=dev
-    
-    #Windows
-    .\bin\init-mongodb.bat --env=dev
     
 ## Check your System Configuration
 
