@@ -23,7 +23,7 @@ class UserAdminController extends BaseController
      * Reset user fees as asker and offerer
      *
      * @param ProxyQueryInterface $selectedModelQuery
-     * @param Request             $request
+     * @param Request|null $request
      *
      * @return RedirectResponse
      */

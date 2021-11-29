@@ -50,11 +50,18 @@ class AdminNotificationCommand extends ContainerAwareCommand
         $now = new \DateTime();
         $yesterday = (new \DateTime())->modify("-1 day");
 
-        $data = $userRepository->getWaitingActivationCountByMo($yesterday, $now);
-        $activationsCounts = [];
+        $activationData = $userRepository->getWaitingActivationCountByMo($yesterday, $now);
+        $reconfirmData = $userRepository->getReconfirmCountByMo($yesterday, $now);
 
-        foreach ($data as $value) {
+        $activationsCounts = [];
+        $reconfirmCounts = [];
+
+        foreach ($activationData as $value) {
             $activationsCounts[$value['mo_id']] = $value['cnt'];
+        }
+
+        foreach ($reconfirmData as $value) {
+            $reconfirmCounts[$value['mo_id']] = $value['cnt'];
         }
 
         $activators = $userRepository->findByRoles('ROLE_ACTIVATOR');
@@ -66,12 +73,13 @@ class AdminNotificationCommand extends ContainerAwareCommand
 
             $userMo = $activator->getMemberOrganization()->getId();
             $activationCount = $activationsCounts[$userMo] ?? 0;
+            $reconfirmCount = $reconfirmCounts[$userMo] ?? 0;
 
-            if ($activationCount === 0) {
+            if ($activationCount === 0 && $reconfirmCount === 0) {
                 continue;
             }
 
-            $this->mailer->sendActivatorNotification($activator, $activationCount);
+            $this->mailer->sendActivatorNotification($activator, $activationCount, $reconfirmCount);
         }
     }
 
@@ -93,11 +101,17 @@ class AdminNotificationCommand extends ContainerAwareCommand
 
         $dataPosts = $listingRepository->getWaitingForValidationCountByMo($yesterday, $now);
         $dataMessages = $messageRepository->getWaitingForValidationCountByMo($yesterday, $now);
+        $dataNewPosts = $listingRepository->getNewCountByMo($yesterday, $now);
         $postValidationsCounts = [];
+        $postNewCounts = [];
         $messageValidationsCounts = [];
 
         foreach ($dataPosts as $value) {
             $postValidationsCounts[$value['mo_id']] = $value['cnt'];
+        }
+
+        foreach ($dataNewPosts as $value) {
+            $postNewCounts[$value['mo_id']] = $value['cnt'];
         }
 
         foreach ($dataMessages as $value) {
@@ -114,12 +128,13 @@ class AdminNotificationCommand extends ContainerAwareCommand
             $userMo = $facilitator->getMemberOrganization()->getId();
             $postValidationCount = $postValidationsCounts[$userMo] ?? 0;
             $messageValidationCount = $messageValidationsCounts[$userMo] ?? 0;
+            $postNewCount = $postNewCounts[$userMo] ?? 0;
 
-            if ($postValidationCount === 0 && $messageValidationCount === 0) {
+            if ($postValidationCount === 0 && $messageValidationCount === 0 && $postNewCount === 0) {
                 continue;
             }
 
-            $this->mailer->sendFacilitatorNotification($facilitator, $postValidationCount, $messageValidationCount);
+            $this->mailer->sendFacilitatorNotification($facilitator, $postValidationCount, $messageValidationCount, $postNewCount);
         }
     }
 }

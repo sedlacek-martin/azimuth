@@ -55,36 +55,74 @@
                             </blockquote>
                         {% endif %}
                     </header>
-                    <h3 class="mb-2">{{ 'user.profile.my-listing'|trans }}:</h3>
+                    <h3 class="mb-4">{{ 'user.profile.my_listing'|trans }}:</h3>
                     <div class="listing-holder">
                         {% if user_listings|length %}
                             {% for listing in user_listings %}
-                                {% set listing_translation = listing.translations[app.request.locale] %}
                                 <!-- listing-post -->
+                                {% set listing_translation = listing.translations[app.request.locale] %}
+                                {% set listing_location = listing.location %}
+                                {% set listing_user = listing.user %}
+                                {% set listing_image = listing.images|length ? listing.images[0].name : ListingImageConstants.IMAGE_DEFAULT %}
                                 <article class="listing-post col-sm-6 col-xs-12">
-                                    <a href="{{ path('cocorico_listing_show', {'slug' : listing_translation.slug}) }}"
-                                       class="listing-box">
-                                        <div class="frame">
-                                            <div class="post-info">
-                                                <div class="img-holder">
-                                                    <img src="{{ (ListingImageConstants.IMAGE_FOLDER ~  listing.images[0].name) | imagine_filter('listing_medium') }}"
-                                                         alt="listing image"/>
-                                                </div>
-                                                <div class="box">
-                                                    <div class="box-holder">
-                                                        <div class="foot">
-                                                            <strong class="title">
-                                                                {{ listing.category.name }}
-                                                            </strong>
-                                                            <div class="textbox">
-                                                                <h2>{{ listing_translation.title }}</h2>
+                                    <div class="listing-content">
+                                        <a href="{{ path('cocorico_listing_show', { 'slug': listing_translation.slug }) }}"
+                                           class="listing-box">
+                                            <div class="frame">
+                                                <div class="post-info">
+                                                    <div class="img-holder">
+                                                        <img src="{{ (ListingImageConstants.IMAGE_FOLDER ~  listing_image) | imagine_filter('listing_xlarge') }}"
+                                                             alt="{{ listing_translation.title }}"/>
+                                                    </div>
+
+                                                    <div class="box">
+                                                        <div class="box-holder">
+                                                            <div class="foot">
+                                                                <div class="area">
+                                                                    <!-- rating -->
+                                                                    {% if  listing.certified %}
+                                                                        <span class="certified">
+                                                                    <i class="icon-ok"></i>
+                                                                    {{ 'listing.search.result.certified'|trans({}, 'cocorico_listing') }}
+                                                                </span>
+                                                                    {% endif %}
+                                                                </div>
+                                                                <strong class="title list-comma">
+                                                                    <span>{{ listing.category.translations[app.request.locale].name }}</span>
+                                                                </strong>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="post-content">
+                                                    {% set image_user = listing_user.images|length ? listing_user.images[0].name : UserImageConstants.IMAGE_DEFAULT %}
+                                                    <div class="alignleft">
+                                                        <img src="{{ (UserImageConstants.IMAGE_FOLDER ~ image_user) | imagine_filter('user_xsmall') }}"
+                                                             alt="{{ listing_user.firstName }}"/>
+                                                    </div>
+                                                    <div class="textbox">
+                                                        <h2 title="{{ listing_translation.title }}">{{ listing_translation.title }}</h2>
+                                                        <p>
+                                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                                            {{ listing_location.city }}|{{ listing_location.country|country_name(app.request.locale)}}
+                                                        </p>
+                                                        {% if listing.validTo is not null %}
+                                                            <p class="text-muted">
+                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                                {% if listing.validFrom is not null %}
+                                                                    {{ listing.validFrom|date('d.m.Y') }}
+                                                                {% endif %}
+                                                                {% if listing.validTo is not null %}
+                                                                    - {{ listing.validTo|date('d.m.Y') }}
+                                                                {% endif %}
+                                                            </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </article>
                             {% endfor %}
                         {% endif %}

@@ -13,10 +13,13 @@ namespace Cocorico\ContactBundle\Controller\Frontend;
 
 use Cocorico\ContactBundle\Entity\Contact;
 use Cocorico\ContactBundle\Form\Type\Frontend\ContactNewType;
+use Cocorico\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Booking controller.
@@ -32,14 +35,28 @@ class ContactController extends Controller
      *
      * @Method({"GET", "POST"})
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function newAction()
     {
         $contact = new Contact();
-        $form = $this->createCreateForm($contact);
+        /** @var User $user */
+        $user = $this->getUser();
 
-        $submitted = $this->get('cocorico_contact.form.handler.contact')->process($form);
+        if ($user !== null) {
+            $contact
+                ->setEmail($user->getEmail())
+                ->setUser($user)
+                ->setFirstName($user->getFirstName())
+                ->setLastName($user->getLastName());
+        }
+
+        $form = $this->createCreateForm($contact,  [
+            'public' => !$user instanceof User,
+            'user' => $user,
+        ]);
+
+        $submitted = $this->get('cocorico_contact.form.handler.contact')->process($form, $user);
         if ($submitted !== false) {
             $this->get('session')->getFlashBag()->add(
                 'success',
@@ -62,18 +79,18 @@ class ContactController extends Controller
      *
      * @param Contact $contact The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
-    private function createCreateForm(Contact $contact)
+    private function createCreateForm(Contact $contact, array $options = [])
     {
         $form = $this->get('form.factory')->createNamed(
             '',
             ContactNewType::class,
             $contact,
-            array(
+            array_merge([
                 'method' => 'POST',
                 'action' => $this->generateUrl('cocorico_contact_new')
-            )
+            ], $options)
         );
 
         return $form;

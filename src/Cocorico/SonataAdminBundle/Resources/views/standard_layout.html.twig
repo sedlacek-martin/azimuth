@@ -279,7 +279,7 @@ file that was distributed with this source code.
                                     <i class="glyphicon glyphicon-chevron-down pull-right" style="padding-right: 10px;"></i>
                                 </a>
                                 <div id="super-admin-menu" class="{% if not app.session.get('opened-super-admin-menu') %}collapse collapsed{% else %}collapse in{% endif %}">
-                                    {{ knp_menu_render('sonata_admin_sidebar', {template: sonata_admin.adminPool.getTemplate('knp_menu_template')}) }}
+                                    {{ knp_menu_render('sonata_admin_sidebar', {template: sonata_admin.adminPool.getTemplate('knp_menu_template')})|raw }}
                                     <ul class="sidebar-menu">
                                         <li>
                                             <a href="{{ path('cocorico_admin__super_admin_actions') }}">

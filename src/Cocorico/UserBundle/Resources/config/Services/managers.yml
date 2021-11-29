@@ -8,11 +8,6 @@ services:
             - "@security.encoder_factory"
             - "%fos_user.firewall_name%"
 
-    cocorico_user.oauth.user.provider.entity:
-        class: Cocorico\UserBundle\Security\OAuthUserProvider
-        arguments:
-            - "@cocorico_user.user_manager"
-
     cocorico_user.user_manager:
         class: Cocorico\UserBundle\Model\UserManager
         arguments:

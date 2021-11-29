@@ -51,12 +51,6 @@ class AnnouncementType extends AbstractType
             ])
             ->add('content', CKEditorType::class, [
                 'required' => true,
-                'config' => [
-                    'filebrowser_image_browse_url' =>[
-                        'route' => 'elfinder',
-                        'route_parameters' =>['instance' => 'ckeditor'],
-                    ],
-                ],
             ])
             ->add('showAt', DateTimeType::class, [
                 'data' => new \DateTime(),

@@ -18,7 +18,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Exception\RuntimeException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Listing controller.
@@ -38,9 +42,9 @@ class ListingController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Symfony\Component\Form\Exception\RuntimeException
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return RedirectResponse|Response
+     * @throws RuntimeException
+     * @throws AccessDeniedException
      */
     public function newAction(Request $request)
     {
@@ -108,7 +112,7 @@ class ListingController extends Controller
      * @param Request $request
      * @param Listing $listing
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function showAction(Request $request, Listing $listing = null)
     {
@@ -119,7 +123,6 @@ class ListingController extends Controller
         if ($redirect = $this->handleSlugChange($listing, $request->get('slug'))) {
             return $redirect;
         }
-        $reviews = $this->get('cocorico.review.manager')->getListingReviews($listing);
 
         //Breadcrumbs
         $breadcrumbs = $this->get('cocorico.breadcrumbs_manager');
@@ -129,7 +132,6 @@ class ListingController extends Controller
             'CocoricoCoreBundle:Frontend/Listing:show.html.twig',
             array(
                 'listing' => $listing,
-                'reviews' => $reviews,
             )
         );
     }
@@ -139,7 +141,7 @@ class ListingController extends Controller
      *
      * @param Listing $listing
      * @param         $slug
-     * @return bool|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return bool|RedirectResponse
      */
     private function handleSlugChange(Listing $listing, $slug)
     {

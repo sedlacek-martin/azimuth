@@ -12,6 +12,7 @@
 namespace Cocorico\UserBundle\Admin;
 
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\UserBundle\Entity\User;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
@@ -21,15 +22,22 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserAdmin extends BaseUserAdmin
 {
     public const RELEVANT_ROLES = [
-        'ROLE_FACILITATOR',
-        'ROLE_ACTIVATOR',
-        'ROLE_USER',
-        'ROLE_SUPER_ADMIN',
+        'ROLE_FACILITATOR' => 'Facilitator',
+        'ROLE_ACTIVATOR' => 'Activator',
+        'ROLE_USER' => 'User',
+        'ROLE_SUPER_ADMIN' => 'Super admin',
+        'DEVELOPER' => 'Developer',
+    ];
+
+    public const REGISTRATION_TYPES = [
+        '1' => 'registration_type_verified_domain',
+        '0' => 'registration_type_normal',
     ];
 
     protected $baseRoutePattern = 'user';
@@ -64,7 +72,7 @@ class UserAdmin extends BaseUserAdmin
 
         if (!$this->authIsGranted('ROLE_DEVELOPER')) {
             $rolesChoices = array_filter($rolesChoices, function ($val) {
-                if (in_array($val, self::RELEVANT_ROLES)) {
+                if (in_array($val, array_keys(self::RELEVANT_ROLES))) {
                     return true;
                 }
 
@@ -205,7 +213,7 @@ class UserAdmin extends BaseUserAdmin
                 'birthday',
                 'birthday',
                 array(
-                    'format' => 'dd - MMMM - yyyy',
+                    'format' => 'dd MMMM yyyy',
                     'years' => range(date('Y') - 18, date('Y') - 80),
                     'disabled' => !$isSuperAdmin,
                 )
@@ -226,8 +234,9 @@ class UserAdmin extends BaseUserAdmin
                 'expiryDate',
                 null,
                 [
+                    'format' => 'dd MMMM yyyy',
                     'years' => range(date('Y') - 1, date('Y') + 50),
-                    ]
+                ]
             )
             ->add(
                 'createdAt',
@@ -259,7 +268,16 @@ class UserAdmin extends BaseUserAdmin
             ])
             ->add('enabled', null, [
                 'label' => 'Enabled (email confirmed)'
-            ])
+            ]);
+
+        if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
+            $listMapper
+                ->add('roles', null, [
+                    'template' => 'CocoricoSonataAdminBundle::list_field_roles.html.twig',
+                ]);
+        }
+
+        $listMapper
             ->add('createdAt', null, []);
 
 
@@ -303,11 +321,32 @@ class UserAdmin extends BaseUserAdmin
                     'operator_type' => 'hidden',
                     'operator_options' => array(),
                 )
-            )
+            );
+
+        if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
+            $filterMapper->add(
+                'roles',
+                'doctrine_orm_string',
+                [],
+                ChoiceType::class,
+                ['choices' => array_flip(self::RELEVANT_ROLES)]
+            );
+        }
+
+        $filterMapper
             ->add('email')
             ->add('trusted')
             ->add('reconfirmRequested')
             ->add('enabled')
+            ->add('verifiedDomainRegistration',
+                'doctrine_orm_string',
+                [],
+                ChoiceType::class,
+                [
+                    'choices' => array_flip(self::REGISTRATION_TYPES),
+                    'translation_domain' => 'SonataAdminBundle',
+                    'label' => 'Registration type',
+                ])
             ->add('memberOrganization');
     }
 
@@ -360,14 +399,6 @@ class UserAdmin extends BaseUserAdmin
             'Created At' => 'createdAt',
         );
 
-        if (array_key_exists('CocoricoMangoPayBundle', $this->bundles)) {
-            $mangopayFields = array(
-                'Mangopay Id' => 'mangopayId',
-            );
-
-            $fields = array_merge($fields, $mangopayFields);
-        }
-
         return $fields;
     }
 
@@ -380,6 +411,14 @@ class UserAdmin extends BaseUserAdmin
         $dataSourceIt->setDateTimeFormat('d M Y');
 
         return $dataSourceIt;
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        unset($actions['delete']);
+
+        return $actions;
     }
 
     protected function configureRoutes(RouteCollection $collection)

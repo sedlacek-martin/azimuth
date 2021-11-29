@@ -60,4 +60,9 @@ class UserVoter extends BaseVoter
 
         return $sameMo;
     }
+
+    public function voteOnExport(User $user, TokenInterface $token): bool
+    {
+        return $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
+    }
 }

@@ -18,12 +18,15 @@ use Cocorico\CoreBundle\Event\ListingFormBuilderEvent;
 use Cocorico\CoreBundle\Event\ListingFormEvents;
 use Cocorico\CoreBundle\Form\Type\ImageType;
 use Cocorico\CoreBundle\Form\Type\PriceType;
+use Cocorico\TimeBundle\Form\Type\DateRangeType;
 use Cocorico\UserBundle\Entity\User;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -91,9 +94,12 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
             $descriptions[$locale] = array(
                 'label' => 'listing.form.description',
                 'constraints' => array(new NotBlank()),
-                'attr' => array(
-                    'placeholder' => 'auto',
-                ),
+//                'attr' => array(
+//                    'placeholder' => 'auto',
+//                ),
+                'config' => [
+                    'toolbar' => 'basic',
+                ],
             );
         }
 
@@ -109,7 +115,7 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
                             'locale_options' => $titles,
                         ),
                         'description' => array(
-                            'field_type' => 'textarea',
+                            'field_type' => CKEditorType::class,
                             'locale_options' => $descriptions,
                         ),
                         'rules' => array(
@@ -123,13 +129,25 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
                     'label' => false,
                 )
             )
-//            ->add(
-//                'price',
-//                PriceType::class,
-//                array(
-//                    'label' => 'listing.form.price',
-//                )
-//            )
+
+            ->add(
+                'dateRange',
+                DateRangeType::class,
+                array(
+                    'start_options' => array(
+                        'label' => 'listing.form.valid_from.label',
+                    ),
+                    'end_options' => array(
+                        'label' => 'listing.form.valid_to.label',
+                    ),
+                    'allow_single_day' => true,
+                    'end_day_included' => true,
+                    'block_name' => 'date_range',
+                    'required' => false,
+                    /** @Ignore */
+                    'label' => 'listing.form.valid',
+                )
+            )
             ->add(
                 'image',
                 ImageType::class

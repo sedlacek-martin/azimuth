@@ -1,7 +1,6 @@
 spuštení containeru
 -----
-UID=${UID} docker-compose up
-docker exec -it --user cocorico docker_cocorico_1 sh
+
 
 Nahrání nové verze docker image do azure
 ------

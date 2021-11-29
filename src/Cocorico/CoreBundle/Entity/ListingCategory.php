@@ -92,7 +92,7 @@ class ListingCategory extends BaseListingCategory
     /**
      * @ORM\Column(type="string", length=255, name="default_image_name", nullable=false)
      *
-     * @var string $defaultImageName;
+     * @var string|null $defaultImageName;
      */
     protected $defaultImageName;
 
@@ -275,9 +275,9 @@ class ListingCategory extends BaseListingCategory
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDefaultImageName(): string
+    public function getDefaultImageName(): ?string
     {
         return $this->defaultImageName;
     }

@@ -20,6 +20,7 @@ use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Cocorico\UserBundle\Repository\UserRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -84,7 +85,10 @@ class ListingAdmin extends BaseAdmin
                 'label' => 'Title'
             );
             $descriptions[$locale] = array(
-                'label' => 'Description'
+                'label' => 'Description',
+                'config' => [
+                    'toolbar' => 'basic',
+                ],
             );
             $rules[$locale] = array(
                 'label' => 'Rules'
@@ -140,7 +144,7 @@ class ListingAdmin extends BaseAdmin
                             'locale_options' => $titles,
                         ),
                         'description' => array(
-                            'field_type' => 'textarea',
+                            'field_type' => CKEditorType::class,
                             'locale_options' => $descriptions,
                         ),
                         'rules' => array(
@@ -400,7 +404,6 @@ class ListingAdmin extends BaseAdmin
             'Phone' => 'user.Phone',
             'Listing Title' => 'title',
             'Price' => 'priceDecimal',
-            'Average Rating' => 'averageRating',
             'Updated At' => 'updatedAt'
         );
     }

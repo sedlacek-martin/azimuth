@@ -56,27 +56,40 @@
                     <div class="content-holder">
                         <!-- listing-container -->
                         <div class="listing-container">
-                            <h1>
-                                {{ listing_translation.title }}
+                            <div class="listing-title">
+                                <h1>
+                                    {{ listing_translation.title }}
 
-                                {%- if app.user is not null and app.user is same as(listing_user) and is_granted("IS_AUTHENTICATED_FULLY") %}
-                                    <a class="btn btn-default"
-                                       href="{{ path('cocorico_dashboard_listing_edit_presentation', { 'id': listing.id }) }}">
-                                        {{ 'listing.edit.edit'|trans }}
-                                    </a>
-                                {% endif %}
-                                {% if listing.toValidate %}
-                                    <span class="label-bootstrap label-danger">{{ 'listing.to_validate.label'|trans }}</span>
-                                    {% if is_granted("ROLE_FACILITATOR") or is_granted("ROLE_SUPER_ADMIN") %}
-                                        <a href="{{ path('cocorico_admin__listing_validate', {'id': listing.id}) }}"
-                                           class="btn btn-sm btn-success"
-                                           title="{{ 'list_action_listing_validate'|trans({}, 'SonataAdminBundle') }}">
-                                            <i class="glyphicon glyphicon-ok"></i>
-                                            {{ 'list_action_listing_validate'|trans({}, 'SonataAdminBundle') }}
+                                    {%- if app.user is not null and app.user is same as(listing_user) and is_granted("IS_AUTHENTICATED_FULLY") %}
+                                        <a class="btn btn-default"
+                                           href="{{ path('cocorico_dashboard_listing_edit_presentation', { 'id': listing.id }) }}">
+                                            {{ 'listing.edit.edit'|trans }}
                                         </a>
                                     {% endif %}
+                                    {% if listing.toValidate %}
+                                        <span class="label-bootstrap label-danger">{{ 'listing.to_validate.label'|trans }}</span>
+                                        {% if is_granted("ROLE_FACILITATOR") or is_granted("ROLE_SUPER_ADMIN") %}
+                                            <a href="{{ path('cocorico_admin__listing_validate', {'id': listing.id}) }}"
+                                               class="btn btn-sm btn-success"
+                                               title="{{ 'list_action_listing_validate'|trans({}, 'SonataAdminBundle') }}">
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                                {{ 'list_action_listing_validate'|trans({}, 'SonataAdminBundle') }}
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
+                                </h1>
+                                {% if listing.validTo is not null %}
+                                    <p class="text-muted">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                        {% if listing.validFrom is not null %}
+                                            {{ listing.validFrom|date('d.m.Y') }}
+                                        {% endif %}
+                                        {% if listing.validTo is not null %}
+                                            - {{ listing.validTo|date('d.m.Y') }}
+                                        {% endif %}
+                                    </p>
                                 {% endif %}
-                            </h1>
+                            </div>
                             <!-- tabs -->
                             <div role="tabpanel">
                                 <!-- Nav tabs -->
@@ -199,7 +212,7 @@
                                 <div class="tab-content">
                                     <!-- description -->
                                     <div role="tabpanel" class="tab-pane active" id="description">
-                                        <p>{{ listing_description|nl2br }}</p>
+                                        <p>{{ listing_description|raw }}</p>
                                     </div>
                                     <!-- conditions -->
                                     <div role="tabpanel" class="tab-pane" id="conditions">
@@ -366,6 +379,5 @@
     'listing_translation': listing_translation,
     'listing_user': listing_user,
     'listing_location': listing_location,
-    'reviews': reviews
     } only %}
 {% endblock %}

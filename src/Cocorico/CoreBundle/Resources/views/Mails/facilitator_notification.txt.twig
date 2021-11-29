@@ -10,7 +10,8 @@
     {{ 'facilitator_notification.email.message'|trans({
         '%firstname%': user.firstName,
         '%post_validations_count%': post_validations,
-        '%message_validations_count%': message_validations
+        '%message_validations_count%': message_validations,
+        '%post_new_count%': post_new,
     }, 'cocorico_mail', user_locale) }}
 {% endblock %}
 

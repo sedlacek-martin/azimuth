@@ -44,6 +44,7 @@ class Message extends BaseMessage
      * @ORM\ManyToOne(
      *   targetEntity="Cocorico\UserBundle\Entity\User",
      *   inversedBy="messages")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @var ParticipantInterface
      */
     protected $sender;

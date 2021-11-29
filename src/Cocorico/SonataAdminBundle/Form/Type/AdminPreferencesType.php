@@ -49,7 +49,4 @@ class AdminPreferencesType extends AbstractType
     {
         return 'admin_preferences';
     }
-
-
-
 }

@@ -61,7 +61,7 @@ class ListingLocationType extends AbstractType
                 array(
                     'label' => 'listing.form.location.route',
                     'translation_domain' => 'cocorico_listing',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -70,7 +70,7 @@ class ListingLocationType extends AbstractType
                 array(
                     'label' => 'listing.form.location.street_number',
                     'translation_domain' => 'cocorico_listing',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             //This field contains geocoding information in JSON format.

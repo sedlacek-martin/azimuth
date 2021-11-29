@@ -13,6 +13,7 @@ namespace Cocorico\ContactBundle\Form\Handler\Frontend;
 use Cocorico\ContactBundle\Entity\Contact;
 use Cocorico\ContactBundle\Mailer\TwigSwiftMailer;
 use Cocorico\ContactBundle\Model\Manager\ContactManager;
+use Cocorico\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -44,12 +45,12 @@ class ContactFormHandler
      *
      * @return Contact|boolean
      */
-    public function process(Form $form)
+    public function process(Form $form, ?User $user)
     {
         $form->handleRequest($this->request);
 
         if ($form->isSubmitted() && $this->request->isMethod('POST') && $form->isValid()) {
-            return $this->onSuccess($form);
+            return $this->onSuccess($form, $user);
         }
 
         return false;
@@ -57,14 +58,30 @@ class ContactFormHandler
 
     /**
      * @param Form $form
+     * @param User|null $user
      * @return Contact
      */
-    private function onSuccess(Form $form)
+    private function onSuccess(Form $form, ?User $user): Contact
     {
         /** @var Contact $contact */
         $contact = $form->getData();
-        $contact = $this->contactManager->save($contact);
-        $this->mailer->sendContactMessage($contact);
+
+        if ($user !== null) {
+            $contact
+                ->setEmail($user->getEmail())
+                ->setUser($user)
+                ->setFirstName($user->getFirstName())
+                ->setLastName($user->getLastName());
+        }
+
+        $category = $contact->getCategory();
+        if (!$category->isAllowSubject()) {
+            $contact->setSubject($category->getSubject());
+        }
+
+        $contact->setRecipientRoles($category->getRecipientRoles());
+
+        $this->contactManager->save($contact);
 
         return $contact;
     }

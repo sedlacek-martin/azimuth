@@ -672,7 +672,6 @@ li.time-fields {
 
 .form-contact form {
     width: 100%;
-    max-width: 600px;
 }
 
 .form-contact .field-row {
@@ -740,7 +739,6 @@ li.time-fields {
 }
 
 .form-contact button[type="submit"] {
-    float: right;
     display: block;
 
 }
@@ -977,7 +975,7 @@ li.time-fields {
     width: 77%;
     border-right: #e8e8e8 1px solid;
     padding-right: 15px;
-
+    min-height: 70px;
 }
 
 #search-container li.field-row {
@@ -2422,7 +2420,7 @@ ul.collection {
 
 .tips-section .caroufredsel_wrapper,
 .tips-section .caroufredsel_wrapper .slides {
-    height: 380px !important;
+    height: 390px !important;
 }
 
 .tips-section .listing-post .img-holder {

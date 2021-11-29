@@ -95,7 +95,6 @@ class FooterAdmin extends AbstractAdmin
                             'field_type' => 'url',
                             'locale_options' => $links,
                             'required' => true,
-
                         ),
                     ),
                     /** @Ignore */

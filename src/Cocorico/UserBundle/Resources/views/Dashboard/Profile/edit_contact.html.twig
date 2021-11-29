@@ -47,32 +47,6 @@
                                 </div>
                             </div>
 
-
-{#                            <div class="field-row hidden">#}
-{#                                <div class="field-holder">#}
-{#                                    <div class="code">#}
-{#                                        {{ form_widget(form.phonePrefix, {#}
-{#                                            'attr': {#}
-{#                                                'class': "form-control phone-prefix-input"#}
-{#                                            }#}
-{#                                        }) }}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-
-{#                            <div class="field-row">#}
-{#                                {{ form_errors(form.phoneFull) }}#}
-{#                                <span class="label">{{ form_label(form.phoneFull) }}</span>#}
-
-{#                                <div class="field-holder">#}
-{#                                    {{ form_widget(form.phoneFull, {#}
-{#                                        'attr': {#}
-{#                                            'class': "form-control phone-input"#}
-{#                                        }#}
-{#                                    }) }}#}
-{#                                </div>#}
-{#                            </div>#}
-
                             {% if not timeUnitIsDay %}
                                 <div class="field-row">
                                     {{ form_errors(form.timeZone) }}
@@ -120,73 +94,6 @@
                                 </div>
                             </div>
                         </div>
-
-{#                        <div class="column">#}
-{#                            {% for address in form.addresses %}#}
-{#                                <h4>{{ address.vars.data.getTypeText()|trans }}</h4>#}
-
-{#                                <div class="field-row alt">#}
-{#                                    {{ form_errors(address.address) }}#}
-{#                                    <span class="label">#}
-{#                                        {{ form_label(address.address) }}#}
-{#                                    </span>#}
-
-{#                                    <div class="field-holder">#}
-{#                                        {{ form_widget(address.address, {#}
-{#                                            'attr': {#}
-{#                                                'class': "form-control"#}
-{#                                            }#}
-{#                                        }) }}#}
-{#                                    </div>#}
-{#                                </div>#}
-
-{#                                <div class="field-row">#}
-{#                                    {{ form_errors(address.city) }}#}
-{#                                    <span class="label">#}
-{#                                        {{ form_label(address.city) }}#}
-{#                                    </span>#}
-
-{#                                    <div class="field-holder">#}
-{#                                        {{ form_widget(address.city, {#}
-{#                                            'attr': {#}
-{#                                                'class': "form-control"#}
-{#                                            }#}
-{#                                        }) }}#}
-{#                                    </div>#}
-{#                                </div>#}
-
-{#                                <div class="field-row">#}
-{#                                    {{ form_errors(address.zip) }}#}
-{#                                    <span class="label">#}
-{#                                        {{ form_label(address.zip) }}#}
-{#                                    </span>#}
-
-{#                                    <div class="field-holder">#}
-{#                                        {{ form_widget(address.zip, {#}
-{#                                            'attr': {#}
-{#                                                'class': "form-control"#}
-{#                                            }#}
-{#                                        }) }}#}
-{#                                    </div>#}
-{#                                </div>#}
-
-{#                                <div class="field-row">#}
-{#                                    {{ form_errors(address.country) }}#}
-{#                                    <span class="label">#}
-{#                                        {{ form_label(address.country) }}#}
-{#                                    </span>#}
-
-{#                                    <div class="field-holder">#}
-{#                                        {{ form_widget(address.country, {#}
-{#                                            'attr': {#}
-{#                                                'class': "form-control no-arrow"#}
-{#                                            }#}
-{#                                        }) }}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <br/>#}
-{#                            {% endfor %}#}
-{#                        </div>#}
                     </div>
                 </div>
                 <div class="btn-block text-center">

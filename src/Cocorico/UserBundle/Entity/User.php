@@ -12,18 +12,10 @@
 namespace Cocorico\UserBundle\Entity;
 
 use Cocorico\CoreBundle\Entity\AnnouncementToUser;
-use Cocorico\CoreBundle\Entity\Booking;
-use Cocorico\CoreBundle\Entity\BookingBankWire;
-use Cocorico\CoreBundle\Entity\BookingPayinRefund;
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Entity\MemberOrganization;
 use Cocorico\MessageBundle\Entity\Message;
 use Cocorico\MessageBundle\Entity\Thread;
-use Cocorico\ReviewBundle\Entity\Review;
-use Cocorico\UserBundle\Model\BookingDepositRefundAsAskerInterface;
-use Cocorico\UserBundle\Model\BookingDepositRefundAsOffererInterface;
-use Cocorico\UserBundle\Model\ListingAlertInterface;
-use Cocorico\UserBundle\Model\UserCardInterface;
 use Cocorico\UserBundle\Validator\Constraints as CocoricoUserAssert;
 use DateInterval;
 use DateTime;
@@ -37,8 +29,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-
-//use Sonata\UserBundle\Entity\BaseUser;
 
 /**
  * User.
@@ -169,22 +159,6 @@ class User extends BaseUser implements ParticipantInterface
     protected $scoutName;
 
     /**
-     * todo remove
-     * @var string
-     *
-     * @ORM\Column(name="phone_prefix", type="string", length=6, nullable=true)
-     */
-    protected $phonePrefix = '+420';
-
-    /**
-     * todo remove
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
-     */
-    protected $phone;
-
-    /**
      * @var DateTime
      *
      * @ORM\Column(name="birthday", type="date")
@@ -212,84 +186,11 @@ class User extends BaseUser implements ParticipantInterface
     protected $location;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="country_of_residence", type="string", length=3, nullable=true)
-     *
-     * @Assert\NotBlank(message="cocorico_user.country_of_residence.blank", groups={
-     *  "CocoricoRegistration", "CocoricoProfileBankAccount"
-     * })
-     */
-    protected $countryOfResidence = 'CZ';
-
-    /**
      * @var string|null
      *
      * @ORM\Column(name="gender", type="string", length=10, nullable=true)
      */
     protected $gender;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="profession", type="string", length=50, nullable=true)
-     */
-    protected $profession;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="iban", type="string", length=45, nullable=true)
-     *
-     * @Assert\Iban(message = "cocorico_user.iban.invalid", groups={
-     *  "CocoricoProfileBankAccount"
-     * }))
-     *
-     * @Assert\NotBlank(message="cocorico_user.iban.blank", groups={
-     *  "CocoricoProfileBankAccount"
-     * })
-     */
-    protected $iban;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="bic", type="string", length=25, nullable=true)
-     *
-     * @Assert\NotBlank(message="cocorico_user.bic.blank", groups={
-     *  "CocoricoProfileBankAccount"
-     * })
-     */
-    protected $bic;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="bank_owner_name", type="string", length=100, nullable=true)
-     *
-     * @Assert\NotBlank(message="cocorico_user.bank_owner_name.blank", groups={
-     *  "CocoricoProfileBankAccount"
-     * })
-     */
-    protected $bankOwnerName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="bank_owner_address", type="string", length=255, nullable=true)
-     *
-     * @Assert\NotBlank(message="cocorico_user.bank_owner_address.blank", groups={
-     *  "CocoricoProfileBankAccount"
-     * })
-     */
-    protected $bankOwnerAddress;
-
-    /**
-     * @ORM\Column(name="annual_income", type="decimal", precision=10, scale=2, nullable=true)
-     *
-     * @var int
-     */
-    protected $annualIncome;
 
     /**
      * @Assert\Length(
@@ -309,13 +210,6 @@ class User extends BaseUser implements ParticipantInterface
     protected $emailVerified = false;
 
     /**
-     * @ORM\Column(name="id_card_verified", type="boolean", nullable=true)
-     *
-     * @var bool
-     */
-    protected $idCardVerified = false;
-
-    /**
      * @ORM\Column(name="trusted", type="boolean", nullable=true)
      *
      * @var bool
@@ -330,48 +224,6 @@ class User extends BaseUser implements ParticipantInterface
     protected $trustedEmailSent = false;
 
     /**
-     * @ORM\Column(name="nb_bookings_offerer", type="smallint", nullable=true)
-     *
-     * @var int
-     */
-    protected $nbBookingsOfferer;
-
-    /**
-     * @ORM\Column(name="nb_bookings_asker", type="smallint", nullable=true)
-     *
-     * @var int
-     */
-    protected $nbBookingsAsker;
-
-    /**
-     * @ORM\Column(name="fee_as_asker", type="smallint", nullable=true)
-     *
-     * @var int Percent
-     */
-    protected $feeAsAsker;
-
-    /**
-     * @ORM\Column(name="fee_as_offerer", type="smallint", nullable=true)
-     *
-     * @var int Percent
-     */
-    protected $feeAsOfferer;
-
-    /**
-     * @ORM\Column(name="average_rating_as_asker", type="smallint", nullable=true)
-     *
-     * @var int
-     */
-    protected $averageAskerRating;
-
-    /**
-     * @ORM\Column(name="average_rating_as_offerer", type="smallint", nullable=true)
-     *
-     * @var int
-     */
-    protected $averageOffererRating;
-
-    /**
      * @ORM\Column(name="mother_tongue", type="string", length=5, nullable=true)
      *
      * @Assert\NotBlank(message="cocorico_user.motherTongue.blank", groups={"CocoricoProfile"})
@@ -379,13 +231,6 @@ class User extends BaseUser implements ParticipantInterface
      * @var string
      */
     protected $motherTongue;
-
-    /**
-     * @ORM\Column(name="answer_delay", type="integer", nullable=true)
-     *
-     * @var int
-     */
-    protected $answerDelay;
 
     /**
      * @ORM\Column(name="time_zone", type="string", length=100,  nullable=false)
@@ -400,43 +245,12 @@ class User extends BaseUser implements ParticipantInterface
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="Cocorico\ReviewBundle\Entity\Review", mappedBy="reviewBy", cascade={"remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"createdAt" = "desc"})
-     */
-    private $reviewsBy;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\ReviewBundle\Entity\Review", mappedBy="reviewTo", cascade={"remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"createdAt" = "desc"})
-     */
-    private $reviewsTo;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Cocorico\UserBundle\Entity\UserFacebook", mappedBy="user", cascade={"remove"}, orphanRemoval=true)
-     */
-    private $userFacebook;
-
-    /**
-     * @var string
-     * @ORM\Column(name="skaut_is_id", type="string", length=100,  nullable=true)
-     */
-    private $skautIsId;
-
-    /**
      * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\Listing", mappedBy="user", cascade={"persist", "remove"})
      * @ORM\OrderBy({"createdAt" = "desc"})
      *
      * @var Listing[]
      */
     private $listings;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\UserBundle\Entity\UserAddress", mappedBy="user", cascade={"persist", "remove"})
-     * @ORM\OrderBy({"type" = "asc"})
-     *
-     * @var UserAddress[]
-     */
-    private $addresses;
 
     /**
      * For Asserts : @see \Cocorico\UserBundle\Validator\Constraints\UserValidator.
@@ -454,53 +268,6 @@ class User extends BaseUser implements ParticipantInterface
      * @var UserLanguage[]
      */
     protected $languages;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\Booking", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"createdAt" = "desc"})
-     *
-     * @var Booking[]
-     */
-    protected $bookings;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\BookingBankWire", mappedBy="user", cascade={"persist", "remove"})
-     * @ORM\OrderBy({"createdAt" = "desc"})
-     *
-     * @var BookingBankWire[]
-     */
-    private $bookingBankWires;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\BookingPayinRefund", mappedBy="user", cascade={"persist", "remove"})
-     * @ORM\OrderBy({"createdAt" = "desc"})
-     *
-     * @var BookingPayinRefund[]
-     */
-    private $bookingPayinRefunds;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\UserBundle\Model\ListingAlertInterface", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $listingAlerts;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\UserBundle\Model\BookingDepositRefundAsAskerInterface", mappedBy="asker", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $bookingDepositRefundsAsAsker;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\UserBundle\Model\BookingDepositRefundAsOffererInterface", mappedBy="offerer", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $bookingDepositRefundsAsOfferer;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\UserBundle\Model\UserCardInterface", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"expirationDate" = "asc"})
-     *
-     * @var UserCardInterface[]
-     */
-    private $cards;
 
     /**
      * @var string|null
@@ -565,6 +332,12 @@ class User extends BaseUser implements ParticipantInterface
     protected $reconfirmRequested = false;
 
     /**
+     * @ORM\Column(name="reconfirm_requested_at", type="datetime", nullable=true)
+     * @var DateTime|null
+     */
+    protected $reconfirmRequestedAt;
+
+    /**
      * @ORM\Column(name="new_message_notifications", type="boolean", nullable=false)
      *
      * @var bool
@@ -591,6 +364,13 @@ class User extends BaseUser implements ParticipantInterface
     protected $disableAdminNotifications = false;
 
     /**
+     * @ORM\Column(name="expired_send", type="boolean", nullable=false)
+     *
+     * @var bool
+     */
+    protected $expiredSend = false;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -601,16 +381,8 @@ class User extends BaseUser implements ParticipantInterface
         $this->images = new ArrayCollection();
         $this->languages = new ArrayCollection();
         $this->messages = new ArrayCollection();
-        $this->reviewsBy = new ArrayCollection();
-        $this->reviewsTo = new ArrayCollection();
-        $this->addresses = new ArrayCollection();
         $this->announcements = new ArrayCollection();
-        $this->bookingBankWires = new ArrayCollection();
-        $this->bookingPayinRefunds = new ArrayCollection();
-        $this->listingAlerts = new ArrayCollection();
-        $this->bookingDepositRefundsAsAsker = new ArrayCollection();
-        $this->bookingDepositRefundsAsOfferer = new ArrayCollection();
-        $this->cards = new ArrayCollection();
+
         // set expiry date to one year from now - you can change it later if needed
         $this->expiryDate = (new DateTime())->add(new DateInterval("P1Y"));
         $this->uniqueHash = str_replace('.', 'd', uniqid('', true));
@@ -646,74 +418,6 @@ class User extends BaseUser implements ParticipantInterface
         return $this->id;
     }
 
-//    /**
-//     * Set PersonType.
-//     *
-//     * @param int $personType
-//     *
-//     * @return User
-//     */
-//    public function setPersonType($personType)
-//    {
-//        if (!in_array($personType, array_keys(self::$personTypeValues))) {
-//            throw new InvalidArgumentException(
-//                sprintf('Invalid value for user.person_type : %s.', $personType)
-//            );
-//        }
-//
-//        $this->personType = $personType;
-//
-//        return $this;
-//    }
-
-//    /**
-//     * Get personType.
-//     *
-//     * @return int
-//     */
-//    public function getPersonType()
-//    {
-//        if (!$this->personType) {
-//            $this->personType = self::PERSON_TYPE_NATURAL;
-//        }
-//
-//        return $this->personType;
-//    }
-
-//    /**
-//     * Get personType Text.
-//     *
-//     * @return string
-//     */
-//    public function getPersonTypeText()
-//    {
-//        return self::$personTypeValues[$this->getPersonType()];
-//    }
-
-//    /**
-//     * Get companyName.
-//     *
-//     * @return string
-//     */
-//    public function getCompanyName()
-//    {
-//        return $this->companyName;
-//    }
-
-//    /**
-//     * Set companyName.
-//     *
-//     * @param string $companyName
-//     *
-//     * @return User
-//     */
-//    public function setCompanyName($companyName)
-//    {
-//        $this->companyName = $companyName;
-//
-//        return $this;
-//    }
-
     /**
      * Set lastName.
      *
@@ -721,7 +425,7 @@ class User extends BaseUser implements ParticipantInterface
      *
      * @return User
      */
-    public function setLastName($lastName)
+    public function setLastName($lastName): User
     {
         $this->lastName = $lastName;
 
@@ -745,7 +449,7 @@ class User extends BaseUser implements ParticipantInterface
      *
      * @return User
      */
-    public function setFirstName($firstName)
+    public function setFirstName($firstName): User
     {
         $this->firstName = $firstName;
 
@@ -825,78 +529,6 @@ class User extends BaseUser implements ParticipantInterface
     }
 
     /**
-     * Set nbBookingsOfferer.
-     *
-     * @param int $nbBookingsOfferer
-     *
-     * @return User
-     */
-    public function setNbBookingsOfferer($nbBookingsOfferer)
-    {
-        $this->nbBookingsOfferer = $nbBookingsOfferer;
-
-        return $this;
-    }
-
-    /**
-     * Get nbBookingsOfferer.
-     *
-     * @return int
-     */
-    public function getNbBookingsOfferer()
-    {
-        return $this->nbBookingsOfferer;
-    }
-
-    /**
-     * @return int
-     */
-    public function getNbBookingsAsker()
-    {
-        return $this->nbBookingsAsker;
-    }
-
-    /**
-     * @param int $nbBookingsAsker
-     */
-    public function setNbBookingsAsker($nbBookingsAsker)
-    {
-        $this->nbBookingsAsker = $nbBookingsAsker;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFeeAsAsker()
-    {
-        return $this->feeAsAsker;
-    }
-
-    /**
-     * @param int $feeAsAsker
-     */
-    public function setFeeAsAsker($feeAsAsker)
-    {
-        $this->feeAsAsker = $feeAsAsker;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFeeAsOfferer()
-    {
-        return $this->feeAsOfferer;
-    }
-
-    /**
-     * @param int $feeAsOfferer
-     */
-    public function setFeeAsOfferer($feeAsOfferer)
-    {
-        $this->feeAsOfferer = $feeAsOfferer;
-    }
-
-    /**
      * @return DateTime
      */
     public function getBirthday()
@@ -971,232 +603,6 @@ class User extends BaseUser implements ParticipantInterface
     /**
      * @return string
      */
-    public function getProfession()
-    {
-        return $this->profession;
-    }
-
-    /**
-     * @param string $profession
-     */
-    public function setProfession($profession)
-    {
-        $this->profession = $profession;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIban()
-    {
-        return $this->iban;
-    }
-
-    /**
-     * @param string $iban
-     */
-    public function setIban($iban)
-    {
-        $this->iban = $iban;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBic()
-    {
-        return $this->bic;
-    }
-
-    /**
-     * @param string $bic
-     */
-    public function setBic($bic)
-    {
-        $this->bic = $bic;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBankOwnerName()
-    {
-        return $this->bankOwnerName;
-    }
-
-    /**
-     * @param string $bankOwnerName
-     */
-    public function setBankOwnerName($bankOwnerName)
-    {
-        $this->bankOwnerName = $bankOwnerName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBankOwnerAddress()
-    {
-        return $this->bankOwnerAddress;
-    }
-
-    /**
-     * @param string $bankOwnerAddress
-     */
-    public function setBankOwnerAddress($bankOwnerAddress)
-    {
-        $this->bankOwnerAddress = $bankOwnerAddress;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAnnualIncome()
-    {
-        return $this->annualIncome;
-    }
-
-    /**
-     * @param int $annualIncome
-     */
-    public function setAnnualIncome($annualIncome)
-    {
-        $this->annualIncome = $annualIncome;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param string $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
-
-    public function getPhoneFull()
-    {
-        return $this->phonePrefix . $this->phone;
-    }
-
-    public function setPhoneFull($phone)
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhonePrefix()
-    {
-        return $this->phonePrefix;
-    }
-
-    /**
-     * @param string $phonePrefix
-     */
-    public function setPhonePrefix($phonePrefix)
-    {
-        $this->phonePrefix = $phonePrefix;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountryOfResidence()
-    {
-        return $this->countryOfResidence;
-    }
-
-    /**
-     * @param string $countryOfResidence
-     */
-    public function setCountryOfResidence($countryOfResidence)
-    {
-        $this->countryOfResidence = $countryOfResidence;
-    }
-
-    /**
-     * Set averageAskerRating.
-     *
-     * @param int $averageAskerRating
-     *
-     * @return $this
-     */
-    public function setAverageAskerRating($averageAskerRating)
-    {
-        $this->averageAskerRating = $averageAskerRating;
-
-        return $this;
-    }
-
-    /**
-     * Get averageAskerRating.
-     *
-     * @return int
-     */
-    public function getAverageAskerRating()
-    {
-        return $this->averageAskerRating;
-    }
-
-    /**
-     * Set averageOffererRating.
-     *
-     * @param int $averageOffererRating
-     *
-     * @return $this
-     */
-    public function setAverageOffererRating($averageOffererRating)
-    {
-        $this->averageOffererRating = $averageOffererRating;
-
-        return $this;
-    }
-
-    /**
-     * Get averageOffererRating.
-     *
-     * @return int
-     */
-    public function getAverageOffererRating()
-    {
-        return $this->averageOffererRating;
-    }
-
-    /**
-     * Set answerDelay.
-     *
-     * @param int $answerDelay
-     *
-     * @return $this
-     */
-    public function setAnswerDelay($answerDelay)
-    {
-        $this->answerDelay = $answerDelay;
-
-        return $this;
-    }
-
-    /**
-     * Get answerDelay.
-     *
-     * @return int
-     */
-    public function getAnswerDelay()
-    {
-        return $this->answerDelay;
-    }
-
-    /**
-     * @return string
-     */
     public function getMotherTongue()
     {
         return $this->motherTongue;
@@ -1210,56 +616,9 @@ class User extends BaseUser implements ParticipantInterface
         $this->motherTongue = $motherTongue;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserFacebook()
-    {
-        return $this->userFacebook;
-    }
-
-    /**
-     * @param userFacebook $userFacebook
-     */
-    public function setUserFacebook($userFacebook)
-    {
-        $userFacebook->setUser($this);
-        $this->userFacebook = $userFacebook;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSkautIsId(): string
-    {
-        return $this->skautIsId;
-    }
-
-    public function isSkautIsConnected(): bool
-    {
-        return $this->skautIsId !== null;
-    }
-
-    /**
-     * @param string $skautIsId
-     * @return User
-     */
-    public function setSkautIsId(string $skautIsId): User
-    {
-        $this->skautIsId = $skautIsId;
-        return $this;
-    }
-
-
-
     public function getFullName()
     {
         return implode(' ', array_filter(array($this->getFirstName(), $this->getLastName())));
-    }
-
-    public function __toString()
-    {
-        return $this->getFullName();
     }
 
     /**
@@ -1378,98 +737,6 @@ class User extends BaseUser implements ParticipantInterface
     }
 
     /**
-     * @return ArrayCollection|Booking[]
-     */
-    public function getBookings()
-    {
-        return $this->bookings;
-    }
-
-    /**
-     * @param ArrayCollection|Booking[] $bookings
-     */
-    public function setBookings(ArrayCollection $bookings)
-    {
-        foreach ($bookings as $booking) {
-            $booking->setUser($this);
-        }
-
-        $this->bookings = $bookings;
-    }
-
-    /**
-     * Does the user has booking as asker
-     *
-     * @return ArrayCollection|Booking[]
-     */
-    public function getBookingAsAsker()
-    {
-        return $this->getBookings();
-    }
-
-    /**
-     * Does the user has booking as offerer
-     *
-     * @return ArrayCollection|Booking[]
-     */
-    public function getBookingAsOfferer()
-    {
-        $bookings = new ArrayCollection();
-        $listings = $this->getListings();
-        if ($listings->count()) {
-            foreach ($listings as $listing) {
-                foreach ($listing->getBookings() as $booking) {
-                    $bookings->add($booking);
-                }
-            }
-        }
-
-        return $bookings;
-    }
-
-//    /**
-//     * Does the user has booking in progress (some money operations still to be made (withdrawals, refund, ...))
-//     *
-//     * @return bool
-//     */
-//    public function hasBookingsInProgress()
-//    {
-//        $bookingsAsAsker = $this->getBookingAsAsker();
-//        $bookingsAsOfferer = $this->getBookingAsOfferer();
-//
-//        /** @var Booking[] $bookings */
-//        $bookings = new ArrayCollection(array_merge($bookingsAsAsker->toArray(), $bookingsAsOfferer->toArray()));
-//
-//        foreach ($bookings as $index => $booking) {
-//            if ($booking->getStatus() == Booking::STATUS_NEW) {
-//                return true;
-//            } elseif ($booking->getStatus() == Booking::STATUS_PAYMENT_REFUSED) {
-//                return true;
-//            } elseif ($booking->getStatus() == Booking::STATUS_PAYED) {
-//                //If there is no bank wire or there is a bank wire not payed
-//                $bankWire = $booking->getBankWire();
-//                if (!$bankWire || ($bankWire &&
-//                        ($bankWire->getStatus() != BookingBankWire::STATUS_PAYED || !$bankWire->getMangopayPayoutId())
-//                    )
-//                ) {
-//                    return true;
-//                }
-//            } elseif ($booking->getStatus() == Booking::STATUS_CANCELED_ASKER) {
-//                //If there is a bank wire not payed
-//                $bankWire = $booking->getBankWire();
-//                if (($bankWire &&
-//                    ($bankWire->getStatus() != BookingBankWire::STATUS_PAYED || !$bankWire->getMangopayPayoutId())
-//                )
-//                ) {
-//                    return true;
-//                }
-//            }
-//        }
-//
-//        return false;
-//    }
-
-    /**
      * @return ArrayCollection|Message[]
      */
     public function getMessages()
@@ -1490,379 +757,13 @@ class User extends BaseUser implements ParticipantInterface
     }
 
     /**
-     * @return mixed
-     */
-    public function getReviewsBy()
-    {
-        return $this->reviewsBy;
-    }
-
-    /**
-     * @param ArrayCollection|Message[] $reviewsBy
-     */
-    public function setReviewsBy(ArrayCollection $reviewsBy)
-    {
-        foreach ($reviewsBy as $review) {
-            $review->setReviewBy($this);
-        }
-
-        $this->reviewsBy = $reviewsBy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getReviewsTo()
-    {
-        return $this->reviewsTo;
-    }
-
-    /**
-     * @param ArrayCollection|Review[] $reviewsTo
-     */
-    public function setReviewsTo(ArrayCollection $reviewsTo)
-    {
-        foreach ($reviewsTo as $review) {
-            $review->setReviewTo($this);
-        }
-
-        $this->reviewsTo = $reviewsTo;
-    }
-
-    /**
-     * Add Address.
-     *
-     * @param UserAddress $address
-     *
-     * @return User
-     */
-    public function addAddress(UserAddress $address)
-    {
-        if (!$this->addresses->contains($address)) {
-            $address->setUser($this);
-            $this->addresses->add($address);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove Address.
-     *
-     * @param UserAddress $address
-     */
-    public function removeAddress(UserAddress $address)
-    {
-        $this->addresses->removeElement($address);
-        $address->setUser(null);
-    }
-
-    /**
-     * Get addresses ordered by type.
-     *
-     * @return Collection|UserAddress[]
-     */
-    public function getAddresses()
-    {
-        $addresses = $this->addresses->toArray();
-        uasort(
-            $addresses,
-            function (UserAddress $a, UserAddress $b) {
-                if ($a->getType() == $b->getType()) {
-                    return 0;
-                }
-
-                return ($a->getType() < $b->getType()) ? -1 : 1;
-            }
-        );
-
-        return new ArrayCollection($addresses);
-    }
-
-    /**
-     * Get addresses of type.
-     *
-     * @param int $type
-     *
-     * @return UserAddress[]|Collection
-     */
-    public function getAddressesOfType($type)
-    {
-        return $this->addresses->filter(
-            function (UserAddress $address) use ($type) {
-                return $address->getType() == $type;
-            }
-        );
-    }
-
-    /**
-     * @return BookingBankWire[]
-     */
-    public function getBookingBankWires()
-    {
-        return $this->bookingBankWires;
-    }
-
-    /**
-     * @param ArrayCollection|BookingBankWire[] $bookingBankWires
-     */
-    public function setBookingBankWires(ArrayCollection $bookingBankWires)
-    {
-        foreach ($bookingBankWires as $bookingBankWire) {
-            $bookingBankWire->setUser($this);
-        }
-
-        $this->bookingBankWires = $bookingBankWires;
-    }
-
-    /**
-     * @return BookingPayinRefund[]
-     */
-    public function getBookingPayinRefunds()
-    {
-        return $this->bookingPayinRefunds;
-    }
-
-    /**
-     * @param ArrayCollection|BookingPayinRefund[] $bookingPayinRefunds
-     */
-    public function setBookingPayinRefunds(ArrayCollection $bookingPayinRefunds)
-    {
-        foreach ($bookingPayinRefunds as $bookingPayinRefund) {
-            $bookingPayinRefund->setUser($this);
-        }
-
-        $this->bookingPayinRefunds = $bookingPayinRefunds;
-    }
-
-    /**
-     * Add ListingAlert.
-     *
-     * @param ListingAlertInterface $listingAlert
-     *
-     * @return User
-     */
-    public function addListingAlert($listingAlert)
-    {
-        $listingAlert->setUser($this);
-        $this->listingAlerts[] = $listingAlert;
-
-        return $this;
-    }
-
-    /**
-     * Remove ListingAlert.
-     *
-     * @param ListingAlertInterface $listingAlert
-     */
-    public function removeListingAlert($listingAlert)
-    {
-        $this->listingAlerts->removeElement($listingAlert);
-    }
-
-    /**
-     * Get ListingAlerts.
-     *
-     * @return ArrayCollection
-     */
-    public function getListingAlerts()
-    {
-        return $this->listingAlerts;
-    }
-
-    /**
-     * @param ArrayCollection $listingAlerts
-     *
-     * @return $this
-     */
-    public function setListingAlerts(ArrayCollection $listingAlerts)
-    {
-        foreach ($listingAlerts as $listingAlert) {
-            $listingAlert->setUser($this);
-        }
-
-        $this->listingAlerts = $listingAlerts;
-
-        return $this;
-    }
-
-
-    /**
-     * Add BookingDepositRefundAsAsker.
-     *
-     * @param BookingDepositRefundAsAskerInterface $bookingDepositRefundAsAsker
-     *
-     * @return User
-     */
-    public function addBookingDepositRefundAsAsker($bookingDepositRefundAsAsker)
-    {
-        $bookingDepositRefundAsAsker->setAsker($this);
-        $this->bookingDepositRefundsAsAsker[] = $bookingDepositRefundAsAsker;
-
-        return $this;
-    }
-
-    /**
-     * Remove BookingDepositRefundAsAsker.
-     *
-     * @param BookingDepositRefundAsAskerInterface $bookingDepositRefundAsAsker
-     */
-    public function removeBookingDepositRefundAsAsker($bookingDepositRefundAsAsker)
-    {
-        $this->bookingDepositRefundsAsAsker->removeElement($bookingDepositRefundAsAsker);
-    }
-
-    /**
-     * Get BookingDepositRefundsAsAsker.
-     *
-     * @return ArrayCollection
-     */
-    public function getBookingDepositRefundsAsAsker()
-    {
-        return $this->bookingDepositRefundsAsAsker;
-    }
-
-    /**
-     * @param ArrayCollection $bookingDepositRefundsAsAsker
-     *
-     * @return $this
-     */
-    public function setBookingDepositRefundsAsAsker(ArrayCollection $bookingDepositRefundsAsAsker)
-    {
-        foreach ($bookingDepositRefundsAsAsker as $bookingDepositRefundAsAsker) {
-            $bookingDepositRefundAsAsker->setAsker($this);
-        }
-
-        $this->bookingDepositRefundsAsAsker = $bookingDepositRefundsAsAsker;
-
-        return $this;
-    }
-
-
-    /**
-     * Add BookingDepositRefundAsOfferer.
-     *
-     * @param BookingDepositRefundAsOffererInterface $bookingDepositRefundAsOfferer
-     *
-     * @return User
-     */
-    public function addBookingDepositRefundAsOfferer($bookingDepositRefundAsOfferer)
-    {
-        $bookingDepositRefundAsOfferer->setOfferer($this);
-        $this->bookingDepositRefundsAsOfferer[] = $bookingDepositRefundAsOfferer;
-
-        return $this;
-    }
-
-    /**
-     * Remove BookingDepositRefundAsOfferer.
-     *
-     * @param BookingDepositRefundAsOffererInterface $bookingDepositRefundAsOfferer
-     */
-    public function removeBookingDepositRefundAsOfferer($bookingDepositRefundAsOfferer)
-    {
-        $this->bookingDepositRefundsAsOfferer->removeElement($bookingDepositRefundAsOfferer);
-    }
-
-    /**
-     * Get BookingDepositRefundsAsOfferer.
-     *
-     * @return ArrayCollection
-     */
-    public function getBookingDepositRefundsAsOfferer()
-    {
-        return $this->bookingDepositRefundsAsOfferer;
-    }
-
-    /**
-     * @param ArrayCollection $bookingDepositRefundsAsOfferer
-     *
-     * @return $this
-     */
-    public function setBookingDepositRefundsAsOfferer(ArrayCollection $bookingDepositRefundsAsOfferer)
-    {
-        foreach ($bookingDepositRefundsAsOfferer as $bookingDepositRefundAsOfferer) {
-            $bookingDepositRefundAsOfferer->setAsker($this);
-        }
-
-        $this->bookingDepositRefundsAsOfferer = $bookingDepositRefundsAsOfferer;
-
-        return $this;
-    }
-
-
-    /**
-     * Add UserCard.
-     *
-     * @param UserCardInterface $card
-     *
-     * @return User
-     */
-    public function addCard($card)
-    {
-        $card->setUser($this);
-        $this->cards[] = $card;
-
-        return $this;
-    }
-
-    /**
-     * Remove UserCard.
-     *
-     * @param UserCardInterface $card
-     */
-    public function removeCard($card)
-    {
-        $this->cards->removeElement($card);
-    }
-
-    /**
-     * Get UserCards.
-     *
-     * @return ArrayCollection
-     */
-    public function getCards()
-    {
-        return $this->cards;
-    }
-
-    /**
-     * @param UserCardInterface[]|ArrayCollection $cards
-     *
-     * @return $this
-     */
-    public function setCards($cards)
-    {
-        foreach ($cards as $card) {
-            $card->setUser($this);
-        }
-
-        $this->cards = $cards;
-
-        return $this;
-    }
-
-
-    /**
-     * @return UserCardInterface[]|Collection
-     */
-    public function getCardsActive()
-    {
-        return $this->cards->filter(
-            function (UserCardInterface $element) {
-                return $element->isActive();// && $element->getValidity() == UserCardInterface::VALIDITY_VALID
-            }
-        );
-    }
-
-
-    /**
      * @return string
      */
     public function getTimeZone()
     {
         return $this->timeZone;
     }
+
 
     /**
      * @param string $timeZone
@@ -1927,21 +828,6 @@ class User extends BaseUser implements ParticipantInterface
         return $defaultLocale;
     }
 
-//    /**
-//     * @param ExecutionContextInterface $context
-//     *
-//     * @Assert\Callback(groups={"CocoricoRegistration", "CocoricoProfile", "CocoricoProfileContact", "default"},)
-//     */
-//    public function validate(ExecutionContextInterface $context)
-//    {
-//        if ($this->personType == self::PERSON_TYPE_LEGAL && empty($this->companyName)) {
-//            $context->buildViolation('cocorico_user.company_name.blank')
-//                ->atPath('companyName')
-//                ->setTranslationDomain('validators')
-//                ->addViolation();
-//        }
-//    }
-
     /**
      * To add impersonating link into admin :
      *
@@ -1993,8 +879,6 @@ class User extends BaseUser implements ParticipantInterface
         return $this;
     }
 
-
-
     /**
      * @return string
      */
@@ -2008,7 +892,7 @@ class User extends BaseUser implements ParticipantInterface
 
     }
 
-    public static function flattenRoles($rolesHierarchy)
+    public static function flattenRoles($rolesHierarchy): array
     {
         $flatRoles = array();
         foreach($rolesHierarchy as $key => $roles) {
@@ -2140,12 +1024,40 @@ class User extends BaseUser implements ParticipantInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isExpiredSend(): ?bool
+    {
+        return $this->expiredSend;
+    }
+
+    /**
+     * @param bool $expiredSend
+     * @return User
+     */
+    public function setExpiredSend(bool $expiredSend): User
+    {
+        $this->expiredSend = $expiredSend;
+        return $this;
+    }
+
+    /**
      * @param int $days
      * @return bool
      */
-    public function isExpiredSoon($days = 30): bool
+    public function isExpiredSoon(int $days = 30): bool
     {
         return $this->getExpiryDate() < (new DateTime('now'))->add(new DateInterval("P{$days}D"));
+    }
+
+    /**
+     * @param int $days
+     * @return bool
+     */
+    public function isToBeDeleted(int $days = 30): bool
+    {
+        return $this->getExpiryDate()->add(new DateInterval("P{$days}D")) < (new DateTime('now'));
+
     }
 
     /**
@@ -2178,6 +1090,24 @@ class User extends BaseUser implements ParticipantInterface
     public function setReconfirmRequested(bool $reconfirmRequested): void
     {
         $this->reconfirmRequested = $reconfirmRequested;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getReconfirmRequestedAt(): ?DateTime
+    {
+        return $this->reconfirmRequestedAt;
+    }
+
+    /**
+     * @param DateTime|null $reconfirmRequestedAt
+     * @return User
+     */
+    public function setReconfirmRequestedAt(?DateTime $reconfirmRequestedAt): User
+    {
+        $this->reconfirmRequestedAt = $reconfirmRequestedAt;
+        return $this;
     }
 
     /**
@@ -2220,5 +1150,10 @@ class User extends BaseUser implements ParticipantInterface
     public function getUniqueHash(): string
     {
         return $this->uniqueHash;
+    }
+
+    public function __toString()
+    {
+        return $this->getFullName();
     }
 }

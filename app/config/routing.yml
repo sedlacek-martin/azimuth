@@ -13,9 +13,6 @@ cocorico_page:
 cocorico_message:
     resource: "@CocoricoMessageBundle/Resources/config/routing.yml"
 
-cocorico_review:
-    resource: "@CocoricoReviewBundle/Resources/config/routing.yml"
-
 cocorico_contact:
     resource: "@CocoricoContactBundle/Resources/config/routing.yml"
     prefix:   /

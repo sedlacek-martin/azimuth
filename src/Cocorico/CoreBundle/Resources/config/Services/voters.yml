@@ -14,12 +14,6 @@ services:
         tags:
            - { name: security.voter }
 
-    security.access.booking_voter:
-        class:      Cocorico\CoreBundle\Security\Voter\BookingVoter
-        public:     false
-        tags:
-           - { name: security.voter }
-
     security.access.verified_domain_voter:
       class: Cocorico\CoreBundle\Security\Voter\VerifiedDomainVoter
       arguments:
@@ -38,6 +32,14 @@ services:
 
     security.access.user_invitation_voter:
       class: Cocorico\CoreBundle\Security\Voter\UserInvitationVoter
+      arguments:
+        - "@security.authorization_checker"
+      public: false
+      tags:
+        - { name: security.voter }
+
+    security.access.contact_voter:
+      class: Cocorico\CoreBundle\Security\Voter\ContactVoter
       arguments:
         - "@security.authorization_checker"
       public: false

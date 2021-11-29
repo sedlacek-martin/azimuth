@@ -9,8 +9,8 @@
                 <div class="col-xs-6">
                     <ul class="list-inline">
                         <li>
-                            <a tabindex="11" href="mailto:{{ cocorico_contact_mail_obfuscated|raw }}">
-                                <i class="icon-mail-alt"></i>{{ cocorico_contact_mail_obfuscated|raw }}
+                            <a tabindex="11" href="{{ path('cocorico_contact_new') }}">
+                                <i class="icon-mail-alt"></i>{{ 'header.contact_link'|trans }}
                             </a>
                         </li>
                         <li>
@@ -58,13 +58,22 @@
             <i class="glyphicon glyphicon-remove"></i>
         </a>
     </div>
-    {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") and app.user.isExpiredSoon(30) and not app.user.reconfirmRequested %}
-        <div class="expiry-warning-topbar">
-            <div class="container">
-                <i class="glyphicon glyphicon-time pe-2"></i>
-                {{ 'nav.expires_soon.message'|trans({'%link%': path('cocorico_user_reconfirm') , '%date%': app.user.expiryDate|date('d.m.Y')})|raw }}
+    {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
+        {% if app.user.isExpiredSoon(30) and not app.user.reconfirmRequested %}
+            <div class="expiry-warning-topbar">
+                <div class="container">
+                    <i class="glyphicon glyphicon-time pe-2"></i>
+                    {{ 'nav.expires_soon.message'|trans({'%link%': path('cocorico_user_reconfirm') , '%date%': app.user.expiryDate|date('d.m.Y')})|raw }}
+                </div>
             </div>
-        </div>
+        {% elseif app.user.expired %}
+            <div class="expiry-warning-topbar">
+                <div class="container">
+                    <i class="glyphicon glyphicon-time pe-2"></i>
+                    {{ 'nav.expired.message'|trans()|raw }}
+                </div>
+            </div>
+        {% endif %}
     {% endif %}
 
     <div class="container mt-5">

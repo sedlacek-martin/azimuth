@@ -11,6 +11,8 @@
 
 namespace Cocorico\ContactBundle\Model;
 
+use Cocorico\ContactBundle\Entity\ContactCategory;
+use Cocorico\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -87,21 +89,6 @@ abstract class BaseContact
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=20, nullable=true)
-     *
-     * @Assert\Length(
-     *     min=3,
-     *     max="20",
-     *     minMessage="cocorico_contact.phone.short",
-     *     maxMessage="cocorico_contact.phone.long",
-     *     groups={"CocoricoContact"}
-     * )
-     */
-    protected $phone;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="subject", type="string", length=1024)
      *
      * @Assert\NotBlank(message="cocorico_contact.subject.blank", groups={"CocoricoContact"})
@@ -132,11 +119,58 @@ abstract class BaseContact
     protected $message;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="reply", type="text", nullable=true)
+     *
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage="cocorico_contact.message.short",
+     *     groups={"CocoricoContact"}
+     * )
+     */
+    protected $reply;
+
+    /**
+     * @var string[]
+     *
+     * @ORM\Column(name="recipient_roles", type="simple_array", nullable=true)
+     */
+    protected $recipientRoles;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Cocorico\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     *
+     * @var User|null
+     */
+    protected $user;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Cocorico\ContactBundle\Entity\ContactCategory")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Assert\NotBlank(message="cocorico_contact.category.blank", groups={"CocoricoContact"})
+     *
+     * @var ContactCategory|null
+     */
+    protected $category;
+
+
+    /**
      * @ORM\Column(name="status", type="smallint")
      *
      * @var integer
      */
     protected $status = self::STATUS_NEW;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="reply_send", type="boolean", nullable=false)
+     */
+    protected $replySend = false;
 
 
     /**
@@ -207,30 +241,6 @@ abstract class BaseContact
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Gets Phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Sets Phone
-     *
-     * @param string $phone the phone
-     *
-     * @return self
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
 
         return $this;
     }
@@ -313,6 +323,12 @@ abstract class BaseContact
         return $this;
     }
 
+    public function isNew(): bool
+    {
+        return $this->status === self::STATUS_NEW;
+
+    }
+
     /**
      * Get Status Text
      *
@@ -321,5 +337,107 @@ abstract class BaseContact
     public function getStatusText()
     {
         return self::$statusValues[$this->getStatus()];
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getReply (): ?string
+    {
+        return $this->reply;
+    }
+
+    /**
+     * @param string|null $reply
+     * @return BaseContact
+     */
+    public function setReply (?string $reply): BaseContact
+    {
+        $this->reply = $reply;
+        return $this;
+    }
+
+
+    /**
+     * @return string[]
+     */
+    public function getRecipientRoles(): array
+    {
+        return $this->recipientRoles;
+    }
+
+    /**
+     * @param string[] $recipientRoles
+     * @return BaseContact
+     */
+    public function setRecipientRoles(array $recipientRoles): BaseContact
+    {
+        $this->recipientRoles = $recipientRoles;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRecipientRoleNames(): array
+    {
+        return array_map(function ($val) {
+            return ContactCategory::getRecipientRoleName($val);
+        }, $this->recipientRoles);
+
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     * @return BaseContact
+     */
+    public function setUser(?User $user): BaseContact
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * @return ContactCategory|null
+     */
+    public function getCategory(): ?ContactCategory
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param ContactCategory|null $category
+     * @return BaseContact
+     */
+    public function setCategory(?ContactCategory $category): BaseContact
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReplySend (): bool
+    {
+        return $this->replySend;
+    }
+
+    /**
+     * @param bool $replySend
+     * @return BaseContact
+     */
+    public function setReplySend (bool $replySend): BaseContact
+    {
+        $this->replySend = $replySend;
+        return $this;
     }
 }

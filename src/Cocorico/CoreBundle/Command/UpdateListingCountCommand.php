@@ -5,10 +5,14 @@ namespace Cocorico\CoreBundle\Command;
 use Cocorico\CoreBundle\Entity\MemberOrganization;
 use Cocorico\CoreBundle\Model\Manager\ListingManager;
 use Cocorico\CoreBundle\Model\Manager\MemberOrganizationManager;
+use Cocorico\UserBundle\Entity\User;
+use Cocorico\UserBundle\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Security\Core\Role\Role;
 
 class UpdateListingCountCommand extends ContainerAwareCommand
 {
@@ -21,6 +25,8 @@ class UpdateListingCountCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getContainer()->get('doctrine')->getManager();
         /** @var ListingManager $listingManager */
         $listingManager = $this->getContainer()->get('cocorico.listing.manager');
 
@@ -38,11 +44,19 @@ class UpdateListingCountCommand extends ContainerAwareCommand
             $data[$count['code']] = (int) $count['cnt'];
         }
 
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $em->getRepository(User::class);
         /** @var MemberOrganization[] $memberOrganizations */
         $memberOrganizations = $memberOrganizationManager->getRepository()->findAll();
         foreach ($memberOrganizations as $memberOrganization) {
             if (!isset($data[$memberOrganization->getCountry()])) {
-                $data[$memberOrganization->getCountry()] = 0;
+
+                $facilitators = $userRepository->findByRoleAndMo('ROLE_FACILITATOR', $memberOrganization->getId());
+                $activators = $userRepository->findByRoleAndMo('ROLE_ACTIVATOR', $memberOrganization->getId());
+                if (count($facilitators) !== 0 && count($activators) !== 0) {
+                    $data[$memberOrganization->getCountry()] = 0;
+                }
             }
         }
 

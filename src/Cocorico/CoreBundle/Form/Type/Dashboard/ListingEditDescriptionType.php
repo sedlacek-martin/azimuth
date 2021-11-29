@@ -13,10 +13,12 @@ namespace Cocorico\CoreBundle\Form\Type\Dashboard;
 
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Cocorico\CoreBundle\Form\Type\LanguageFilteredType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -42,7 +44,11 @@ class ListingEditDescriptionType extends ListingEditType implements TranslationC
             $descriptions[$locale] = array(
                 /** @Ignore */
                 'label' => "listing.form.description.$locale",
-                'constraints' => array(new NotBlank())
+                'constraints' => array(new NotBlank()),
+                'config' => [
+                    'toolbar' => 'basic',
+                ],
+
             );
             $rules[$locale] = array(
                 /** @Ignore */
@@ -62,7 +68,7 @@ class ListingEditDescriptionType extends ListingEditType implements TranslationC
                             'locale_options' => $titles
                         ),
                         'description' => array(
-                            'field_type' => 'textarea',
+                            'field_type' => CKEditorType::class,
                             'locale_options' => $descriptions
                         ),
                         'rules' => array(

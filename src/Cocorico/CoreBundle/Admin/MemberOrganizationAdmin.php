@@ -65,12 +65,6 @@ class MemberOrganizationAdmin extends BaseAdmin
             ])
             ->add('abstract', TextType::class)
             ->add('description', CKEditorType::class, [
-                'config' => [
-                    'filebrowser_image_browse_url' =>[
-                        'route' => 'elfinder',
-                        'route_parameters' =>['instance' => 'ckeditor'],
-                    ],
-                ],
             ])
             ->add('requiresUserIdentifier')
             ->add('userIdentifierDescription');

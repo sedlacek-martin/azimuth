@@ -12,9 +12,10 @@
 
 namespace Cocorico\CoreBundle\Twig;
 
-use Cocorico\CoreBundle\Entity\Booking;
 use Cocorico\CoreBundle\Entity\Listing;
+use Cocorico\CoreBundle\Entity\ListingImage;
 use Cocorico\CoreBundle\Utils\PHP;
+use Cocorico\UserBundle\Entity\UserImage;
 use Lexik\Bundle\CurrencyBundle\Twig\Extension\CurrencyExtension;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -236,8 +237,6 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
             }
             ),
             new Twig_SimpleFunction('currencySymbol', array($this, 'currencySymbolFunction')),
-            new Twig_SimpleFunction('cancellationPolicies', array($this, 'cancellationPoliciesFunction')),
-            new Twig_SimpleFunction('vatInclusionText', array($this, 'vatInclusionText')),
             new Twig_SimpleFunction('staticProperty', array($this, 'staticProperty')),
         );
     }
@@ -253,67 +252,6 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
         return Intl::getCurrencyBundle()->getCurrencySymbol($currency);
     }
 
-    /**
-     * Display cancelation Policies text rules
-     *
-     * @return string
-     */
-    public function cancellationPoliciesFunction()
-    {
-        $policiesText = $this->translator->trans(
-                'listing.cancellation_policy.help',
-                array(),
-                'cocorico_listing'
-            ) . ":<br/>";
-
-        foreach (Listing::$cancellationPolicyValues as $policyValue => $policyText) {
-            /** @Ignore */
-            $policyTextTrans = $this->translator->trans($policyText, array(), 'cocorico_listing');
-            /** @Ignore */
-            $policyDescTrans = $this->translator->trans(
-                Listing::$cancellationPolicyDescriptions[$policyValue],
-                array(),
-                'cocorico_listing'
-            );
-
-            $policiesText .= "-" . $policyTextTrans . ":<br/>" . $policyDescTrans . "<br/>";
-        }
-
-        return $policiesText;
-    }
-
-
-    /**
-     * Display VAT include / exclude text
-     *
-     * @param string    $locale
-     * @param bool|null $displayVat Override default app parameter if setted
-     * @param bool|null $includeVat Override default app parameter if setted
-     *
-     * @return string
-     */
-    public function vatInclusionText($locale, $displayVat = null, $includeVat = null)
-    {
-        if (($this->displayVat && $displayVat === null) || $displayVat === true) {
-            if (($this->includeVat && $includeVat === null) || $includeVat === true) {
-                return $this->translator->trans(
-                    'vat_included',
-                    array(),
-                    'cocorico',
-                    $locale
-                );
-            } else {
-                return $this->translator->trans(
-                    'vat_excluded',
-                    array(),
-                    'cocorico',
-                    $locale
-                );
-            }
-        }
-
-        return '';
-    }
 
     /**
      * Get static properties values
@@ -338,51 +276,20 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
      */
     public function getGlobals()
     {
-        $listing = new ReflectionClass("Cocorico\CoreBundle\Entity\Listing");
+        $listing = new ReflectionClass(Listing::class);
         $listingConstants = $listing->getConstants();
 
-//        $listingAvailability = new ReflectionClass("Cocorico\CoreBundle\Document\ListingAvailability");
-//        $listingAvailabilityConstants = $listingAvailability->getConstants();
-
-        $listingImage = new ReflectionClass("Cocorico\CoreBundle\Entity\ListingImage");
+        $listingImage = new ReflectionClass(ListingImage::class);
         $listingImageConstants = $listingImage->getConstants();
 
-        $userImage = new ReflectionClass("Cocorico\UserBundle\Entity\UserImage");
+        $userImage = new ReflectionClass(UserImage::class);
         $userImageConstants = $userImage->getConstants();
-
-        $booking = new ReflectionClass("Cocorico\CoreBundle\Entity\Booking");
-        $bookingConstants = $booking->getConstants();
-
-
-        //CSS class by status
-        $bookingStatusClass = array(
-            Booking::STATUS_DRAFT => 'btn-yellow',
-            Booking::STATUS_NEW => 'btn-yellow',
-//            Booking::STATUS_ACCEPTED => 'btn-polo-blue',
-            Booking::STATUS_PAYED => 'btn-algae-green',
-            Booking::STATUS_EXPIRED => 'btn-nomad',
-            Booking::STATUS_REFUSED => 'btn-flamingo',
-            Booking::STATUS_CANCELED_ASKER => 'btn-salmon',
-//            Booking::STATUS_CANCELED_OFFERER => 'btn-salmon',
-            Booking::STATUS_PAYMENT_REFUSED => 'btn-fuzzy-brown'
-        );
-
-        $bookingBankWire = new ReflectionClass("Cocorico\CoreBundle\Entity\BookingBankWire");
-        $bookingBankWireConstants = $bookingBankWire->getConstants();
-
-        $bookingPayinRefund = new ReflectionClass("Cocorico\CoreBundle\Entity\BookingPayinRefund");
-        $bookingPayinRefundConstants = $bookingPayinRefund->getConstants();
 
         return array(
             'locales' => $this->locales,
             'ListingConstants' => $listingConstants,
-//            'ListingAvailabilityConstants' => $listingAvailabilityConstants,
             'ListingImageConstants' => $listingImageConstants,
             'UserImageConstants' => $userImageConstants,
-            'BookingConstants' => $bookingConstants,
-            'BookingBankWireConstants' => $bookingBankWireConstants,
-            'BookingPayinRefundConstants' => $bookingPayinRefundConstants,
-            'bookingStatusClass' => $bookingStatusClass,
             'timeUnit' => $this->timeUnit,
             'timeUnitIsDay' => $this->timeUnitIsDay,
             'timeZone' => $this->timeZone,

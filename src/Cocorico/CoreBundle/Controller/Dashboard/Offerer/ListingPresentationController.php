@@ -13,6 +13,7 @@ namespace Cocorico\CoreBundle\Controller\Dashboard\Offerer;
 
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditDescriptionType;
+use Cocorico\CoreBundle\Utils\HtmlUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -51,6 +52,10 @@ class ListingPresentationController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            foreach ($listing->getTranslations() as $translation) {
+                $translation->setDescription(HtmlUtils::purifyBasicHtml($translation->getDescription()));
+            }
+
             $this->get("cocorico.listing.manager")->save($listing);
 
             $this->get('session')->getFlashBag()->add(

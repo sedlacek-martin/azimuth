@@ -2,14 +2,18 @@
 
 {% block subject -%}
     {% autoescape false %}
-    {{ 'update_your_calendar_offerer.email.subject'|trans({}, 'cocorico_mail', user_locale) }}
+    {{ 'contact.reply.subject'|trans({}, 'cocorico_mail', user_locale) }}
     {% endautoescape %}
 {%- endblock %}
 
 {% block message %}
-    {{ 'update_your_calendar_offerer.email.message'|trans({
-        '%firstname%': user.firstName,
-        '%listing_calendar_edit_url%': listing_calendar_edit_url
+    {{ 'contact.reply.message'|trans({
+        '%first_name%': contact.firstName,
+        '%last_name%': contact.lastName,
+        '%email%': contact.email,
+        '%subject%': contact.subject,
+        '%message%': contact.message,
+        '%reply%': contact.reply
     }, 'cocorico_mail', user_locale) }}
 {% endblock %}
 
@@ -26,9 +30,9 @@
         {% block content %}
             {% autoescape false %}
             {{ message|raw|nl2br }}
-            {% endautoescape %}
             {#Do not remove this comment. It is used for BDD testing #}
-            <!--update_your_calendar_offerer-->
+            <!-- contact_reply -->
+            {% endautoescape %}
         {% endblock %}
     {% endembed %}
 {% endblock %}
