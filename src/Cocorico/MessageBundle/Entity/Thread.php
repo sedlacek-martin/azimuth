@@ -33,6 +33,7 @@ class Thread extends BaseThread
 
     /**
      * @ORM\ManyToOne(targetEntity="Cocorico\UserBundle\Entity\User")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $createdBy;
 
