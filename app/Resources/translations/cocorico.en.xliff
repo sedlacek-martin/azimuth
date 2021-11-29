@@ -18,10 +18,6 @@
         <source>announcements.empty</source>
         <target>No new announcements</target>
       </trans-unit>
-      <trans-unit id="695e169995f96bb1dbd6e45296991ca1e428c6a0" resname="booking.form.tac.error">
-        <source>booking.form.tac.error</source>
-        <target>Please accept the Terms and conditions in order to create a post</target>
-      </trans-unit>
       <trans-unit id="4da89bd144135116aad9c6584946213240130eb1" resname="cocorico.friday">
         <source>cocorico.friday</source>
         <target>Friday</target>
@@ -69,10 +65,6 @@
       <trans-unit id="b369460718f0b8112273eb3930153ba99d63a373" resname="collection.remove_item">
         <source>collection.remove_item</source>
         <target>Remove</target>
-      </trans-unit>
-      <trans-unit id="45b97052db6fdc4abdcdefcc65952e83c06f682c" resname="company_info">
-        <source>company_info</source>
-        <target>company_info</target>
       </trans-unit>
       <trans-unit id="b00b8c5d4f2925002545ca1ee8681e1bb4dbbf12" resname="cookie_consent_link">
         <source>cookie_consent_link</source>
@@ -144,29 +136,17 @@
         <source>footer.help.title</source>
         <target><![CDATA[Help & Contact]]></target>
       </trans-unit>
-      <trans-unit id="e0e024ec17d9d12220ca5b17920924967e9d9f4d" resname="footer.how_it_works.link">
-        <source>footer.how_it_works.link</source>
-        <target>How it works?</target>
-      </trans-unit>
       <trans-unit id="67cf5390e62e92e302c2101585471ebf0c1c3d02" resname="footer.legal_notices.link">
         <source>footer.legal_notices.link</source>
         <target>Privacy policy</target>
       </trans-unit>
-      <trans-unit id="e961dfa45f7be14560d14913711c071c88968d3c" resname="footer.the_team.link">
-        <source>footer.the_team.link</source>
-        <target>The team</target>
-      </trans-unit>
-      <trans-unit id="69a1518dded704dee13c212c8fa93bfdbec43543" resname="footer.title.various">
-        <source>footer.title.various</source>
-        <target>Various</target>
-      </trans-unit>
-      <trans-unit id="5f64194a8d285094204c3ef94b8dc3b6bebfa2d0" resname="footer.who_we_are.link">
-        <source>footer.who_we_are.link</source>
-        <target>Who we are?</target>
-      </trans-unit>
       <trans-unit id="ccaeec1d1b1dbbc71e18f43031b34b69864d0ec0" resname="form.error">
         <source>form.error</source>
         <target>An error has occurred.</target>
+      </trans-unit>
+      <trans-unit id="642b77f3dc4ba4838f882c989ac7fba53cbb7a56" resname="header.contact_link">
+        <source>header.contact_link</source>
+        <target>Contact us</target>
       </trans-unit>
       <trans-unit id="5616e84bebf09ed10f08d53fbf2ac0c6fda37dbd" resname="impersonation.active">
         <source>impersonation.active</source>
@@ -195,6 +175,10 @@
       <trans-unit id="710f26930a305064224b4c5a974026b409c0cd84" resname="map.active_posts">
         <source>map.active_posts</source>
         <target>Active posts</target>
+      </trans-unit>
+      <trans-unit id="75b825fd10aafa10d937a367d55e5f29553bb226" resname="map.copyright">
+        <source>map.copyright</source>
+        <target>This </target>
       </trans-unit>
       <trans-unit id="c5876a1425213bb3babbb0873c4b3ae9e93bf40b" resname="map.member_organization.detail_info.title">
         <source>map.member_organization.detail_info.title</source>
@@ -256,6 +240,10 @@
         <source>nav.dashboard.settings.link</source>
         <target>Settings</target>
       </trans-unit>
+      <trans-unit id="3b097a95a5a4db72bd356df55d2f9ddc31cb8ad0" resname="nav.expired.message">
+        <source>nav.expired.message</source>
+        <target state="new">nav.expired.message</target>
+      </trans-unit>
       <trans-unit id="e8629094abfbd50452630f5812402e808d0e0e12" resname="nav.expires_soon.message">
         <source>nav.expires_soon.message</source>
         <target><![CDATA[Your account expires soon (%date%). Please request your account reconfirmation <a href="%link%">here</a>.]]></target>
@@ -275,10 +263,6 @@
       <trans-unit id="4b578fb3be67b06f105daa2f8d907066fe9993ce" resname="nav.home.link">
         <source>nav.home.link</source>
         <target>Home</target>
-      </trans-unit>
-      <trans-unit id="7b82d68a47d23888af84cb20db4bcd9734f3b056" resname="nav.how_it_works.slug">
-        <source>nav.how_it_works.slug</source>
-        <target>how-it-works</target>
       </trans-unit>
       <trans-unit id="dd86d14d6bac7137d6121b41fd4994663f7ea987" resname="nav.legal_notices.slug">
         <source>nav.legal_notices.slug</source>
@@ -303,14 +287,6 @@
       <trans-unit id="405cbec13b0e25e8c2f8c13ce8d130ef15189168" resname="nav.register.link">
         <source>nav.register.link</source>
         <target>Register</target>
-      </trans-unit>
-      <trans-unit id="4d66148bc56e54a9936116977b8f8bbdf6092335" resname="nav.the_team.slug">
-        <source>nav.the_team.slug</source>
-        <target>the-team</target>
-      </trans-unit>
-      <trans-unit id="25752f0500683a8055d9b148a43277a0977e61ce" resname="nav.who_we_are.slug">
-        <source>nav.who_we_are.slug</source>
-        <target>who-we-are</target>
       </trans-unit>
       <trans-unit id="2a004ec467e55618ba224e27867bcb893ae731bc" resname="page.error">
         <source>page.error</source>
@@ -369,14 +345,6 @@ The server encountered internal error. You can try to refresh the page and if pr
       <trans-unit id="35d3a7020c09b2a1abbbf65dfa1203bdd1c926bc" resname="user.form.credential.error">
         <source>user.form.credential.error</source>
         <target>Invalid email or password</target>
-      </trans-unit>
-      <trans-unit id="073ffb64ccf920f1a33525a61d1b543a3907a521" resname="vat_excluded">
-        <source>vat_excluded</source>
-        <target>excl tax</target>
-      </trans-unit>
-      <trans-unit id="3eb12fce24d524d679506e43144649ff1b6e6fb3" resname="vat_included">
-        <source>vat_included</source>
-        <target>incl tax</target>
       </trans-unit>
     </body>
   </file>

@@ -6,6 +6,10 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="7d08aa60b1b84264cf1b22a4a60155ff3e5d03bd" resname="- Select -">
+        <source>- Select -</source>
+        <target state="new">- Select -</target>
+      </trans-unit>
       <trans-unit id="b4ce204ba1c572abe62609f69cedee82e8698e44" resname="admin.contact.status.label">
         <source>admin.contact.status.label</source>
         <target>Status</target>
@@ -78,6 +82,10 @@
         <source>cocorico_contact.subject.short</source>
         <target>Subject is too short.</target>
       </trans-unit>
+      <trans-unit id="7986532e825c6cea4e34d4e54dba93b353d189aa" resname="contact.form.category.label">
+        <source>contact.form.category.label</source>
+        <target state="new">contact.form.category.label</target>
+      </trans-unit>
       <trans-unit id="fce58b916a70eb53f56001f10e807cdf1cc7fee2" resname="contact.form.email.label">
         <source>contact.form.email.label</source>
         <target>Email</target>
@@ -94,10 +102,6 @@
         <source>contact.form.message.label</source>
         <target>Message</target>
       </trans-unit>
-      <trans-unit id="4c2d77679ee1915b3d0bc40a5a4da90ae4f9f601" resname="contact.form.phone.label">
-        <source>contact.form.phone.label</source>
-        <target>Phone</target>
-      </trans-unit>
       <trans-unit id="fb57c7da2be9d8e65c5161a43d8108ca429b6947" resname="contact.form.subject.label">
         <source>contact.form.subject.label</source>
         <target>Subject</target>
@@ -106,9 +110,17 @@
         <source>contact.form.submit.button</source>
         <target>Submit</target>
       </trans-unit>
+      <trans-unit id="dc1fc39c54a97b19c64c0a9726491642aa13bb9f" resname="contact.new.form.registered.text">
+        <source>contact.new.form.registered.text</source>
+        <target state="new">contact.new.form.registered.text</target>
+      </trans-unit>
       <trans-unit id="8c4ecc2f579d5a4e94b8c400cae37855a672b92f" resname="contact.new.form.title">
         <source>contact.new.form.title</source>
         <target>Contact Us</target>
+      </trans-unit>
+      <trans-unit id="767711309c1899c45b258b0da9fe5dbae5c6bfba" resname="contact.new.form.unregistered.text">
+        <source>contact.new.form.unregistered.text</source>
+        <target state="new">contact.new.form.unregistered.text</target>
       </trans-unit>
       <trans-unit id="8966dd81d50f350bf4aa2b7d2bae9a6afbbc441c" resname="contact.new.success">
         <source>contact.new.success</source>

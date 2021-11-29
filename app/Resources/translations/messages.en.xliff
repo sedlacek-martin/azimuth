@@ -114,10 +114,6 @@
         <source>admin.contact.message.label</source>
         <target>admin.contact.message.label</target>
       </trans-unit>
-      <trans-unit id="5da61dfa2b77fc7342e1457ce1bbf4f7e20c8877" resname="admin.contact.phone.label">
-        <source>admin.contact.phone.label</source>
-        <target>admin.contact.phone.label</target>
-      </trans-unit>
       <trans-unit id="b4ce204ba1c572abe62609f69cedee82e8698e44" resname="admin.contact.status.label">
         <source>admin.contact.status.label</source>
         <target>admin.contact.status.label</target>
@@ -125,10 +121,6 @@
       <trans-unit id="53ae0a5aa975456f4966078c63dcfc83d3c6776a" resname="admin.contact.subject.label">
         <source>admin.contact.subject.label</source>
         <target>admin.contact.subject.label</target>
-      </trans-unit>
-      <trans-unit id="66492ad1cc0c7f89754af4cdead67997bbbbbde9" resname="admin.contact.updated_at.label">
-        <source>admin.contact.updated_at.label</source>
-        <target>admin.contact.updated_at.label</target>
       </trans-unit>
       <trans-unit id="ff974eb8fd8417b553a204d4abe7efc6532f370e" resname="admin.footer.url.label">
         <source>admin.footer.url.label</source>
@@ -150,14 +142,6 @@
         <source>admin.listing.certified.label</source>
         <target>admin.listing.certified.label</target>
       </trans-unit>
-      <trans-unit id="8922c4ad5a8265761c0102a98729b76d8aa8e506" resname="admin.listing.city.label">
-        <source>admin.listing.city.label</source>
-        <target>admin.listing.city.label</target>
-      </trans-unit>
-      <trans-unit id="a31f9358c937af08f21bee24856dce9a011aea6e" resname="admin.listing.country.label">
-        <source>admin.listing.country.label</source>
-        <target>admin.listing.country.label</target>
-      </trans-unit>
       <trans-unit id="9908be157ce8cc3ed58e0c00284338c97ed648e7" resname="admin.listing.created_at.label">
         <source>admin.listing.created_at.label</source>
         <target>admin.listing.created_at.label</target>
@@ -173,10 +157,6 @@
       <trans-unit id="96bc9ef12f9d3d7eef97b3510264c92b9c707d9f" resname="admin.listing.offerer.label">
         <source>admin.listing.offerer.label</source>
         <target>admin.listing.offerer.label</target>
-      </trans-unit>
-      <trans-unit id="1b52e732fb2ca7fc6c53c09d6742dbd9e271fd23" resname="admin.listing.public.label">
-        <source>admin.listing.public.label</source>
-        <target>Public</target>
       </trans-unit>
       <trans-unit id="70f4bab980aaea77504b06db4a44795d111c90ba" resname="admin.listing.status.label">
         <source>admin.listing.status.label</source>
@@ -197,10 +177,6 @@
       <trans-unit id="20bbb32c0561e993a306249ad494f9594e7be149" resname="admin.listing.user_email.label">
         <source>admin.listing.user_email.label</source>
         <target>admin.listing.user_email.label</target>
-      </trans-unit>
-      <trans-unit id="deef8057befff7beee11a6819cf8a17be55a379a" resname="admin.listing.user_phone.label">
-        <source>admin.listing.user_phone.label</source>
-        <target>admin.listing.user_phone.label</target>
       </trans-unit>
       <trans-unit id="87ac6419133734b501179c9fd7025db124442894" resname="admin.listing_category.fields.label">
         <source>admin.listing_category.fields.label</source>
@@ -338,22 +314,6 @@
         <source>announcements.member_organizations.help</source>
         <target>If no member organisation selected, it will use ALL</target>
       </trans-unit>
-      <trans-unit id="7493734ead0bdedfe7aea277ad64272939c9c914" resname="form.address.address">
-        <source>form.address.address</source>
-        <target>form.address.address</target>
-      </trans-unit>
-      <trans-unit id="b28c4ad5e834b173a41fde062a04a1ee6456e5d3" resname="form.address.city">
-        <source>form.address.city</source>
-        <target>form.address.city</target>
-      </trans-unit>
-      <trans-unit id="02b8acf448f3cd8e8c6ca63d7047bfb91b59bca9" resname="form.address.country">
-        <source>form.address.country</source>
-        <target>form.address.country</target>
-      </trans-unit>
-      <trans-unit id="8e429cf6802a2864ffd2d99ad6110a91682010c8" resname="form.address.zip">
-        <source>form.address.zip</source>
-        <target>form.address.zip</target>
-      </trans-unit>
       <trans-unit id="12d06ba6f0391beb0cefd4382b4ac945f1789890" resname="form.label_member_organization">
         <source>form.label_member_organization</source>
         <target>Member organization</target>
@@ -365,10 +325,6 @@
       <trans-unit id="dd62732e3b53b13b8ecc93d80180b06a12c68e95" resname="list_action_trusted.age_warning.help">
         <source>list_action_trusted.age_warning.help</source>
         <target>This user is under age of 18!</target>
-      </trans-unit>
-      <trans-unit id="63e537934f93cbdef8e3d3eebc911b78a1c5eb39" resname="listing.form.pallets">
-        <source>listing.form.pallets</source>
-        <target>Pallets</target>
       </trans-unit>
       <trans-unit id="4a2d344edfd37643e6533cfbd2c2d58defa68b2b" resname="map.country_info_empty.text">
         <source>map.country_info_empty.text</source>

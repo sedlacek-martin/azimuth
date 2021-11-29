@@ -22,6 +22,10 @@
         <source>Admin</source>
         <target>Admin</target>
       </trans-unit>
+      <trans-unit id="e51f89cad8b3b2a6c23e5d50e83103db539f6103" resname="Allow Subject">
+        <source>Allow Subject</source>
+        <target state="new">Allow Subject</target>
+      </trans-unit>
       <trans-unit id="cf84a98d6cf7f156862a08ba8236467b6f471004" resname="Announcement">
         <source>Announcement</source>
         <target state="new">Announcement</target>
@@ -110,6 +114,30 @@
         <source>Contact Batch</source>
         <target>Contact Batch</target>
       </trans-unit>
+      <trans-unit id="6c94699de55e0140acdc6049a39da05848a01594" resname="Contact Category Batch">
+        <source>Contact Category Batch</source>
+        <target state="new">Contact Category Batch</target>
+      </trans-unit>
+      <trans-unit id="34d26a552e8dacee5853d1f57998573107c9b634" resname="Contact Category Create">
+        <source>Contact Category Create</source>
+        <target state="new">Contact Category Create</target>
+      </trans-unit>
+      <trans-unit id="65fff085f594932ffb5a89df0a921985522bffc5" resname="Contact Category Delete">
+        <source>Contact Category Delete</source>
+        <target state="new">Contact Category Delete</target>
+      </trans-unit>
+      <trans-unit id="92a81a35d83aa8d70f47769f7401a5334d2ce33e" resname="Contact Category Edit">
+        <source>Contact Category Edit</source>
+        <target state="new">Contact Category Edit</target>
+      </trans-unit>
+      <trans-unit id="d5546292cd93765a32bb89f6f21f1c926c5ffaf0" resname="Contact Category List">
+        <source>Contact Category List</source>
+        <target state="new">Contact Category List</target>
+      </trans-unit>
+      <trans-unit id="67ccff6f90903792afba4f26a4b5c951db7418d7" resname="Contact Category Update">
+        <source>Contact Category Update</source>
+        <target state="new">Contact Category Update</target>
+      </trans-unit>
       <trans-unit id="4161553a07a34a843a45d306ce174c5a9e7d0b6d" resname="Contact Create">
         <source>Contact Create</source>
         <target>Contact Create</target>
@@ -141,6 +169,10 @@
       <trans-unit id="d87f47b47e4d5794d53fe0734c49417bd046cde0" resname="Dashboard">
         <source>Dashboard</source>
         <target state="new">Dashboard</target>
+      </trans-unit>
+      <trans-unit id="2de2d2bded96cb9b9b7a378d56240513519d039c" resname="Default Image Name">
+        <source>Default Image Name</source>
+        <target state="new">Default Image Name</target>
       </trans-unit>
       <trans-unit id="e8db5f4582e50590fcf9bb6c9b5b1403fc544b5f" resname="Dismissed">
         <source>Dismissed</source>
@@ -362,6 +394,10 @@
         <source>Message conversations</source>
         <target state="new">Message conversations</target>
       </trans-unit>
+      <trans-unit id="f1702b4686278becffc88baabe6f4b7a8355532c" resname="Messages">
+        <source>Messages</source>
+        <target state="new">Messages</target>
+      </trans-unit>
       <trans-unit id="709a23220f2c3d64d1e1d6d18c4d5280f8d82fca" resname="Name">
         <source>Name</source>
         <target>Name</target>
@@ -430,6 +466,26 @@
         <source>Posts validation</source>
         <target state="new">Posts validation</target>
       </trans-unit>
+      <trans-unit id="dc5eb704bbcae1aff4efb71c55461d47767dabe7" resname="Public">
+        <source>Public</source>
+        <target state="new">Public</target>
+      </trans-unit>
+      <trans-unit id="29b4ab40e25bff86e4c1eaeaa56c10147b9a1601" resname="Recipient Role Naames">
+        <source>Recipient Role Naames</source>
+        <target state="new">Recipient Role Naames</target>
+      </trans-unit>
+      <trans-unit id="4278e7de9ee6b4d6c4bc332f8ccda4ac81fa4fcd" resname="Recipient Roles">
+        <source>Recipient Roles</source>
+        <target state="new">Recipient Roles</target>
+      </trans-unit>
+      <trans-unit id="7c878197e3f7007cde5ef4d2563e82e165c05f4d" resname="Registration type">
+        <source>Registration type</source>
+        <target state="new">Registration type</target>
+      </trans-unit>
+      <trans-unit id="7d410a4bb055e8928af85524ce5829ae0ebb6612" resname="Reply Send">
+        <source>Reply Send</source>
+        <target state="new">Reply Send</target>
+      </trans-unit>
       <trans-unit id="bce06414177f72ab70e6387b6af9f8ceef0d6049" resname="Search">
         <source>Search</source>
         <target state="new">Search</target>
@@ -482,6 +538,10 @@
         <source>Translations</source>
         <target>Translations</target>
       </trans-unit>
+      <trans-unit id="7784ac6f7e8508f6d9265f8fc27cc2b91221c3cb" resname="Uri">
+        <source>Uri</source>
+        <target state="new">Uri</target>
+      </trans-unit>
       <trans-unit id="9f8a2389a20ca0752aa9e95093515517e90e194c" resname="User">
         <source>User</source>
         <target state="new">User</target>
@@ -509,6 +569,10 @@
       <trans-unit id="7ccd07da5582e1da75b78d98cff490e414de9711" resname="action_delete">
         <source>action_delete</source>
         <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="79525ce8f2dc6e50d37f3098a8277885b81afaf8" resname="activator_overview.new_contacts">
+        <source>activator_overview.new_contacts</source>
+        <target state="new">activator_overview.new_contacts</target>
       </trans-unit>
       <trans-unit id="69ff5f8c4b3d74f3c00896c31e10b611fa23c6d7" resname="activator_overview.new_registrations">
         <source>activator_overview.new_registrations</source>
@@ -558,13 +622,17 @@
         <source>add_admin_note.title</source>
         <target>Admin note</target>
       </trans-unit>
-      <trans-unit id="1b019ec3ed071ce76fee6fe602b33b77a6349c0e" resname="admin.booking.delivery">
-        <source>admin.booking.delivery</source>
-        <target>admin.booking.delivery</target>
-      </trans-unit>
       <trans-unit id="13c420e895a38a2cfe083dcddbadd185a7662fac" resname="admin.contact.created_at.label">
         <source>admin.contact.created_at.label</source>
         <target>Created At</target>
+      </trans-unit>
+      <trans-unit id="2e644a724baa04092663f928d2ac04bef968fa47" resname="admin.contact.detail.back">
+        <source>admin.contact.detail.back</source>
+        <target state="new">admin.contact.detail.back</target>
+      </trans-unit>
+      <trans-unit id="812e7869f6bb66fcfb2a01a3f5f0c6108b6d7765" resname="admin.contact.detail.mark_resolved">
+        <source>admin.contact.detail.mark_resolved</source>
+        <target state="new">admin.contact.detail.mark_resolved</target>
       </trans-unit>
       <trans-unit id="b52b77f0f840ac1f7658af515ffde988b60bc7d8" resname="admin.contact.email.label">
         <source>admin.contact.email.label</source>
@@ -582,9 +650,17 @@
         <source>admin.contact.message.label</source>
         <target>Message</target>
       </trans-unit>
-      <trans-unit id="5da61dfa2b77fc7342e1457ce1bbf4f7e20c8877" resname="admin.contact.phone.label">
-        <source>admin.contact.phone.label</source>
-        <target>Phone</target>
+      <trans-unit id="386ac9a566fe112886bf7a3cf0a5604816e890bd" resname="admin.contact.reply.label">
+        <source>admin.contact.reply.label</source>
+        <target state="new">admin.contact.reply.label</target>
+      </trans-unit>
+      <trans-unit id="bf9bca6e4cd9e8599de20fb01485dcc77e1fea93" resname="admin.contact.resolve.already_resolved.error">
+        <source>admin.contact.resolve.already_resolved.error</source>
+        <target state="new">admin.contact.resolve.already_resolved.error</target>
+      </trans-unit>
+      <trans-unit id="028c6498707e2e955481aa8cd767dd9cb97a6679" resname="admin.contact.resolve.success">
+        <source>admin.contact.resolve.success</source>
+        <target state="new">admin.contact.resolve.success</target>
       </trans-unit>
       <trans-unit id="b4ce204ba1c572abe62609f69cedee82e8698e44" resname="admin.contact.status.label">
         <source>admin.contact.status.label</source>
@@ -597,10 +673,6 @@
       <trans-unit id="c85c3c51785ebb29183e6a0279a026d6452a746b" resname="admin.contact.title">
         <source>admin.contact.title</source>
         <target>Contact Us</target>
-      </trans-unit>
-      <trans-unit id="66492ad1cc0c7f89754af4cdead67997bbbbbde9" resname="admin.contact.updated_at.label">
-        <source>admin.contact.updated_at.label</source>
-        <target>Updated At</target>
       </trans-unit>
       <trans-unit id="44df2cc4ba3e322e8a2c08b50b4d823106e4f6c4" resname="admin.footer.help">
         <source>admin.footer.help</source>
@@ -635,14 +707,6 @@
         <source>admin.listing.certified.label</source>
         <target>Certified</target>
       </trans-unit>
-      <trans-unit id="8922c4ad5a8265761c0102a98729b76d8aa8e506" resname="admin.listing.city.label">
-        <source>admin.listing.city.label</source>
-        <target>City</target>
-      </trans-unit>
-      <trans-unit id="a31f9358c937af08f21bee24856dce9a011aea6e" resname="admin.listing.country.label">
-        <source>admin.listing.country.label</source>
-        <target>Country</target>
-      </trans-unit>
       <trans-unit id="9908be157ce8cc3ed58e0c00284338c97ed648e7" resname="admin.listing.created_at.label">
         <source>admin.listing.created_at.label</source>
         <target>Created At</target>
@@ -658,10 +722,6 @@
       <trans-unit id="96bc9ef12f9d3d7eef97b3510264c92b9c707d9f" resname="admin.listing.offerer.label">
         <source>admin.listing.offerer.label</source>
         <target>Offerer</target>
-      </trans-unit>
-      <trans-unit id="1b52e732fb2ca7fc6c53c09d6742dbd9e271fd23" resname="admin.listing.public.label">
-        <source>admin.listing.public.label</source>
-        <target>Public</target>
       </trans-unit>
       <trans-unit id="70f4bab980aaea77504b06db4a44795d111c90ba" resname="admin.listing.status.label">
         <source>admin.listing.status.label</source>
@@ -686,10 +746,6 @@
       <trans-unit id="20bbb32c0561e993a306249ad494f9594e7be149" resname="admin.listing.user_email.label">
         <source>admin.listing.user_email.label</source>
         <target>Email</target>
-      </trans-unit>
-      <trans-unit id="deef8057befff7beee11a6819cf8a17be55a379a" resname="admin.listing.user_phone.label">
-        <source>admin.listing.user_phone.label</source>
-        <target>Phone</target>
       </trans-unit>
       <trans-unit id="87ac6419133734b501179c9fd7025db124442894" resname="admin.listing_category.fields.label">
         <source>admin.listing_category.fields.label</source>
@@ -872,16 +928,16 @@
         <source>confirm_exit</source>
         <target>Are you sure to want to logout?</target>
       </trans-unit>
+      <trans-unit id="4291709917b687cf426ae1065d8590ef62e57880" resname="dashboard_action_contact">
+        <source>dashboard_action_contact</source>
+        <target state="new">dashboard_action_contact</target>
+      </trans-unit>
       <trans-unit id="819029724099137e5d4362b78b887d1cc13a8aa0" resname="dashboard_action_new_messages">
         <source>dashboard_action_new_messages</source>
         <target>Show</target>
       </trans-unit>
       <trans-unit id="c15311766be7957eba67b24b61104ee105c3aa3f" resname="dashboard_action_new_mo_posts">
         <source>dashboard_action_new_mo_posts</source>
-        <target>Show</target>
-      </trans-unit>
-      <trans-unit id="83da74f97b43005f6db197fe31a91a19ea3df6f0" resname="dashboard_action_new_posts_mentions">
-        <source>dashboard_action_new_posts_mentions</source>
         <target>Show</target>
       </trans-unit>
       <trans-unit id="1642c3f7826fbf4f497151787000c9a8a959a718" resname="dashboard_action_new_registration">
@@ -891,6 +947,10 @@
       <trans-unit id="07e0a3d7e371c7ec36c6e23028dd99b3cb5b3112" resname="delete_or">
         <source>delete_or</source>
         <target>or</target>
+      </trans-unit>
+      <trans-unit id="2adb5c9d741ff6c0870baa81910509d75abe21a7" resname="facilitator_overview.new_contacts">
+        <source>facilitator_overview.new_contacts</source>
+        <target state="new">facilitator_overview.new_contacts</target>
       </trans-unit>
       <trans-unit id="91ab1a1eaa1352e02d73894cbd78bf68588dcbd6" resname="facilitator_overview.new_meesages">
         <source>facilitator_overview.new_meesages</source>
@@ -968,6 +1028,10 @@
         <source>flash_action_message_validate_success</source>
         <target>Message validated</target>
       </trans-unit>
+      <trans-unit id="0a82b74b936e453f439f58851712dd150e23e421" resname="flash_action_preferences_success">
+        <source>flash_action_preferences_success</source>
+        <target state="new">flash_action_preferences_success</target>
+      </trans-unit>
       <trans-unit id="d5487a6d65fef041ffa8915ab4ca86bd232cc9c4" resname="flash_action_trusted_error">
         <source>flash_action_trusted_error</source>
         <target>Error occurred while activating the account</target>
@@ -995,6 +1059,18 @@
       <trans-unit id="e5e454df5eb5c00656a0c62e5d352178a8a7db8c" resname="form_not_available">
         <source>form_not_available</source>
         <target>form_not_available</target>
+      </trans-unit>
+      <trans-unit id="65ebc573a268c65f925a38c667c06847658919d5" resname="invitation.resend.already_used.error">
+        <source>invitation.resend.already_used.error</source>
+        <target state="new">invitation.resend.already_used.error</target>
+      </trans-unit>
+      <trans-unit id="15ce978c0b26725c9431803ea938190bba32fe15" resname="invitation.resend.is_not_expired.error">
+        <source>invitation.resend.is_not_expired.error</source>
+        <target state="new">invitation.resend.is_not_expired.error</target>
+      </trans-unit>
+      <trans-unit id="6aafe29aabd879d56a30c2a0493376d4c6978076" resname="invitation.resend.success">
+        <source>invitation.resend.success</source>
+        <target state="new">invitation.resend.success</target>
       </trans-unit>
       <trans-unit id="ccc2bd9278a016b466caa0854dc5a4709ffe9915" resname="label_compare_revision">
         <source>label_compare_revision</source>
@@ -1044,9 +1120,9 @@
         <source>list_action_message_detail</source>
         <target>Detail</target>
       </trans-unit>
-      <trans-unit id="23a8096e210e81fbe8bc12579103c815d8994951" resname="list_action_message_validate">
-        <source>list_action_message_validate</source>
-        <target>Validate</target>
+      <trans-unit id="e8cdee781d35026e95eced5eafb25b04966da0a1" resname="list_action_resend_invitation">
+        <source>list_action_resend_invitation</source>
+        <target state="new">list_action_resend_invitation</target>
       </trans-unit>
       <trans-unit id="1777843d8b5c9f4e3453a7ad83251e660cfcaf93" resname="list_action_show_listing">
         <source>list_action_show_listing</source>
@@ -1136,6 +1212,18 @@
         <source>noscript_warning</source>
         <target>noscript_warning</target>
       </trans-unit>
+      <trans-unit id="ef8fa427115477f594f5a01ba0521623ce1d3c21" resname="preferences.disable_notifications">
+        <source>preferences.disable_notifications</source>
+        <target state="new">preferences.disable_notifications</target>
+      </trans-unit>
+      <trans-unit id="86debbc31731806f0043a50bb262e6637357fde5" resname="preferences.notifications.title">
+        <source>preferences.notifications.title</source>
+        <target state="new">preferences.notifications.title</target>
+      </trans-unit>
+      <trans-unit id="eb7b1f0e1075a79ac1e8c81b755cc346ca541511" resname="preferences.title">
+        <source>preferences.title</source>
+        <target state="new">preferences.title</target>
+      </trans-unit>
       <trans-unit id="3f594a2721e22c0ac35a986be61b7182704b3868" resname="registration_type_normal">
         <source>registration_type_normal</source>
         <target>Normal</target>
@@ -1164,6 +1252,18 @@
         <source>request_user_mo_unique_identifier.modal.text</source>
         <target xml:space="preserve">Under this link, the user can complete his registration by filling in his required unique identifier.
 You can copy this link and send it to the user if needed.</target>
+      </trans-unit>
+      <trans-unit id="312f7e8d82d0f0369d99702427a0026f65d18815" resname="role.activator">
+        <source>role.activator</source>
+        <target>Activator</target>
+      </trans-unit>
+      <trans-unit id="0d2aff954bb4ba31f5a76a1a98ac0cdfcbbe97a3" resname="role.facilitator">
+        <source>role.facilitator</source>
+        <target state="new">role.facilitator</target>
+      </trans-unit>
+      <trans-unit id="c0f4105092282b05e2256b12d54259e5255781b4" resname="role.super_admin">
+        <source>role.super_admin</source>
+        <target state="new">role.super_admin</target>
       </trans-unit>
       <trans-unit id="abc1350f2b5be870ca8aaff871e8afdd0cc9c55a" resname="said">
         <source>said</source>

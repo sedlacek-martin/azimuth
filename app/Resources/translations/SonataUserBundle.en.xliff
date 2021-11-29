@@ -62,6 +62,10 @@
         <source>filter.label_trusted</source>
         <target>Trusted</target>
       </trans-unit>
+      <trans-unit id="dba19d347d7734e4db6d12af666917ac59150a67" resname="filter.label_verified_domain_registration">
+        <source>filter.label_verified_domain_registration</source>
+        <target state="new">filter.label_verified_domain_registration</target>
+      </trans-unit>
       <trans-unit id="296ea8bf9da5b60f6439012df3ca488344a93144" resname="form.label_birthday">
         <source>form.label_birthday</source>
         <target>Birthday</target>
@@ -253,6 +257,10 @@
       <trans-unit id="30296748403bb9ca684e2020409f15bd250f6639" resname="user_block_logout">
         <source>user_block_logout</source>
         <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="55822ae73765033d6f5e774a4988407af2a11e95" resname="user_block_preferences">
+        <source>user_block_preferences</source>
+        <target state="new">user_block_preferences</target>
       </trans-unit>
     </body>
   </file>

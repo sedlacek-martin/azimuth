@@ -6,10 +6,6 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="3bc15c8aae3e4124dd409035f32ea2fd6835efc9" resname="-">
-        <source>-</source>
-        <target>-</target>
-      </trans-unit>
       <trans-unit id="7d08aa60b1b84264cf1b22a4a60155ff3e5d03bd" resname="- Select -">
         <source>- Select -</source>
         <target state="new">- Select -</target>
@@ -33,10 +29,6 @@
       <trans-unit id="fbe2f800f0f4a7c6f623967e6fa7235892cbe24d" resname="Bad credentials.">
         <source>Bad credentials.</source>
         <target>Incorrect username or password</target>
-      </trans-unit>
-      <trans-unit id="53c2de2d09cbdfd49e998fe7a94498fe7cf5beb0" resname="Biography">
-        <source>Biography</source>
-        <target state="new">Biography</target>
       </trans-unit>
       <trans-unit id="a6b9d69f57d94a826930e45360e373533bfd130d" resname="Birthday">
         <source>Birthday</source>
@@ -78,10 +70,6 @@
         <source>Created At</source>
         <target state="new">Created At</target>
       </trans-unit>
-      <trans-unit id="f25210a5310fd3f221d3343bedff76ac67c2a269" resname="Date Of Birth">
-        <source>Date Of Birth</source>
-        <target state="new">Date Of Birth</target>
-      </trans-unit>
       <trans-unit id="55f8ebc805e65b5b71ddafdae390e3be2bcd69af" resname="Description">
         <source>Description</source>
         <target state="new">Description</target>
@@ -102,49 +90,13 @@
         <source>Expiration</source>
         <target state="new">Expiration</target>
       </trans-unit>
-      <trans-unit id="89742ccf780c8a67051d8f3c622d70fe05c3fbee" resname="Facebook Name">
-        <source>Facebook Name</source>
-        <target state="new">Facebook Name</target>
-      </trans-unit>
-      <trans-unit id="c4aa41e86fb3925d5cb62a8564f577eb841c9492" resname="Facebook Uid">
-        <source>Facebook Uid</source>
-        <target state="new">Facebook Uid</target>
-      </trans-unit>
-      <trans-unit id="cf23ba48c06d7e6d4b41a205bfb3cac3bb7b1e38" resname="Firstname">
-        <source>Firstname</source>
-        <target state="new">Firstname</target>
-      </trans-unit>
       <trans-unit id="64346b483c0adcfb6e6d4c2e4ce19f1cd2cde025" resname="Full Name">
         <source>Full Name</source>
         <target state="new">Full Name</target>
       </trans-unit>
-      <trans-unit id="8a754c61c2ced0c5ff79a1827e02c9d643d6d926" resname="Gender">
-        <source>Gender</source>
-        <target state="new">Gender</target>
-      </trans-unit>
-      <trans-unit id="260433f07572d3554e380a176e31290618564df4" resname="Gplus Name">
-        <source>Gplus Name</source>
-        <target state="new">Gplus Name</target>
-      </trans-unit>
-      <trans-unit id="c112ac21328067d86ae451ab826b6fadad88f6e2" resname="Gplus Uid">
-        <source>Gplus Uid</source>
-        <target state="new">Gplus Uid</target>
-      </trans-unit>
-      <trans-unit id="ae9629f4ebb82c6331c0809fa9a0e54b00e578e6" resname="Groups">
-        <source>Groups</source>
-        <target state="new">Groups</target>
-      </trans-unit>
       <trans-unit id="474ae52625b87d7628ae7b20a499329a99e07119" resname="Id">
         <source>Id</source>
         <target state="new">Id</target>
-      </trans-unit>
-      <trans-unit id="639860fbb86cea7f96e287fa3fecca62e4bb42f8" resname="Lastname">
-        <source>Lastname</source>
-        <target state="new">Lastname</target>
-      </trans-unit>
-      <trans-unit id="8970f0e691a0a23a47517698017c997507efd496" resname="Locale">
-        <source>Locale</source>
-        <target state="new">Locale</target>
       </trans-unit>
       <trans-unit id="e71015d0e82e3df7df311fc712165d5273e3e2a6" resname="Member Organization">
         <source>Member Organization</source>
@@ -194,10 +146,6 @@
         <source>Pending activations</source>
         <target state="new">Pending activations</target>
       </trans-unit>
-      <trans-unit id="77064d5265236e0ac252f3fc4a5ba7b274b6a583" resname="Phone">
-        <source>Phone</source>
-        <target state="new">Phone</target>
-      </trans-unit>
       <trans-unit id="43212c47f44f1782d86c9258c4ca7bac2d65c37f" resname="Reconfirm Requested">
         <source>Reconfirm Requested</source>
         <target state="new">Reconfirm Requested</target>
@@ -206,57 +154,13 @@
         <source>Requires User Identifier</source>
         <target state="new">Requires User Identifier</target>
       </trans-unit>
-      <trans-unit id="d1f7dc891b5e5d1797163b556e805123c9369e4f" resname="Timezone">
-        <source>Timezone</source>
-        <target state="new">Timezone</target>
-      </trans-unit>
-      <trans-unit id="a1141eb96836ed960ae0be11b9889597388b5df0" resname="Token">
-        <source>Token</source>
-        <target state="new">Token</target>
-      </trans-unit>
       <trans-unit id="99f7ed543bf3747d87f8a2778ea501bc0116c380" resname="Trusted">
         <source>Trusted</source>
         <target>Trusted</target>
       </trans-unit>
-      <trans-unit id="9adf380321442a39e1391f1306ba1fab374dd44e" resname="Twitter Name">
-        <source>Twitter Name</source>
-        <target state="new">Twitter Name</target>
-      </trans-unit>
-      <trans-unit id="c38767da1a72940f30f8bb635ba2f10bede02c89" resname="Twitter Uid">
-        <source>Twitter Uid</source>
-        <target state="new">Twitter Uid</target>
-      </trans-unit>
-      <trans-unit id="ba7c533d62696987d62217b9b50830b45f5ecb27" resname="Two Step Verification Code">
-        <source>Two Step Verification Code</source>
-        <target state="new">Two Step Verification Code</target>
-      </trans-unit>
       <trans-unit id="02c0e4a1da64085d6e5e5cc69335b54b181e8a32" resname="Used">
         <source>Used</source>
         <target state="new">Used</target>
-      </trans-unit>
-      <trans-unit id="e6b55e309c0fd34f11593e222785392b13cfc32e" resname="User Address Batch">
-        <source>User Address Batch</source>
-        <target>User Address Batch</target>
-      </trans-unit>
-      <trans-unit id="6beaadbfd9666d258d7bd6f67e2a9495ef433664" resname="User Address Create">
-        <source>User Address Create</source>
-        <target>User Address Create</target>
-      </trans-unit>
-      <trans-unit id="923af6e85acdb16f33d6ced17bee53a94da6c8c4" resname="User Address Delete">
-        <source>User Address Delete</source>
-        <target>User Address Delete</target>
-      </trans-unit>
-      <trans-unit id="c7e238c437a00b6eeb79ba541b33d69722aac0dc" resname="User Address Edit">
-        <source>User Address Edit</source>
-        <target>User Address Edit</target>
-      </trans-unit>
-      <trans-unit id="71b5353869c44cd332fd3609c123c0b2bd8e195a" resname="User Address List">
-        <source>User Address List</source>
-        <target>User Address List</target>
-      </trans-unit>
-      <trans-unit id="87ebb286bf6b2f2509ebf1b7f51568ab90c4d2df" resname="User Address Update">
-        <source>User Address Update</source>
-        <target>User Address Update</target>
       </trans-unit>
       <trans-unit id="f4d281a169ee8e391ec7623743eac344b9837f23" resname="User Batch">
         <source>User Batch</source>
@@ -314,10 +218,6 @@
         <source>User invitation</source>
         <target state="new">User invitation</target>
       </trans-unit>
-      <trans-unit id="84c29015de33e5d22422382a372caba5c58f8c01" resname="Username">
-        <source>Username</source>
-        <target state="new">Username</target>
-      </trans-unit>
       <trans-unit id="a3d77cf19006d924c06a03755c93fc42fa3d06be" resname="Verified Domain Batch">
         <source>Verified Domain Batch</source>
         <target state="new">Verified Domain Batch</target>
@@ -345,10 +245,6 @@
       <trans-unit id="6ea08b623852a7a9284b136b69d181041ffc4659" resname="Verified domains">
         <source>Verified domains</source>
         <target state="new">Verified domains</target>
-      </trans-unit>
-      <trans-unit id="2e8a57cc5c472f4ac3b071979a38e80db7e59e87" resname="Website">
-        <source>Website</source>
-        <target state="new">Website</target>
       </trans-unit>
       <trans-unit id="0d612c12d2ac33625bf3e0351b6f5e4f73829fa8" resname="auto">
         <source>auto</source>
@@ -382,34 +278,6 @@
         <source>cocorico.to</source>
         <target>to</target>
       </trans-unit>
-      <trans-unit id="2e33a41aa053169361b996e132dc6288a51f83f9" resname="entity.user.type.billing">
-        <source>entity.user.type.billing</source>
-        <target>Billing address</target>
-      </trans-unit>
-      <trans-unit id="6672ac1144b067af9dd189f9c831be1acf13f5b2" resname="entity.user.type.delivery">
-        <source>entity.user.type.delivery</source>
-        <target>Delivery address</target>
-      </trans-unit>
-      <trans-unit id="7493734ead0bdedfe7aea277ad64272939c9c914" resname="form.address.address">
-        <source>form.address.address</source>
-        <target>Address street number and name</target>
-      </trans-unit>
-      <trans-unit id="b28c4ad5e834b173a41fde062a04a1ee6456e5d3" resname="form.address.city">
-        <source>form.address.city</source>
-        <target>City</target>
-      </trans-unit>
-      <trans-unit id="02b8acf448f3cd8e8c6ca63d7047bfb91b59bca9" resname="form.address.country">
-        <source>form.address.country</source>
-        <target>Country</target>
-      </trans-unit>
-      <trans-unit id="4667c63593a53fb5487b7e195a238bff0e6b0b71" resname="form.address.type">
-        <source>form.address.type</source>
-        <target>form.address.type</target>
-      </trans-unit>
-      <trans-unit id="8e429cf6802a2864ffd2d99ad6110a91682010c8" resname="form.address.zip">
-        <source>form.address.zip</source>
-        <target>Zip</target>
-      </trans-unit>
       <trans-unit id="fbaebba339b2bef20e07ce35710ae0ca0573984e" resname="form.birthday.help">
         <source>form.birthday.help</source>
         <target>Your birthdate will not be shown to anybody. It's only used to compute your age which will be displayed.</target>
@@ -436,10 +304,6 @@
       </trans-unit>
       <trans-unit id="8b93d84fe5e05b1f9340d18c3910cccc4a5100c5" resname="form.gender">
         <source>form.gender</source>
-        <target>Gender</target>
-      </trans-unit>
-      <trans-unit id="d614f18c7cd965566ad37d24e273e8a6ea5fb5b2" resname="form.gender.legal">
-        <source>form.gender.legal</source>
         <target>Gender</target>
       </trans-unit>
       <trans-unit id="ad2644b8e49a53ebc956786823470bf19bf5d146" resname="form.last_name">
@@ -545,6 +409,10 @@
       <trans-unit id="92ff738052eda39b7f5fa7ba263c3e30dfa28ac8" resname="profile.birthday.title">
         <source>profile.birthday.title</source>
         <target>Birthday</target>
+      </trans-unit>
+      <trans-unit id="0492fdfdde9dc8633de43c8a2eb9303f0e49f352" resname="profile.delete.link">
+        <source>profile.delete.link</source>
+        <target state="new">profile.delete.link</target>
       </trans-unit>
       <trans-unit id="37bd2c15b89edf1a86ecac366e71a11a0c5a6401" resname="profile.drop.files">
         <source>profile.drop.files</source>
@@ -684,6 +552,14 @@ An email has been sent to your inbox (%email%). It contains an activation link y
         <source>user.about.title</source>
         <target>About</target>
       </trans-unit>
+      <trans-unit id="2cdea1d660654623ac2f6c394309c3716ceaf4cc" resname="user.delete.invalid_password.error">
+        <source>user.delete.invalid_password.error</source>
+        <target state="new">user.delete.invalid_password.error</target>
+      </trans-unit>
+      <trans-unit id="4492a79e25635e7612f98971e02b4d0e6a408394" resname="user.delete.success">
+        <source>user.delete.success</source>
+        <target state="new">user.delete.success</target>
+      </trans-unit>
       <trans-unit id="77f5d674daf5cf49d8fb2854a36b4cf9d3b46ba9" resname="user.edit.about_me.success">
         <source>user.edit.about_me.success</source>
         <target>Your profile has been modified successfully</target>
@@ -790,9 +666,9 @@ While being deactivated, your are denied to access the page content. However you
         <source>user.profile.languages</source>
         <target>Spoken languages:</target>
       </trans-unit>
-      <trans-unit id="329ffbfee377ed1f628c557cf8c1fe2c20dd5f14" resname="user.profile.my-listing">
-        <source>user.profile.my-listing</source>
-        <target>My listings</target>
+      <trans-unit id="468ba53cb3378cc9a6e97b72a29928d9f51dd439" resname="user.profile.my_listing">
+        <source>user.profile.my_listing</source>
+        <target state="new">user.profile.my_listing</target>
       </trans-unit>
       <trans-unit id="6e0d3c3e10cb50874685c595bf6daaf767e8a548" resname="user.profile.subscribe-date.title">
         <source>user.profile.subscribe-date.title</source>
