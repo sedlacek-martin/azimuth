@@ -1,40 +1,21 @@
 # Development
 
+## Docker
 
-## Adding new file upload
+For development purposes, there are prepared docker containers, which you can run locally to develop. 
+However, these containers are NOT used in production environment.
 
-- Check mime type of file before upload
-- Add the new upload folder to .gitignore and add inside the new upload folder an empty file .gitkeep
-- If the new folder is outside of "web/uploads" folder add it to app/config/rsync_exclude.txt
+To start up the containers, run command in `/docker`:
+  
+    UID=${UID} docker-compose up
 
-##  Adding new DB field
+To enter the containers, run 
 
-- If the field is used in listing search criterias, add a DB index on it.
+    docker exec -it --user cocorico docker_cocorico_1 sh
 
-## Display user contents in pages
+## Mailcatcher
 
-- All user text fields (listing description, user description, messages between users, ...) must be filtered in twig 
-templates through the twig filter `strip_private_info`.
-
-        Ex: listing_translation.description|strip_private_info
-    
-## Versioning
-
-- Don't push modifications breaking major functionalities and complicating the app usage.
-
-
-## Dynamic texts
-
-- Some texts must be added through Twig global parameters and not be hardcoded in twig templates.
-
-        Ex: The phone is setted through cocorico_phone twig global parameter
-        
-
-## Twig
-
-- Close all block to not break editor indentation.
-
-        Ex: {% block header_class %}header-green{%- endblock -%} instead  {% block header_class %}header-green
+There is also a container for testing email receiving. The user interface is accessible on http://localhost:1080/
     
         
     

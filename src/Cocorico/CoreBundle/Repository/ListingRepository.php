@@ -13,6 +13,8 @@ namespace Cocorico\CoreBundle\Repository;
 
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Model\BaseListing;
+use DateInterval;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
@@ -28,15 +30,13 @@ class ListingRepository extends EntityRepository
     {
         $queryBuilder = $this->_em->createQueryBuilder()
             //Select
-            ->select("partial l.{id, averageRating, certified, createdAt, commentCount}")
+            ->select("partial l.{id, certified, createdAt, validFrom, validTo}")
             ->addSelect("partial t.{id, locale, slug, title, description}")
-//            ->addSelect("partial llcat.{id, listing, category}")
             ->addSelect("partial ca.{id, lft, lvl, rgt, root, pin}")
             ->addSelect("partial pin.{id, name, imagePath}")
             ->addSelect("partial cat.{id, locale, name}")
             ->addSelect("partial i.{id, name}")
             ->addSelect("partial u.{id, firstName}")
-            //->addSelect("partial ln.{id}")
             ->addSelect("partial ln.{id, city, route, country}")
             ->addSelect("partial co.{id, lat, lng, latRandom, lngRandom}")
             ->addSelect("partial ui.{id, name}")
@@ -147,10 +147,8 @@ class ListingRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('l')
             ->addSelect("t, i, c, ca, cat, u")
-//            ->addSelect("t, i, c, ca, cat, u, rt")
             ->leftJoin('l.translations', 't')
             ->leftJoin('l.user', 'u')
-            //->leftJoin('u.reviewsTo', 'rt')
             ->leftJoin('l.listingListingCharacteristics', 'c')
             ->leftJoin('l.images', 'i')
             ->leftJoin('l.category', 'ca')
@@ -158,12 +156,9 @@ class ListingRepository extends EntityRepository
             ->where('u.id = :ownerId')
             ->andWhere('t.locale = :locale')
             ->andWhere('l.status IN (:status)')
-            //->andWhere('rt.reviewTo = :reviewTo')
             ->setParameter('ownerId', $ownerId)
             ->setParameter('locale', $locale)
             ->setParameter('status', $status);
-
-        //->setParameter('reviewTo', $ownerId);
 
         return $queryBuilder;
 
@@ -250,10 +245,9 @@ class ListingRepository extends EntityRepository
     /**
      * @param $limit
      * @param $locale
-     * @param bool $publicOnly
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getFindByHighestRankingQueryBuilder($limit, $locale, bool $publicOnly)
+    public function getFindByHighestRankingQueryBuilder($limit, $locale)
     {
         $queryBuilder = $this->getFindQueryBuilder();
 
@@ -265,12 +259,6 @@ class ListingRepository extends EntityRepository
             ->setParameter('listingStatus', Listing::STATUS_PUBLISHED)
             ->setMaxResults($limit)
             ->orderBy('l.createdAt', 'DESC');
-
-        if ($publicOnly) {
-            $queryBuilder
-                ->andWhere('l.public = 1')
-                ->andWhere('l.certified = 1');
-        }
 
         return $queryBuilder;
     }
@@ -369,6 +357,8 @@ class ListingRepository extends EntityRepository
             ->leftJoin('location.coordinate', 'coordinate')
             ->leftJoin('coordinate.country', 'country')
             ->groupBy('country.code')
+            ->andWhere('listing.status = :publishedStatus')
+            ->setParameter('publishedStatus', BaseListing::STATUS_PUBLISHED)
             ->getQuery()
             ->getResult();
 
@@ -400,6 +390,52 @@ class ListingRepository extends EntityRepository
     }
 
     /**
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return array
+     */
+    public function getWaitingForValidationCountByMo(\DateTime $from, \DateTime $to): array
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->leftJoin('l.user', 'u')
+            ->leftJoin('u.memberOrganization', 'mo')
+            ->select('COUNT(l.id) as cnt, mo.id as mo_id')
+            ->andWhere('l.status = :validateStatus')
+            ->andWhere('u.createdAt >= :from')
+            ->andWhere('u.createdAt <= :to')
+            ->groupBy('mo.id')
+            ->setParameter('validateStatus', BaseListing::STATUS_TO_VALIDATE)
+            ->setParameter('from', $from)
+            ->setParameter('to', $to);
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
+
+    /**
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return array
+     */
+    public function getNewCountByMo(\DateTime $from, \DateTime $to): array
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->leftJoin('l.user', 'u')
+            ->leftJoin('u.memberOrganization', 'mo')
+            ->select('COUNT(l.id) as cnt, mo.id as mo_id')
+            ->andWhere('u.createdAt >= :from')
+            ->andWhere('u.createdAt <= :to')
+            ->groupBy('mo.id')
+            ->setParameter('from', $from)
+            ->setParameter('to', $to);
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
+
+    /**
      * @param \DateTime|null $from
      * @param \DateTime|null $to
      * @return int
@@ -422,6 +458,42 @@ class ListingRepository extends EntityRepository
 
         $result = $qb->getQuery()->getSingleResult();
         return $result['cnt'];
+    }
+
+    /**
+     * @param int $daysBefore
+     * @return ArrayCollection|Listing[]
+     * @throws \Exception
+     */
+    public function findAllToExpire(int $daysBefore = 30): ArrayCollection
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->andWhere('l.expiryDate <= :notifyDate')
+            ->andWhere('l.expiryNotificationSend = 0')
+            ->andWhere('l.status IN (:activeStatuses)');
+
+        $notifyDate = (new \DateTime('now'))->add(new DateInterval('P' . ($daysBefore) . 'D'));
+
+        $qb->setParameter(':notifyDate', $notifyDate->format('Y-m-d H:i:s'));
+        $qb->setParameter(':activeStatuses', BaseListing::$activeStatus);
+
+        return new ArrayCollection($qb->getQuery()->getResult());
+    }
+
+    /**
+     * @return ArrayCollection|Listing[]
+     */
+    public function findAllExpired(): ArrayCollection
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->andWhere('l.expiryDate < :today')
+            ->andWhere('l.status IN (:activeStatuses)');
+
+        $qb->setParameter(':today', (new \DateTime())->format('Y-m-d H:i:s'));
+        $qb->setParameter(':activeStatuses', BaseListing::$activeStatus);
+
+        return new ArrayCollection($qb->getQuery()->getResult());
+
     }
 }
 

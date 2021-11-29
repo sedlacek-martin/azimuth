@@ -6,22 +6,6 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="46fdda4a5d3126614388f58a8f228edfa57b2b51" resname="booking.new.meta_desc">
-        <source>booking.new.meta_desc</source>
-        <target>booking.new.meta_desc</target>
-      </trans-unit>
-      <trans-unit id="14b6b218dbec12074bce69744dee7aa0ddf72dc0" resname="booking.new.meta_title">
-        <source>booking.new.meta_title</source>
-        <target>New booking</target>
-      </trans-unit>
-      <trans-unit id="17cb48026a0a70249cfb5dc5fc89888b4272e075" resname="booking.payment.meta_desc">
-        <source>booking.payment.meta_desc</source>
-        <target>booking.payment.meta_desc</target>
-      </trans-unit>
-      <trans-unit id="c471d7138d12a8f617ec4edfb6f49ccccc5a9254" resname="booking.payment.meta_title">
-        <source>booking.payment.meta_title</source>
-        <target>booking.payment.meta_title</target>
-      </trans-unit>
       <trans-unit id="aeb82d33acdc02a7a0f5b6480df239d131f6e4ce" resname="confirmed.title">
         <source>confirmed.title</source>
         <target>Confirmed</target>

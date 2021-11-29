@@ -30,3 +30,19 @@ services:
       - "@doctrine.orm.entity_manager"
     tags:
       - { name: form.type }
+
+  cocorico.form.type.admin_preferences:
+    class: Cocorico\SonataAdminBundle\Form\Type\AdminPreferencesType
+    arguments:
+      - "@request_stack"
+      - "@doctrine.orm.entity_manager"
+    tags:
+      - { name: form.type }
+
+  cocorico.form.type.contact_reply:
+    class: Cocorico\SonataAdminBundle\Form\Type\ContactReplyType
+    arguments:
+      - "@request_stack"
+      - "@doctrine.orm.entity_manager"
+    tags:
+      - { name: form.type }

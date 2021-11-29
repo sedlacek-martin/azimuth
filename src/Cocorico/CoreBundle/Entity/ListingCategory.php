@@ -89,6 +89,13 @@ class ListingCategory extends BaseListingCategory
      */
     protected $characteristics;
 
+    /**
+     * @ORM\Column(type="string", length=255, name="default_image_name", nullable=false)
+     *
+     * @var string|null $defaultImageName;
+     */
+    protected $defaultImageName;
+
     public function __construct()
     {
         $this->fields = new ArrayCollection();
@@ -265,6 +272,24 @@ class ListingCategory extends BaseListingCategory
     public function setCharacteristics($characteristics): void
     {
         $this->characteristics = $characteristics;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDefaultImageName(): ?string
+    {
+        return $this->defaultImageName;
+    }
+
+    /**
+     * @param string $defaultImageName
+     * @return ListingCategory
+     */
+    public function setDefaultImageName(string $defaultImageName): ListingCategory
+    {
+        $this->defaultImageName = $defaultImageName;
+        return $this;
     }
 
     /**

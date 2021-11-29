@@ -47,7 +47,6 @@ class ProfileContactController extends Controller
         }
 
         $formHandler = $this->get('cocorico_user.form.handler.contact');
-        $user = $formHandler->init($user);
 
         $form = $this->createContactForm($user);
         $success = $formHandler->process($form);
@@ -91,7 +90,7 @@ class ProfileContactController extends Controller
      */
     private function createContactForm($user)
     {
-        $form = $this->get('form.factory')->createNamed(
+        return $this->get('form.factory')->createNamed(
             'user',
             ProfileContactFormType::class,
             $user,
@@ -100,7 +99,5 @@ class ProfileContactController extends Controller
                 'action' => $this->generateUrl('cocorico_user_dashboard_profile_edit_contact'),
             )
         );
-
-        return $form;
     }
 }

@@ -40,5 +40,11 @@
     <div class="profile-expire-nav small text-center">
         {{ 'profile.account_expiration.label'|trans }}
         {{ app.user.expiryDate|date('d.m.Y') }}
+        <a href="{{ path('cocorico_user_dashboard_profile_delete') }}"
+           class="text-danger" data-toggle="modal"
+           data-target="#modal">
+            {{ 'profile.delete.link'|trans }}
+        </a>
     </div>
+
 </aside>

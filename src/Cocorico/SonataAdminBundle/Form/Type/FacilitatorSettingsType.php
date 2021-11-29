@@ -63,6 +63,4 @@ class FacilitatorSettingsType extends AbstractType
     {
         return 'facilitator_settings';
     }
-
-
 }

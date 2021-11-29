@@ -20,10 +20,11 @@ use Cocorico\CoreBundle\Entity\ListingTranslation;
 use Cocorico\CoreBundle\Mailer\TwigSwiftMailer;
 use Cocorico\CoreBundle\Model\BaseListing;
 use Cocorico\CoreBundle\Model\ListingOptionInterface;
-use Cocorico\CoreBundle\Repository\ListingCharacteristicRepository;
 use Cocorico\CoreBundle\Repository\ListingRepository;
+use Cocorico\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -120,6 +121,22 @@ class ListingManager extends BaseManager
     }
 
     /**
+     * @param User $user
+     * @throws OptimisticLockException
+     */
+    public function deactivateForUser(User $user): void
+    {
+        $listings = $this->getRepository()->findBy(['user' => $user]);
+
+        foreach ($listings as $listing) {
+            $listing->setStatus(BaseListing::STATUS_SUSPENDED);
+            $this->em->persist($listing);
+        }
+
+        $this->em->flush();
+    }
+
+    /**
      * In case of new characteristics are created, we need to associate them to listing
      *
      * @param Listing $listing
@@ -176,6 +193,7 @@ class ListingManager extends BaseManager
             $nbImages = $listing->getImages()->count();
 
             foreach ($images as $i => $image) {
+                $image = trim($image);
                 $listingImage = new ListingImage();
                 $listingImage->setListing($listing);
                 $listingImage->setName($image);
@@ -194,6 +212,25 @@ class ListingManager extends BaseManager
         }
 
         return $listing;
+    }
+
+    /**
+     * @param Listing $listing
+     * @param bool $persist
+     */
+    public function addDefaultImage(Listing $listing, bool $persist = false): void
+    {
+        $defaultImages = $listing->getCategory()->getDefaultImageName();
+        if (empty($defaultImages)) {
+            return;
+        }
+
+        $defaultImagesArray = explode(",", trim($defaultImages, ","));
+        if (count($defaultImagesArray) === 0) {
+            return;
+        }
+
+        $this->addImages($listing, $defaultImagesArray, $persist);
     }
 
     /**
@@ -244,40 +281,6 @@ class ListingManager extends BaseManager
     }
 
     /**
-     * Send Update Calendar mail for all published listing
-     *
-     * @return integer Count of alerts sent
-     */
-    public function alertUpdateCalendars()
-    {
-        $result = 0;
-        $listings = $this->getRepository()->findAllPublished();
-
-        foreach ($listings as $listing) {
-            if ($this->alertUpdateCalendar($listing)) {
-                $result++;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Send Alert Update Calendar
-     *
-     * @param Listing $listing
-     *
-     * @return boolean
-     */
-    public function alertUpdateCalendar(Listing $listing)
-    {
-        $this->mailer->sendUpdateYourCalendarMessageToOfferer($listing);
-
-        return true;
-    }
-
-
-    /**
      * Duplicate Listing
      *
      * @param  Listing $listing
@@ -313,6 +316,50 @@ class ListingManager extends BaseManager
         $this->em->refresh($listingCloned);
 
         return $listingCloned;
+    }
+
+    /**
+     * @param int $daysBefore
+     * @return int
+     * @throws \Exception
+     */
+    public function notifyExpiringListings(int $daysBefore = 30): int
+    {
+        $count = 0;
+        $listings = $this->getRepository()->findAllToExpire($daysBefore);
+        foreach ($listings as $listing) {
+            if (!$listing->isExpiredSoon($daysBefore)) {
+                continue;
+            }
+
+            $this->mailer->sendListingExpireSoonNotification($listing);
+            $listing->setExpiryNotificationSend(true);
+            $count++;
+
+            $this->persistAndFlush($listing);
+        }
+
+        return $count;
+    }
+
+    public function expireListings()
+    {
+        $count = 0;
+        $listings = $this->getRepository()->findAllExpired();
+        foreach ($listings as $listing) {
+            if (!$listing->isExpired()) {
+                continue;
+            }
+
+            $listing->setStatus(BaseListing::STATUS_SUSPENDED);
+            $this->persistAndFlush($listing);
+            $this->mailer->sendListingExpired($listing);
+
+            ++$count;
+
+        }
+
+        return $count;
     }
 
     /**

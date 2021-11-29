@@ -1,0 +1,9 @@
+{% set url =  path('cocorico_admin__resend_invitation', {'id': object.id}) %}
+
+{% if object.expired and not object.used %}
+    <a href="{{ url }}" class="btn btn-sm btn-default edit_link"
+       title="{{ 'list_action_resend_invitation'|trans({}, 'SonataAdminBundle') }}">
+        <i class="glyphicon glyphicon-send"></i>
+        {{ 'list_action_resend_invitation'|trans({}, 'SonataAdminBundle') }}
+    </a>
+{% endif %}

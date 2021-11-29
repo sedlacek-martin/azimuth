@@ -23,6 +23,7 @@ class TwigSwiftMailer implements MailerInterface
     protected $contactEmail;
     protected $locale;
     protected $siteName;
+    protected $bccEmail;
 
     /**
      * @param \Swift_Mailer     $mailer
@@ -46,6 +47,7 @@ class TwigSwiftMailer implements MailerInterface
         $this->templates = $templates;
         $this->locale = $parameters['parameters']['cocorico_locale'];
         $this->siteName = $parameters['parameters']['cocorico_site_name'];
+        $this->bccEmail = $parameters['parameters']['cocorico_bcc_email'];
     }
 
     /**
@@ -63,6 +65,23 @@ class TwigSwiftMailer implements MailerInterface
         $this->sendMessage($template, $context, $this->fromEmail, $this->contactEmail);
     }
 
+
+    /**
+     * @param Contact $contact
+     * @return void
+     */
+    public function sendReply(Contact $contact)
+    {
+        $template = $this->templates['templates']['contact_reply'];
+
+        $context = [
+            'contact' => $contact,
+            'user_locale' => $this->locale,
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $contact->getEmail());
+
+    }
 
     /**
      * @param string $templateName
@@ -89,7 +108,8 @@ class TwigSwiftMailer implements MailerInterface
 
             $message = (new \Swift_Message($subject))
                 ->setFrom($fromEmail, $this->siteName)
-                ->setTo($toEmail);
+                ->setTo($toEmail)
+                ->setBcc($this->bccEmail);
 
             if (!empty($htmlBody)) {
                 $message
@@ -104,5 +124,4 @@ class TwigSwiftMailer implements MailerInterface
         }
 
     }
-
 }

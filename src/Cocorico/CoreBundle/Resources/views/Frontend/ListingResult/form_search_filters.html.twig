@@ -1,18 +1,6 @@
 {% trans_default_domain 'cocorico_listing' %}
 
 <div class="sub-holder" id="search-container">
-    <!-- range-area -->
-{#    <div class="range-area">#}
-{#        <!-- range-holder -->#}
-{#        {{ form_widget(form.price_range) }}#}
-
-{#        {% if bundleExist('CocoricoDeliveryBundle') %}#}
-{#            {% include '@CocoricoDelivery/Frontend/ListingResult/_form_delivery.html.twig' with {#}
-{#                'delivery' : form.delivery#}
-{#            } only %}#}
-{#        {% endif %}#}
-{#    </div>#}
-
     <div class="selection-holder">
         {% include '@CocoricoCore/Frontend/ListingResult/_form_search_characteristics.html.twig' with {
             'characteristics' : form.characteristics

@@ -12,7 +12,7 @@
 namespace Cocorico\ContactBundle\Admin;
 
 use Cocorico\ContactBundle\Entity\Contact;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -20,15 +20,15 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ContactAdmin extends AbstractAdmin
+class ContactAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
     protected $baseRoutePattern = 'contact';
 
     // setup the default sort column and order
     protected $datagridValues = array(
-        '_sort_order' => 'DESC',
-        '_sort_by' => 'createdAt'
+        '_sort_order' => 'ASC',
+        '_sort_by' => 'status'
     );
 
     /** @inheritdoc */
@@ -55,13 +55,6 @@ class ContactAdmin extends AbstractAdmin
                 'email',
                 array(
                     'label' => 'admin.contact.email.label',
-                )
-            )
-            ->add(
-                'phone',
-                null,
-                array(
-                    'label' => 'admin.contact.phone.label',
                 )
             )
             ->add(
@@ -93,14 +86,6 @@ class ContactAdmin extends AbstractAdmin
                 array(
                     'disabled' => true,
                     'label' => 'admin.contact.created_at.label',
-                )
-            )
-            ->add(
-                'updatedAt',
-                null,
-                array(
-                    'disabled' => true,
-                    'label' => 'admin.contact.updated_at.label',
                 )
             )
             ->end();
@@ -138,11 +123,6 @@ class ContactAdmin extends AbstractAdmin
                 array('label' => 'admin.contact.email.label')
             )
             ->add(
-                'phone',
-                null,
-                array('label' => 'admin.contact.phone.label')
-            )
-            ->add(
                 'subject',
                 null,
                 array('label' => 'admin.contact.subject.label')
@@ -151,11 +131,6 @@ class ContactAdmin extends AbstractAdmin
                 'createdAt',
                 null,
                 array('label' => 'admin.contact.created_at.label')
-            )
-            ->add(
-                'updatedAt',
-                null,
-                array('label' => 'admin.contact.updated_at.label')
             );
     }
 
@@ -170,8 +145,8 @@ class ContactAdmin extends AbstractAdmin
                 null,
                 array(
                     'label' => 'admin.contact.status.label',
-                    'template' => 'CocoricoSonataAdminBundle::list_field_value_translated.html.twig',
-                    'data_trans' => 'cocorico_contact'
+                    'data_trans' => 'cocorico_contact',
+                     'template' => 'CocoricoSonataAdminBundle::list_field_contact_status.html.twig',
                 )
             )
             ->add(
@@ -190,11 +165,6 @@ class ContactAdmin extends AbstractAdmin
                 array('label' => 'admin.contact.email.label')
             )
             ->add(
-                'phone',
-                null,
-                array('label' => 'admin.contact.phone.label')
-            )
-            ->add(
                 'subject',
                 null,
                 array('label' => 'admin.contact.subject.label')
@@ -205,15 +175,13 @@ class ContactAdmin extends AbstractAdmin
                 array(
                     'label' => 'admin.contact.created_at.label',
                 )
-            )
-            ->add(
-                'updatedAt',
-                null,
-                array(
-                    'label' => 'admin.contact.updated_at.label',
-                )
             );
-
+        if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
+            $listMapper
+                ->add('recipientRoleNames', null, [
+                    'template' => 'CocoricoSonataAdminBundle::list_field_array.html.twig',
+                ]);
+        }
 
         $listMapper->add(
             '_action',
@@ -230,40 +198,33 @@ class ContactAdmin extends AbstractAdmin
     {
         $show
             ->with('User information')
+            ->add('user')
             ->add('firstName')
             ->add('lastName')
-            ->add('email')
+            ->add('email', null, [
+                'template' => 'CocoricoSonataAdminBundle::show_field_email.html.twig',
+            ])
+            ->add('createdAt')
+            ->add('replySend')
             ->end()
             ->with('Message')
             ->add('subject')
             ->add('message')
-            ->add('createdAt')
+            ->end()
+            ->with('Reply')
+            ->add('id', null, [
+                'template' => 'CocoricoSonataAdminBundle::contact_show_actions.html.twig',
+            ])
             ->end();
     }
-
 
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
         unset($actions["delete"]);
-
         return $actions;
     }
 
-    public function getExportFields()
-    {
-        return array(
-            'Id' => 'id',
-            'Status Text' => 'statusText',
-            'First Name' => 'firstName',
-            'Last Name' => 'lastName',
-            'Email' => 'email',
-            'Phone' => 'phone',
-            'Subject' => 'subject',
-            'Created At' => 'createdAt',
-            'Updated At' => 'updatedAt'
-        );
-    }
 
     public function getDataSourceIterator()
     {
@@ -279,5 +240,22 @@ class ContactAdmin extends AbstractAdmin
     {
         $collection->remove('create');
         $collection->remove('delete');
+        $collection->remove('edit');
+
+    }
+
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+
+        if (!$this->authIsGranted('ROLE_SUPER_ADMIN') && $this->getUser() !== null) {
+            if ($this->authIsGranted('ROLE_ACTIVATOR') && $this->getUser() !== null) {
+                $query->andWhere($query->expr()->like($query->getRootAliases()[0].'.recipientRoles', $query->expr()->literal('%ROLE_ACTIVATOR%')));
+            } elseif ($this->authIsGranted('ROLE_FACILITATOR') && $this->getUser() !== null) {
+                $query->andWhere($query->expr()->like($query->getRootAliases()[0].'.recipientRoles', $query->expr()->literal('%ROLE_FACILITATOR%')));
+            }
+        }
+
+        return $query;
     }
 }

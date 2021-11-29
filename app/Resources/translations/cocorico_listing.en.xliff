@@ -18,10 +18,6 @@
         <source>auto</source>
         <target>auto</target>
       </trans-unit>
-      <trans-unit id="ccc43ccbdcfdca4d50fd5309c511321b500c4f44" resname="booking.simulator.amount.help">
-        <source>booking.simulator.amount.help</source>
-        <target>Booking amount help while mouse hover 3</target>
-      </trans-unit>
       <trans-unit id="9187754e8610109fffae6dc0ead1d05de09d18a0" resname="characteristic.filter.empty.placeholder">
         <source>characteristic.filter.empty.placeholder</source>
         <target>Select</target>
@@ -33,27 +29,6 @@
       <trans-unit id="2fb2ddb9f57ab2b67ab72abf22e14396095c042d" resname="cocorico.fr">
         <source>cocorico.fr</source>
         <target>French</target>
-      </trans-unit>
-      <trans-unit id="b5bc050f765ad972a0347e56957630ec45dec432" resname="entity.listing.cancellation_policy.flexible">
-        <source>entity.listing.cancellation_policy.flexible</source>
-        <target>Flexible</target>
-      </trans-unit>
-      <trans-unit id="4be62a158d72fda333ee9ad4e24aeaba6f2dcefc" resname="entity.listing.cancellation_policy.strict">
-        <source>entity.listing.cancellation_policy.strict</source>
-        <target>Strict</target>
-      </trans-unit>
-      <trans-unit id="da9160f098524d39a66a31d78d8f7e5e0b191d62" resname="entity.listing.cancellation_policy_desc.flexible">
-        <source>entity.listing.cancellation_policy_desc.flexible</source>
-        <target><![CDATA[> If the asker cancels more than X days before the start of the booking , he is reimbursed X% of the amount paid
-
-> If the asker cancels less than X days before the start of the booking , he is reimbursed X% of the amount paid
-]]></target>
-      </trans-unit>
-      <trans-unit id="c19128b495e42fbc146b81d485b78c5679d7a9a3" resname="entity.listing.cancellation_policy_desc.strict">
-        <source>entity.listing.cancellation_policy_desc.strict</source>
-        <target><![CDATA[> If the asker cancels more than X days before the start of the booking , he is reimbursed X% of the amount paid
-
-> If the asker cancels less than X days before the start of the booking , he is reimbursed X% of the amount paid]]></target>
       </trans-unit>
       <trans-unit id="86141469556c626c446c319fc332725e9871e30d" resname="entity.listing.status.deleted">
         <source>entity.listing.status.deleted</source>
@@ -95,22 +70,6 @@
         <source>home.high.rank.section.header</source>
         <target>MOST RECENT POSTS</target>
       </trans-unit>
-      <trans-unit id="d4cf5113ef86cf3511f74f61b5fdea479eb2553f" resname="listing.availability.save">
-        <source>listing.availability.save</source>
-        <target>Save</target>
-      </trans-unit>
-      <trans-unit id="9e18e9ba9211c54bf615f689654216fbe447f194" resname="listing.calendar.available">
-        <source>listing.calendar.available</source>
-        <target>Available</target>
-      </trans-unit>
-      <trans-unit id="72a2232cb2b5a72c70b125490a4cfc4b325392cd" resname="listing.calendar.unavailable">
-        <source>listing.calendar.unavailable</source>
-        <target>Unavailable</target>
-      </trans-unit>
-      <trans-unit id="e861c12b3f2e309696d719e911fe260ca72737d1" resname="listing.cancellation_policy.help">
-        <source>listing.cancellation_policy.help</source>
-        <target>Cancellation policies</target>
-      </trans-unit>
       <trans-unit id="89a665745f28f00d3b72f22e28568dd80863987e" resname="listing.confirm.delete">
         <source>listing.confirm.delete</source>
         <target>Are you sure to want to delete this post?</target>
@@ -118,6 +77,10 @@
       <trans-unit id="86733a4d4174c84ea735907bc82df043fe1c968d" resname="listing.currency_convert.title">
         <source>listing.currency_convert.title</source>
         <target>Currency conversion</target>
+      </trans-unit>
+      <trans-unit id="3ca207f515445f3a9b01cbec005be5991f1da131" resname="listing.dates.title">
+        <source>listing.dates.title</source>
+        <target state="new">listing.dates.title</target>
       </trans-unit>
       <trans-unit id="25223238b38ced1fe02f1c0260bce8c63a6eccd3" resname="listing.description.title">
         <source>listing.description.title</source>
@@ -134,26 +97,6 @@
       <trans-unit id="617e72d9c9a3f3ebf757c28a1d1c320c2b2c5f0c" resname="listing.duplicate.success">
         <source>listing.duplicate.success</source>
         <target>Listing duplicated successfully. You can now edit it and publish it.</target>
-      </trans-unit>
-      <trans-unit id="fead7956137d452b78011f93cedba983c9f3da4b" resname="listing.edit.calendar.day_click.info">
-        <source>listing.edit.calendar.day_click.info</source>
-        <target>You can click on a date to change its availability</target>
-      </trans-unit>
-      <trans-unit id="f285c27e582870db6036336b8a1a657f97abef5f" resname="listing.edit.calendar.help">
-        <source>listing.edit.calendar.help</source>
-        <target>Choose relevant dates</target>
-      </trans-unit>
-      <trans-unit id="41d3e737567226a92e73d2c8f1f2bee5026a5dbb" resname="listing.edit.calendar.range.title">
-        <source>listing.edit.calendar.range.title</source>
-        <target>Availabilities range</target>
-      </trans-unit>
-      <trans-unit id="b2157e1c2c3b35c2323d4f9383395221d145a428" resname="listing.edit.calendar.show.title">
-        <source>listing.edit.calendar.show.title</source>
-        <target>Calendar availabilities</target>
-      </trans-unit>
-      <trans-unit id="e6be5663b608d3b6bc33089bd9c0acd8ea530559" resname="listing.edit.calendar.title">
-        <source>listing.edit.calendar.title</source>
-        <target>Calendar</target>
       </trans-unit>
       <trans-unit id="162d093e09d2f1a013d89e6b396fdeda059eff19" resname="listing.edit.categories.sub_title">
         <source>listing.edit.categories.sub_title</source>
@@ -203,10 +146,6 @@
         <source>listing.edit.dates.title</source>
         <target>Edit your listing dates</target>
       </trans-unit>
-      <trans-unit id="485da2407741b15d7c6f27d864eb61ebad955d51" resname="listing.edit.discount.title">
-        <source>listing.edit.discount.title</source>
-        <target>Discounts</target>
-      </trans-unit>
       <trans-unit id="ea208681b37ea11611f7f779c59dd530d4c2c265" resname="listing.edit.duplicate">
         <source>listing.edit.duplicate</source>
         <target>Duplicate</target>
@@ -235,41 +174,13 @@
         <source>listing.edit.location.title</source>
         <target>Location</target>
       </trans-unit>
-      <trans-unit id="646b42ecb84e81022f999bf28eaa9369b44eaca1" resname="listing.edit.options.title">
-        <source>listing.edit.options.title</source>
-        <target>Options management</target>
-      </trans-unit>
-      <trans-unit id="d976ad74e1adbd7ccaf23c0cef3b6ce3b088ce98" resname="listing.edit.policy.title">
-        <source>listing.edit.policy.title</source>
-        <target>Durations policy</target>
-      </trans-unit>
       <trans-unit id="95463bdf30bf84edaa50d763ddc9aeca65a0b7d2" resname="listing.edit.presentation.title">
         <source>listing.edit.presentation.title</source>
         <target>Presentation</target>
       </trans-unit>
-      <trans-unit id="043225b403bfc7cf84e9fcaa75c5ad42ffb2ace0" resname="listing.edit.price.choose_times.title">
-        <source>listing.edit.price.choose_times.title</source>
-        <target>Choose times</target>
-      </trans-unit>
-      <trans-unit id="109f29495c61d977b6aa62f816a82d80d2f73f5f" resname="listing.edit.price.choose_weekdays.title">
-        <source>listing.edit.price.choose_weekdays.title</source>
-        <target>Choose weekdays</target>
-      </trans-unit>
-      <trans-unit id="d6bfdec6bacedf752d6b0b8d615fc18ff394bcd7" resname="listing.edit.price.default.title">
-        <source>listing.edit.price.default.title</source>
-        <target>Default price</target>
-      </trans-unit>
       <trans-unit id="7a1d5c94a5ef5e71b74393712635e451f5031df5" resname="listing.edit.price.help">
         <source>listing.edit.price.help</source>
         <target>Price help while mouse hover</target>
-      </trans-unit>
-      <trans-unit id="68ec1a49888802380a72848c5538bef07d9dbfc2" resname="listing.edit.price.simulator.title">
-        <source>listing.edit.price.simulator.title</source>
-        <target>Price simulator</target>
-      </trans-unit>
-      <trans-unit id="a98b5fc57bb5882c441968efb0a954c491b95dbb" resname="listing.edit.price.title">
-        <source>listing.edit.price.title</source>
-        <target><![CDATA[Prices & Politics]]></target>
       </trans-unit>
       <trans-unit id="851f8354523b54bf279b612e30aba8bf128e6b35" resname="listing.edit.show">
         <source>listing.edit.show</source>
@@ -278,10 +189,6 @@
       <trans-unit id="50188a0ffc6931424baa91cf8905f518f2dcb99e" resname="listing.edit.success">
         <source>listing.edit.success</source>
         <target>Update successful</target>
-      </trans-unit>
-      <trans-unit id="2abe53493f2d54535cf17e971dc59d15a5a2be3b" resname="listing.edit_discount.success">
-        <source>listing.edit_discount.success</source>
-        <target>listing.edit_discount.success</target>
       </trans-unit>
       <trans-unit id="ad3c51ecd23caf13a406aae0f4916388ea27adef" resname="listing.edit_price.success">
         <source>listing.edit_price.success</source>
@@ -311,10 +218,6 @@
         <source>listing.form.description.fr</source>
         <target>Description</target>
       </trans-unit>
-      <trans-unit id="f62cf70f1a648617bfc581e10dfc62a55de0e609" resname="listing.form.end">
-        <source>listing.form.end</source>
-        <target>End</target>
-      </trans-unit>
       <trans-unit id="792a4d0713b877b1a561ee6ca01a2dc07be1d5e6" resname="listing.form.expiry_date.help">
         <source>listing.form.expiry_date.help</source>
         <target>Expiry date can be set one year in advance</target>
@@ -343,10 +246,6 @@
         <source>listing.form.location.zip</source>
         <target>Zip</target>
       </trans-unit>
-      <trans-unit id="0db128b0ec8ab06117fa0f4e27debe03057dcaf6" resname="listing.form.price">
-        <source>listing.form.price</source>
-        <target>Price</target>
-      </trans-unit>
       <trans-unit id="0f91db9360163dba55746b7250c36878537b4ee1" resname="listing.form.rules.en">
         <source>listing.form.rules.en</source>
         <target>Rules</target>
@@ -354,10 +253,6 @@
       <trans-unit id="52a3257b85938310aafe31be5323ee616a5104ff" resname="listing.form.rules.fr">
         <source>listing.form.rules.fr</source>
         <target>Règles</target>
-      </trans-unit>
-      <trans-unit id="561751c732b06ad90e12d5e96d7843412fa56fde" resname="listing.form.start">
-        <source>listing.form.start</source>
-        <target>Start</target>
       </trans-unit>
       <trans-unit id="a0338f3f09ecc21f491a4ea1ed5004f9b40f1a88" resname="listing.form.status">
         <source>listing.form.status</source>
@@ -394,6 +289,10 @@
       <trans-unit id="961c32cb515ab9b31b79e094a1e95a948f631010" resname="listing.images.cancel.link">
         <source>listing.images.cancel.link</source>
         <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="60473be4d2461641acfb20fdaaadfd3074df19f1" resname="listing.images.default_prvided_if_empty.text">
+        <source>listing.images.default_prvided_if_empty.text</source>
+        <target state="new">listing.images.default_prvided_if_empty.text</target>
       </trans-unit>
       <trans-unit id="1b9a8b5cdc2cd042da366c84f4822d2fea7135d6" resname="listing.images.to_upload.title">
         <source>listing.images.to_upload.title</source>
@@ -487,26 +386,6 @@
         <source>listing.new.title</source>
         <target>Deposit your post</target>
       </trans-unit>
-      <trans-unit id="a385c95efe54f5b3d6707f5106282c2ae14fc04f" resname="listing.price_save">
-        <source>listing.price_save</source>
-        <target>Save</target>
-      </trans-unit>
-      <trans-unit id="e1c395f58d46acbfe87d57f646fb95210160751b" resname="listing.price_simulator.cash_in">
-        <source>listing.price_simulator.cash_in</source>
-        <target>You will earn</target>
-      </trans-unit>
-      <trans-unit id="4068a1c3c76dc94f369e53e42fc18bb5e3ea51e8" resname="listing.price_simulator.fee">
-        <source>listing.price_simulator.fee</source>
-        <target>Our fee</target>
-      </trans-unit>
-      <trans-unit id="7c020a0b11c62f4725259b4795995bc1e1e090ea" resname="listing.price_simulator.fee.help">
-        <source>listing.price_simulator.fee.help</source>
-        <target>Display help while mouse hover</target>
-      </trans-unit>
-      <trans-unit id="19e0ac6564350cc95dac17c3abde0669e0a4e448" resname="listing.price_simulator.help">
-        <source>listing.price_simulator.help</source>
-        <target>Display help while mouse hover 2</target>
-      </trans-unit>
       <trans-unit id="b6da107330f9826fd55158c97436c400a516d276" resname="listing.save">
         <source>listing.save</source>
         <target>Save</target>
@@ -555,10 +434,6 @@
         <source>listing.show.categories</source>
         <target>Categories</target>
       </trans-unit>
-      <trans-unit id="0ae4b06ef673f71c7347ad8689eca40f8a56dd79" resname="listing.show.categories:">
-        <source>listing.show.categories:</source>
-        <target>Categories:</target>
-      </trans-unit>
       <trans-unit id="0a197cf0dd3b9370c948ecb4c6ae6a99f28460f3" resname="listing.show.characteristics">
         <source>listing.show.characteristics</source>
         <target>Characteristics</target>
@@ -566,10 +441,6 @@
       <trans-unit id="6ccb7ab4251c8fe7d27af0820204dcc806023e09" resname="listing.show.description">
         <source>listing.show.description</source>
         <target>Description</target>
-      </trans-unit>
-      <trans-unit id="49ff4bce3e52dd086b802ffa369d62b7e99d537b" resname="listing.show.location:">
-        <source>listing.show.location:</source>
-        <target>Location:</target>
       </trans-unit>
       <trans-unit id="368a7d80b53cf610605714c046875ad7fd4d19b6" resname="listing.show.map">
         <source>listing.show.map</source>
@@ -603,6 +474,10 @@
         <source>listing.status_save</source>
         <target>Save</target>
       </trans-unit>
+      <trans-unit id="74ab2c65ff5be1a84f76f87e8475666eb76e22b6" resname="listing.timeless_offer.label">
+        <source>listing.timeless_offer.label</source>
+        <target state="new">listing.timeless_offer.label</target>
+      </trans-unit>
       <trans-unit id="c15673b172f4d94aa1d7b33bdb6eb1b4036cda90" resname="listing.to_validate.label">
         <source>listing.to_validate.label</source>
         <target>Waiting for validation</target>
@@ -627,45 +502,13 @@
         <source>listing_categories.min {{ min_categories }}</source>
         <target>At least {{ min_categories }} category needed</target>
       </trans-unit>
-      <trans-unit id="cda9f4e18c8aeaee6f4a5c40bc4ce50fbbf9aac0" resname="listing_discount.discount.max {{ max_discount }}">
-        <source>listing_discount.discount.max {{ max_discount }}</source>
-        <target>Discount max. {{ max_discount }}</target>
-      </trans-unit>
-      <trans-unit id="538c2ebfb7674dc88cad28d1bf8781784fa8a6e6" resname="listing_discount.discount.min {{ min_discount }}">
-        <source>listing_discount.discount.min {{ min_discount }}</source>
-        <target>Discount min.{{ min_discount }}</target>
-      </trans-unit>
       <trans-unit id="12d03c7881be7801d0b91849e46681a9f542e691" resname="listing_duration.overlap">
         <source>listing_duration.overlap</source>
         <target>Maximum duration must be greater than minimum one</target>
       </trans-unit>
-      <trans-unit id="77e7ad4c8d7320d94a50537dc4890a029d7610fa" resname="listing_edit.form.choose">
-        <source>listing_edit.form.choose</source>
-        <target>Choose</target>
-      </trans-unit>
-      <trans-unit id="71268d3b0247713a7bb9c011643b7ce8d7c6301b" resname="listing_edit.form.discount">
-        <source>listing_edit.form.discount</source>
-        <target>Apply a discount of</target>
-      </trans-unit>
-      <trans-unit id="2a7ed32782de3c0e94705a7559100ba56834e117" resname="listing_edit.form.from_quantity">
-        <source>listing_edit.form.from_quantity</source>
-        <target>on the price by %quantity_text%, from</target>
-      </trans-unit>
       <trans-unit id="f8f32c1d94fa3fde6587937808b7f381e8d393c4" resname="listing_edit.form.from_quantity.bought">
         <source>listing_edit.form.from_quantity.bought</source>
         <target>%quantity_text% ordered</target>
-      </trans-unit>
-      <trans-unit id="840e18571bfc4e9f516fd60527195d3b2a1f9836" resname="listing_edit.form.max_duration">
-        <source>listing_edit.form.max_duration</source>
-        <target>Max duration</target>
-      </trans-unit>
-      <trans-unit id="9eba7a7b0aab7398d15554585fe718a35bdc5b72" resname="listing_edit.form.min_duration">
-        <source>listing_edit.form.min_duration</source>
-        <target>Min duration</target>
-      </trans-unit>
-      <trans-unit id="1f71650beb1fd27a36387a72e9deb4c453abbc9a" resname="listing_edit.form.price_custom">
-        <source>listing_edit.form.price_custom</source>
-        <target>Price</target>
       </trans-unit>
       <trans-unit id="0ab3360a2497c03376593515334265911957706b" resname="listing_edit.photos.details">
         <source>listing_edit.photos.details</source>
@@ -716,10 +559,6 @@
       <trans-unit id="5792a5686f229ac793f59b6e5ac0e5fe2f3a2a4f" resname="listing_search.form.flexibility_day">
         <source>listing_search.form.flexibility_day</source>
         <target>day(s)</target>
-      </trans-unit>
-      <trans-unit id="118dfbd26735a9d9eac9e76aec5cdf8621019cc2" resname="listing_search.form.sort_by.empty_value">
-        <source>listing_search.form.sort_by.empty_value</source>
-        <target>Sort by</target>
       </trans-unit>
       <trans-unit id="6536bbf97e221f5a8e0f83aa57e2873b46538a44" resname="listing_search.form.start">
         <source>listing_search.form.start</source>

@@ -35,6 +35,7 @@ class TwigSwiftMailer implements MailerInterface
     protected $timezone;
     protected $templates;
     protected $fromEmail;
+    protected $bccEmail;
     protected $adminEmail;
     protected $siteName;
 
@@ -67,6 +68,7 @@ class TwigSwiftMailer implements MailerInterface
         $this->fromEmail = $parameters['cocorico_from_email'];
         $this->adminEmail = $parameters['cocorico_contact_email'];
         $this->siteName = $parameters['cocorico_site_name'];
+        $this->bccEmail = $parameters['cocorico_bcc_email'];
 
         $this->timeUnit = $parameters['cocorico_time_unit'];
         $this->timeUnitIsDay = ($this->timeUnit % 1440 == 0) ? true : false;
@@ -88,7 +90,6 @@ class TwigSwiftMailer implements MailerInterface
     public function sendListingActivatedMessageToOfferer(Listing $listing)
     {
         $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
         $template = $this->templates['listing_activated_offerer'];
 
         $context = array(
@@ -100,530 +101,6 @@ class TwigSwiftMailer implements MailerInterface
     }
 
     /**
-     * @param Booking $booking
-     */
-    public function sendBookingRequestMessageToOfferer(Booking $booking)
-    {
-        $listing = $booking->getListing();
-        $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $asker = $booking->getUser();
-        $template = $this->templates['booking_request_offerer'];
-
-        $bookingRequestUrl = $this->router->generate(
-            'cocorico_dashboard_booking_show_offerer',
-            array(
-                'id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'asker' => $asker,
-            'listing' => $listing,
-            'booking' => $booking,
-            'booking_request_url' => $bookingRequestUrl,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingAcceptedMessageToOfferer(Booking $booking)
-    {
-        $listing = $booking->getListing();
-        $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $asker = $booking->getUser();
-        $template = $this->templates['booking_accepted_offerer'];
-
-        $bookingRequestUrl = $this->router->generate(
-            'cocorico_dashboard_booking_show_offerer',
-            array(
-                'id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-//        $profilePaymentInfoUrl = $this->router->generate(
-//            'cocorico_user_dashboard_profile_edit_bank_account',
-//            array(
-//                '_locale' => $userLocale
-//            ),
-//            UrlGeneratorInterface::ABSOLUTE_URL
-//        );
-
-        $context = array(
-            'user' => $user,
-            'asker' => $asker,
-            'listing' => $listing,
-            'booking' => $booking,
-            'booking_request_url' => $bookingRequestUrl,
-//            'profile_payment_info_url' => $profilePaymentInfoUrl,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingRefusedMessageToOfferer(Booking $booking)
-    {
-        $listing = $booking->getListing();
-        $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $asker = $booking->getUser();
-        $template = $this->templates['booking_refused_offerer'];
-
-        $listingCalendarEditUrl = $this->router->generate(
-            'cocorico_dashboard_listing_edit_availabilities_status',
-            array(
-                'listing_id' => $listing->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'asker' => $asker,
-            'booking' => $booking,
-            'listing_calendar_edit_url' => $listingCalendarEditUrl,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingExpirationAlertMessageToOfferer(Booking $booking)
-    {
-        $listing = $booking->getListing();
-        $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $asker = $booking->getUser();
-        $template = $this->templates['booking_request_expiration_alert_offerer'];
-
-        $bookingRequestUrl = $this->router->generate(
-            'cocorico_dashboard_booking_show_offerer',
-            array(
-                'id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'asker' => $asker,
-            'listing' => $listing,
-            'booking' => $booking,
-            'booking_request_url' => $bookingRequestUrl,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingRequestExpiredMessageToOfferer(Booking $booking)
-    {
-        $listing = $booking->getListing();
-        $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $asker = $booking->getUser();
-        $template = $this->templates['booking_request_expired_offerer'];
-
-        $bookingRequestUrl = $this->router->generate(
-            'cocorico_dashboard_booking_show_offerer',
-            array(
-                'id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'asker' => $asker,
-            'listing' => $listing,
-            'booking' => $booking,
-            'booking_request_url' => $bookingRequestUrl,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * Remind offerer to rate asker
-     *
-     * @param Booking $booking
-     */
-    public function sendReminderToRateAskerMessageToOfferer(Booking $booking)
-    {
-        $listing = $booking->getListing();
-        $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $asker = $booking->getUser();
-        $template = $this->templates['reminder_to_rate_asker_offerer'];
-
-        $offererToAskerReviewUrl = $this->router->generate(
-            'cocorico_dashboard_review_new',
-            array(
-                'booking_id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'asker' => $asker,
-            'booking' => $booking,
-            'offerer_to_asker_review_url' => $offererToAskerReviewUrl
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingCanceledByAskerMessageToOfferer(Booking $booking)
-    {
-        $listing = $booking->getListing();
-        $user = $listing->getUser();
-        $asker = $booking->getUser();
-        $template = $this->templates['booking_canceled_by_asker_offerer'];
-
-//        $offererCancellationAmount = $booking->getBankWire() ? $booking->getBankWire()->getAmountDecimal() : 0;
-
-        $context = array(
-            'user' => $user,
-            'asker' => $asker,
-            'listing' => $listing,
-            'booking' => $booking,
-//            'offerer_cancellation_amount' => $offererCancellationAmount,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingImminentMessageToOfferer(Booking $booking)
-    {
-        $listing = $booking->getListing();
-        $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $asker = $booking->getUser();
-        $template = $this->templates['booking_imminent_offerer'];
-
-        $bookingRequestUrl = $this->router->generate(
-            'cocorico_dashboard_booking_show_offerer',
-            array(
-                'id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'asker' => $asker,
-            'listing' => $listing,
-            'booking' => $booking,
-            'booking_request_url' => $bookingRequestUrl,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-//    /**
-//     * @param Booking $booking
-//     */
-//    public function sendWireTransferMessageToOfferer(Booking $booking)
-//    {
-//        $listing = $booking->getListing();
-//        $user = $listing->getUser();
-//        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-//        $template = $this->templates['booking_bank_wire_transfer_offerer'];
-//
-//        $bookingRequestUrl = $this->router->generate(
-//            'cocorico_dashboard_booking_show_offerer',
-//            array(
-//                'id' => $booking->getId(),
-//                '_locale' => $userLocale
-//            ),
-//            UrlGeneratorInterface::ABSOLUTE_URL
-//        );
-//
-//        $paymentOffererUrl = $this->router->generate(
-//            'cocorico_dashboard_booking_bank_wire_offerer',
-//            array(
-//                '_locale' => $userLocale
-//            ),
-//            UrlGeneratorInterface::ABSOLUTE_URL
-//        );
-//
-//        $wireAmount = $booking->getAmountToPayToOffererDecimal();
-//        if ($booking->getBankWire()->getAmountDecimal()) {
-//            $wireAmount = $booking->getBankWire()->getAmountDecimal();
-//        }
-//
-//        $context = array(
-//            'user' => $user,
-//            'booking' => $booking,
-//            'booking_request_url' => $bookingRequestUrl,
-//            'offerer_payments_list' => $paymentOffererUrl,
-//            'bank_wire_amount' => $wireAmount,
-//        );
-//
-//        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-//    }
-
-    /**
-     * @param Listing $listing
-     */
-    public function sendUpdateYourCalendarMessageToOfferer(Listing $listing)
-    {
-        $user = $listing->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $template = $this->templates['update_your_calendar_offerer'];
-
-        $listingCalendarEditUrl = $this->router->generate(
-            'cocorico_dashboard_listing_edit_availabilities_status',
-            array(
-                'listing_id' => $listing->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'listing_calendar_edit_url' => $listingCalendarEditUrl
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendPaymentErrorMessageToOfferer(Booking $booking)
-    {
-//        $listing = $booking->getListing();
-//        $user = $listing->getUser();
-//        $asker = $booking->getUser();
-//        $bookingRequestUrl = $this->router->generate(
-//            'cocorico_dashboard_booking_show_offerer',
-//            array('id' => $booking->getId()),
-//            UrlGeneratorInterface::ABSOLUTE_URL
-//        );
-//
-//        $context = array(
-//            'user' => $user,
-//            'asker' => $asker,
-//            'booking_request_url' => $bookingRequestUrl,
-//        );
-//
-//        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingRequestMessageToAsker(Booking $booking)
-    {
-        $user = $booking->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $listing = $booking->getListing();
-        $offerer = $listing->getUser();
-        $template = $this->templates['booking_request_asker'];
-
-        $bookingRequestUrl = $this->router->generate(
-            'cocorico_dashboard_booking_show_asker',
-            array(
-                'id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'offerer' => $offerer,
-            'listing' => $listing,
-            'booking' => $booking,
-            'booking_request_url' => $bookingRequestUrl,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingAcceptedMessageToAsker(Booking $booking)
-    {
-        $user = $booking->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $listing = $booking->getListing();
-        $offerer = $listing->getUser();
-        $template = $this->templates['booking_accepted_asker'];
-
-        $bookingRequestUrl = $this->router->generate(
-            'cocorico_dashboard_booking_show_asker',
-            array(
-                'id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-//        $paymentAskerUrl = $this->router->generate(
-//            'cocorico_dashboard_booking_payin_asker',
-//            array(
-//                '_locale' => $userLocale
-//            ),
-//            UrlGeneratorInterface::ABSOLUTE_URL
-//        );
-
-        $context = array(
-            'user' => $user,
-            'offerer' => $offerer,
-            'listing' => $listing,
-            'booking' => $booking,
-            'booking_request_url' => $bookingRequestUrl,
-//            'payments_asker_list' => $paymentAskerUrl
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingRefusedMessageToAsker(Booking $booking)
-    {
-        $user = $booking->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $template = $this->templates['booking_refused_asker'];
-
-        $similarListingUrl = $this->router->generate(
-            'cocorico_home',
-            array(
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'booking' => $booking,
-            'similar_booking_listings_url' => $similarListingUrl //'#'
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingRequestExpiredMessageToAsker(Booking $booking)
-    {
-        $user = $booking->getUser();
-        $template = $this->templates['booking_request_expired_asker'];
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-
-        $similarListingUrl = $this->router->generate(
-            'cocorico_home',
-            array(
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'booking' => $booking,
-            'similar_booking_listings_url' => $similarListingUrl //'#'
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingImminentMessageToAsker(Booking $booking)
-    {
-        $user = $booking->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $listing = $booking->getListing();
-        $offerer = $listing->getUser();
-        $template = $this->templates['booking_imminent_asker'];
-
-        $bookingRequestUrl = $this->router->generate(
-            'cocorico_dashboard_booking_show_asker',
-            array(
-                'id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $context = array(
-            'user' => $user,
-            'offerer' => $offerer,
-            'listing' => $listing,
-            'booking' => $booking,
-            'booking_request_url' => $bookingRequestUrl,
-        );
-
-        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-    }
-
-    /**
-     * @param Booking $booking
-     */
-//    public function sendPaymentErrorMessageToAsker(Booking $booking)
-//    {
-//        $user = $booking->getUser();
-//        $listing = $booking->getListing();
-//        $offerer = $listing->getUser();
-//        $template = $this->templates['payment_error_asker'];
-//
-//        $bookingRequestUrl = $this->router->generate(
-//            'cocorico_dashboard_booking_show_offerer',
-//            array('id' => $booking->getId()),
-//            UrlGeneratorInterface::ABSOLUTE_URL
-//        );
-//
-//        $context = array(
-//            'user' => $user,
-//            'offerer' => $offerer,
-//            'listing' => $listing,
-//            'booking' => $booking,
-//            'booking_request_url' => $bookingRequestUrl
-//        );
-//
-//        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-//    }
-
-    /**
      * @param User $user
      */
     public function sendUserExpireNotification(User $user): void
@@ -632,7 +109,7 @@ class TwigSwiftMailer implements MailerInterface
 
         $reconfirmUrl = $this->router->generate('cocorico_user_reconfirm', [
             'token' => $user->getUniqueHash(),
-        ],UrlGeneratorInterface::ABSOLUTE_URL);
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $context = [
             'user' => $user,
@@ -642,68 +119,81 @@ class TwigSwiftMailer implements MailerInterface
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
 
-    /**
-     * @param Booking $booking
-     */
-    public function sendReminderToRateOffererMessageToAsker(Booking $booking)
+    public function sendUserExpired(User $user)
     {
-        $user = $booking->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $listing = $booking->getListing();
-        $offerer = $listing->getUser();
-        $template = $this->templates['reminder_to_rate_offerer_asker'];
+        $template = $this->templates['user_expired'];
 
-        $askerToOffererReviewUrl = $this->router->generate(
-            'cocorico_dashboard_review_new',
-            array(
-                'booking_id' => $booking->getId(),
-                '_locale' => $userLocale
-            ),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
+        $reconfirmUrl = $this->router->generate('cocorico_user_reconfirm', [
+            'token' => $user->getUniqueHash(),
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $context = [
+            'user' => $user,
+            'reconfirmUrl' => $reconfirmUrl,
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
+    }
+
+    public function sendUserDeleted(User $user)
+    {
+        $template = $this->templates['user_deleted'];
 
         $context = array(
-            'user' => $user,
-            'offerer' => $offerer,
-            'booking' => $booking,
-            'asker_to_offerer_review_url' => $askerToOffererReviewUrl
+            'user' => $this->locale,
         );
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
 
-
-    /**
-     * @param Booking $booking
-     */
-    public function sendBookingCanceledByAskerMessageToAsker(Booking $booking)
+    public function sendActivatorNotification(User $user, int $activationCount, int $reconfirmCount): void
     {
-        $user = $booking->getUser();
-        $userLocale = $user->guessPreferredLanguage($this->locales, $this->locale);
-        $listing = $booking->getListing();
-        $offerer = $listing->getUser();
-        $template = $this->templates['booking_canceled_by_asker_asker'];
+        $template = $this->templates['activator_notification'];
 
-//        $profilePaymentInfoUrl = $this->router->generate(
-//            'cocorico_user_dashboard_profile_edit_bank_account',
-//            array(
-//                '_locale' => $userLocale
-//            ),
-//            UrlGeneratorInterface::ABSOLUTE_URL
-//        );
-
-//        $askerCancellationAmount = $booking->getPayinRefund() ? $booking->getPayinRefund()->getAmountDecimal() : 0;
-
-        $context = array(
+        $context = [
             'user' => $user,
-            'offerer' => $offerer,
-            'listing' => $listing,
-            'booking' => $booking,
-//            'profile_payment_info_url' => $profilePaymentInfoUrl,
-//            'asker_cancellation_amount' => $askerCancellationAmount,
-        );
+            'new_activations_count' => $activationCount,
+            'new_reconfirm_count' => $reconfirmCount,
+
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
+    }
+    public function sendFacilitatorNotification(User $user, int $postValidationCount, int $messageValidationCount, int $postNewCount): void
+    {
+        $template = $this->templates['facilitator_notification'];
+
+        $context = [
+            'user' => $user,
+            'post_validations' => $postValidationCount,
+            'message_validations' => $messageValidationCount,
+            'post_new' => $postNewCount,
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
+
+    }
+
+    public function sendListingExpireSoonNotification(Listing $listing)
+    {
+        $template = $this->templates['listing_expire_soon'];
+
+        $context = [
+            'listing' => $listing,
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $listing->getUser()->getEmail());
+    }
+
+    public function sendListingExpired($listing)
+    {
+        $template = $this->templates['listing_expired'];
+
+        $context = [
+            'listing' => $listing,
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $listing->getUser()->getEmail());
     }
 
     public function sendMessageToAdmin($subject, $message)
@@ -718,6 +208,7 @@ class TwigSwiftMailer implements MailerInterface
 
         $this->sendMessage($template, $context, $this->fromEmail, $this->adminEmail);
     }
+
     /**
      * @param string $templateName
      * @param array  $context
@@ -766,38 +257,6 @@ class TwigSwiftMailer implements MailerInterface
             $context['listing_title'] = $title;
         }
 
-        if (isset($context['booking'])) {
-            $context['booking_time_range_title'] = $context['booking_time_range'] = '';
-
-            if (!$this->timeUnitIsDay) {
-                /** @var Booking $booking */
-                $booking = $context['booking'];
-                $context['booking_time_range_title'] = $this->translator->trans(
-                    'booking.time_range.title',
-                    array(),
-                    'cocorico_mail',
-                    $context['user_locale']
-                );
-
-                $timezone = $this->timezone;
-                if ($user) {
-                    if ($booking->getUser() == $user) {
-                        $timezone = $booking->getTimeZoneAsker();
-                    } elseif ($booking->getListing()->getUser() == $user) {
-                        $timezone = $booking->getTimeZoneOfferer();
-                    }
-                }
-
-                $startTime = clone $booking->getStartTime();
-                $startTime->setTimezone(new \DateTimeZone($timezone));
-                $endTIme = clone $booking->getEndTime();
-                $endTIme->setTimezone(new \DateTimeZone($timezone));
-
-                $context['booking_time_range'] .= $startTime->format('H:i') . " - " . $endTIme->format('H:i');
-                $context['user_timezone'] = $timezone;
-            }
-        }
-
         try {
             /** @var \Twig_Template $template */
             $template = $this->twig->loadTemplate($templateName);
@@ -811,7 +270,8 @@ class TwigSwiftMailer implements MailerInterface
 
             $message = (new \Swift_Message($subject))
                 ->setFrom($fromEmail)
-                ->setTo($toEmail);
+                ->setTo($toEmail)
+                ->setBcc($this->bccEmail);
 
             if (!empty($htmlBody)) {
                 $message
@@ -823,6 +283,7 @@ class TwigSwiftMailer implements MailerInterface
 
             $this->mailer->send($message);
         } catch (\Exception $e) {
+            throw $e;
         }
 
     }

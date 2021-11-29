@@ -1,0 +1,38 @@
+{% trans_default_domain 'cocorico_mail' %}
+
+{% block subject -%}
+    {% autoescape false %}
+    {{ 'contact.reply.subject'|trans({}, 'cocorico_mail', user_locale) }}
+    {% endautoescape %}
+{%- endblock %}
+
+{% block message %}
+    {{ 'contact.reply.message'|trans({
+        '%first_name%': contact.firstName,
+        '%last_name%': contact.lastName,
+        '%email%': contact.email,
+        '%subject%': contact.subject,
+        '%message%': contact.message,
+        '%reply%': contact.reply
+    }, 'cocorico_mail', user_locale) }}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+    {{ message }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {% embed "@CocoricoCore/Mails/layout.html.twig" %}
+        {% trans_default_domain 'cocorico_mail' %}
+
+        {% block content %}
+            {% autoescape false %}
+            {{ message|raw|nl2br }}
+            {#Do not remove this comment. It is used for BDD testing #}
+            <!-- contact_reply -->
+            {% endautoescape %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

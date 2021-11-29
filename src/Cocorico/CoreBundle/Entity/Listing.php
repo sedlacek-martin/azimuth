@@ -33,10 +33,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    @ORM\Index(name="created_at_l_idx", columns={"createdAt"}),
  *    @ORM\Index(name="status_l_idx", columns={"status"}),
  *    @ORM\Index(name="type_idx", columns={"type"}),
- *    @ORM\Index(name="min_duration_idx", columns={"min_duration"}),
- *    @ORM\Index(name="max_duration_idx", columns={"max_duration"}),
- *    @ORM\Index(name="average_rating_idx", columns={"average_rating"}),
- *    @ORM\Index(name="admin_notation_idx", columns={"admin_notation"}),
  *  })
  */
 class Listing extends BaseListing
@@ -92,20 +88,6 @@ class Listing extends BaseListing
      */
     private $listingListingCharacteristics;
 
-//    /**
-//     *
-//     * @ORM\OneToMany(targetEntity="ListingDiscount", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true)
-//     * @ORM\OrderBy({"fromQuantity" = "asc"})
-//     */
-//    private $discounts;
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="Booking", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"createdAt" = "desc"})
-     */
-    private $bookings;
-
     /**
      * @ORM\OneToMany(targetEntity="Cocorico\MessageBundle\Entity\Thread", mappedBy="listing", cascade={"remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"createdAt" = "desc"})
@@ -139,12 +121,18 @@ class Listing extends BaseListing
      */
     protected $expiryDate;
 
+    /**
+     * @ORM\Column(name="expiry_notification_send", type="boolean", nullable=false)
+     *
+     * @var bool
+     */
+    protected $expiryNotificationSend = false;
+
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->listingListingCharacteristics = new ArrayCollection();
-        $this->bookings = new ArrayCollection();
         $this->threads = new ArrayCollection();
         $this->options = new ArrayCollection();
         $this->expiryDate = (new DateTime())->add(new DateInterval("P1Y"));
@@ -255,7 +243,7 @@ class Listing extends BaseListing
     }
 
     /**
-     * @return mixed
+     * @return ListingCategory
      */
     public function getCategory()
     {
@@ -273,7 +261,7 @@ class Listing extends BaseListing
     /**
      * Set user
      *
-     * @param  \Cocorico\UserBundle\Entity\User $user
+     * @param User $user
      * @return Listing
      */
     public function setUser(User $user = null)
@@ -286,7 +274,7 @@ class Listing extends BaseListing
     /**
      * Get user
      *
-     * @return \Cocorico\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -351,98 +339,6 @@ class Listing extends BaseListing
     public function getLocation()
     {
         return $this->location;
-    }
-
-
-    /**
-     * Add discount
-     *
-     * @param  \Cocorico\CoreBundle\Entity\ListingDiscount $discount
-     * @return Listing
-     */
-    public function addDiscount(ListingDiscount $discount)
-    {
-        $discount->setListing($this);
-        $this->discounts[] = $discount;
-
-        return $this;
-    }
-
-    /**
-     * Remove discount
-     *
-     * @param \Cocorico\CoreBundle\Entity\ListingDiscount $discount
-     */
-    public function removeDiscount(ListingDiscount $discount)
-    {
-        $this->discounts->removeElement($discount);
-        $discount->setListing(null);
-    }
-
-    /**
-     * Get discounts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDiscounts()
-    {
-        return $this->discounts;
-    }
-
-    /**
-     * @param ArrayCollection|ListingDiscount[] $discounts
-     */
-    public function setDiscounts(ArrayCollection $discounts)
-    {
-        foreach ($discounts as $discount) {
-            $discount->setListing($this);
-        }
-
-        $this->discounts = $discounts;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection|Booking[]
-     */
-    public function getBookings()
-    {
-        return $this->bookings;
-    }
-
-    /**
-     * @param ArrayCollection|Booking[] $bookings
-     */
-    public function setBookings(ArrayCollection $bookings)
-    {
-        foreach ($bookings as $booking) {
-            $booking->setListing($this);
-        }
-
-        $this->bookings = $bookings;
-    }
-
-    /**
-     * Add booking
-     *
-     * @param \Cocorico\CoreBundle\Entity\Booking $booking
-     *
-     * @return Listing
-     */
-    public function addBooking(Booking $booking)
-    {
-        $this->bookings[] = $booking;
-
-        return $this;
-    }
-
-    /**
-     * Remove booking
-     *
-     * @param \Cocorico\CoreBundle\Entity\Booking $booking
-     */
-    public function removeBooking(Booking $booking)
-    {
-        $this->bookings->removeElement($booking);
     }
 
     /**
@@ -560,7 +456,6 @@ class Listing extends BaseListing
                 ($strict && $this->getDescription()) ||
                 (!$strict && strlen($this->getDescription()) > 250)
             ) ? 1 : 0,
-//            "price" => $this->getPrice() ? 1 : 0,
             "image" => (
                 ($strict && count($this->getImages()) >= $minImages) ||
                 (!$strict && count($this->getImages()) > $minImages)
@@ -614,7 +509,46 @@ class Listing extends BaseListing
      */
     public function setExpiryDate(DateTime $expiryDate): void
     {
+        // expiry date changed
+        if ($expiryDate !== $this->expiryDate) {
+            $this->setExpiryNotificationSend(false);
+        }
         $this->expiryDate = $expiryDate;
+    }
+
+    /**
+     * @param int $days
+     * @return bool
+     */
+    public function isExpiredSoon(int $days = 30): bool
+    {
+        return $this->getExpiryDate() < (new DateTime('now'))->add(new DateInterval("P{$days}D"));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExpired(): bool
+    {
+        return $this->getExpiryDate() < new DateTime('now');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExpiryNotificationSend(): bool
+    {
+        return $this->expiryNotificationSend;
+    }
+
+    /**
+     * @param bool $expiryNotificationSend
+     * @return Listing
+     */
+    public function setExpiryNotificationSend(bool $expiryNotificationSend): Listing
+    {
+        $this->expiryNotificationSend = $expiryNotificationSend;
+        return $this;
     }
 
     /**

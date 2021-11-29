@@ -22,11 +22,31 @@
                     </div>
                     <div class="col-xs-4 nav">
                         {% if user %}
+
                             <div class="pull-right">
-                                <a class="text-muted" href="{{ path('cocorico_user_logout') }}" style="text-decoration: none;">
-                                    <i class="glyphicon glyphicon-log-out"></i>
-                                    {{ 'nav.logout.link'|trans }}
+                                <a class="text-muted" style="text-decoration: none;"
+                                   href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}"
+                                   title="User">
+                                    {{ 'nav.dashboard.profile.link'|trans }}
                                 </a>
+                                |
+                                <span>{{ user.fullName }}</span>
+                                <a href="{{ path('cocorico_user_logout') }}">
+                                    <i class="glyphicon glyphicon-log-out"></i>
+                                </a>
+{#                                <ul class="dropdown-menu">#}
+{#                                    <li>#}
+{#                                        <a class="dropdown-item" href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}">#}
+{#                                            {{ 'nav.dashboard.profile.link'|trans }}#}
+{#                                        </a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="{{ path('cocorico_user_logout') }}">#}
+{#                                            {{ 'nav.logout.link'|trans }}#}
+{#                                        </a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+
                             </div>
                         {% endif %}
                     </div>

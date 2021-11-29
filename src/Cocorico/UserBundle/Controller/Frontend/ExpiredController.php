@@ -74,6 +74,7 @@ class ExpiredController extends Controller
         if ($user->isExpiredSoon(30)) {
             if (!$user->isReconfirmRequested()) {
                 $user->setReconfirmRequested(true);
+                $user->setReconfirmRequestedAt(new \DateTime());
 
                 $userManager->persistAndFlush($user);
 

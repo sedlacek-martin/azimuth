@@ -293,6 +293,10 @@ small,
     font-size: 85%;
 }
 
+.tiny {
+    font-size: 65%;
+}
+
 cite {
     font-style: normal;
 }
@@ -6716,7 +6720,8 @@ span.btn:focus {
 
 .listing-post .post-content {
     overflow: hidden;
-    padding: 16px 18px;
+    padding: 12px 18px 5px 18px;
+    height: 95px !important;
 }
 
 .listing-post .alignleft {
@@ -6733,11 +6738,29 @@ span.btn:focus {
 .listing-post h2 {
     margin: 0;
     color: #58595b;
-    font-size: 22px;
+    font-size: 19px;
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .listing-post p {
     margin: 0 0 5px;
+}
+
+.listing-post p:first-of-type {
+    margin: 0 !important;
+}
+
+.listing-post p:not(:first-of-type) {
+    font-size: 0.8em;
+}
+
+.listing-post p:not(:first-of-type) i {
+    margin: 0 2px;
 }
 
 .listing-post .info-btns {
@@ -6908,6 +6931,9 @@ span.btn:focus {
     float: right;
     color: #58595b;
     margin: 12px 0 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+    padding: 3px;
 }
 
 .certified .icon-ok {
@@ -9942,9 +9968,12 @@ label {
 
 .listing-container h1 {
     color: #58595b;
-    margin: 0 0 33px;
     font-size: 30px;
     line-height: 1.2;
+}
+
+.listing-container div.listing-title {
+    margin: 0 0 33px;
 }
 
 .listing-container h1 a, h1.listing-title a {
@@ -18017,7 +18046,7 @@ body.loading {
     cursor: pointer;
 }
 
-.map-state-focus {
+.map-state-focus, .map-state-focus path, .map-state-focus * {
     stroke: black;
     stroke-width: 1;
     filter: none !important;
@@ -18070,6 +18099,12 @@ body.loading {
     background-color: #58595b;
     padding: 5px;
     cursor: pointer;
+}
+
+.map-copyright {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 .map-legend {

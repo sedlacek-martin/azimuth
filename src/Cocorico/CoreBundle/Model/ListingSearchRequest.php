@@ -36,7 +36,6 @@ class ListingSearchRequest implements TranslationContainerInterface
     protected $timeRange;
     //Number of flexibility days
     protected $flexibility;
-    protected $priceRange;
     protected $sortBy = 'distance';
     protected $page;
     protected $maxPerPage;
@@ -78,9 +77,6 @@ class ListingSearchRequest implements TranslationContainerInterface
 
         //Flexibility
         $this->flexibility = 0;
-
-        //Price
-        $this->priceRange = new PriceRange();
 
         //Location
         $this->location = new ListingLocationSearchRequest($this->locale);
@@ -200,23 +196,6 @@ class ListingSearchRequest implements TranslationContainerInterface
     {
         $this->flexibility = $flexibility;
     }
-
-    /**
-     * @return PriceRange
-     */
-    public function getPriceRange()
-    {
-        return $this->priceRange;
-    }
-
-    /**
-     * @param PriceRange $priceRange
-     */
-    public function setPriceRange($priceRange)
-    {
-        $this->priceRange = $priceRange;
-    }
-
 
     /**
      * @return ListingLocationSearchRequest

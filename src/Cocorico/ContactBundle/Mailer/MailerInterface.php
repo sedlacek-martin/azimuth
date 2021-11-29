@@ -23,4 +23,10 @@ interface MailerInterface
      * @return void
      */
     public function sendContactMessage(Contact $contact);
+
+    /***
+     * @param Contact $contact
+     * @return mixed
+     */
+    public function sendReply(Contact $contact);
 }

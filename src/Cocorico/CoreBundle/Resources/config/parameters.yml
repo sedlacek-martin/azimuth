@@ -9,6 +9,7 @@ parameters:
     #To obfuscate see http://wbwip.com/wbw/emailencoder.html
     cocorico.contact_mail_obfuscated: "&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#099;&#111;&#099;&#111;&#114;&#105;&#099;&#111;&#046;&#105;&#111;"
     cocorico.from_email: info@azimuth-weconnect.eu
+    cocorico.bcc_email: copy@azimuth-weconnect.eu
     cocorico.webmaster_email: webmaster@azimuth-weconnect.eu
     cocorico.vat_number: FR 12 123 456 789
     cocorico.home_rss_feed: 'https://www.cocolabs.io/fr/feed/'
@@ -237,10 +238,13 @@ parameters:
             description: 'Main contact email address, OBFUSCATED. To obfuscate see http://wbwip.com/wbw/emailencoder.html'
         cocorico.from_email:
             type: 'text'
-            description: 'Email address to send outgoing emails (must be verified on SendGrid)'
+            description: 'Email address to send outgoing emails'
         cocorico.webmaster_email:
             type: 'text'
             description: 'Web master email'
+        cocorico.bcc_email:
+            type: 'text'
+            description: 'Email address to receive all outgoing emails'
 
     #User
     #Is there a delivery address. Should not be enabled if DeliveryBundle is enabled.
@@ -266,7 +270,7 @@ parameters:
 
     #Listing
     #Max/Min images by listing
-    cocorico.listing_img_min: 1
+    cocorico.listing_img_min: 0
     cocorico.listing_img_max: 10
     cocorico.listing_img_max_upload_size: 12 #MB
 

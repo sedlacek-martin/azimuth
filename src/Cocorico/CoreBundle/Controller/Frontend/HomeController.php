@@ -15,6 +15,8 @@ use Cocorico\CoreBundle\Entity\Announcement;
 use Cocorico\CoreBundle\Entity\AnnouncementToUser;
 use Cocorico\CoreBundle\Repository\AnnouncementRepository;
 use Cocorico\CoreBundle\Repository\AnnouncementToUserRepository;
+use Cocorico\PageBundle\Entity\Page;
+use Cocorico\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,20 +37,42 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request): Response
     {
-        $userAuthenticated = $this->getUser() !== null;
         $listings = $this->get("cocorico.listing_search.manager")->getHighestRanked(
             $this->get('cocorico.listing_search_request'),
             6,
-            $request->getLocale(),
-            !$userAuthenticated
+            $request->getLocale()
+        );
+
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Page $page */
+        $page = $em->getRepository(Page::class)->findOneBySlug(
+            'home-page',
+            $request->getLocale()
         );
 
         return $this->render(
             'CocoricoCoreBundle:Frontend\Home:index.html.twig',
             array(
                 'listings' => $listings->getIterator(),
+                'page' => $page,
             )
         );
+    }
+
+    /**
+     * @Route("/user/delete/success", name="cocorico_user_delete_success")
+     */
+    public function successAction()
+    {
+        $translator = $this->get('translator');
+
+        $this->addFlash(
+            'success',
+            $translator->trans('user.delete.success', array(), 'cocorico_user')
+        );
+
+        return $this->redirectToRoute('cocorico_home');
     }
 
     /**
@@ -66,14 +90,6 @@ class HomeController extends Controller
             $userAnnouncements = $userAnnouncementRepository->getAnnouncementsWithCache($user);
             $response['count'] = count(($userAnnouncements));
             $response['announcements'] = [];
-//            foreach ($userAnnouncements as $userAnnouncement) {
-//                $announcement = $userAnnouncement->getAnnouncement();
-//                $announcementData = [];
-//                $announcementData['heading'] = $announcement->getHeading();
-//                $announcementData['content'] = $announcement->getContent();
-//                $announcementData['description'] = $announcement->getShortDescription();
-//                $response['announcements'][$announcement->getId()] = $announcementData;
-//            }
             $view = $this->render('CocoricoCoreBundle:Frontend\Home:_announcements.html.twig', [
                 'userAnnouncements' => $userAnnouncements,
             ])->getContent();

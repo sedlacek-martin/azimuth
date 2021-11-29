@@ -58,9 +58,51 @@
                                         {#For html customizations see views\form\fields_translations.html.twig#}
                                         {{ form_widget(form.translations) }}
                                     </div>
+                                    <div class="form-listing-info col-md-12">
+                                        <h2>{{ 'listing.dates.title'|trans }}</h2>
+                                        <input type="checkbox" checked="checked" id="timeless-checkbox">{{ 'listing.timeless_offer.label'|trans }}
+
+                                        <div class="row collapse mt-3" id="listing-dates" style="overflow: hidden; height: 0;">
+                                            <div class="col-lg-12">
+                                                <div class="row datepicker-holder day-fields display-{{ daysDisplayMode }}">
+                                                    <div class="col-lg-6 col-md-12">
+                                                        {{ form_errors(form.dateRange.start) }}
+                                                        {% if form.dateRange.start.vars.label %}
+                                                            <strong class="title" style="font-weight: bold !important;">
+                                                                {{ form_label(form.dateRange.start) }}
+                                                            </strong>
+                                                        {% endif %}
+
+                                                        <div class="input-append date field-holder">
+                                                            {{ form_widget(form.dateRange.start,{
+                                                                'type': 'text',
+                                                                'attr': {
+                                                                    'class': 'form-control from ' ~ form.dateRange.start.vars.attr.class|default(''),
+                                                                }
+                                                            }) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-12">
+                                                        {{ form_errors(form.dateRange.end) }}
+                                                        {% if form.dateRange.end.vars.label %}
+                                                            <strong class="title">{{ form_label(form.dateRange.end) }}</strong>
+                                                        {% endif %}
+
+                                                        <div class="input-appdateRange.end date field-holder">
+                                                            {{ form_widget(form.dateRange.end,{
+                                                                'type': 'text',
+                                                                'attr': {
+                                                                    'class': 'form-control to ' ~ form.dateRange.end.vars.attr.class|default(''),
+                                                                }
+                                                            }) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                             {% include '@CocoricoCore/Frontend/Listing/_new_images.html.twig' with {'form': form, 'listing' : listing} only %}
                             {% include '@CocoricoCore/Frontend/Listing/_new_location.html.twig' with {'form' : form} only %}
                         </div>
@@ -94,7 +136,6 @@
             </div>
 
         {% endblock %}
-
     {% endembed %}
 {% endblock layout %}
 
@@ -134,26 +175,16 @@
                 showHideType($(event.target));
             })
 
-            // $('.listing-type-radio').find("input[type='radio']").change(function (event) {
-            //
-            //     const $allOptions = $categorySelect.find('option');
-            //     const $offerOptions = $categorySelect.find('option[data-offer="true"]');
-            //     const $searchOptions = $categorySelect.find('option[data-search="true"]');
-            //     let value = $(event.target).val();
-            //     if (value === '1') { //offer
-            //         console.log('offer')
-            //         $allOptions.attr('disabled', 'disabled');
-            //         $offerOptions.removeAttr('disabled');
-            //     } else if (value === '2') { //search
-            //         console.log('search');
-            //         $allOptions.attr('disabled', 'disabled');
-            //         $searchOptions.removeAttr('disabled', 'disabled');
-            //     }
-            //     if ($categorySelect.val() === null) {
-            //         let valToSelect = $categorySelect.find('option:not([disabled="disabled"])').first().val();
-            //         $categorySelect.val(valToSelect).trigger('change');
-            //     }
-            // })
+            const $timelessCheckbox = $('#timeless-checkbox');
+            const $dates = $('#listing-dates');
+            $timelessCheckbox.change(function (ev) {
+                if ($timelessCheckbox.is(':checked')) {
+                    $dates.collapse('hide');
+                    $dates.find('input').val('');
+                } else {
+                    $dates.collapse('show');
+                }
+            })
         });
     </script>
 

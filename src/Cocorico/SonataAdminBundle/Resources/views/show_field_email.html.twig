@@ -1,0 +1,5 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    <a href="mailto:{{value}}">{{ value }}</a>
+{% endblock %}

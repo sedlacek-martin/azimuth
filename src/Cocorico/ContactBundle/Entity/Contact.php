@@ -12,6 +12,7 @@
 namespace Cocorico\ContactBundle\Entity;
 
 use Cocorico\ContactBundle\Model\BaseContact;
+use Cocorico\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
@@ -36,11 +37,6 @@ class Contact extends BaseContact
      * @var integer
      */
     private $id;
-
-    public function __construct()
-    {
-
-    }
 
     /**
      * Get id

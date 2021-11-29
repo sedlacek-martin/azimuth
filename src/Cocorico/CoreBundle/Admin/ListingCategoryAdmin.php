@@ -98,6 +98,7 @@ class ListingCategoryAdmin extends AbstractAdmin
                     'placeholder' => ' - Select - ',
                 )
             )
+            ->add('defaultImageName', null, [])
             ->add('offer', null, [])
             ->add('search', null, []);
 

@@ -79,12 +79,6 @@ class PageAdmin extends AbstractAdmin
                             'field_type' => CKEditorType::class,
                             'locale_options' => $descriptions,
                             'required' => true,
-                            'config' => array(
-                                'filebrowser_image_browse_url' => array(
-                                    'route' => 'elfinder',
-                                    'route_parameters' => array('instance' => 'ckeditor'),
-                                ),
-                            )
                         ),
                         'metaTitle' => array(
                             'field_type' => 'text',

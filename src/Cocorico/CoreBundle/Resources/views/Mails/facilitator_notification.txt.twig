@@ -1,0 +1,36 @@
+{% trans_default_domain 'cocorico_mail' %}
+
+{% block subject -%}
+    {% autoescape false %}
+    {{ 'facilitator_notification.email.subject'|trans({}, 'cocorico_mail', user_locale) }}
+    {% endautoescape %}
+{%- endblock %}
+
+{% block message %}
+    {{ 'facilitator_notification.email.message'|trans({
+        '%firstname%': user.firstName,
+        '%post_validations_count%': post_validations,
+        '%message_validations_count%': message_validations,
+        '%post_new_count%': post_new,
+    }, 'cocorico_mail', user_locale) }}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+    {{ message }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {% embed "@CocoricoCore/Mails/layout.html.twig" %}
+        {% trans_default_domain 'cocorico_mail' %}
+
+        {% block content %}
+            {% autoescape false %}
+            {{ message|raw|nl2br }}
+            {#Do not remove this comment. It is used for BDD testing #}
+            <!--facilitator_notification-->
+            {% endautoescape %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

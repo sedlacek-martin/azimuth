@@ -13,6 +13,7 @@
 namespace Cocorico\CoreBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -86,6 +87,15 @@ abstract class BaseListingLocation
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountryName(): string
+    {
+        $countries = Intl::getRegionBundle()->getCountryNames();
+        return $countries[$this->country] ?? '';
     }
 
     /**

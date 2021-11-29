@@ -50,6 +50,12 @@ abstract class BaseListing
         self::STATUS_TO_VALIDATE
     );
 
+    public static $activeStatus = [
+        self::STATUS_NEW,
+        self::STATUS_PUBLISHED,
+        self::STATUS_TO_VALIDATE,
+    ];
+
 
     /* Type */
     const OFFER = 1;
@@ -58,20 +64,6 @@ abstract class BaseListing
     public static $typeValues = array(
         self::OFFER => 'entity.listing.type.offer',
         self::SEARCH => 'entity.listing.type.search',
-    );
-
-    /* Cancellation policy */
-    const CANCELLATION_POLICY_FLEXIBLE = 1;
-    const CANCELLATION_POLICY_STRICT = 2;
-
-    public static $cancellationPolicyValues = array(
-        self::CANCELLATION_POLICY_FLEXIBLE => 'entity.listing.cancellation_policy.flexible',
-        self::CANCELLATION_POLICY_STRICT => 'entity.listing.cancellation_policy.strict',
-    );
-
-    public static $cancellationPolicyDescriptions = array(
-        self::CANCELLATION_POLICY_FLEXIBLE => 'entity.listing.cancellation_policy_desc.flexible',
-        self::CANCELLATION_POLICY_STRICT => 'entity.listing.cancellation_policy_desc.strict',
     );
 
     /**
@@ -89,60 +81,12 @@ abstract class BaseListing
     protected $type = self::OFFER;
 
     /**
-     * @ORM\Column(name="price", type="decimal", precision=8, scale=0, nullable=false)
-     * @Assert\NotBlank(message="assert.not_blank")
-     *
-     * @var integer
-     */
-//    protected $price;
-
-    /**
      *
      * @ORM\Column(name="certified", type="boolean", nullable=true)
      *
      * @var boolean
      */
     protected $certified;
-
-    /**
-     *
-     * @ORM\Column(name="min_duration", type="smallint", nullable=true)
-     *
-     * @var integer
-     */
-    protected $minDuration;
-
-    /**
-     *
-     * @ORM\Column(name="max_duration", type="smallint", nullable=true)
-     *
-     * @var integer
-     */
-    protected $maxDuration;
-
-//    /**
-//     *
-//     * @ORM\Column(name="cancellation_policy", type="smallint", nullable=false)
-//     * @Assert\NotBlank(message="assert.not_blank")
-//     *
-//     * @var integer
-//     */
-//    protected $cancellationPolicy = self::CANCELLATION_POLICY_FLEXIBLE;
-
-
-    /**
-     * @ORM\Column(name="average_rating", type="smallint", nullable=true)
-     *
-     * @var integer
-     */
-    protected $averageRating;
-
-    /**
-     * @ORM\Column(name="comment_count", type="integer", nullable=true)
-     *
-     * @var integer
-     */
-    protected $commentCount = 0;
 
     /**
      * Admin notation
@@ -152,21 +96,6 @@ abstract class BaseListing
      * @var float
      */
     protected $adminNotation;
-
-    /**
-     * @ORM\Column(name="availabilities_updated_at", type="datetime", nullable=true)
-     *
-     * @var \DateTime
-     */
-    protected $availabilitiesUpdatedAt;
-
-    /**
-     *
-     * @ORM\Column(name="public", type="boolean", nullable=false)
-     *
-     * @var boolean
-     */
-    protected $public = false;
 
     /**
      * Translation proxy
@@ -258,104 +187,8 @@ abstract class BaseListing
     public function isToValidate(): bool
     {
         return $this->getStatus() === self::STATUS_TO_VALIDATE;
-
     }
 
-
-//    /**
-//     * Set price
-//     *
-//     * @param  integer $price
-//     * @return $this
-//     */
-//    public function setPrice($price)
-//    {
-//        $this->price = $price;
-//
-//        return $this;
-//    }
-
-//    /**
-//     * Get price
-//     *
-//     * @return string
-//     */
-//    public function getPrice()
-//    {
-//        return "0";
-//    }
-//
-//    /**
-//     * Get price
-//     *
-//     * @return float
-//     */
-//    public function getPriceDecimal()
-//    {
-//        return 0.0;
-//    }
-//
-//    /**
-//     * Get offerer amount fees
-//     *
-//     * @param float $feeAsOfferer
-//     *
-//     * @return float
-//     */
-//    public function getAmountFeeAsOffererDecimal($feeAsOfferer)
-//    {
-//        return $this->getPriceDecimal() * $feeAsOfferer;
-//    }
-//
-//    /**
-//     * Get amount to pay to offerer
-//     *
-//     * @param float $feeAsOfferer
-//     *
-//     * @return float
-//     */
-//    public function getAmountToPayToOffererDecimal($feeAsOfferer)
-//    {
-//        return $this->getPriceDecimal() - $this->getAmountFeeAsOffererDecimal($feeAsOfferer);
-//    }
-//
-//    /**
-//     * Get amount to pay to offerer minus VAT when listing price is VAT excluded.
-//     *
-//     * Return the same result than getAmountToPayToOffererDecimal used with listing price VAT is included:
-//     * amountToPayVATIncluded = PriceVATIncluded - (PriceVATIncluded * feeAsOfferer)
-//     * amountToPayVATExcluded = amountToPayVATIncluded / (1 + vatRate)
-//     *
-//     * So :
-//     * amountToPayVATIncluded = ((price * (1 + vatRate)) - (price * (1 + vatRate) * feeAsOfferer))
-//     * amountToPayVATExcluded = amountToPayVATIncluded / (1 + vatRate)
-//     * amountToPayVATExcluded = price - price * feeAsOfferer
-//     * amountToPayVATExcluded = getAmountToPayToOffererDecimal
-//     *
-//     *
-//     * @param float $feeAsOfferer
-//     *
-//     * @return int
-//     */
-//    public function amountToPayToOffererForPriceExcludingVATDecimal($feeAsOfferer)
-//    {
-//        return $this->getAmountToPayToOffererDecimal($feeAsOfferer);
-//    }
-//
-//    /**
-//     * Get offerer amount fees when listing price is VAT excluded.
-//     * Fees are computed on listing price VAT included
-//     *
-//     * @param float $feeAsOfferer
-//     * @param float $vatRate
-//     *
-//     * @return int
-//     */
-//    public function getAmountFeeAsOffererForPriceExcludingVATDecimal($feeAsOfferer, $vatRate)
-//    {
-//        return $this->getPriceDecimal() * (1 + $vatRate) * $feeAsOfferer;
-//
-//    }
 
     /**
      * @return boolean
@@ -421,133 +254,6 @@ abstract class BaseListing
     }
 
     /**
-     * @return int
-     */
-    public function getMinDuration()
-    {
-        return $this->minDuration;
-    }
-
-    /**
-     * @param int $minDuration
-     */
-    public function setMinDuration($minDuration)
-    {
-        $this->minDuration = $minDuration;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMaxDuration()
-    {
-        return $this->maxDuration;
-    }
-
-    /**
-     * @param int $maxDuration
-     */
-    public function setMaxDuration($maxDuration)
-    {
-        $this->maxDuration = $maxDuration;
-    }
-
-//    /**
-//     * @return int
-//     */
-//    public function getCancellationPolicy()
-//    {
-//        return $this->cancellationPolicy;
-//    }
-
-//    /**
-//     * @param int $cancellationPolicy
-//     *
-//     * @return BaseListing
-//     */
-//    public function setCancellationPolicy($cancellationPolicy)
-//    {
-//        if (!in_array($cancellationPolicy, array_keys(self::$cancellationPolicyValues))) {
-//            throw new \InvalidArgumentException(
-//                sprintf('Invalid value for listing.status : %s.', $cancellationPolicy)
-//            );
-//            //$cancellationPolicy = self::CANCELLATION_POLICY_FLEXIBLE;
-//        }
-//
-//        $this->cancellationPolicy = $cancellationPolicy;
-//
-//        return $this;
-//    }
-
-//    /**
-//     * Get Cancellation Policy Text
-//     *
-//     * @return string
-//     */
-//    public function getCancellationPolicyText()
-//    {
-//        return self::$cancellationPolicyValues[$this->getCancellationPolicy()];
-//    }
-//
-//    /**
-//     * Get Cancellation Policy Description
-//     *
-//     * @return string
-//     */
-//    public function getCancellationPolicyDescription()
-//    {
-//        return self::$cancellationPolicyDescriptions[$this->getCancellationPolicy()];
-//    }
-
-    /**
-     * Set averageRating
-     *
-     * @param  integer $averageRating
-     * @return $this
-     */
-    public function setAverageRating($averageRating)
-    {
-        $this->averageRating = $averageRating;
-
-        return $this;
-    }
-
-    /**
-     * Get averageRating
-     *1
-     *
-     * @return integer
-     */
-    public function getAverageRating()
-    {
-        return $this->averageRating;
-    }
-
-    /**
-     * Set commentCount
-     *
-     * @param  integer $commentCount
-     * @return $this
-     */
-    public function setCommentCount($commentCount)
-    {
-        $this->commentCount = $commentCount;
-
-        return $this;
-    }
-
-    /**
-     * Get commentCount
-     *1
-     *
-     * @return integer
-     */
-    public function getCommentCount()
-    {
-        return $this->commentCount;
-    }
-
-    /**
      * @return float
      */
     public function getAdminNotation()
@@ -561,40 +267,5 @@ abstract class BaseListing
     public function setAdminNotation($adminNotation)
     {
         $this->adminNotation = $adminNotation;
-    }
-
-
-    /**
-     * @return \DateTime
-     */
-    public function getAvailabilitiesUpdatedAt()
-    {
-        return $this->availabilitiesUpdatedAt;
-    }
-
-    /**
-     * @param \DateTime $availabilitiesUpdatedAt
-     */
-    public function setAvailabilitiesUpdatedAt($availabilitiesUpdatedAt)
-    {
-        $this->availabilitiesUpdatedAt = $availabilitiesUpdatedAt;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublic(): bool
-    {
-        return $this->public;
-    }
-
-    /**
-     * @param bool $public
-     * @return BaseListing
-     */
-    public function setPublic(bool $public): BaseListing
-    {
-        $this->public = $public;
-        return $this;
     }
 }

@@ -25,12 +25,14 @@ class AnnouncementToUser
 
     /**
      * @ORM\ManyToOne(targetEntity="Cocorico\CoreBundle\Entity\Announcement", inversedBy="users")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @var Announcement|null
      */
     public $announcement;
 
     /**
      * @ORM\ManyToOne(targetEntity="Cocorico\UserBundle\Entity\User", inversedBy="announcements")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @var User|null
      */
     public $user;

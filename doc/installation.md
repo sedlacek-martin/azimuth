@@ -17,23 +17,6 @@ Activate following modules
     - mod_ssl
 
 Create your virtual host: [dev virtual host sample](virtual-hosts.md)
-
-
-### MongoDB 
-
-#### Install MongoDB 
-
-See https://docs.mongodb.com/manual/administration/install-on-linux/
-
-#### Install PHP MongoDB Driver 
-
-See http://docs.mongodb.org/ecosystem/drivers/php/
-    
-**Note:** *For PHP 7 install mongodb extension and not mongo extension*
-
-#### Start MongoDB 
-
-See http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian/
     
     
 ### PHP
@@ -48,7 +31,6 @@ Activate following extensions:
     - openssl
     - soap
     - exif
-    - mongodb
     - imagick
     - pdo_sqlite
     - pdo_mysql
@@ -143,11 +125,6 @@ Copy and paste web/.htaccess.dist and rename it to web/.htaccess. (It's configur
  
     chmod 744 bin/init-db
     ./bin/init-db php --env=dev
-        
-#### MongoDB initialisation:
-
-    chmod 744 bin/init-mongodb
-    ./bin/init-mongodb php --env=dev
     
 ## Check your System Configuration
 

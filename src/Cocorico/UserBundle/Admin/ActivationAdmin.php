@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\BooleanType;
 use Sonata\CoreBundle\Form\Type\EqualType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -39,7 +40,7 @@ class ActivationAdmin extends BaseUserAdmin
         $listMapper
             ->addIdentifier('email', null, [])
             ->add('fullName', null, [])
-            ->add('birthday', null, [])
+            ->add('birthday', 'date', [])
             ->add('verifiedDomainRegistration', null, [
                 'label' => 'Registration type',
                 'template' => 'CocoricoSonataAdminBundle::list_field_registration_type.html.twig',
@@ -78,6 +79,16 @@ class ActivationAdmin extends BaseUserAdmin
             );
     }
 
+    protected function configureShowFields(ShowMapper $showMapper): void
+    {
+        $showMapper
+            ->add('fullName')
+            ->add('birthday')
+            ->end();
+
+    }
+
+
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
@@ -93,6 +104,7 @@ class ActivationAdmin extends BaseUserAdmin
     {
         $collection->remove('create');
         $collection->remove('edit');
+        $collection->remove('show');
     }
 
 

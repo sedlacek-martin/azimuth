@@ -1,0 +1,21 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {%- if value is empty -%}
+        &nbsp;
+    {%- else -%}
+        {% for role in value %}
+            {% if role == 'ROLE_ACTIVATOR' %}
+                <strong class="label label-info">ACTIVATOR</strong>
+            {% elseif role == 'ROLE_FACILITATOR' %}
+                <strong class="label label-info">FACILITATOR</strong>
+            {% elseif role == 'ROLE_SUPER_ADMIN' %}
+                <strong class="label label-danger">SUPER ADMIN</strong>
+            {% elseif role == 'ROLE_DEVELOPER' %}
+                <strong class="label label-danger">DEVELOPER</strong>
+            {% elseif role == 'ROLE_USER' %}
+                <strong class="label label-primary">USER</strong>
+            {% endif %}
+        {% endfor %}
+    {%- endif -%}
+{% endblock %}
