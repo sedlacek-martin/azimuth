@@ -1,12 +1,5 @@
 #!/bin/sh
 
-#if [[ ! -f composer.json ]]; then
-#    git clone --no-checkout https://github.com/Cocolabs-SAS/cocorico
-#    mv cocorico/.git .
-#    rmdir cocorico
-#    git reset --hard HEAD
-#fi
-
 if [[ ! -f app/config/parameters.yml ]]; then
     cp /init/parameters.yml app/config/parameters.yml
 fi
@@ -15,17 +8,15 @@ if [[ ! -d vendor ]]; then
     composer install --prefer-dist
 fi
 
-while !(mysqladmin -ucocorico -pcocorico ping &> /dev/null); do
+while !(mysqladmin -ucocorico -pcocorico -hmysql ping &> /dev/null); do
     sleep 1
 done
 
-if [[ ! -f /var/lib/mysql/cocorico/db.opt ]]; then
+RESULT=`mysqlshow --host=mysql --user=cocorico --password=cocorico cocorico| grep -v Wildcard | grep -o user -m 1`
+
+if [ "$RESULT"  != "user" ]; then
     php bin/console doctrine:schema:update --force
     php bin/console doctrine:fixtures:load -n
-fi
-
-if [[ ! -d /data/db ]]; then
-    php bin/console doctrine:mongodb:schema:create
 fi
 
 if [[ ! -f web/json/currencies.json ]]; then
