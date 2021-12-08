@@ -1,6 +1,6 @@
 # Installation
 
-For a quick installation based on Docker see [Docker installation](https://github.com/Cocolabs-SAS/cocorico-docker)
+Installation of the server for production mode is not well documented here. It depends on the specification of production server a lot.
 
 For a manual installation on Windows see [Windows installation](installation-windows.md)
 

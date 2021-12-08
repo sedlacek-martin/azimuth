@@ -1,28 +1,10 @@
 # Application installation
 
+_Please note, that majority of these steps can be skipped, if you are using included docker container to run locally._
+
 ## Get project sources
              
-Fork Cocorico Git Repository then get sources:
-             
-### From PhpStorm:
-
- - Close all projects
- - Menu > VCS > Checkout from VC > Git
-    - Git Repo: New forked repository address
-    - Parent Dir: Choose parent of Symfony folder
-    - Dir name: Symfony
- - Menu > File > Open: Symfony folder 
- - Change Project name
- - Activate Symfony2 framework
- - Configure automatically namespace root from Event log Dialog box for example
-     
-### From command line:
-
-Go to to your parent "Document Root" directory and clone repository:
-
-    cd /var/www/cocorico.local/
-    git clone https://github.com/[gituser]/cocorico.git Symfony
-                     
+Pull this Git Repository then get sources:
                      
 ## Create services accounts
 
@@ -60,7 +42,7 @@ You will find more informations on them in the following chapter.
 
 Copy and paste web/.htaccess.dev.dist and rename it to web/.htaccess. (It's configured by default for dev environment).
          
-## Initialize the SQL and NoSQL database
+## Initialize the SQL database
 
 ### SQL database initialisation:
     
@@ -114,7 +96,7 @@ Congratulations! You're now ready to use Cocorico [http://cocorico.local/](https
 
 Admin access is here :
 
-    http://cocorico.local/admin/dashboard
+    http://localhost
     super-admin@cocorico.rocks
     super-admin
     

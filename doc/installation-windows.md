@@ -1,4 +1,4 @@
-# Windows installation
+# Windows installation - ⛔️ deprecated
 
 ## Requirements
 

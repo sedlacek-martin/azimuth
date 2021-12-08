@@ -1,4 +1,4 @@
-# Linux Installation 
+# Linux Installation - ⛔️ deprecated
 
 ## Minimum hardware requirements
 - RAM: 2GB

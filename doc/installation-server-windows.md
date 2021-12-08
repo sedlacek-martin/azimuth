@@ -1,4 +1,4 @@
-# Windows installation
+# Windows installation - ⛔️ deprecated
 
 ## Apache 2
 
