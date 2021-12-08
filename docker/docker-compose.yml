@@ -10,17 +10,21 @@ services:
       - 27017:27017
     volumes:
       - ./../:/cocorico
-      - ./../tmp/mysql:/var/lib/mysql
-      - ./../tmp/mongo:/data/db
     environment:
       - HOST_UID="${UID}"
+    tty: true
+    stdin_open: true
+    command: /bin/bash
+  mysql:
+    image: mariadb
+    restart: always
+    environment:
       - MYSQL_ROOT_PASSWORD=cocorico
       - MYSQL_DATABASE=cocorico
       - MYSQL_USER=cocorico
       - MYSQL_PASSWORD=cocorico
-    tty: true
-    stdin_open: true
-    command: /bin/bash
+    volumes:
+      - ./../tmp/mysql:/var/lib/mysql
   adminer:
     image: adminer
     ports:

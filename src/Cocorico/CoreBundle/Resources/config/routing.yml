@@ -7,11 +7,6 @@ cocorico_core_dashboard:
     type:     annotation
     prefix: /dashboard
 
-cocorico_core_admin_controller:
-    resource: "@CocoricoCoreBundle/Controller/Admin"
-    prefix: /admin
-    options: { i18n: false }
-
 cocorico_core_admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /%cocorico.admin%

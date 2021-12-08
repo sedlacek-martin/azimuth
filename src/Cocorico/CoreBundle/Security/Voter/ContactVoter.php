@@ -31,13 +31,16 @@ class ContactVoter extends BaseVoter
         if ($this->authorizationChecker->isGranted("ROLE_SUPER_ADMIN")) {
             return true;
         }
+        /** @var User $currentUser */
+        $currentUser = $token->getUser();
 
-        /** @var User $user */
-        $user = $token->getUser();
+        $contactUser = $contact->getUser();
+        if ($contactUser !== null && $contactUser->getMemberOrganization()->getId() !== $currentUser->getMemberOrganization()->getId()) {
+            return false;
+        }
 
-        foreach ($user->getRoles() as $role) {
+        foreach ($currentUser->getRoles() as $role) {
             if (in_array($role, $contact->getRecipientRoles())) {
-
                 return true;
             }
         }

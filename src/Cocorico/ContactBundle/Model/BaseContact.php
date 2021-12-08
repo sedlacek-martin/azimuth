@@ -14,6 +14,7 @@ namespace Cocorico\ContactBundle\Model;
 use Cocorico\ContactBundle\Entity\ContactCategory;
 use Cocorico\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\TranslationBundle\Model\Message;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -32,6 +33,12 @@ abstract class BaseContact
         self::STATUS_NEW => 'entity.contact.status.new',
         self::STATUS_READ => 'entity.contact.status.read',
     );
+
+    public const RECIPIENT_ROLES = [
+        'ROLE_SUPER_ADMIN' => 'role.super_admin',
+        'ROLE_FACILITATOR' => 'role.facilitator',
+        'ROLE_ACTIVATOR' => 'role.activator',
+    ];
 
     /**
      * @var string
@@ -138,7 +145,6 @@ abstract class BaseContact
      */
     protected $recipientRoles;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Cocorico\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
@@ -165,13 +171,13 @@ abstract class BaseContact
      */
     protected $status = self::STATUS_NEW;
 
+
     /**
      * @var bool
      *
      * @ORM\Column(name="reply_send", type="boolean", nullable=false)
      */
     protected $replySend = false;
-
 
     /**
      * Gets First Name
@@ -182,6 +188,7 @@ abstract class BaseContact
     {
         return $this->firstName;
     }
+
 
     /**
      * Sets FirstName
@@ -357,7 +364,6 @@ abstract class BaseContact
         return $this;
     }
 
-
     /**
      * @return string[]
      */
@@ -365,6 +371,7 @@ abstract class BaseContact
     {
         return $this->recipientRoles;
     }
+
 
     /**
      * @param string[] $recipientRoles

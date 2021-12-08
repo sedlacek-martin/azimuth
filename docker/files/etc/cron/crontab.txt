@@ -1,6 +1,0 @@
-17 0 * * * php /cocorico/bin/console cocorico:currency:update --env=dev >> /var/log/cron_log.txt
-0 */1 * * * php /cocorico/bin/console cocorico:bookings:expire --env=dev >> /var/log/cron_log.txt
-0 */1 * * * php /cocorico/bin/console cocorico:bookings:validate --env=dev >> /var/log/cron_log.txt
-*/15 * * * * php /cocorico/bin/console cocorico:bookings:alertExpiring --env=dev >> /var/log/cron_log.txt
-*/15 * * * * php /cocorico/bin/console cocorico:bookings:alertImminent --env=dev >> /var/log/cron_log.txt
-0 0 27 * * php /cocorico/bin/console cocorico:listings:alertUpdateCalendars --env=dev >> /var/log/cron_log.txt

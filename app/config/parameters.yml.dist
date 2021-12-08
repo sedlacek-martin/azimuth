@@ -1,21 +1,18 @@
 parameters:
+    ### This is used when generating new assets, so browsers dump their cache
     application_version: 1.0.0
 
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     cocorico_dev
-    database_user:     cocorico_dev
-    database_password: cocorico_dev
-
-    #MongoDB
-    mongodb_server: mongodb://localhost:27017
-    mongodb_database_name: cocorico_dev
+    database_host:     localhost
+    database_port:     null
+    database_name:     cocorico
+    database_user:     cocorico
+    database_password: cocorico
 
     mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-    mailer_port: null
+    mailer_host:       mailcatcher
+    mailer_user:       ''
+    mailer_password:   ''
+    mailer_port:       1025
 
     # You can generate it here http://nux.net/secret
     secret:            ThisTokenIsNotSoSecretChangeIt
@@ -25,24 +22,20 @@ parameters:
     use_assetic_controller: false
 
     ### Cocorico environments dependant parameters (See CocoricoCoreBundle/Resources/config/parameters.yml) ###
-
     #Assets for emails
-    cocorico.assets_base_urls: https://cocorico.dev
+    cocorico.assets_base_urls: 'http://localhost/'
 
     #Request Context url for email send from command
-    router.request_context.host: cocorico.dev
-    router.request_context.scheme: https
+    router.request_context.host: localhost
+    router.request_context.scheme: http
     router.request_context.base_url: ''
 
     #Admin access
     cocorico.admin: admin
     #Admin Web JMS translations activation
-    cocorico.admin_translation: false
+    cocorico.admin_translation: true
     #To check if site texts are translatable
     cocorico.check_translation: false
-
-    #Microsoft Translator key
-    cocorico.translator.secret.key: ~
 
     #Facebook
     cocorico.facebook.app_id: ~
@@ -60,6 +53,9 @@ parameters:
     #Google Place API Key
     cocorico_geo.google_place_api_key: ~
     cocorico_geo.google_place_server_api_key: ~
+
+    #Google recaptch
+    cocorico.google_recaptcha_site_key: ~
 
     #IpInfoDb Api key
     cocorico_geo.ipinfodb_api_key: ~
@@ -85,7 +81,7 @@ parameters:
 
     ##Does the booking object (apartment, service, ...) is considered as validated (Offerer can be payed)
     ##after booking start date or booking end date.
-    cocorico.booking.validated_moment: 'start'
+    cocorico.booking.validated_moment: 'end'
 
     #Time after or before the moment the booking is considered as validated (in minutes)
     #If less than 0 the time is before the moment else time is after the moment

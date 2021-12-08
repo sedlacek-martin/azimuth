@@ -11,7 +11,6 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/main' >> /etc/apk/repositori
         git \
         grep \
         imagemagick \
-        mysql \
         mysql-client \
         musl \
         nginx \

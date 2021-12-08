@@ -147,6 +147,16 @@ class TwigSwiftMailer implements MailerInterface
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
 
+    public function sendAccountDeleted(UserInterface $user)
+    {
+        $template = $this->parameters['templates']['account_deleted'];
+        $context = [
+            'user' => $user,
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
+    }
+
     public function sendUserInvited(string $email)
     {
         $template = $this->parameters['templates']['user_invite'];

@@ -114,6 +114,10 @@
         <source>admin.contact.message.label</source>
         <target>admin.contact.message.label</target>
       </trans-unit>
+      <trans-unit id="8227f8ce873390edf7ea7c7b9acfc5c231bd56a0" resname="admin.contact.recipient_roles.label">
+        <source>admin.contact.recipient_roles.label</source>
+        <target state="new">admin.contact.recipient_roles.label</target>
+      </trans-unit>
       <trans-unit id="b4ce204ba1c572abe62609f69cedee82e8698e44" resname="admin.contact.status.label">
         <source>admin.contact.status.label</source>
         <target>admin.contact.status.label</target>

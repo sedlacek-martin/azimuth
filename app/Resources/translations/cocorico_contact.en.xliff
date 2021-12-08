@@ -84,7 +84,7 @@
       </trans-unit>
       <trans-unit id="7986532e825c6cea4e34d4e54dba93b353d189aa" resname="contact.form.category.label">
         <source>contact.form.category.label</source>
-        <target state="new">contact.form.category.label</target>
+        <target>Category</target>
       </trans-unit>
       <trans-unit id="fce58b916a70eb53f56001f10e807cdf1cc7fee2" resname="contact.form.email.label">
         <source>contact.form.email.label</source>
@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="dc1fc39c54a97b19c64c0a9726491642aa13bb9f" resname="contact.new.form.registered.text">
         <source>contact.new.form.registered.text</source>
-        <target state="new">contact.new.form.registered.text</target>
+        <target>contact.new.form.registered.text</target>
       </trans-unit>
       <trans-unit id="8c4ecc2f579d5a4e94b8c400cae37855a672b92f" resname="contact.new.form.title">
         <source>contact.new.form.title</source>
@@ -137,6 +137,18 @@
       <trans-unit id="ccaeec1d1b1dbbc71e18f43031b34b69864d0ec0" resname="form.error">
         <source>form.error</source>
         <target>Please fix following errors.</target>
+      </trans-unit>
+      <trans-unit id="312f7e8d82d0f0369d99702427a0026f65d18815" resname="role.activator">
+        <source>role.activator</source>
+        <target>Activator</target>
+      </trans-unit>
+      <trans-unit id="0d2aff954bb4ba31f5a76a1a98ac0cdfcbbe97a3" resname="role.facilitator">
+        <source>role.facilitator</source>
+        <target>Facilitator</target>
+      </trans-unit>
+      <trans-unit id="c0f4105092282b05e2256b12d54259e5255781b4" resname="role.super_admin">
+        <source>role.super_admin</source>
+        <target>Super admin</target>
       </trans-unit>
     </body>
   </file>

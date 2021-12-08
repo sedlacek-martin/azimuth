@@ -151,6 +151,10 @@ class ContactNewType extends AbstractType implements TranslationContainerInterfa
         $messages[] = new Message("entity.contact.status.new", 'cocorico_contact');
         $messages[] = new Message("entity.contact.status.read", 'cocorico_contact');
 
+        $messages[] = new Message("role.super_admin", 'cocorico_contact');
+        $messages[] = new Message("role.facilitator", 'cocorico_contact');
+        $messages[] = new Message("role.activator", 'cocorico_contact');
+
         $messages[] = new Message("cocorico_contact.first_name.blank", 'cocorico_contact');
         $messages[] = new Message("cocorico_contact.first_name.short", 'cocorico_contact');
         $messages[] = new Message("cocorico_contact.first_name.long", 'cocorico_contact');

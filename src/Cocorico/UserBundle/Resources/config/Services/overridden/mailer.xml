@@ -11,6 +11,7 @@
         <parameter key="cocorico_user.account_trusted.email.template">CocoricoUserBundle:Mails/User:account_trusted.txt.twig</parameter>
         <parameter key="cocorico_user.account_waiting_trusted.email.template">CocoricoUserBundle:Mails/User:account_waiting_trusted.txt.twig</parameter>
         <parameter key="cocorico_user.account_reactivated.email.template">CocoricoUserBundle:Mails/User:account_reactivated.txt.twig</parameter>
+        <parameter key="cocorico_user.account_deleted.email.template">CocoricoUserBundle:Mails/User:account_deleted.txt.twig</parameter>
         <parameter key="cocorico_user.user_invite.email.template">CocoricoUserBundle:Mails/User:user_invite.txt.twig</parameter>
         <parameter key="cocorico_user.test.email.template">CocoricoUserBundle:Mails/User:test.txt.twig</parameter>
     </parameters>
@@ -30,6 +31,7 @@
                     <argument key="account_trusted">%cocorico_user.account_trusted.email.template%</argument>
                     <argument key="account_waiting_trusted">%cocorico_user.account_waiting_trusted.email.template%</argument>
                     <argument key="account_reactivated">%cocorico_user.account_reactivated.email.template%</argument>
+                    <argument key="account_deleted">%cocorico_user.account_deleted.email.template%</argument>
                     <argument key="user_invite">%cocorico_user.user_invite.email.template%</argument>
                     <argument key="test">%cocorico_user.test.email.template%</argument>
                 </argument>

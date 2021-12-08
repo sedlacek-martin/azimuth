@@ -28,6 +28,7 @@ use Cocorico\SonataAdminBundle\Form\Type\TestMailType;
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
 use Cocorico\UserBundle\Repository\UserRepository;
+use DateInterval;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -83,8 +84,8 @@ class CustomActionController extends Controller
         $waitingActivationCount = $userRepository->getWaitingActivationCount($moId);
         $postToValidateCount = $listingRepository->getWaitingForValidationCount($moId);
         $messagesToVerify = $messageRepository->getWaitingForValidationCount($moId);
-        $facilitatorContact = $contactRepository->getCountByRole('ROLE_FACILITATOR');
-        $activatorContact = $contactRepository->getCountByRole('ROLE_ACTIVATOR');
+        $facilitatorContact = $contactRepository->getCountByRole('ROLE_FACILITATOR', $moId);
+        $activatorContact = $contactRepository->getCountByRole('ROLE_ACTIVATOR', $moId);
 
         return $this->render(
             'CocoricoSonataAdminBundle::CustomActions/dashboard.html.twig',
@@ -593,6 +594,11 @@ class CustomActionController extends Controller
         /** @var TwigSwiftMailer $mailer */
         $mailer = $this->get('cocorico_user.mailer.twig_swift');
         $mailer->sendUserInvited($invitation->getEmail());
+
+        $em = $this->getDoctrine()->getManager();
+        $invitation->setExpiration((new \DateTime())->add(new DateInterval('P7D')));
+        $em->persist($invitation);
+        $em->flush();
 
         $this->addFlash(
             'sonata_flash_success',

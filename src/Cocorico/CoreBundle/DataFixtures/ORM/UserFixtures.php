@@ -45,7 +45,6 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
         $user->setUsername('super-admin@cocorico.rocks');
         $user->setEmail('super-admin@cocorico.rocks');
         $user->setPlainPassword('super-admin');
-        $user->setCountryOfResidence('CZ');
         $user->setBirthday(new DateTime('1978-01-01'));
         $user->setEnabled(true);
         $user->setTrusted(true);

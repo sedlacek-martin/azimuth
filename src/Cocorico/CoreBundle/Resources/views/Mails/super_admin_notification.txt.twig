@@ -2,16 +2,14 @@
 
 {% block subject -%}
     {% autoescape false %}
-    {{ 'activator_notification.email.subject'|trans({}, 'cocorico_mail', user_locale) }}
+    {{ 'super_admin_notification.email.subject'|trans({}, 'cocorico_mail', user_locale) }}
     {% endautoescape %}
 {%- endblock %}
 
 {% block message %}
-    {{ 'activator_notification.email.message'|trans({
+    {{ 'super_admin_notification.email.message'|trans({
         '%firstname%': user.firstName,
-        '%new_activations_count%': new_activations_count,
-        '%new_reconfirm_count%': new_reconfirm_count,
-        '%new_contact_count%': contact_new
+        '%new_contact_count%': contact_new,
     }, 'cocorico_mail', user_locale) }}
 {% endblock %}
 
@@ -29,7 +27,7 @@
             {% autoescape false %}
             {{ message|raw|nl2br }}
             {#Do not remove this comment. It is used for BDD testing #}
-            <!--activator_notification-->
+            <!--super_admin_notification-->
             {% endautoescape %}
         {% endblock %}
     {% endembed %}
