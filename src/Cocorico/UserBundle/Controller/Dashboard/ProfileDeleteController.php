@@ -2,7 +2,9 @@
 
 namespace Cocorico\UserBundle\Controller\Dashboard;
 
+use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Form\Type\PasswordCheckFormType;
+use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
 use Cocorico\UserBundle\Model\UserManager;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -57,6 +59,9 @@ class ProfileDeleteController extends Controller
             );
 
             if ($passwordIsValid) {
+                /** @var TwigSwiftMailer $mailer */
+                $mailer = $this->get('cocorico_user.mailer.twig_swift');
+                $mailer->sendAccountDeleted($user);
                 $this->addFlash(
                     'success',
                     'OK'

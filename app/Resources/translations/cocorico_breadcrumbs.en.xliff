@@ -14,18 +14,6 @@
         <source>Address</source>
         <target>Address</target>
       </trans-unit>
-      <trans-unit id="3310eafbbbcd08a70af2c5d250fb2ba82046f114" resname="Bank wire">
-        <source>Bank wire</source>
-        <target>Bank wire</target>
-      </trans-unit>
-      <trans-unit id="135229c7beadb48dd31d1567028d035586fb41f3" resname="Bookings">
-        <source>Bookings</source>
-        <target>Bookings</target>
-      </trans-unit>
-      <trans-unit id="adab5090ac6a1b7b5420faac7be86c41721ba27c" resname="Calendar">
-        <source>Calendar</source>
-        <target>Calendar</target>
-      </trans-unit>
       <trans-unit id="6ccb60071be8f00760a3824d9f7d0fad57de789f" resname="Categories">
         <source>Categories</source>
         <target>Categories</target>
@@ -41,6 +29,10 @@
       <trans-unit id="a34b69fc46e7a278cf65c58bb347de6560fb046f" resname="Contact Information">
         <source>Contact Information</source>
         <target>Contact Information</target>
+      </trans-unit>
+      <trans-unit id="842b7b5d71896a41ecd92997ec80b1df5243c81e" resname="Dates">
+        <source>Dates</source>
+        <target state="new">Dates</target>
       </trans-unit>
       <trans-unit id="f698304ac534eb0140704d37cf1379f93172da13" resname="Discussion with %name%">
         <source>Discussion with %name%</source>
@@ -58,33 +50,13 @@
         <source>Messages</source>
         <target>Messages</target>
       </trans-unit>
-      <trans-unit id="27a372ec5448ccccde2d678d3d8d2720d0cae107" resname="My Alerts">
-        <source>My Alerts</source>
-        <target>My Alerts</target>
-      </trans-unit>
-      <trans-unit id="af65ae0e9f04990618e53d608489530582356c11" resname="New comment">
-        <source>New comment</source>
-        <target>New comment</target>
-      </trans-unit>
       <trans-unit id="88b8328c7c39e37b8d82a35c17ed0db8a89f16ca" resname="Payment Information">
         <source>Payment Information</source>
         <target>Payment Information</target>
       </trans-unit>
-      <trans-unit id="7dd2ad616489d5356d1ea0e7956255acfb86d372" resname="Payment cards">
-        <source>Payment cards</source>
-        <target>Payment cards</target>
-      </trans-unit>
       <trans-unit id="44357ae55a217646f4d1c3bb7cb7b437fa838999" resname="Payments">
         <source>Payments</source>
         <target>Payments</target>
-      </trans-unit>
-      <trans-unit id="11ce7a38e303255ce9127db6c5e770703c616b2a" resname="Payments done">
-        <source>Payments done</source>
-        <target>Payments done</target>
-      </trans-unit>
-      <trans-unit id="9527f09619e511d64b9397e62a36fc280a854ecf" resname="Payments refund">
-        <source>Payments refund</source>
-        <target>Payments refund</target>
       </trans-unit>
       <trans-unit id="c8b2e864eccb38901097806819bf6aba2eed7ae1" resname="Photos">
         <source>Photos</source>
@@ -94,29 +66,25 @@
         <source>Presentation</source>
         <target>Presentation</target>
       </trans-unit>
-      <trans-unit id="108bf6cf255dad591bbb7aeeba3975b63f41eeef" resname="Price and conditions">
-        <source>Price and conditions</source>
-        <target>Price and conditions</target>
-      </trans-unit>
       <trans-unit id="ff4fc0276e960c348647b647235f68200887c9d2" resname="Profile">
         <source>Profile</source>
         <target>Profile</target>
-      </trans-unit>
-      <trans-unit id="0b93bf5178a751618641797b695c219f0f2397f1" resname="Rating Made">
-        <source>Rating Made</source>
-        <target>Rating Made</target>
-      </trans-unit>
-      <trans-unit id="24d726538e16555f030eaf8b93f76971a1dff4f1" resname="Rating Received">
-        <source>Rating Received</source>
-        <target>Rating Received</target>
       </trans-unit>
       <trans-unit id="18d5c8fe5b4b201008b78c20cab30e09864fac38" resname="Reservation">
         <source>Reservation</source>
         <target>Reservation</target>
       </trans-unit>
+      <trans-unit id="72bd5e0cbf9be172de430a3e54b9d4eb1844d50b" resname="Scout info">
+        <source>Scout info</source>
+        <target state="new">Scout info</target>
+      </trans-unit>
       <trans-unit id="0144dae8fb18fc9c75bdd6b191b93bae5f7a68f8" resname="Search results">
         <source>Search results</source>
         <target>Search results</target>
+      </trans-unit>
+      <trans-unit id="c7f73bb54d928922c3838bb789ee9fb8a5b1eb37" resname="Settings">
+        <source>Settings</source>
+        <target state="new">Settings</target>
       </trans-unit>
     </body>
   </file>

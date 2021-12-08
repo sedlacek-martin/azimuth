@@ -46,7 +46,7 @@ class ListingEditDescriptionType extends ListingEditType implements TranslationC
                 'label' => "listing.form.description.$locale",
                 'constraints' => array(new NotBlank()),
                 'config' => [
-                    'toolbar' => 'basic',
+                    'toolbar' => 'simple1',
                 ],
 
             );

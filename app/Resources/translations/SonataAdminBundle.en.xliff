@@ -472,7 +472,7 @@
       </trans-unit>
       <trans-unit id="29b4ab40e25bff86e4c1eaeaa56c10147b9a1601" resname="Recipient Role Naames">
         <source>Recipient Role Naames</source>
-        <target state="new">Recipient Role Naames</target>
+        <target>Recipient Role Names</target>
       </trans-unit>
       <trans-unit id="4278e7de9ee6b4d6c4bc332f8ccda4ac81fa4fcd" resname="Recipient Roles">
         <source>Recipient Roles</source>
@@ -630,6 +630,10 @@
         <source>admin.contact.detail.back</source>
         <target state="new">admin.contact.detail.back</target>
       </trans-unit>
+      <trans-unit id="2015c855c5115a23186841c1180d9e002817cc4e" resname="admin.contact.detail.confirm_empty.text">
+        <source>admin.contact.detail.confirm_empty.text</source>
+        <target state="new">admin.contact.detail.confirm_empty.text</target>
+      </trans-unit>
       <trans-unit id="812e7869f6bb66fcfb2a01a3f5f0c6108b6d7765" resname="admin.contact.detail.mark_resolved">
         <source>admin.contact.detail.mark_resolved</source>
         <target state="new">admin.contact.detail.mark_resolved</target>
@@ -650,13 +654,17 @@
         <source>admin.contact.message.label</source>
         <target>Message</target>
       </trans-unit>
+      <trans-unit id="8227f8ce873390edf7ea7c7b9acfc5c231bd56a0" resname="admin.contact.recipient_roles.label">
+        <source>admin.contact.recipient_roles.label</source>
+        <target>Recipient roles</target>
+      </trans-unit>
       <trans-unit id="386ac9a566fe112886bf7a3cf0a5604816e890bd" resname="admin.contact.reply.label">
         <source>admin.contact.reply.label</source>
         <target state="new">admin.contact.reply.label</target>
       </trans-unit>
       <trans-unit id="bf9bca6e4cd9e8599de20fb01485dcc77e1fea93" resname="admin.contact.resolve.already_resolved.error">
         <source>admin.contact.resolve.already_resolved.error</source>
-        <target state="new">admin.contact.resolve.already_resolved.error</target>
+        <target>admin.contact.resolve.already_resolved.error</target>
       </trans-unit>
       <trans-unit id="028c6498707e2e955481aa8cd767dd9cb97a6679" resname="admin.contact.resolve.success">
         <source>admin.contact.resolve.success</source>
@@ -1259,11 +1267,11 @@ You can copy this link and send it to the user if needed.</target>
       </trans-unit>
       <trans-unit id="0d2aff954bb4ba31f5a76a1a98ac0cdfcbbe97a3" resname="role.facilitator">
         <source>role.facilitator</source>
-        <target state="new">role.facilitator</target>
+        <target>Facilitator</target>
       </trans-unit>
       <trans-unit id="c0f4105092282b05e2256b12d54259e5255781b4" resname="role.super_admin">
         <source>role.super_admin</source>
-        <target state="new">role.super_admin</target>
+        <target>Super admin</target>
       </trans-unit>
       <trans-unit id="abc1350f2b5be870ca8aaff871e8afdd0cc9c55a" resname="said">
         <source>said</source>

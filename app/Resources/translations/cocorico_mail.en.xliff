@@ -17,6 +17,14 @@
         <source>account_created_user.email.subject</source>
         <target>Your account on %sitename% has been created</target>
       </trans-unit>
+      <trans-unit id="f0f88e7b088e44bf7cc3de6791e8f04df8f127db" resname="account_deleted.email.message">
+        <source>account_deleted.email.message</source>
+        <target state="new">account_deleted.email.message</target>
+      </trans-unit>
+      <trans-unit id="dee9c18864dc890a7bb53bb807bfe12eac67c64e" resname="account_deleted.email.subject">
+        <source>account_deleted.email.subject</source>
+        <target state="new">account_deleted.email.subject</target>
+      </trans-unit>
       <trans-unit id="04afacb30aa685ce0336a35accfaa60c48cdff02" resname="account_reactivated.email.message">
         <source>account_reactivated.email.message</source>
         <target xml:space="preserve">Congratulations, %firstname%! 
@@ -76,11 +84,12 @@ your account is waiting to be approved by our administrators. When your account 
       </trans-unit>
       <trans-unit id="4ea4022eef704a8e132192dcbcd95cf9e6ad3987" resname="contact.reply.message">
         <source>contact.reply.message</source>
-        <target state="new">contact.reply.message</target>
+        <target><![CDATA[contact.reply.subjec t <strong>%reply%</strong>
+<a href="google.com">a</a>]]></target>
       </trans-unit>
       <trans-unit id="4b493c449595ec7edeb396eb0b935a9b2790c217" resname="contact.reply.subject">
         <source>contact.reply.subject</source>
-        <target state="new">contact.reply.subject</target>
+        <target>subject</target>
       </trans-unit>
       <trans-unit id="bf0ff6c7106b8fb70b4d1299dab385b48ee4f9d6" resname="facilitator_notification.email.message">
         <source>facilitator_notification.email.message</source>

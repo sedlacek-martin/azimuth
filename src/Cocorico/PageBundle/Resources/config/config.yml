@@ -10,7 +10,7 @@ fos_ck_editor:
             toolbar: simple
     toolbars:
         configs:
-            simple: [[]]
+            simple1: [['Format'], '@basic.basic_styles', '@basic.paragraph', '@basic.links', '@basic.about']
 
 
 fm_elfinder:

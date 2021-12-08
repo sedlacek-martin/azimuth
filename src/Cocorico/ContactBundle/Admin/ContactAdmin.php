@@ -12,9 +12,12 @@
 namespace Cocorico\ContactBundle\Admin;
 
 use Cocorico\ContactBundle\Entity\Contact;
+use Cocorico\ContactBundle\Model\BaseContact;
 use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -128,6 +131,17 @@ class ContactAdmin extends BaseAdmin
                 array('label' => 'admin.contact.subject.label')
             )
             ->add(
+                'recipientRoles',
+                'doctrine_orm_string',
+                array(),
+                ChoiceType::class,
+                array(
+                    'choices' => array_flip(BaseContact::RECIPIENT_ROLES),
+                    'label' => 'admin.contact.status.label',
+                    'translation_domain' => 'cocorico_contact',
+                )
+            )
+            ->add(
                 'createdAt',
                 null,
                 array('label' => 'admin.contact.created_at.label')
@@ -179,7 +193,9 @@ class ContactAdmin extends BaseAdmin
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
             $listMapper
                 ->add('recipientRoleNames', null, [
+                    'label' => 'admin.contact.recipient_roles.label',
                     'template' => 'CocoricoSonataAdminBundle::list_field_array.html.twig',
+                    'data_trans' => 'SonataAdminBundle'
                 ]);
         }
 
@@ -246,13 +262,23 @@ class ContactAdmin extends BaseAdmin
 
     public function createQuery($context = 'list')
     {
+        /** @var QueryBuilder $query */
         $query = parent::createQuery($context);
 
         if (!$this->authIsGranted('ROLE_SUPER_ADMIN') && $this->getUser() !== null) {
+            $rootAlias = $query->getRootAliases()[0];
+            $query
+                ->leftJoin($query->getRootAliases()[0] . '.user', 'user')
+                ->leftJoin('user.memberOrganization', 'mo')
+                ->andWhere($query->expr()->orX(
+                    $query->expr()->andX("{$rootAlias}.user IS NOT NULL", 'mo.id = :moId'),
+                    $query->expr()->isNull("{$rootAlias}.user")
+                ))
+                ->setParameter(':moId', $this->getUser()->getMemberOrganization()->getId());
             if ($this->authIsGranted('ROLE_ACTIVATOR') && $this->getUser() !== null) {
-                $query->andWhere($query->expr()->like($query->getRootAliases()[0].'.recipientRoles', $query->expr()->literal('%ROLE_ACTIVATOR%')));
+                $query->andWhere($query->expr()->like($rootAlias .'.recipientRoles', $query->expr()->literal('%ROLE_ACTIVATOR%')));
             } elseif ($this->authIsGranted('ROLE_FACILITATOR') && $this->getUser() !== null) {
-                $query->andWhere($query->expr()->like($query->getRootAliases()[0].'.recipientRoles', $query->expr()->literal('%ROLE_FACILITATOR%')));
+                $query->andWhere($query->expr()->like($rootAlias .'.recipientRoles', $query->expr()->literal('%ROLE_FACILITATOR%')));
             }
         }
 

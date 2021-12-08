@@ -146,7 +146,7 @@ class TwigSwiftMailer implements MailerInterface
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
 
-    public function sendActivatorNotification(User $user, int $activationCount, int $reconfirmCount): void
+    public function sendActivatorNotification(User $user, int $activationCount, int $reconfirmCount, int $contactCount): void
     {
         $template = $this->templates['activator_notification'];
 
@@ -154,12 +154,14 @@ class TwigSwiftMailer implements MailerInterface
             'user' => $user,
             'new_activations_count' => $activationCount,
             'new_reconfirm_count' => $reconfirmCount,
+            'contact_new' => $contactCount,
 
         ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
-    public function sendFacilitatorNotification(User $user, int $postValidationCount, int $messageValidationCount, int $postNewCount): void
+
+    public function sendFacilitatorNotification(User $user, int $postValidationCount, int $messageValidationCount, int $postNewCount, int $contactCount): void
     {
         $template = $this->templates['facilitator_notification'];
 
@@ -168,6 +170,19 @@ class TwigSwiftMailer implements MailerInterface
             'post_validations' => $postValidationCount,
             'message_validations' => $messageValidationCount,
             'post_new' => $postNewCount,
+            'contact_new' => $contactCount,
+        ];
+
+        $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
+    }
+
+    public function sendSuperAdminNotification(User $user, int $contactCount): void
+    {
+        $template = $this->templates['super_admin_notification'];
+
+        $context = [
+            'user' => $user,
+            'contact_new' => $contactCount,
         ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());

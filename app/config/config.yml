@@ -71,7 +71,7 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        server_version: '10.3.25'
+#        server_version: '10.3.25'
         driver:   pdo_mysql
         host:     "%database_host%"
         port:     "%database_port%"

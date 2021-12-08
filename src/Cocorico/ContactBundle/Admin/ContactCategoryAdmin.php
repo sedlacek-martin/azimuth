@@ -40,8 +40,10 @@ class ContactCategoryAdmin extends BaseAdmin
             ->add('uri', null, [])
             ->add('public', null, [])
             ->add('allowSubject', null, [])
-            ->add('recipientRoleNaames', null, [
+            ->add('recipientRoleNames', null, [
+                'label' => 'admin.contact.recipient_roles.label',
                 'template' => 'CocoricoSonataAdminBundle::list_field_array.html.twig',
+                'data_trans' => 'SonataAdminBundle'
             ]);
 
         $list->add(

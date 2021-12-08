@@ -7,6 +7,7 @@ parameters:
     cocorico.listing_expire_soon.email.template: "CocoricoCoreBundle:Mails:listing_expire_soon.txt.twig"
     cocorico.listing_expired.email.template: "CocoricoCoreBundle:Mails:listing_expired.txt.twig"
     cocorico.facilitator_notification.email.template: "CocoricoCoreBundle:Mails:facilitator_notification.txt.twig"
+    cocorico.super_admin_notification.email.template: "CocoricoCoreBundle:Mails:super_admin_notification.txt.twig"
     cocorico.user_deleted.email.template: "CocoricoUserBundle:Mails/User:user_deleted.txt.twig"
 
 services:
@@ -34,6 +35,7 @@ services:
                 user_expired: "%cocorico.user_expired.email.template%"
                 activator_notification: "%cocorico.activator_notification.email.template%"
                 facilitator_notification: "%cocorico.facilitator_notification.email.template%"
+                super_admin_notification: "%cocorico.super_admin_notification.email.template%"
                 user_deleted: "%cocorico.user_deleted.email.template%"
                 listing_expired: "%cocorico.listing_expired.email.template%"
                 listing_expire_soon: "%cocorico.listing_expire_soon.email.template%"

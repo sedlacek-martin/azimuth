@@ -4,6 +4,9 @@
     {%- if value is empty -%}
         &nbsp;
     {%- else -%}
-        {{ value|join(', ')|default('-') }}
+        {% for item in value %}
+            {% if loop.index0 > 0 %},{% endif %}
+            {{ item|trans({}, field_description.options.data_trans) }}
+        {% endfor %}
     {%- endif -%}
 {% endblock %}
