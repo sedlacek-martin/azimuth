@@ -23,6 +23,12 @@ There is also a container for testing email receiving. The user interface is acc
 ## Adminer
 
 There is also a container to access the DB using [Adminer](https://www.adminer.org/en/). You can access adminer on http://localhost:8080/
+
+To login, use credential:
+
+        server: mysql
+        user: cocorico
+        pass: cocorico
     
         
     

@@ -10,8 +10,6 @@ services:
       - 27017:27017
     volumes:
       - ./../:/cocorico
-    environment:
-      - HOST_UID="${UID}"
     tty: true
     stdin_open: true
     command: /bin/bash

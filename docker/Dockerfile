@@ -2,8 +2,7 @@ FROM alpine:3.9
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
     COMPOSER_HOME=/home/cocorico \
-    HOME=/home/cocorico \
-    HOST_UID=1000
+    HOME=/home/cocorico
 
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/main' >> /etc/apk/repositories \
     && apk --update add \
