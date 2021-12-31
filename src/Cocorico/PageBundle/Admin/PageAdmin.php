@@ -12,15 +12,16 @@
 namespace Cocorico\PageBundle\Admin;
 
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Cocorico\CoreBundle\Utils\ElFinderHelper;
+use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class PageAdmin extends AbstractAdmin
+class PageAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
     protected $baseRoutePattern = 'page';
@@ -49,7 +50,14 @@ class PageAdmin extends AbstractAdmin
             );
             $descriptions[$locale] = array(
                 'label' => 'Content',
-                'constraints' => array(new NotBlank())
+                'constraints' => array(new NotBlank()),
+                 'config' => [
+                'filebrowserBrowseRoute' => 'elfinder',
+                'filebrowserBrowseRouteParameters' => [
+                    'instance' => 'ckeditor',
+                    'homeFolder' => ElFinderHelper::getOrCreateFolder(ElFinderHelper::GLOBAL_DIR, $this->getKernelRoot())
+                ]
+            ]
             );
             $metaTitles[$locale] = array(
                 'label' => 'Meta Title',

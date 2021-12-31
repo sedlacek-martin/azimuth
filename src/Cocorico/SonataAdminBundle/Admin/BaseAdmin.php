@@ -66,4 +66,12 @@ class BaseAdmin extends AbstractAdmin
             return false;
         }
     }
+
+    /**
+     * @return string
+     */
+    public function getKernelRoot(): string
+    {
+        return $this->getContainer()->getParameter("kernel.project_dir");
+    }
 }

@@ -275,10 +275,16 @@ class ContactAdmin extends BaseAdmin
                     $query->expr()->isNull("{$rootAlias}.user")
                 ))
                 ->setParameter(':moId', $this->getUser()->getMemberOrganization()->getId());
+            $roleFilters = [];
             if ($this->authIsGranted('ROLE_ACTIVATOR') && $this->getUser() !== null) {
-                $query->andWhere($query->expr()->like($rootAlias .'.recipientRoles', $query->expr()->literal('%ROLE_ACTIVATOR%')));
-            } elseif ($this->authIsGranted('ROLE_FACILITATOR') && $this->getUser() !== null) {
-                $query->andWhere($query->expr()->like($rootAlias .'.recipientRoles', $query->expr()->literal('%ROLE_FACILITATOR%')));
+                $roleFilters[] = $query->expr()->like($rootAlias .'.recipientRoles', $query->expr()->literal('%ROLE_ACTIVATOR%'));
+            }
+            if ($this->authIsGranted('ROLE_FACILITATOR') && $this->getUser() !== null) {
+                $roleFilters[] = $query->expr()->like($rootAlias .'.recipientRoles', $query->expr()->literal('%ROLE_FACILITATOR%'));
+            }
+
+            if (!empty($roleFilters)) {
+                $query->andWhere($query->expr()->orX(...$roleFilters));
             }
         }
 

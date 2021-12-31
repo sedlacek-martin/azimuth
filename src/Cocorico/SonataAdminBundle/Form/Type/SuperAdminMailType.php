@@ -49,8 +49,8 @@ class SuperAdminMailType extends AbstractType
     public static function getTranslationMessages()
     {
         $messages = array();
-        $messages[] = new Message(self::$facilitatorLabel, 'SonataAdminBundle');
-        $messages[] = new Message(self::$activatorLabel, 'SonataAdminBundle');
+        $messages[] = new Message('super_admin_actions.emails_filter.role_facilitator.label', 'SonataAdminBundle');
+        $messages[] = new Message('super_admin_actions.emails_filter.role_activator.label', 'SonataAdminBundle');
 
         return $messages;
     }

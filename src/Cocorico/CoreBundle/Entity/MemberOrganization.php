@@ -3,6 +3,7 @@
 namespace Cocorico\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Intl;
 
 /**

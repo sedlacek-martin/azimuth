@@ -4,6 +4,7 @@ services:
     arguments:
       - "@request_stack"
       - "@doctrine.orm.entity_manager"
+      - "%kernel.project_dir%"
     tags:
       - { name: form.type }
 
@@ -28,6 +29,7 @@ services:
     arguments:
       - "@request_stack"
       - "@doctrine.orm.entity_manager"
+      - "%kernel.project_dir%"
     tags:
       - { name: form.type }
 

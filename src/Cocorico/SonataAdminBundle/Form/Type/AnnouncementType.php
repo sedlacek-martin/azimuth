@@ -4,6 +4,7 @@ namespace Cocorico\SonataAdminBundle\Form\Type;
 
 use Cocorico\CoreBundle\Entity\Announcement;
 use Cocorico\CoreBundle\Entity\MemberOrganization;
+use Cocorico\CoreBundle\Utils\ElFinderHelper;
 use Doctrine\ORM\EntityManager;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,6 +18,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnnouncementType extends AbstractType
 {
+    /**
+     * @var string
+     */
+    protected $rootDir;
     private $request;
     private $locale;
     private $entityManager;
@@ -25,11 +30,12 @@ class AnnouncementType extends AbstractType
      * @param RequestStack  $requestStack
      * @param EntityManager $entityManager
      */
-    public function __construct(RequestStack $requestStack, EntityManager $entityManager)
+    public function __construct(RequestStack $requestStack, EntityManager $entityManager, string $rootDir)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->locale = $this->request->getLocale();
         $this->entityManager = $entityManager;
+        $this->rootDir = $rootDir;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -51,6 +57,13 @@ class AnnouncementType extends AbstractType
             ])
             ->add('content', CKEditorType::class, [
                 'required' => true,
+                'config' => [
+                    'filebrowserBrowseRoute' => 'elfinder',
+                    'filebrowserBrowseRouteParameters' => [
+                        'instance' => 'ckeditor',
+                        'homeFolder' => ElFinderHelper::getOrCreateFolder(ElFinderHelper::GLOBAL_DIR, $this->rootDir)
+                    ]
+                ]
             ])
             ->add('showAt', DateTimeType::class, [
                 'data' => new \DateTime(),
