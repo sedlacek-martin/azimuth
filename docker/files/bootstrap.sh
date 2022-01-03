@@ -12,7 +12,7 @@ while !(mysqladmin -ucocorico -pcocorico -hmysql ping &> /dev/null); do
     sleep 1
 done
 
-RESULT=`mysqlshow --host=mysql --user=cocorico --password=cocorico cocorico| grep -v Wildcard | grep -o user -m 1`
+RESULT=`mysqlshow --host=mysql --user=cocorico --password=cocorico cocorico | grep -o user -m 1`
 
 if [ "$RESULT"  != "user" ]; then
     php bin/console doctrine:schema:update --force
