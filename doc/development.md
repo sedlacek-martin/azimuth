@@ -7,7 +7,7 @@ However, these containers are **NOT** used in production environment.
 
 To start up the containers, run command in `/docker`:
   
-    UID=${UID} docker-compose up
+    docker-compose up
 
 _If you start these containers for the first time, the application will get installed. 
 If it isn't the case and something goes wrong, please, install the application using [this page](installation-application.md)._
