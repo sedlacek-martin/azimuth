@@ -84,8 +84,8 @@ class CustomActionController extends Controller
         $waitingActivationCount = $userRepository->getWaitingActivationCount($moId);
         $postToValidateCount = $listingRepository->getWaitingForValidationCount($moId);
         $messagesToVerify = $messageRepository->getWaitingForValidationCount($moId);
-        $facilitatorContact = $contactRepository->getCountByRole('ROLE_FACILITATOR', $moId);
-        $activatorContact = $contactRepository->getCountByRole('ROLE_ACTIVATOR', $moId);
+        $facilitatorContact = $contactRepository->getCountNewByRole('ROLE_FACILITATOR', $moId);
+        $activatorContact = $contactRepository->getCountNewByRole('ROLE_ACTIVATOR', $moId);
 
         return $this->render(
             'CocoricoSonataAdminBundle::CustomActions/dashboard.html.twig',

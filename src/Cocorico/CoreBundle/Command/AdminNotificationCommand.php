@@ -51,8 +51,7 @@ class AdminNotificationCommand extends ContainerAwareCommand
         /** @var UserRepository $userRepository */
         $userRepository = $this->em->getRepository(User::class);
 
-        $now = new \DateTime();
-        $yesterday = (new \DateTime())->modify("-1 day");
+        [$from, $to] = $this->getFromToDates();
 
         $superAdmins = $userRepository->findByRoles('ROLE_SUPER_ADMIN');
 
@@ -62,7 +61,7 @@ class AdminNotificationCommand extends ContainerAwareCommand
             }
 
             $userMo = $superAdmin->getMemberOrganization()->getId();
-            $contactCount = $this->getContactCount('ROLE_SUPER_ADMIN', $userMo, $yesterday, $now);
+            $contactCount = $this->getContactCount('ROLE_SUPER_ADMIN', $userMo, $from, $to);
 
             if ($contactCount === 0) {
                 continue;
@@ -82,11 +81,10 @@ class AdminNotificationCommand extends ContainerAwareCommand
         /** @var UserRepository $userRepository */
         $userRepository = $this->em->getRepository(User::class);
 
-        $now = new \DateTime();
-        $yesterday = (new \DateTime())->modify("-1 day");
+        [$from, $to] = $this->getFromToDates();
 
-        $activationData = $userRepository->getWaitingActivationCountByMo($yesterday, $now);
-        $reconfirmData = $userRepository->getReconfirmCountByMo($yesterday, $now);
+        $activationData = $userRepository->getWaitingActivationCountByMo($from, $to);
+        $reconfirmData = $userRepository->getReconfirmCountByMo($from, $to);
 
         $activationsCounts = [];
         $reconfirmCounts = [];
@@ -109,7 +107,7 @@ class AdminNotificationCommand extends ContainerAwareCommand
             $userMo = $activator->getMemberOrganization()->getId();
             $activationCount = $activationsCounts[$userMo] ?? 0;
             $reconfirmCount = $reconfirmCounts[$userMo] ?? 0;
-            $contactCount = $this->getContactCount('ROLE_ACTIVATOR', $userMo, $yesterday, $now);
+            $contactCount = $this->getContactCount('ROLE_ACTIVATOR', $userMo, $from, $to);
 
             if ($activationCount === 0 && $reconfirmCount === 0 && $contactCount === 0) {
                 continue;
@@ -132,12 +130,11 @@ class AdminNotificationCommand extends ContainerAwareCommand
         /** @var MessageRepository $messageRepository */
         $messageRepository = $this->em->getRepository(Message::class);
 
-        $now = new \DateTime();
-        $yesterday = (new \DateTime())->modify("-1 day");
+        [$from, $to] = $this->getFromToDates();
 
-        $dataPosts = $listingRepository->getWaitingForValidationCountByMo($yesterday, $now);
-        $dataMessages = $messageRepository->getWaitingForValidationCountByMo($yesterday, $now);
-        $dataNewPosts = $listingRepository->getNewCountByMo($yesterday, $now);
+        $dataPosts = $listingRepository->getWaitingForValidationCountByMo($from, $to);
+        $dataMessages = $messageRepository->getWaitingForValidationCountByMo($from, $to);
+        $dataNewPosts = $listingRepository->getNewCountByMo($from, $to);
         $postValidationsCounts = [];
         $postNewCounts = [];
         $messageValidationsCounts = [];
@@ -165,7 +162,7 @@ class AdminNotificationCommand extends ContainerAwareCommand
             $postValidationCount = $postValidationsCounts[$userMo] ?? 0;
             $messageValidationCount = $messageValidationsCounts[$userMo] ?? 0;
             $postNewCount = $postNewCounts[$userMo] ?? 0;
-            $contactCount = $this->getContactCount('ROLE_FACILITATOR', $userMo, $yesterday, $now);
+            $contactCount = $this->getContactCount('ROLE_FACILITATOR', $userMo, $from, $to);
 
             if ($postValidationCount === 0 && $messageValidationCount === 0 && $postNewCount === 0 && $contactCount === 0) {
                 continue;
@@ -191,9 +188,24 @@ class AdminNotificationCommand extends ContainerAwareCommand
             return $this->contactCountCache[$role][$moId];
         }
 
-        $this->contactCountCache[$role][$moId] = $contactRepository->getCountByRoleByDates($role, $moId, $from, $to) ?? 0;
+        $this->contactCountCache[$role][$moId] = $contactRepository->getCountNewByRoleByDates($role, $moId, $from, $to) ?? 0;
 
-        dump($this->contactCountCache);
         return $this->contactCountCache[$role][$moId];
+    }
+
+    /**
+     * @return \DateTime[]
+     */
+    protected function getFromToDates(): array
+    {
+        $to = new \DateTime();
+        $from = (new \DateTime())->modify("-1 day");
+
+        if (date('D') == 'Sun') {
+            $from = (new \DateTime())->modify("-6 day")->setTime(0, 01);
+        }
+
+        return [$from, $to];
+
     }
 }

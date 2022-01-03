@@ -25,7 +25,7 @@ class ContactRepository extends EntityRepository
      * @param int|null $moId
      * @return QueryBuilder
      */
-    public function getCountByRoleQb(string $role, ?int $moId = null): QueryBuilder
+    public function getCountNewByRoleQb(string $role, ?int $moId = null): QueryBuilder
     {
         $qb = $this->createQueryBuilder('c');
         $qb
@@ -58,9 +58,9 @@ class ContactRepository extends EntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function getCountByRoleByDates(string $role, ?int $moId, \DateTime $from, \DateTime $to)
+    public function getCountNewByRoleByDates(string $role, ?int $moId, \DateTime $from, \DateTime $to)
     {
-        $qb = $this->getCountByRoleQb($role, $moId)
+        $qb = $this->getCountNewByRoleQb($role, $moId)
             ->andWhere('c.createdAt >= :from')
             ->andWhere('c.createdAt <= :to')
             ->setParameter('from', $from)
@@ -78,9 +78,9 @@ class ContactRepository extends EntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function getCountByRole(string $role, ?int $moId = null): int
+    public function getCountNewByRole(string $role, ?int $moId = null): int
     {
-        $result = $this->getCountByRoleQb($role, $moId)->getQuery()->getSingleResult();
+        $result = $this->getCountNewByRoleQb($role, $moId)->getQuery()->getSingleResult();
 
         return $result['cnt'];
     }
