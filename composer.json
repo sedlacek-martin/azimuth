@@ -97,6 +97,7 @@
     "behat/mink-selenium2-driver": "^1.3",
     "behat/mink-zombie-driver": "^1.4",
     "behat/symfony2-extension": "^2.1",
+    "deployer/deployer": "^6.8",
     "doctrine/doctrine-fixtures-bundle": "^3.0",
     "fzaninotto/faker": "^1.7",
     "hpatoio/deploy-bundle": "^1.5",

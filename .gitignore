@@ -49,6 +49,7 @@ web/json/currencies.json
 !web/json/.gitkeep
 
 web/uploads/listings/images/*
+web/uploads/ckeditor/*
 !web/uploads/listings/images/default-listing.png
 web/uploads/users/images/*
 !web/uploads/users/images/default-user.png
