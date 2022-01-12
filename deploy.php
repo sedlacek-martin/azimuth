@@ -28,7 +28,8 @@ set('allow_anonymous_stats', false);
 // Hosts
 
 host('prod')
-    ->hostname(getenv('SERVER_HOSTNAME'))
+    ->hostname('www192.your-server.de')
+//    ->hostname(getenv('SERVER_HOSTNAME'))
     ->user('azimutu')
     ->port(22)
     ->forwardAgent(true)
