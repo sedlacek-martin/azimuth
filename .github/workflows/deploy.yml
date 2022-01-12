@@ -19,15 +19,15 @@ jobs:
           php-version: '7.4'
 
       - name: Configure SSH
-          env:
-          SSH_KEY: ${{ secrets.PRIVATE_KEY }}
-          KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
-          SSH_HOST: ${{ secrets.TARGET_HOST }}
-          SSH_USER: ${{ secrets.TARGET_USER }}
-          run: |
-            eval $(ssh-agent -s)
-            bash -c 'ssh-add <(echo "$DEPLOYER_PRIVATE_KEY")'
-            END
+        env:
+        SSH_KEY: ${{ secrets.PRIVATE_KEY }}
+        KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
+        SSH_HOST: ${{ secrets.TARGET_HOST }}
+        SSH_USER: ${{ secrets.TARGET_USER }}
+        run: |
+          eval $(ssh-agent -s)
+          bash -c 'ssh-add <(echo "$DEPLOYER_PRIVATE_KEY")'
+          END
 
       - name: Deploy
         uses: deployphp/action@v1
