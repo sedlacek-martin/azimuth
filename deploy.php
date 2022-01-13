@@ -22,7 +22,9 @@ set('http_user', 'azimutu');
 
 // Shared files/dirs between deploys
 add('shared_files', ['app/config/parameters.yml']);
-add('shared_dirs', ['var/log', 'var/sessions', 'web/media', 'web/uploads' ]);
+add('shared_dirs', ['var/log', 'var/sessions', 'web/media', 'web/uploads', 'web/json']);
+
+set('clear_paths', ['.github/', 'doc/', '.gitignore', 'docker/']);
 
 // Writable dirs by web server
 //add('writable_dirs', []);
@@ -50,8 +52,10 @@ task('deploy', [
     'deploy:release',
     'deploy:update_code',
     'deploy:shared',
+    'prod_index',
     'composer',
     'assets',
+    'translations',
     'deploy:writable',
     'deploy:symlink',
     'deploy:unlock',
@@ -70,8 +74,20 @@ task('migration', function () use ($env) {
 });
 
 task('assets', function () use ($env) {
+    run("/usr/home/azimutu/public_html/{$env}/release/bin/console ckeditor:install");
     run("/usr/home/azimutu/public_html/{$env}/release/bin/console assets:install --symlink");
     run("/usr/home/azimutu/public_html/{$env}/release/bin/console assetic:dump");
+});
+
+task('prod_index', function () use ($env) {
+   run("mv /usr/home/azimutu/public_html/{$env}/release/web/app_prod.php /usr/home/azimutu/public_html/{$env}/release/web/app.php");
+});
+
+task('translations', function () use ($env) {
+    cd("/usr/home/azimutu/public_html/{$env}/release/vendor/jms/translation-bundle/JMS/TranslationBundle/Resources/views");
+    run("ln -s Translate translate");
+    cd("/usr/home/azimutu/public_html/{$env}/release/");
+    run("/usr/home/azimutu/public_html/{$env}/release/bin/console translation:extract en --config=cocorico");
 });
 
 // If deploy fails automatically unlock.
