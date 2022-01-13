@@ -12,7 +12,9 @@ app/logs
 !app/logs/.gitkeep
 !app/build/logs/.gitkeep
 
-var/
+docker/files/var/*
+
+var/*
 !var/.gitkeep
 
 bin/chromedriver
