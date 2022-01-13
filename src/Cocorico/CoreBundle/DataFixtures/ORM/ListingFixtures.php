@@ -16,7 +16,6 @@ use Cocorico\CoreBundle\Entity\ListingCategory;
 use Cocorico\CoreBundle\Entity\ListingCharacteristic;
 use Cocorico\CoreBundle\Entity\ListingCharacteristicValue;
 use Cocorico\CoreBundle\Entity\ListingImage;
-use Cocorico\CoreBundle\Entity\ListingListingCategory;
 use Cocorico\CoreBundle\Entity\ListingListingCharacteristic;
 use Cocorico\CoreBundle\Entity\ListingLocation;
 use Cocorico\CoreBundle\Entity\ListingTranslation;
@@ -120,15 +119,12 @@ class ListingFixtures extends Fixture implements DependentFixtureInterface
         $listing->setCertified(1);
 
         /** @var User $user */
-        $user = $manager->merge($this->getReference('offerer'));
+        $user = $manager->merge($this->getReference('basic-user'));
         $listing->setUser($user);
 
         /** @var ListingCategory $category */
         $category = $manager->merge($this->getReference('category1_1'));
-        $listingCategory = new ListingListingCategory();
-        $listingCategory->setListing($listing);
-        $listingCategory->setCategory($category);
-        $listing->addListingListingCategory($listingCategory);
+        $listing->setCategory($category);
 
         /** @var ListingCharacteristic $characteristic */
         $characteristic = $manager->merge($this->getReference('characteristic_1'));

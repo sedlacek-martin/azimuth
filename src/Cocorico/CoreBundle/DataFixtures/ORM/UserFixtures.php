@@ -11,16 +11,18 @@
 
 namespace Cocorico\CoreBundle\DataFixtures\ORM;
 
+use Cocorico\CoreBundle\Entity\MemberOrganization;
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Event\UserEvent;
 use Cocorico\UserBundle\Event\UserEvents;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class UserFixtures extends Fixture implements ContainerAwareInterface
+class UserFixtures extends Fixture implements ContainerAwareInterface, DependentFixtureInterface
 {
     /** @var  ContainerInterface container */
     private $container;
@@ -39,6 +41,9 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
         $locale = $this->container->getParameter('cocorico.locale');
         $timeZone = $this->getDefaultUserTimeZone();
 
+        /** @var MemberOrganization $mo */
+        $mo = $this->getReference('test-mo');
+
         $user = $userManager->createUser();
         $user->setLastName('super-admin');
         $user->setFirstName('super-admin');
@@ -50,6 +55,7 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
         $user->setTrusted(true);
         $user->setTimeZone($timeZone);
         $user->addRole('ROLE_SUPER_ADMIN');
+        $user->setMemberOrganization($mo);
 
         $event = new UserEvent($user);
         $this->container->get('event_dispatcher')->dispatch(UserEvents::USER_REGISTER, $event);
@@ -57,6 +63,27 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
 
         $userManager->updateUser($user);
         $this->addReference('super-admin', $user);
+
+        /** @var User $user */
+        $user = $userManager->createUser();
+        $user->setLastName('user');
+        $user->setFirstName('basic');
+        $user->setUsername('basic-user@cocorico.rocks');
+        $user->setEmail('basic-user@cocorico.rocks');
+        $user->setPlainPassword('basic-user');
+        $user->setBirthday(new DateTime('1978-01-01'));
+        $user->setEnabled(true);
+        $user->setTrusted(true);
+        $user->setTimeZone($timeZone);
+        $user->addRole('ROLE_USER');
+        $user->setMemberOrganization($mo);
+
+        $event = new UserEvent($user);
+        $this->container->get('event_dispatcher')->dispatch(UserEvents::USER_REGISTER, $event);
+        $user = $event->getUser();
+
+        $userManager->updateUser($user);
+        $this->addReference('basic-user', $user);
     }
 
     /**
@@ -73,5 +100,12 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
         }
 
         return $userTimeZone;
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            MemberOrganizationFixture::class
+        );
     }
 }
