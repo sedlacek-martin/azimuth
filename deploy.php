@@ -22,7 +22,7 @@ set('http_user', 'azimutu');
 
 // Shared files/dirs between deploys
 add('shared_files', ['app/config/parameters.yml']);
-add('shared_dirs', ['var/logs', 'var/sessions', 'web/media', 'web/uploads', 'web/json']);
+add('shared_dirs', ['var/logs', 'var/sessions', 'web/media', 'web/uploads', 'web/json', 'app/Resources/translations']);
 
 set('clear_paths', ['.github/', 'doc/', '.gitignore', 'docker/']);
 
