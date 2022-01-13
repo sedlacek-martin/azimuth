@@ -50,6 +50,10 @@ class PageController extends Controller
 
         $jsonData = @file_get_contents($file);
 
+        if ($jsonData === false) {
+            $jsonData = '[]';
+        }
+
         return $this->render('@CocoricoPage/Frontend/Page/map.html.twig', [
             'listingCount' => $jsonData,
         ]);
