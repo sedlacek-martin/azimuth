@@ -61,8 +61,8 @@ task('deploy', [
 
 task('composer', function () use ($env) {
     cd('{{release_path}}');
-    run("composer prod --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
-    run("composer dump-autoload --optimize --classmap-authoritative --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
+    run("php /usr/home/azimutu/public_html/composer.phar prod --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
+    run("php /usr/home/azimutu/public_html/composer.phar dump-autoload --optimize --classmap-authoritative --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
 });
 
 task('migration', function () use ($env) {
