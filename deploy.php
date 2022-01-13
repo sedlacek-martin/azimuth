@@ -5,7 +5,7 @@ use function Clue\StreamFilter\fun;
 
 require 'recipe/common.php';
 
-$env = 'prod2';
+$env = 'prod';
 $hostname = 'www192.your-server.de';
 
 // Project name
@@ -22,7 +22,7 @@ set('http_user', 'azimutu');
 
 // Shared files/dirs between deploys
 add('shared_files', ['app/config/parameters.yml']);
-add('shared_dirs', ['var/log', 'var/sessions', 'web/media', 'web/uploads', 'web/json']);
+add('shared_dirs', ['var/logs', 'var/sessions', 'web/media', 'web/uploads', 'web/json']);
 
 set('clear_paths', ['.github/', 'doc/', '.gitignore', 'docker/']);
 
