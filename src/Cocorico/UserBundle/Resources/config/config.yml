@@ -92,6 +92,10 @@ oneup_uploader:
 
 liip_imagine:
     cache: ~
+    loaders:
+        default:
+            filesystem:
+                data_root: "%cocorico.web_folder_path%"
     filter_sets:
         user_xsmall:
             quality: 100

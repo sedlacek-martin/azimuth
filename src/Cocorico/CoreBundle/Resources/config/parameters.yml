@@ -1,12 +1,15 @@
 parameters:
+    application_version: 1.0.0
+
     #### Environment independent parameters. Same values in dev, staging, prod environments  ####
-    #Site general info
+    ## These parameters can be overwriten by database values
+    # Site general info
     cocorico.site_name: Azimuth
     cocorico.phone: +420 1243 456 789
     cocorico.address: 67 rue de Provence, 75009, Paris
     cocorico.short_description: 'Cocorico is collaborative consumption platform'
     cocorico.contact_mail: contact@cocorico.io
-    #To obfuscate see http://wbwip.com/wbw/emailencoder.html
+    # To obfuscate see http://wbwip.com/wbw/emailencoder.html
     cocorico.contact_mail_obfuscated: "&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#099;&#111;&#099;&#111;&#114;&#105;&#099;&#111;&#046;&#105;&#111;"
     cocorico.from_email: info@azimuth-weconnect.eu
     cocorico.bcc_email: copy@azimuth-weconnect.eu
@@ -50,6 +53,9 @@ parameters:
     #Fees in %
     cocorico.fee_as_asker: 0.1
     cocorico.fee_as_offerer: 0.05
+
+    #This path is used for thumbs generation, as it cannot handle symbolic links on production
+    cocorico.web_folder_path: "%kernel.root_dir%/../web/"
 
     #Time unit in minute (1440 or 60)
     cocorico.time_unit: 1440

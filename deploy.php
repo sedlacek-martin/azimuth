@@ -54,6 +54,7 @@ task('deploy', [
     'deploy:shared',
     'prod_index',
     'composer',
+    'app_version',
     'assets',
     'translations',
     'deploy:writable',
@@ -88,6 +89,11 @@ task('translations', function () use ($env) {
     run("ln -s Translate translate");
     cd("/usr/home/azimutu/public_html/{$env}/release/");
     run("/usr/home/azimutu/public_html/{$env}/release/bin/console translation:extract en --config=cocorico");
+});
+
+task('app_version', function () use ($env) {
+    cd("/usr/home/azimutu/public_html/{$env}/release/app/config");
+    run('current_date_time="`date +%Y%m%d%H%M%S`" && printf "parameters: \n  application_version: $current_date_time" > app_version.yml');
 });
 
 // If deploy fails automatically unlock.
