@@ -1,6 +1,7 @@
 imports:
     - { resource: "@CocoricoCoreBundle/Resources/config/parameters.yml"}
     - { resource: parameters.yml }
+    - { resource: app_version.yml }
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@CocoricoCoreBundle/Resources/config/config.yml"}

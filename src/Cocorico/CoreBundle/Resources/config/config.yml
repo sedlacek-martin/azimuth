@@ -168,6 +168,10 @@ oneup_uploader:
 liip_imagine:
     driver: "%cocorico.image_driver%"
     cache: ~
+    loaders:
+        default:
+            filesystem:
+                data_root: "%cocorico.web_folder_path%"
     filter_sets:
         listing_xsmall:
             quality: 100

@@ -50,7 +50,7 @@
             'css/vendor/glyphicons.css'
 
             filter='cssrewrite, ?minifycsscompressor' output='css/compiled/all.css' %}
-            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all">
+            <link rel="stylesheet" href="{{ asset(asset_url) }}" type="text/css" media="all">
         {% endstylesheets %}
     {% endblock %}
 
@@ -174,7 +174,7 @@
         'js/vendor/cookie-consent.js'
 
         filter="?jsqueeze" output='js/compiled/all.js' %}
-    <script src="{{ asset_url }}"></script>
+    <script src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
 
     <script type="text/javascript">
