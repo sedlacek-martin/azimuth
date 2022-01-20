@@ -93,8 +93,7 @@ task('translations', function () use ($env) {
 
 task('app_version', function () use ($env) {
     cd("/usr/home/azimutu/public_html/{$env}/release/app/config");
-    run('current_date_time="`date +%Y%m%d%H%M%S`";');
-    run('printf "parameters: \n  application_version: $current_date_time" > app_version.yml');
+    run('current_date_time="`date +%Y%m%d%H%M%S`" && printf "parameters: \n  application_version: $current_date_time" > app_version.yml');
 });
 
 // If deploy fails automatically unlock.
