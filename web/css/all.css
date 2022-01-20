@@ -3142,7 +3142,7 @@ input[type="button"].btn-block {
 .btn-group,
 .btn-group-vertical {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
     vertical-align: middle;
 }
 
@@ -3757,13 +3757,15 @@ input[type="button"].btn-block {
 
 @media (max-width: 767px) {
     .navbar-nav .open .dropdown-menu {
-        position: static;
+        right: 0;
+        left: auto;
+        /* position: static;
         float: none;
         width: auto;
         margin-top: 0;
         background-color: transparent;
         border: 0;
-        box-shadow: none;
+        box-shadow: none; */
     }
 
     .navbar-nav .open .dropdown-menu > li > a,
@@ -5612,23 +5614,20 @@ span.btn:focus {
     margin: 0;
 }
 
-.home-page .form-category {
+/* .home-page .form-category {
     display: inline-block;
     border-radius: 4px 4px 0 0;
-    border: 1px solid #e8e8e8;
     background-color: rgba(246, 246, 246, 0.9);
     padding: 14px 0 8px;
-}
+} */
 
-.home-page .form-category .container {
+/* .home-page .form-category .container {
     display: inline-block;
-    /*width: auto;*/
-    /*min-width: 960px;*/
-}
+} */
 
-.home-page .form-category .multiselect li {
+/* .home-page .form-category .multiselect li {
     text-align: left;
-}
+} */
 
 /* topbar */
 .topbar {
@@ -5938,9 +5937,9 @@ span.btn:focus {
     /*float: left;*/
 }
 
-.home-page .form-category .col {
+/* .home-page .form-category .col {
     margin-right: 20px;
-}
+} */
 
 .form-category .col + .col {
     width: auto;
@@ -5953,7 +5952,7 @@ span.btn:focus {
 }
 
 .form-category .title {
-    display: inline-block;
+    /* display: inline-block; */
     width: auto;
     color: #58595b;
     font-weight: normal;
@@ -5971,28 +5970,26 @@ span.btn:focus {
 }
 
 .form-category .multiselect {
-    display: inline-block;
+    /* display: inline-block; */
 }
 
-.form-category .multiselect .btn-group, .form-category .multiselect .btn-default {
+/* .form-category .multiselect .btn-group,  */
+.form-category .multiselect .btn-default {
     top: 0;
     right: 0;
-    padding: 0;
-    width: 180px;
+    padding: 4px 8px;
+    /* width: 180px; */
     height: 36px;
 }
 
-.home-page .form-category .multiselect .btn-group, .home-page .form-category .multiselect .btn-default {
-    width: 220px;
-}
 
 .form-category .field-holder {
-    display: inline-block;
+    /* display: inline-block; */
 }
 
-.home-page .form-category .field-holder {
+/* .home-page .form-category .field-holder {
     width: 280px;
-}
+} */
 
 /*.form-category .field-holder,*/
 .form-category .select-holder {
@@ -6016,7 +6013,8 @@ span.btn:focus {
 
 .form-category .form-holder {
     position: relative;
-    background: #e8e8e8;
+    background: rgba(246, 246, 246, 0.9);
+    /* //#e8e8e8; */
     border-radius: 4px;
     margin: 0 0 40px;
     padding: 15px 19px 15px 19px;
@@ -6121,7 +6119,7 @@ span.btn:focus {
 
 .form-category .form-holder .col + .col {
     display: inline-block;
-    vertical-align: top;
+    /* vertical-align: top; */
 }
 
 .form-category .form-holder .title {
@@ -6131,7 +6129,9 @@ span.btn:focus {
 .form-category .input-append {
     position: relative;
     padding: 0 35px 0 0;
-    width: 157px;
+    /* width: 157px; */
+    width: 95%;
+    max-width: 150px;
 }
 
 .form-category .input-append .input-placeholder-text {
@@ -15183,6 +15183,11 @@ body > .jcf-select-drop.jcf-drop-flipped {
     width: 150px;
 }
 
+
+.form-category .form-holder .btn-default {
+    width: 100%;
+}
+
 /* ---------------------------------------------------------
 	5. Styles for Responsive web design
 ---------------------------------------------------------*/
@@ -15591,17 +15596,17 @@ body > .jcf-select-drop.jcf-drop-flipped {
 
 /* styles for screens with width from 992px to 1024px */
 @media screen and (max-width: 1024px) {
-    .home-page .form-category .multiselect .btn-group, .home-page .form-category .multiselect .btn-default {
+    /* .home-page .form-category .multiselect .btn-group, .home-page .form-category .multiselect .btn-default {
         width: 157px;
-    }
+    } */
 
-    .home-page .form-category .field-holder {
+    /* .home-page .form-category .field-holder {
         width: 220px;
-    }
+    } */
 
-    .form-category .field-holder {
+    /* .form-category .field-holder {
         width: 157px;
-    }
+    } */
 
     .form-category .form-holder .col.location .field-holder {
         width: 157px;
@@ -15609,10 +15614,6 @@ body > .jcf-select-drop.jcf-drop-flipped {
 
     .form-category .form-holder input.btn-default {
         width: 110px;
-    }
-
-    .form-category .input-append {
-        width: 124px;
     }
 }
 
@@ -15624,7 +15625,7 @@ body > .jcf-select-drop.jcf-drop-flipped {
 
     .topbar {
         padding: 9px 0;
-        margin: 0 0 16px;
+        margin: 0;
     }
 
     .navbar-default .navbar-collapse {
@@ -15681,9 +15682,6 @@ body > .jcf-select-drop.jcf-drop-flipped {
         margin-top: 0 !important;
     }
 
-    .form-category .form-holder .btn-default {
-        width: 100%;
-    }
 
     .form-category .selection-holder {
         clear: both;
@@ -16095,7 +16093,7 @@ body > .jcf-select-drop.jcf-drop-flipped {
 
     .form-control {
         font-size: 12px;
-        padding: 10px 12px;
+        padding: 10px 8px;
     }
 
     .jcf-select .jcf-select-text {

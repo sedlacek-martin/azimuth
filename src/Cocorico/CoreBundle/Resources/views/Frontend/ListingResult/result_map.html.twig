@@ -41,7 +41,7 @@
 
     <style>
         #map-canvas {
-            width: {{ listing_overview_map_w }}px;
+            /* width: {{ listing_overview_map_w }}px; */
             height: {{ listing_overview_map_h }}px;
         }
     </style>
@@ -64,13 +64,12 @@
 
             {{ form_start(form, {'attr': {'class': 'form-category alt col-xs-12'}}) }}
 
+
             {% include '@CocoricoCore/Frontend/Common/form_search_fields.html.twig' with {
-                'form': form
+                'form': form,
+                'add_characteristics': true
             } only %}
 
-            {% include '@CocoricoCore/Frontend/ListingResult/form_search_filters.html.twig' with {
-                'form': form
-            } only %}
 
             {{ form_end(form) }}
             {#end search form with filters#}

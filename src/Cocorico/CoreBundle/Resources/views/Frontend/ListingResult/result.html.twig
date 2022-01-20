@@ -41,7 +41,7 @@
 
     <style>
         #map-canvas {
-            width: {{ map_width }}px;
+            /* width: {{ map_width }}px; */
             height: {{ map_height }}px;
         }
     </style>
@@ -65,11 +65,8 @@
             {{ form_start(form, {'attr': {'class': 'form-category alt col-xs-12'}}) }}
 
             {% include '@CocoricoCore/Frontend/Common/form_search_fields.html.twig' with {
-                'form': form
-            } only %}
-
-            {% include '@CocoricoCore/Frontend/ListingResult/form_search_filters.html.twig' with {
-                'form': form
+                'form': form,
+                'add_characteristics': true
             } only %}
 
             {{ form_end(form) }}

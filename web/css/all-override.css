@@ -979,8 +979,8 @@ li.time-fields {
 }
 
 #search-container li.field-row {
-    float: left;
-    width: 25%;
+    /* float: left; */
+    /* width: 25%; */
 }
 
 #search-container li.field-row .select-holder {
@@ -1116,7 +1116,7 @@ li.time-fields {
 
 .time-fields .bootstrap-datetimepicker-widget table td span.glyphicon {
     width: 24px;
-    height: 24px;
+    /* height: 24px; */
     line-height: 24px;
     margin: 0;
     color: #c6ccd2;

@@ -5,8 +5,8 @@
     <!-- topbar -->
     <div class="topbar {% if is_granted('ROLE_PREVIOUS_ADMIN') %}danger{% endif %}">
         <div class="container">
-            <div class="row d-flex align-item-center">
-                <div class="col-xs-6">
+            <div class="d-flex align-item-center justify-space-between">
+                <div class="col-xs-5">
                     <ul class="list-inline">
                         <li>
                             <a tabindex="11" href="{{ path('cocorico_contact_new') }}">
@@ -20,14 +20,23 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-xs-6 d-flex justify-end align-item-center">
+
+                <div class="col-xs-7 col-sm-4 navbar navbar-default">
+                    {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
+                        <div class="col-xs-12 d-flex justify-end py-2">
+                            <i class="glyphicon glyphicon-user px-2"></i>
+                                {{ app.user.firstname | capitalize }} {{ app.user.lastname | capitalize }}
+                        </div>
+                    {% endif %}
+
+                    <div class="col-xs-12 row d-flex justify-end px-0">
                     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                         <span>{{ 'impersonation.active'|trans }} ({{ app.user.firstName | capitalize }})</span><br>
                         <a  class="link text-underline" href="{{ path('cocorico_home', {'_become_who_you_are': '_exit'}) }}">
                             {{ 'exit_impersonation'|trans|upper }}
                         </a>
                     {% elseif app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
-                        <div class="dropdown show" style="margin-right: 10px; border-right: lightgrey 1px solid;">
+                        <div class="col-xs-2 dropdown show" style="border-right: lightgrey 1px solid; height:2rem;">
                             <a class="dropdown-toggle show-announcements-dropdown" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <i class="glyphicon glyphicon-bell" id="announcement-bell"></i>
                                 <span id="announcements"></span>
@@ -40,11 +49,21 @@
                             </div>
                         </div>
 
-                        <div class="inline-block">
-                            <i class="glyphicon glyphicon-user"></i>
-                            <span class="">
-                                {{ app.user.firstname | capitalize }} {{ app.user.lastname | capitalize }}
-                            </span>
+                        <div class="col">
+                            <ul class="nav navbar-nav py-0 my-0">
+                                <li id="dashboard-dropdown" class="dropdown">
+                                    <a id="dashboard-link" class="dropdown-toggle py-2"
+                                       href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"
+                                       title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
+                                       <!-- <i class="glyphicon glyphicon-user"></i> -->
+                                        {{ 'nav.dashboard.link'|trans }}
+                                        <span class="new-message-indicator" style="display: none"></span>
+                                        <span class="icon-down-open-mini"></span>
+                                    </a>
+                                    {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}
+                                </li>
+                            </ul>
+                        </div>
                         </div>
                     {% endif %}
                 </div>
@@ -76,7 +95,7 @@
         {% endif %}
     {% endif %}
 
-    <div class="container mt-5">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-xs-12">
                 <!-- main navigation of the page -->
@@ -114,7 +133,7 @@
 
                             {# User info #}
                             {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
-                                <li id="dashboard-dropdown" class="dropdown">
+                                <!-- <li id="dashboard-dropdown" class="dropdown">
                                     <a id="dashboard-link" class="dropdown-toggle"
                                        href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"
                                        title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -123,7 +142,14 @@
                                         <span class="icon-down-open-mini"></span>
                                     </a>
                                     {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}
+                                </li> -->
+                                {% if not is_granted("ROLE_SUPER_ADMIN") and is_granted("IS_AUTHENTICATED_FULLY") %}
+                                <li>
+                                    <a href="{{ path('cocorico_listing_new') }}" tabindex="11">
+                                        {{ 'nav.listing.new.link'|trans }}
+                                    </a>
                                 </li>
+                                {% endif %}
                             {%- else -%}
                                 <li>
                                     <a href="{{ path('cocorico_user_register') }}" tabindex="7">
@@ -152,11 +178,7 @@
                             {{ 'nav.admin.link'|trans }}
                             </a>
                         {% endif %}
-                        {% if not is_granted("ROLE_SUPER_ADMIN") and is_granted("IS_AUTHENTICATED_FULLY") %}
-                            <a href="{{ path('cocorico_listing_new') }}" class="btn btn-primary navbar-right" tabindex=11">
-                                {{ 'nav.listing.new.link'|trans }}
-                            </a>
-                        {% endif %}
+
                     </div>
                     <!-- /.navbar-collapse -->
                 </nav>

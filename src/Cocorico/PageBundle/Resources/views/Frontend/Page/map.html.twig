@@ -13,12 +13,12 @@
         {% block main %}
             <div id="map-tooltip" style="position: absolute; display: none;"></div>
             <h4>{{ 'map.text'|trans({}, 'cocorico') }}</h4>
-            <div class="min-height row main-map-content map-div-transition" style="justify-content: center; display: flex">
-                <div class="col-xs-8 map-div-transition mb-5" style="border: darkgray 1px solid; max-height: 685px;">
-                    <div class="zoom-btn-container">
+            <!-- <div class="min-height row main-map-content map-div-transition"> -->
+                <div class="col-md-8 map-div-transition mb-5" style="height:685px; max-height: 80vw; position:relative;">
+                    <!-- <div class="zoom-btn-container">
                         <div class="zoom-btn zoom-plus"><i class="glyphicon glyphicon-plus"></i></div>
                         <div class="zoom-btn zoom-minus"><i class="glyphicon glyphicon-minus"></i></div>
-                    </div>
+                    </div> -->
 
                     <div class="map-legend">
                         <div class="map-legend-title">
@@ -45,7 +45,7 @@
 
                     {% include '@CocoricoPage/Frontend/Page/_map_svg.html.twig' %}
                 </div>
-                <div class='col-xs-4 ms-3' style="padding-bottom: 30px;">
+                <div class='col-md-4' style="padding-bottom: 30px;">
                     <div id="country-info-container" style="display: none;">
                         <h2 id="country-name"></h2>
                         <div id='country-text'></div>
@@ -56,7 +56,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
         {% endblock %}
         {% block modal %}
             {% include 'CocoricoCoreBundle:Frontend/Common:_modal.html.twig' only %}
@@ -150,21 +150,21 @@
 
 
             // handle zooming and paning of the map
-            let panZoomMap = svgPanZoom('.europe-map', {
-                dblClickZoomEnabled: false,
-                maxZoom: 4,
-                minZoom: 1,
-            });
-
-            $('.zoom-plus').click(function (event) {
-                event.preventDefault();
-                panZoomMap.zoomIn();
-            })
-
-            $('.zoom-minus').click(function (event) {
-                event.preventDefault();
-                panZoomMap.zoomOut();
-            })
+            // let panZoomMap = svgPanZoom('.europe-map', {
+            //     dblClickZoomEnabled: false,
+            //     maxZoom: 4,
+            //     minZoom: 1,
+            // });
+            //
+            // $('.zoom-plus').click(function (event) {
+            //     event.preventDefault();
+            //     panZoomMap.zoomIn();
+            // })
+            //
+            // $('.zoom-minus').click(function (event) {
+            //     event.preventDefault();
+            //     panZoomMap.zoomOut();
+            // })
 
             $(window).resize(function(){
                 panZoomMap.resize();
@@ -177,4 +177,3 @@
 
     </script>
 {% endblock %}
-

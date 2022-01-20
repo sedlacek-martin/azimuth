@@ -23,9 +23,10 @@
             <form id="message-form" class="form-msg" method="post"
                   action="{{ path(route, { 'slug': slug }) }}">
                 <fieldset>
+                    <p>Write a message</p>
                     <div class="no-scroll">
                         {{ form_errors(form.body) }}
-                        {{ form_widget(form.body) }}
+                        {{ form_widget(form.body, {'attr': {'class': 'col-xs-12'}}) }}
                     </div>
                     {# only show dates for listing messages #}
                     {% if route == 'cocorico_dashboard_message_new' %}
@@ -112,4 +113,3 @@
         });
     </script>
 </div>
-

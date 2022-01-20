@@ -1,24 +1,25 @@
 {% trans_default_domain 'cocorico_listing' %}
 
-<div class="sub-holder" id="search-container">
+<div id="search-container"><!-- class="sub-holder" -->
     <div class="selection-holder">
         {% include '@CocoricoCore/Frontend/ListingResult/_form_search_characteristics.html.twig' with {
             'characteristics' : form.characteristics
         } only %}
 
-        <span class="label" style="margin-left: 12px;">{{ form_label(form.sort_by) }}</span>
+        <!-- doesn't have any impact for now - can be re-enabled, once recommendations are implemented -->
+        <!-- <span class="label" style="margin-left: 12px;">{{ form_label(form.sort_by) }}</span>
         <div class="select-holder">
             {{ form_widget(form.sort_by, {
                 'attr': {
                     'class': "form-control no-arrow"
                 }
             }) }}
-        </div>
+        </div> -->
     </div>
 
-    <div class="selection-holder btn-block text-right">
+    <!-- <div class="selection-holder btn-block text-right">
         <button type="submit" class="btn btn-default" style="padding: 6px 14px 6px;">
             {{ 'listing.filter'|trans }}
         </button>
-    </div>
+    </div> -->
 </div>

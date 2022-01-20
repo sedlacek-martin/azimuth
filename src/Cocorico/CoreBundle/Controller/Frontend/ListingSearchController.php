@@ -309,7 +309,7 @@ class ListingSearchController extends Controller
     {
         $listingSearchRequest = $this->getListingSearchRequest();
         $form = $this->createSearchHomeForm($listingSearchRequest);
-
+        
         return $this->render(
             '@CocoricoCore/Frontend/Home/form_search.html.twig',
             array(

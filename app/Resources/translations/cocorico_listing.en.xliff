@@ -80,7 +80,7 @@
       </trans-unit>
       <trans-unit id="3ca207f515445f3a9b01cbec005be5991f1da131" resname="listing.dates.title">
         <source>listing.dates.title</source>
-        <target state="new">listing.dates.title</target>
+        <target state="new">Dates</target>
       </trans-unit>
       <trans-unit id="25223238b38ced1fe02f1c0260bce8c63a6eccd3" resname="listing.description.title">
         <source>listing.description.title</source>
@@ -292,7 +292,7 @@
       </trans-unit>
       <trans-unit id="60473be4d2461641acfb20fdaaadfd3074df19f1" resname="listing.images.default_prvided_if_empty.text">
         <source>listing.images.default_prvided_if_empty.text</source>
-        <target state="new">listing.images.default_prvided_if_empty.text</target>
+        <target state="new">If no image is provided, default image will be used.</target>
       </trans-unit>
       <trans-unit id="1b9a8b5cdc2cd042da366c84f4822d2fea7135d6" resname="listing.images.to_upload.title">
         <source>listing.images.to_upload.title</source>
@@ -324,7 +324,7 @@
       </trans-unit>
       <trans-unit id="36828233d750b8f4e5317f5aff28d1cbf07f9512" resname="listing.location.private_message">
         <source>listing.location.private_message</source>
-        <target>This address will still private. Only the approximate zone will be shown.</target>
+        <target>This address will still be private. Only the approximate zone will be shown.</target>
       </trans-unit>
       <trans-unit id="99b60efba5895e2e3023fcbb2f52636ecef33020" resname="listing.location.street_number.help">
         <source>listing.location.street_number.help</source>
@@ -348,7 +348,7 @@
       </trans-unit>
       <trans-unit id="72b732682cffac50b7b04c2703af21318d03a7b5" resname="listing.new.categories.title">
         <source>listing.new.categories.title</source>
-        <target>Which post types do you want to publish ?</target>
+        <target>What category of post do you want to publish?</target>
       </trans-unit>
       <trans-unit id="10c64b246aa5847e69aa2e4d0b57c39bb7bad697" resname="listing.new.price.rent">
         <source>listing.new.price.rent</source>
@@ -364,7 +364,7 @@
       </trans-unit>
       <trans-unit id="d51330e2f2746000508926561dc532bd4bc77a3a" resname="listing.new.publish.notice">
         <source>listing.new.publish.notice</source>
-        <target>You will be able to specify other informations about your company in your profile.</target>
+        <target>You will be able to specify further informations about your post in your profile after creation.</target>
       </trans-unit>
       <trans-unit id="f9b32384b68743661c0683cfa182d4db14a5eabc" resname="listing.new.save">
         <source>listing.new.save</source>
@@ -384,7 +384,7 @@
       </trans-unit>
       <trans-unit id="099bd9fd3eb8ecdfa47a2bf51cd486c5094cfae0" resname="listing.new.title">
         <source>listing.new.title</source>
-        <target>Deposit your post</target>
+        <target>Publish your post</target>
       </trans-unit>
       <trans-unit id="b6da107330f9826fd55158c97436c400a516d276" resname="listing.save">
         <source>listing.save</source>
@@ -420,7 +420,7 @@
       </trans-unit>
       <trans-unit id="811628da617a8da9696d216392c3eaab3c1c0c9f" resname="listing.search.result.title">
         <source>listing.search.result.title</source>
-        <target>Result for %listing_search_request%</target>
+        <target>Results for %listing_search_request%</target>
       </trans-unit>
       <trans-unit id="c608f34ee352fa1f395dc889b5cb82cfd61ea27c" resname="listing.search.sort_by.distance">
         <source>listing.search.sort_by.distance</source>
@@ -476,7 +476,7 @@
       </trans-unit>
       <trans-unit id="74ab2c65ff5be1a84f76f87e8475666eb76e22b6" resname="listing.timeless_offer.label">
         <source>listing.timeless_offer.label</source>
-        <target state="new">listing.timeless_offer.label</target>
+        <target state="new">Timeless post</target>
       </trans-unit>
       <trans-unit id="c15673b172f4d94aa1d7b33bdb6eb1b4036cda90" resname="listing.to_validate.label">
         <source>listing.to_validate.label</source>
@@ -546,7 +546,7 @@
       </trans-unit>
       <trans-unit id="08d3c10ef83330fff09ab0febe661ada75d6133e" resname="listing_search.form.end">
         <source>listing_search.form.end</source>
-        <target>End</target>
+        <target>Date until</target>
       </trans-unit>
       <trans-unit id="db302e427440ffbbdcabd856e13975a07d4fe837" resname="listing_search.form.end_time">
         <source>listing_search.form.end_time</source>
@@ -562,7 +562,7 @@
       </trans-unit>
       <trans-unit id="6536bbf97e221f5a8e0f83aa57e2873b46538a44" resname="listing_search.form.start">
         <source>listing_search.form.start</source>
-        <target>Date</target>
+        <target>Date from</target>
       </trans-unit>
       <trans-unit id="a15967324920a8f13597638e765f30bcafdd6557" resname="listing_search.form.start_time">
         <source>listing_search.form.start_time</source>

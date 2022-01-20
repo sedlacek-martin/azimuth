@@ -154,7 +154,8 @@
       </trans-unit>
       <trans-unit id="608f923956d941a70bae569cdeda6dc0e329ff6e" resname="leave_feedback_report_bug">
         <source>leave_feedback_report_bug</source>
-        <target>Report a bug or leave a feedback on function and design</target>
+        <!-- <target>Report a bug or leave a feedback on function and design</target> -->
+        <target>Report a bug or leave a feedback</target>
       </trans-unit>
       <trans-unit id="745132bd15d9bcfd7316d5588bf300eac5bfbc6d" resname="listing.file.button.text">
         <source>listing.file.button.text</source>
@@ -198,7 +199,8 @@
       </trans-unit>
       <trans-unit id="0cfa9dae844b9f6d808eccc3642074fc08814198" resname="map.text">
         <source>map.text</source>
-        <target>Obtain information about all member organisations in Europe</target>
+        <!-- <target>Obtain information about all member organisations in Europe</target> -->
+        <target>Click to obtain information about European member organisations</target>
       </trans-unit>
       <trans-unit id="3ce7d80377ca0b6ecb1fd9ff70cab49aa6f4006f" resname="message.body.not_blank">
         <source>message.body.not_blank</source>
@@ -222,7 +224,7 @@
       </trans-unit>
       <trans-unit id="00968900491344d2b7b09d638da429219ae8f879" resname="nav.dashboard.link">
         <source>nav.dashboard.link</source>
-        <target>My Dashboard</target>
+        <target>Dashboard</target>
       </trans-unit>
       <trans-unit id="2b90079d3b97e0e14afdfe1289c39edc3548586d" resname="nav.dashboard.listings.link">
         <source>nav.dashboard.listings.link</source>
@@ -270,7 +272,7 @@
       </trans-unit>
       <trans-unit id="e02bfbaa7fa4edd8c578a1be1def202e6c3220ac" resname="nav.listing.new.link">
         <source>nav.listing.new.link</source>
-        <target>Publish your post</target>
+        <target>Publish post</target>
       </trans-unit>
       <trans-unit id="fed928e18fb9eaf3aa5370a5b1165bc628687578" resname="nav.listing.show.link">
         <source>nav.listing.show.link</source>
