@@ -47,7 +47,7 @@ function createHost($env) {
 
 // Tasks
 
-    task("deploy_{$env}", [
+    task("{$env}", [
         'deploy:info',
         'deploy:prepare',
         'deploy:lock',
