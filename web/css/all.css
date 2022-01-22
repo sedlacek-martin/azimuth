@@ -5629,6 +5629,14 @@ span.btn:focus {
     text-align: left;
 } */
 
+.env-header {
+    background-color: #e65b20;
+    font-size: 1.6em;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+}
+
 /* topbar */
 .topbar {
     padding: 7px 0 8px;
