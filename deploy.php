@@ -42,12 +42,13 @@ function createHost($env) {
         ->port(222)
         ->forwardAgent(true)
         ->multiplexing(false)
+        ->stage()
         ->set('deploy_path', "/usr/home/azimutu/public_html/{$env}")
         ->set('keep_releases', 3);
 
 // Tasks
 
-    task( $env, [
+    task( "deploy_$env", [
         'deploy:info',
         'deploy:prepare',
         'deploy:lock',
