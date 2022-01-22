@@ -3,6 +3,12 @@
 <!-- header of the page -->
 <header id="header">
     <!-- topbar -->
+    {% if app.environment != 'prod' %}
+        <div class="d-flex align-item-center justify-center env-header">
+            <div class="text-bold">{{ app.environment|upper }} ENVIRONMENT</div>
+        </div>
+    {% endif %}
+
     <div class="topbar {% if is_granted('ROLE_PREVIOUS_ADMIN') %}danger{% endif %}">
         <div class="container">
             <div class="d-flex align-item-center justify-space-between">
