@@ -27,4 +27,4 @@ jobs:
         run: "curl -LO https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.18.2/php-cs-fixer.phar"
 
       - name: "Run friendsofphp/php-cs-fixer"
-        run: "php-cs-fixer.phar fix --config=.php_cs.dist --dry-run --stop-on-violation --diff"
+        run: "php php-cs-fixer.phar fix --config=.php_cs.dist --dry-run --stop-on-violation --diff"
