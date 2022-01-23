@@ -1,4 +1,4 @@
-name: deploy-beta
+name: "Deployment [BETA]"
 
 on: [workflow_dispatch]
 

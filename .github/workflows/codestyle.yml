@@ -1,0 +1,30 @@
+name: "Code style check"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  coding-standards:
+    name: "Coding Standards"
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP with extensions"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          extensions: "simplexml"
+          php-version: "7.2"
+
+      - name: "Install csfixer"
+        run: "curl -LO https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.18.2/php-cs-fixer.phar"
+
+      - name: "Run friendsofphp/php-cs-fixer"
+        run: "php-cs-fixer.phar fix --config=.php_cs.dist --dry-run --stop-on-violation --diff"
