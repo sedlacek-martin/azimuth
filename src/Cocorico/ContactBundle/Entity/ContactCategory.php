@@ -11,13 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Cocorico\ContactBundle\Repository\ContactCategoryRepository")
  *
  * @ORM\Table(name="contact_category")
- *
  */
 class ContactCategory
 {
     public static $recipientRolesValues = [
         'ROLE_SUPER_ADMIN' => 'role.super_admin',
-        'ROLE_FACILITATOR' => 'role.facilitator' ,
+        'ROLE_FACILITATOR' => 'role.facilitator',
         'ROLE_ACTIVATOR' => 'role.activator',
     ];
 
@@ -52,7 +51,7 @@ class ContactCategory
     protected $subject;
 
     /**
-    * @var string[]
+     * @var string[]
      *
      * @ORM\Column(name="recipient_roles", type="simple_array", nullable=true)
      * @Assert\NotBlank(message="cocorico_contact.recipient_roles.blank", groups={"CocoricoContact"})
@@ -65,7 +64,6 @@ class ContactCategory
      * @ORM\Column(name="public", type="boolean", nullable=false)
      */
     protected $public = false;
-
 
     /**
      * @var bool
@@ -89,6 +87,7 @@ class ContactCategory
     public function setUri(?string $uri): ContactCategory
     {
         $this->uri = $uri;
+
         return $this;
     }
 
@@ -107,6 +106,7 @@ class ContactCategory
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -125,6 +125,7 @@ class ContactCategory
     public function setRecipientRoles(array $recipientRoles): ContactCategory
     {
         $this->recipientRoles = $recipientRoles;
+
         return $this;
     }
 
@@ -136,7 +137,6 @@ class ContactCategory
         return array_map(function ($val) {
             return self::getRecipientRoleName($val);
         }, $this->recipientRoles);
-
     }
 
     public static function getRecipientRoleName(string $role): string
@@ -159,6 +159,7 @@ class ContactCategory
     public function setPublic(bool $public): ContactCategory
     {
         $this->public = $public;
+
         return $this;
     }
 
@@ -177,6 +178,7 @@ class ContactCategory
     public function setAllowSubject(bool $allowSubject): ContactCategory
     {
         $this->allowSubject = $allowSubject;
+
         return $this;
     }
 
@@ -199,6 +201,7 @@ class ContactCategory
     public function setSubject(?string $subject): ContactCategory
     {
         $this->subject = $subject;
+
         return $this;
     }
 

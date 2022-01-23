@@ -83,6 +83,7 @@ class Announcement
     public function setId(int $id): Announcement
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -101,6 +102,7 @@ class Announcement
     public function setHeading(string $heading): Announcement
     {
         $this->heading = $heading;
+
         return $this;
     }
 
@@ -119,6 +121,7 @@ class Announcement
     public function setShortDescription(string $shortDescription): Announcement
     {
         $this->shortDescription = $shortDescription;
+
         return $this;
     }
 
@@ -137,6 +140,7 @@ class Announcement
     public function setContent(string $content): Announcement
     {
         $this->content = $content;
+
         return $this;
     }
 
@@ -155,6 +159,7 @@ class Announcement
     public function setUsers($users)
     {
         $this->users = $users;
+
         return $this;
     }
 
@@ -182,6 +187,7 @@ class Announcement
     public function setCreatedAt(\DateTime $createdAt): Announcement
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -200,6 +206,7 @@ class Announcement
     public function setShowAt(?\DateTime $showAt): Announcement
     {
         $this->showAt = $showAt;
+
         return $this;
     }
 
@@ -207,6 +214,4 @@ class Announcement
     {
         return "Announcement - {$this->getHeading()}";
     }
-
-
 }

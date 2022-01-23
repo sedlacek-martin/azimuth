@@ -27,7 +27,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Entity(repositoryClass="Cocorico\CoreBundle\Repository\ListingCategoryRepository")
  *
  * @ORM\Table(name="listing_category")
- *
  */
 class ListingCategory extends BaseListingCategory
 {
@@ -55,12 +54,8 @@ class ListingCategory extends BaseListingCategory
      */
     private $children;
 
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Model\ListingCategoryListingCategoryFieldInterface", mappedBy="category", cascade={"persist", "remove"})
-     */
+    /** @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Model\ListingCategoryListingCategoryFieldInterface", mappedBy="category", cascade={"persist", "remove"}) */
     private $fields;
-
 
     /**
      * @var ListingCategoryPin|null
@@ -110,7 +105,6 @@ class ListingCategory extends BaseListingCategory
     public function getId()
     {
         return $this->id;
-
     }
 
     /**
@@ -135,7 +129,6 @@ class ListingCategory extends BaseListingCategory
     {
         return $this->parent;
     }
-
 
     /**
      * Add children
@@ -223,6 +216,7 @@ class ListingCategory extends BaseListingCategory
     public function setPin($pin)
     {
         $this->pin = $pin;
+
         return $this;
     }
 
@@ -289,6 +283,7 @@ class ListingCategory extends BaseListingCategory
     public function setDefaultImageName(string $defaultImageName): ListingCategory
     {
         $this->defaultImageName = $defaultImageName;
+
         return $this;
     }
 
@@ -297,6 +292,6 @@ class ListingCategory extends BaseListingCategory
      */
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string) $this->getName();
     }
 }

@@ -20,7 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ListingEditLocationType extends ListingEditType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -29,12 +28,12 @@ class ListingEditLocationType extends ListingEditType
             ->add(
                 'location',
                 ListingLocationType::class,
-                array(
+                [
                     'data_class' => 'Cocorico\CoreBundle\Entity\ListingLocation',
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => false,
 
-                )
+                ]
             );
     }
 
@@ -50,5 +49,4 @@ class ListingEditLocationType extends ListingEditType
     {
         return 'listing_edit_location';
     }
-
 }

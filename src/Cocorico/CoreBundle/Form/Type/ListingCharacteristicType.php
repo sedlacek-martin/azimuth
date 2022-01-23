@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class ListingCharacteristicType extends AbstractType
 {
     private $locale;
+
     private $entityManager;
 
     /**
@@ -48,7 +49,7 @@ class ListingCharacteristicType extends AbstractType
             function (FormEvent $event) {
                 /** @var ListingCharacteristicRepository $characteristicsRepository */
                 $characteristicsRepository = $this->entityManager->getRepository(
-                    "CocoricoCoreBundle:ListingCharacteristic"
+                    'CocoricoCoreBundle:ListingCharacteristic'
                 );
                 $characteristics = $characteristicsRepository->findAllTranslated($this->locale);
 
@@ -68,20 +69,20 @@ class ListingCharacteristicType extends AbstractType
                     $form->add(
                         $id,
                         ChoiceType::class,
-                        array(
+                        [
                             'data' => $selected,
                             'required' => false,
-                            /** @Ignore */
+                            /* @Ignore */
                             'label' => $listingCharacteristic->getName(),
-                            'label_attr' => array(
-                                'group' => $listingCharacteristic->getListingCharacteristicGroup()->getName()
-                            ),
+                            'label_attr' => [
+                                'group' => $listingCharacteristic->getListingCharacteristicGroup()->getName(),
+                            ],
                             'mapped' => false,
                             'choices' => $this->buildCharacteristicValuesChoices($listingCharacteristic),
                             'attr' => [
                                 'data-always-show' => $listingCharacteristic->getListingCategories()->count() === 0 ? 'true' : 'false',
-                            ]
-                        )
+                            ],
+                        ]
                     );
                 }
             }
@@ -94,7 +95,7 @@ class ListingCharacteristicType extends AbstractType
      */
     private function buildCharacteristicValuesChoices(ListingCharacteristic $listingCharacteristic)
     {
-        $choices = array();
+        $choices = [];
         $characteristics = $listingCharacteristic->getListingCharacteristicTypeValues();
         /** @var ListingCharacteristicValue $characteristic */
         foreach ($characteristics as $characteristic) {

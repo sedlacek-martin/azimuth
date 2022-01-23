@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\DQL;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
@@ -24,7 +25,6 @@ use Doctrine\ORM\Query\SqlWalker;
  */
 class DateFormatFunction extends FunctionNode
 {
-
     /**
      * Holds the timestamp of the DATE_FORMAT DQL statement
      *

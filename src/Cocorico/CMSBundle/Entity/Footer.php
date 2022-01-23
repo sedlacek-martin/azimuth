@@ -15,7 +15,6 @@ use Cocorico\CMSBundle\Model\BaseFooter;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
-
 /**
  * Footer
  *
@@ -24,7 +23,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Table(name="footer",indexes={
  *    @ORM\Index(name="footer_published_idx", columns={"published"}),
  *  })
- *
  */
 class Footer extends BaseFooter
 {
@@ -56,17 +54,17 @@ class Footer extends BaseFooter
 
     public function getTitle()
     {
-        return (string)$this->translate()->getTitle();
+        return (string) $this->translate()->getTitle();
     }
 
     public function getLink()
     {
-        return (string)$this->translate()->getLink();
+        return (string) $this->translate()->getLink();
     }
 
     public function getUrl()
     {
-        return (string)$this->translate()->getUrl();
+        return (string) $this->translate()->getUrl();
     }
 
     public function __toString()

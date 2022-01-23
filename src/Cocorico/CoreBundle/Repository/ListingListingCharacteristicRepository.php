@@ -31,8 +31,5 @@ class ListingListingCharacteristicRepository extends EntityRepository
             ->setParameter('ids', $idsToDelete)
             ->getQuery()
             ->execute();
-
-
     }
-
 }

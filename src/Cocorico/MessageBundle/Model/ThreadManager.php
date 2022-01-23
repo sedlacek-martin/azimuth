@@ -11,34 +11,28 @@
 
 namespace Cocorico\MessageBundle\Model;
 
-use Cocorico\CoreBundle\Entity\Booking;
 use Cocorico\MessageBundle\Entity\Thread;
-use Cocorico\MessageBundle\MessageBuilder\NewThreadMessageBuilder;
-use Cocorico\MessageBundle\MessageBuilder\ReplyMessageBuilder;
 use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\MessageBundle\EntityManager\MessageManager as FOSMessageManager;
 use FOS\MessageBundle\EntityManager\ThreadManager as FOSThreadManager;
-use FOS\MessageBundle\Model\MessageInterface;
 use FOS\MessageBundle\Model\ParticipantInterface;
-use FOS\MessageBundle\Model\ThreadInterface;
 
 /**
  * Default ORM ThreadManager.
- *
- *
  */
 class ThreadManager
 {
     protected $fosThreadManager;
+
     protected $fosMessageManager;
+
     protected $mailer;
+
     public $maxPerPage;
-    /**
-     * @var EntityManagerInterface
-     */
+
+    /** @var EntityManagerInterface */
     private $em;
 
     /**
@@ -115,7 +109,7 @@ class ThreadManager
         //todo: resolve otherwise this problem
         $paginator = new Paginator($query, false);
 
-       // $paginator->setUseOutputWalkers(true);
+        // $paginator->setUseOutputWalkers(true);
         return $paginator;
     }
 
@@ -153,14 +147,11 @@ class ThreadManager
             if ($nbSendBox) {
                 $replyDelay = $replyDelay / $nbSendBox;
             }
-
         }
 
-        return array(
-            "reply_rate" => $replyRate,
-            "reply_delay" => round($replyDelay),
-        );
+        return [
+            'reply_rate' => $replyRate,
+            'reply_delay' => round($replyDelay),
+        ];
     }
-
-
 }

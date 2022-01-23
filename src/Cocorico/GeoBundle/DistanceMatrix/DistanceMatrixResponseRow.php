@@ -51,7 +51,7 @@ class DistanceMatrixResponseRow
      */
     public function setElements(array $elements)
     {
-        $this->elements = array();
+        $this->elements = [];
 
         foreach ($elements as $element) {
             $this->addElement($element);

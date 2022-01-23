@@ -7,7 +7,6 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
 class BaseAdmin extends AbstractAdmin
@@ -28,14 +27,12 @@ class BaseAdmin extends AbstractAdmin
         return $this->getContainer()->get('security.token_storage');
     }
 
-
     /**
      * @return AuthorizationCheckerInterface|null
      */
     public function getAuthorizationChecker(): ?AuthorizationCheckerInterface
     {
         return $this->getContainer()->get('security.authorization_checker');
-
     }
 
     /**
@@ -50,6 +47,7 @@ class BaseAdmin extends AbstractAdmin
         if ($user instanceof User) {
             return $user;
         }
+
         return null;
     }
 
@@ -72,6 +70,6 @@ class BaseAdmin extends AbstractAdmin
      */
     public function getKernelRoot(): string
     {
-        return $this->getContainer()->getParameter("kernel.project_dir");
+        return $this->getContainer()->getParameter('kernel.project_dir');
     }
 }

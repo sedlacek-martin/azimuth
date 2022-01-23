@@ -23,7 +23,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Listing
  *
@@ -82,10 +81,7 @@ class Listing extends BaseListing
      */
     private $images;
 
-    /**
-     * @ORM\OneToMany(targetEntity="ListingListingCharacteristic", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true) //, fetch="EAGER"
-     *
-     */
+    /** fetch="EAGER" */
     private $listingListingCharacteristics;
 
     /**
@@ -94,10 +90,7 @@ class Listing extends BaseListing
      */
     private $threads;
 
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Model\ListingOptionInterface", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
+    /** @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Model\ListingOptionInterface", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true) */
     private $options;
 
     /**
@@ -128,16 +121,14 @@ class Listing extends BaseListing
      */
     protected $expiryNotificationSend = false;
 
-
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->listingListingCharacteristics = new ArrayCollection();
         $this->threads = new ArrayCollection();
         $this->options = new ArrayCollection();
-        $this->expiryDate = (new DateTime())->add(new DateInterval("P1Y"));
+        $this->expiryDate = (new DateTime())->add(new DateInterval('P1Y'));
     }
-
 
     /**
      * Get id
@@ -161,7 +152,6 @@ class Listing extends BaseListing
 
         return $this;
     }
-
 
     /**
      * Remove characteristics
@@ -229,7 +219,6 @@ class Listing extends BaseListing
     ) {
         return $this->addListingListingCharacteristic($listingListingCharacteristic);
     }
-
 
     /**
      * Remove characteristics
@@ -434,7 +423,6 @@ class Listing extends BaseListing
         return $this;
     }
 
-
     /**
      * @param int  $minImages
      * @param bool $strict
@@ -450,18 +438,18 @@ class Listing extends BaseListing
             }
         }
 
-        return array(
-            "title" => $this->getTitle() ? 1 : 0,
-            "description" => (
+        return [
+            'title' => $this->getTitle() ? 1 : 0,
+            'description' => (
                 ($strict && $this->getDescription()) ||
                 (!$strict && strlen($this->getDescription()) > 250)
             ) ? 1 : 0,
-            "image" => (
+            'image' => (
                 ($strict && count($this->getImages()) >= $minImages) ||
                 (!$strict && count($this->getImages()) > $minImages)
             ) ? 1 : 0,
-            "characteristic" => $characteristic,
-        );
+            'characteristic' => $characteristic,
+        ];
     }
 
     /**
@@ -548,6 +536,7 @@ class Listing extends BaseListing
     public function setExpiryNotificationSend(bool $expiryNotificationSend): Listing
     {
         $this->expiryNotificationSend = $expiryNotificationSend;
+
         return $this;
     }
 
@@ -570,17 +559,17 @@ class Listing extends BaseListing
 
     public function getTitle()
     {
-        return (string)$this->translate()->getTitle();
+        return (string) $this->translate()->getTitle();
     }
 
     public function getSlug()
     {
-        return (string)$this->translate()->getSlug();
+        return (string) $this->translate()->getSlug();
     }
 
     public function __toString()
     {
-        return (string)$this->getTitle();
+        return (string) $this->getTitle();
     }
 
     public function __clone()

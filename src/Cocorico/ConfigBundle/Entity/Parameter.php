@@ -28,7 +28,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="parameter",indexes={
  *    @ORM\Index(name="value_idx", columns={"value"})
  *  })
- *
  */
 class Parameter extends BaseParameter
 {

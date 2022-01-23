@@ -32,9 +32,13 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class BreadcrumbsManager implements TranslationContainerInterface
 {
     protected $breadcrumbs;
+
     protected $router;
+
     protected $loader;
+
     protected $translator;
+
     protected $em;
 
     /**
@@ -71,7 +75,6 @@ class BreadcrumbsManager implements TranslationContainerInterface
         $breadcrumbLinks = $this->loader->load('breadcrumbs.yml');
 
         if (isset($breadcrumbLinks[$routeName]) && is_array($breadcrumbLinks[$routeName])) {
-
             $this->addPreItems($request);
 
             foreach ($breadcrumbLinks[$routeName] as $breadcrumb) {
@@ -97,8 +100,8 @@ class BreadcrumbsManager implements TranslationContainerInterface
 
                 if ($text) {
                     $this->breadcrumbs->addItem(
-                    /** @Ignore */
-                        $this->translator->trans($text, array(), 'cocorico_breadcrumbs'),
+                    /* @Ignore */
+                        $this->translator->trans($text, [], 'cocorico_breadcrumbs'),
                         $url
                     );
                 }
@@ -114,7 +117,7 @@ class BreadcrumbsManager implements TranslationContainerInterface
     public function addPreItems(Request $request)
     {
         $this->breadcrumbs->addItem(
-            $this->translator->trans('Home', array(), 'cocorico_breadcrumbs'),
+            $this->translator->trans('Home', [], 'cocorico_breadcrumbs'),
             $this->router->generate('cocorico_home')
         );
     }
@@ -130,7 +133,7 @@ class BreadcrumbsManager implements TranslationContainerInterface
     {
         $this->addPreItems($request);
         $this->breadcrumbs->addItem(
-            $this->translator->trans('Messages', array(), 'cocorico_breadcrumbs'),
+            $this->translator->trans('Messages', [], 'cocorico_breadcrumbs'),
             $this->router->generate('cocorico_dashboard_message')
         );
 
@@ -140,12 +143,11 @@ class BreadcrumbsManager implements TranslationContainerInterface
         $this->breadcrumbs->addItem(
             $this->translator->trans(
                 'Discussion with %name%',
-                array('%name%' => $user->getName()),
+                ['%name%' => $user->getName()],
                 'cocorico_breadcrumbs'
             )
         );
     }
-
 
     /**
      * Add breadcrumbs to listing show action
@@ -158,11 +160,11 @@ class BreadcrumbsManager implements TranslationContainerInterface
     {
         $this->addPreItems($request);
         $this->breadcrumbs->addItem(
-            $this->translator->trans('Search results', array(), 'cocorico_breadcrumbs')
+            $this->translator->trans('Search results', [], 'cocorico_breadcrumbs')
         );
 
         $coordinate = $listing->getLocation()->getCoordinate();
-        $urlParams = array(
+        $urlParams = [
             'location[area]' => '',
             'location[department]' => '',
             'location[city]' => '',
@@ -170,29 +172,29 @@ class BreadcrumbsManager implements TranslationContainerInterface
             'location[route]' => '',
             'location[streetNumber]' => '',
             'page' => 1,
-        );
+        ];
 
         $country = $coordinate->getCountry();
-        $places = array('country', 'area', 'department', 'city');
+        $places = ['country', 'area', 'department', 'city'];
 
         foreach ($places as $place) {
-            $coordinateMethod = "get" . ucfirst($place);
+            $coordinateMethod = 'get' . ucfirst($place);
             /** @var Country|Area|Department|City $placeEntity */
             if ($placeEntity = $coordinate->$coordinateMethod()) {
                 $url = '';
                 if ($geocoding = $placeEntity->getGeocoding()) {
-                    $address = (string)$placeEntity . ($place != 'country' ? ', ' . $country : '');
+                    $address = (string) $placeEntity . ($place != 'country' ? ', ' . $country : '');
                     $urlParams['location[address]'] = $address;
                     $urlParams['location[lat]'] = $geocoding->getLat();
                     $urlParams['location[lng]'] = $geocoding->getLng();
                     $urlParams['location[viewport]'] = $geocoding->getViewport();
                     $urlParams['location[addressType]'] = $geocoding->getAddressType();
                     //Adapt breadcrumbs items length in result page. Allow to know what is the place type search.
-                    $urlParams['location[' . $place . ']'] = (string)$placeEntity;
+                    $urlParams['location[' . $place . ']'] = (string) $placeEntity;
                     $urlParams['location[country]'] = $country->getCode();
                     $url = $this->router->generate('cocorico_listing_search_result', $urlParams);
                 }
-                $this->breadcrumbs->addItem((string)$placeEntity, $url);
+                $this->breadcrumbs->addItem((string) $placeEntity, $url);
             }
         }
 
@@ -213,12 +215,12 @@ class BreadcrumbsManager implements TranslationContainerInterface
     {
         $this->addPreItems($request);
         $this->breadcrumbs->addItem(
-            $this->translator->trans('Search results', array(), 'cocorico_breadcrumbs')
+            $this->translator->trans('Search results', [], 'cocorico_breadcrumbs')
         );
 
         //Location of search request
         $location = $listingSearchRequest->getLocation();
-        $urlParams = array(
+        $urlParams = [
             'location[area]' => '',
             'location[department]' => '',
             'location[city]' => '',
@@ -226,26 +228,26 @@ class BreadcrumbsManager implements TranslationContainerInterface
             'location[route]' => '',
             'location[streetNumber]' => '',
             'page' => 1,
-        );
+        ];
 
         //Get geocoding info for each search location places
         $country = $area = $department = $city = null;
         if ($location->getCountry()) {
-            $repo = $this->em->getRepository("CocoricoGeoBundle:Country");
+            $repo = $this->em->getRepository('CocoricoGeoBundle:Country');
             $country = $repo->findOneByCode($location->getCountry());
 
             if ($country && $location->getArea()) {
-                $repo = $this->em->getRepository("CocoricoGeoBundle:Area");
+                $repo = $this->em->getRepository('CocoricoGeoBundle:Area');
                 $area = $repo->findOneByNameAndCountry($location->getArea(), $country);
 //                $urlParams['location[country]'] = $location->getCountry();
 
                 if ($area && $location->getDepartment()) {
-                    $repo = $this->em->getRepository("CocoricoGeoBundle:Department");
+                    $repo = $this->em->getRepository('CocoricoGeoBundle:Department');
                     $department = $repo->findOneByNameAndArea($location->getDepartment(), $area);
 //                    $urlParams['location[area]'] = $location->getArea();
 
                     if ($department && $location->getCity()) {
-                        $repo = $this->em->getRepository("CocoricoGeoBundle:City");
+                        $repo = $this->em->getRepository('CocoricoGeoBundle:City');
                         $city = $repo->findOneByNameAndDepartment($location->getCity(), $department);
 //                        $urlParams['location[department]'] = $location->getDepartment();
                     }
@@ -253,29 +255,29 @@ class BreadcrumbsManager implements TranslationContainerInterface
             }
         }
 
-        $places = array(
+        $places = [
             'country',
             'area',
             'department',
             'city',
-        );
+        ];
 
         foreach ($places as $place) {
             /** @var Country|Area|Department|City $placeEntity */
             if ($placeEntity = $$place) {
                 $url = '';
                 if ($geocoding = $placeEntity->getGeocoding()) {
-                    $address = (string)$placeEntity . ($place != 'country' ? ', ' . $country : '');
+                    $address = (string) $placeEntity . ($place != 'country' ? ', ' . $country : '');
                     $urlParams['location[address]'] = $address;
                     $urlParams['location[lat]'] = $geocoding->getLat();
                     $urlParams['location[lng]'] = $geocoding->getLng();
                     $urlParams['location[viewport]'] = $geocoding->getViewport();
                     $urlParams['location[addressType]'] = $geocoding->getAddressType();
-                    $urlParams['location[' . $place . ']'] = (string)$placeEntity;
+                    $urlParams['location[' . $place . ']'] = (string) $placeEntity;
                     $urlParams['location[country]'] = $country->getCode();
                     $url = $this->router->generate('cocorico_listing_search_result', $urlParams);
                 }
-                $this->breadcrumbs->addItem((string)$placeEntity, $url);
+                $this->breadcrumbs->addItem((string) $placeEntity, $url);
             }
         }
 
@@ -296,11 +298,11 @@ class BreadcrumbsManager implements TranslationContainerInterface
         $this->addListingShowItems($request, $listing);
 
         $this->breadcrumbs->offsetUnset($this->breadcrumbs->count() - 1);
-        $url = $this->router->generate('cocorico_listing_show', array('slug' => $listing->getSlug()));;
+        $url = $this->router->generate('cocorico_listing_show', ['slug' => $listing->getSlug()]);
+        ;
         $this->breadcrumbs->addItem($listing->getTitle(), $url);
-        $this->breadcrumbs->addItem($this->translator->trans('Reservation', array(), 'cocorico_breadcrumbs'));
+        $this->breadcrumbs->addItem($this->translator->trans('Reservation', [], 'cocorico_breadcrumbs'));
     }
-
 
     /**
      * Add breadcrumbs to profile show action
@@ -312,7 +314,7 @@ class BreadcrumbsManager implements TranslationContainerInterface
     {
         $this->addPreItems($request);
         $this->breadcrumbs->addItem(
-            $this->translator->trans('Profile', array(), 'cocorico_breadcrumbs')
+            $this->translator->trans('Profile', [], 'cocorico_breadcrumbs')
         );
 
         $this->breadcrumbs->addItem($user->getName());
@@ -325,15 +327,14 @@ class BreadcrumbsManager implements TranslationContainerInterface
      */
     public static function getTranslationMessages()
     {
-        $messages[] = new Message("Messages", 'cocorico_breadcrumbs');
-        $messages[] = new Message("Payments", 'cocorico_breadcrumbs');
-        $messages[] = new Message("Comments", 'cocorico_breadcrumbs');
-        $messages[] = new Message("Profile", 'cocorico_breadcrumbs');
-        $messages[] = new Message("About me", 'cocorico_breadcrumbs');
-        $messages[] = new Message("Payment Information", 'cocorico_breadcrumbs');
-        $messages[] = new Message("Contact Information", 'cocorico_breadcrumbs');
+        $messages[] = new Message('Messages', 'cocorico_breadcrumbs');
+        $messages[] = new Message('Payments', 'cocorico_breadcrumbs');
+        $messages[] = new Message('Comments', 'cocorico_breadcrumbs');
+        $messages[] = new Message('Profile', 'cocorico_breadcrumbs');
+        $messages[] = new Message('About me', 'cocorico_breadcrumbs');
+        $messages[] = new Message('Payment Information', 'cocorico_breadcrumbs');
+        $messages[] = new Message('Contact Information', 'cocorico_breadcrumbs');
 
         return $messages;
     }
-
 }

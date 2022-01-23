@@ -13,5 +13,4 @@ class ListingSearchNavType extends ListingSearchHomeType
         $builder
             ->remove('categories');
     }
-
 }

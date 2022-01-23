@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Cocorico\CoreBundle\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,11 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  *
  * @ORM\Table(name="listing_category_pin")
- *
  */
 class ListingCategoryPin
 {
-
     /**
      * @var integer
      *
@@ -26,9 +22,7 @@ class ListingCategoryPin
      */
     private $id;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingCategory", mappedBy="pin", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
+    /** @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingCategory", mappedBy="pin", cascade={"persist", "remove"}, orphanRemoval=true) */
     private $categories;
 
     /**
@@ -58,6 +52,7 @@ class ListingCategoryPin
     public function setCategories($categories)
     {
         $this->categories = $categories;
+
         return $this;
     }
 
@@ -76,6 +71,7 @@ class ListingCategoryPin
     public function setImagePath(string $imagePath): ListingCategoryPin
     {
         $this->imagePath = $imagePath;
+
         return $this;
     }
 
@@ -94,6 +90,7 @@ class ListingCategoryPin
     public function setName(string $name): ListingCategoryPin
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -102,6 +99,6 @@ class ListingCategoryPin
      */
     public function __toString()
     {
-        return (string)ucfirst($this->getName());
+        return (string) ucfirst($this->getName());
     }
 }

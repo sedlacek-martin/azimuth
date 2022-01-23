@@ -104,8 +104,8 @@ class UserFixtures extends Fixture implements ContainerAwareInterface, Dependent
 
     public function getDependencies()
     {
-        return array(
-            MemberOrganizationFixture::class
-        );
+        return [
+            MemberOrganizationFixture::class,
+        ];
     }
 }

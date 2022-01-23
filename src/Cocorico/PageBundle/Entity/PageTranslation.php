@@ -21,11 +21,9 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Table(name="page_translation",indexes={
  *    @ORM\Index(name="slug_pt_idx", columns={"slug"})
  *  })
- *
  */
 class PageTranslation extends BasePageTranslation
 {
     use ORMBehaviors\Translatable\Translation;
     use ORMBehaviors\Sluggable\Sluggable;
-
 }

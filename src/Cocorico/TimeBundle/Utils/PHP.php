@@ -13,7 +13,6 @@ namespace Cocorico\TimeBundle\Utils;
 
 class PHP
 {
-
     /**
      * Convert number of seconds into hours, minutes and seconds
      * and return an array containing those values
@@ -43,15 +42,13 @@ class PHP
         $seconds = ceil($remaining_seconds);
 
         // return the final array
-        $result = array(
-            'd' => (int)$days,
-            'h' => (int)$hours,
-            'm' => (int)$minutes,
-            's' => (int)$seconds,
-        );
+        $result = [
+            'd' => (int) $days,
+            'h' => (int) $hours,
+            'm' => (int) $minutes,
+            's' => (int) $seconds,
+        ];
 
         return $result;
     }
-
-
 }

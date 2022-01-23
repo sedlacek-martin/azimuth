@@ -18,6 +18,7 @@ use Symfony\Component\Routing\RouteCollection;
 class ExtraBundleLoader extends Loader
 {
     protected $bundles;
+
     protected $env;
 
     public function __construct(array $bundles, $env)
@@ -39,62 +40,60 @@ class ExtraBundleLoader extends Loader
         $collection = new RouteCollection();
 
         try {
-            if (array_key_exists("CocoricoMangoPayBundle", $this->bundles)) {
+            if (array_key_exists('CocoricoMangoPayBundle', $this->bundles)) {
                 $resource = '@CocoricoMangoPayBundle/Resources/config/routing.yml';
                 $type = 'yaml';
                 $importedRoutes = $this->import($resource, $type);
                 $collection->addCollection($importedRoutes);
             }
 
-            if (array_key_exists("CocoricoMangoPayCardSavingBundle", $this->bundles)) {
+            if (array_key_exists('CocoricoMangoPayCardSavingBundle', $this->bundles)) {
                 $resource = '@CocoricoMangoPayCardSavingBundle/Resources/config/routing.yml';
                 $type = 'yaml';
                 $importedRoutes = $this->import($resource, $type);
                 $collection->addCollection($importedRoutes);
             }
 
-            if (array_key_exists("CocoricoListingAlertBundle", $this->bundles)) {
+            if (array_key_exists('CocoricoListingAlertBundle', $this->bundles)) {
                 $resource = '@CocoricoListingAlertBundle/Resources/config/routing.yml';
                 $type = 'yaml';
                 $importedRoutes = $this->import($resource, $type);
                 $collection->addCollection($importedRoutes);
             }
 
-            if (array_key_exists("CocoricoListingOptionBundle", $this->bundles)) {
+            if (array_key_exists('CocoricoListingOptionBundle', $this->bundles)) {
                 $resource = '@CocoricoListingOptionBundle/Resources/config/routing.yml';
                 $type = 'yaml';
                 $importedRoutes = $this->import($resource, $type);
                 $collection->addCollection($importedRoutes);
             }
 
-            if (array_key_exists("CocoricoSMSBundle", $this->bundles) && $this->env == 'dev') {
+            if (array_key_exists('CocoricoSMSBundle', $this->bundles) && $this->env == 'dev') {
                 $resource = '@CocoricoSMSBundle/Resources/config/routing_dev.yml';
                 $type = 'yaml';
                 $importedRoutes = $this->import($resource, $type);
                 $collection->addCollection($importedRoutes);
             }
 
-            if (array_key_exists("CocoricoListingCategoryFieldBundle", $this->bundles)) {
+            if (array_key_exists('CocoricoListingCategoryFieldBundle', $this->bundles)) {
                 $resource = '@CocoricoListingCategoryFieldBundle/Resources/config/routing.yml';
                 $type = 'yaml';
                 $importedRoutes = $this->import($resource, $type);
                 $collection->addCollection($importedRoutes);
             }
 
-            if (array_key_exists("CocoricoListingDepositBundle", $this->bundles)) {
+            if (array_key_exists('CocoricoListingDepositBundle', $this->bundles)) {
                 $resource = '@CocoricoListingDepositBundle/Resources/config/routing.yml';
                 $type = 'yaml';
                 $importedRoutes = $this->import($resource, $type);
                 $collection->addCollection($importedRoutes);
             }
-
         } catch (FileLoaderLoadException  $e) {
             throw new FileLoaderLoadException($resource);
         }
 
         return $collection;
     }
-
 
     public function supports($resource, $type = null)
     {

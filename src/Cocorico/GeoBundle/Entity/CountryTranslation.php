@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\GeoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -27,7 +26,6 @@ class CountryTranslation
     use ORMBehaviors\Translatable\Translation;
     use ORMBehaviors\Sluggable\Sluggable;
 
-
     /**
      * @var string
      * @Assert\NotBlank()
@@ -37,7 +35,6 @@ class CountryTranslation
 
     public function __construct()
     {
-
     }
 
     public function __toString()
@@ -82,5 +79,4 @@ class CountryTranslation
     {
         return $this->name;
     }
-
 }

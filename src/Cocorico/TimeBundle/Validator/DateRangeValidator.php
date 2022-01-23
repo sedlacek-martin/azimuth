@@ -24,9 +24,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DateRangeValidator implements EventSubscriberInterface, TranslationContainerInterface
 {
-    protected $options = array();
+    protected $options = [];
 
-    public function __construct(OptionsResolver $resolver, array $options = array())
+    public function __construct(OptionsResolver $resolver, array $options = [])
     {
         $this->configureOptions($resolver);
         $this->options = $resolver->resolve($options);
@@ -35,7 +35,7 @@ class DateRangeValidator implements EventSubscriberInterface, TranslationContain
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'allow_end_in_past' => false,
                 'allow_single_day' => true,
                 'end_day_included' => true,
@@ -43,16 +43,16 @@ class DateRangeValidator implements EventSubscriberInterface, TranslationContain
                 'min_start_time_delay' => null,
                 //Number of minutes to add to the current date to consider start date as valid
                 'display_mode' => 'range',
-                'days_max' => 365
-            )
+                'days_max' => 365,
+            ]
         );
 
-        $resolver->setAllowedValues('allow_end_in_past', array(true, false));
-        $resolver->setAllowedValues('allow_single_day', array(true, false));
-        $resolver->setAllowedValues('end_day_included', array(true, false));
-        $resolver->setAllowedValues('required', array(true, false));
-        $resolver->setAllowedValues('min_start_time_delay', array_merge(array(null), range(0, 43200)));
-        $resolver->setAllowedValues('display_mode', array('range', 'duration'));
+        $resolver->setAllowedValues('allow_end_in_past', [true, false]);
+        $resolver->setAllowedValues('allow_single_day', [true, false]);
+        $resolver->setAllowedValues('end_day_included', [true, false]);
+        $resolver->setAllowedValues('required', [true, false]);
+        $resolver->setAllowedValues('min_start_time_delay', array_merge([null], range(0, 43200)));
+        $resolver->setAllowedValues('display_mode', ['range', 'duration']);
     }
 
     public function onPostBind(FormEvent $event)
@@ -88,7 +88,7 @@ class DateRangeValidator implements EventSubscriberInterface, TranslationContain
         if ($this->options['min_start_time_delay'] !== null) {
             $minStartTimeDelay = $this->options['min_start_time_delay'];
             if ($minStartTimeDelay >= 0) {
-                $now->add(new DateInterval('PT'.$minStartTimeDelay.'M'));
+                $now->add(new DateInterval('PT' . $minStartTimeDelay . 'M'));
             }
 
             if ($dateRange->start) {
@@ -99,9 +99,9 @@ class DateRangeValidator implements EventSubscriberInterface, TranslationContain
                         new FormError(
                             'date_range.invalid.min_start {{ min_start_day }}',
                             'cocorico',
-                            array(
+                            [
                                 '{{ min_start_day }}' => $now->format('d/m/Y'),
-                            )
+                            ]
                         )
                     );
                 }
@@ -112,16 +112,16 @@ class DateRangeValidator implements EventSubscriberInterface, TranslationContain
         if ($this->options['days_max'] !== null) {
             if ($dateRange->start && $dateRange->end) {
                 $start = clone $dateRange->start;
-                $dateEndMax = $start->add(new DateInterval('P'.$this->options['days_max'].'D'));
+                $dateEndMax = $start->add(new DateInterval('P' . $this->options['days_max'] . 'D'));
 
                 if ($dateRange->end > $dateEndMax) {
                     $form->addError(
                         new FormError(
                             'date_range.invalid.max_end {{ date_max }}',
                             'cocorico',
-                            array(
+                            [
                                 '{{ date_max }}' => $dateEndMax->format('d/m/Y'),
-                            )
+                            ]
                         )
                     );
                 }
@@ -148,23 +148,20 @@ class DateRangeValidator implements EventSubscriberInterface, TranslationContain
             $form->addError(new FormError('date_range.invalid.single_day'));
         }
 
-
         //End date in past
         if ($dateRange->end) {
             if (!$this->options['allow_end_in_past'] and ($dateRange->end < new DateTime())) {
                 $form->addError(new FormError('date_range.invalid.end_in_past'));
             }
         }
-
     }
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::POST_SUBMIT => 'onPostBind',
-        );
+        ];
     }
-
 
     /**
      * JMS Translation messages
@@ -173,12 +170,12 @@ class DateRangeValidator implements EventSubscriberInterface, TranslationContain
      */
     public static function getTranslationMessages()
     {
-        $messages[] = new Message("date_range.invalid.end_in_past", 'cocorico');
-        $messages[] = new Message("date_range.invalid.min_start {{ min_start_day }}", 'cocorico');
-        $messages[] = new Message("date_range.invalid.max_end {{ date_max }}", 'cocorico');
-        $messages[] = new Message("date_range.invalid.single_day", 'cocorico');
-        $messages[] = new Message("date_range.invalid.end_before_start", 'cocorico');
-        $messages[] = new Message("date_range.invalid.required", 'cocorico');
+        $messages[] = new Message('date_range.invalid.end_in_past', 'cocorico');
+        $messages[] = new Message('date_range.invalid.min_start {{ min_start_day }}', 'cocorico');
+        $messages[] = new Message('date_range.invalid.max_end {{ date_max }}', 'cocorico');
+        $messages[] = new Message('date_range.invalid.single_day', 'cocorico');
+        $messages[] = new Message('date_range.invalid.end_before_start', 'cocorico');
+        $messages[] = new Message('date_range.invalid.required', 'cocorico');
 
         return $messages;
     }

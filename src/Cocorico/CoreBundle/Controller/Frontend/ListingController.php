@@ -57,12 +57,12 @@ class ListingController extends Controller
         if ($success) {
             $url = $this->generateUrl(
                 'cocorico_dashboard_listing_edit_presentation',
-                array('id' => $listing->getId())
+                ['id' => $listing->getId()]
             );
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('listing.new.success', array(), 'cocorico_listing')
+                $this->get('translator')->trans('listing.new.success', [], 'cocorico_listing')
             );
 
             return $this->redirect($url);
@@ -70,10 +70,10 @@ class ListingController extends Controller
 
         return $this->render(
             'CocoricoCoreBundle:Frontend/Listing:new.html.twig',
-            array(
+            [
                 'listing' => $listing,
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 
@@ -90,10 +90,10 @@ class ListingController extends Controller
             'listing',
             ListingNewType::class,
             $listing,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl('cocorico_listing_new'),
-            )
+            ]
         );
 
         return $form;
@@ -130,9 +130,9 @@ class ListingController extends Controller
 
         return $this->render(
             'CocoricoCoreBundle:Frontend/Listing:show.html.twig',
-            array(
+            [
                 'listing' => $listing,
-            )
+            ]
         );
     }
 
@@ -147,7 +147,7 @@ class ListingController extends Controller
     {
         if ($slug != $listing->getSlug()) {
             return $this->redirect(
-                $this->generateUrl('cocorico_listing_show', array('slug' => $listing->getSlug())),
+                $this->generateUrl('cocorico_listing_show', ['slug' => $listing->getSlug()]),
                 301
             );
         }

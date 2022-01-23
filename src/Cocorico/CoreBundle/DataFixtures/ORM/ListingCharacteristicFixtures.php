@@ -20,7 +20,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ListingCharacteristicFixtures extends Fixture implements DependentFixtureInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -43,7 +42,6 @@ class ListingCharacteristicFixtures extends Fixture implements DependentFixtureI
         $listingCharacteristic->mergeNewTranslations();
         $manager->flush();
         $this->addReference('characteristic_1', $listingCharacteristic);
-
 
         $listingCharacteristic = new ListingCharacteristic();
         $listingCharacteristic->setPosition(2);
@@ -74,7 +72,6 @@ class ListingCharacteristicFixtures extends Fixture implements DependentFixtureI
         $manager->flush();
         $this->addReference('characteristic_3', $listingCharacteristic);
 
-
         $listingCharacteristic = new ListingCharacteristic();
         $listingCharacteristic->setPosition(4);
         $listingCharacteristic->translate('en')->setName('Characteristic_4');
@@ -96,10 +93,9 @@ class ListingCharacteristicFixtures extends Fixture implements DependentFixtureI
      */
     public function getDependencies()
     {
-        return array(
+        return [
             ListingCharacteristicTypeFixtures::class,
             ListingCharacteristicGroupFixtures::class,
-        );
+        ];
     }
-
 }

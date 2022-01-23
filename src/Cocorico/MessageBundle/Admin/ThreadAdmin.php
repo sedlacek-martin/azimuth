@@ -17,25 +17,28 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-
 class ThreadAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'thread';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'DESC',
-        '_sort_by' => 'createdAt'
-    );
+        '_sort_by' => 'createdAt',
+    ];
 
     public function setLocales($locales)
     {
         $this->locales = $locales;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -43,17 +46,17 @@ class ThreadAdmin extends BaseAdmin
             ->add(
                 'createdBy',
                 null,
-                array(
+                [
                     'label' => 'admin.thread.from.label',
-                    'associated_tostring' => 'getName'
-                )
+                    'associated_tostring' => 'getName',
+                ]
             )
             ->add(
                 'createdAt',
                 null,
-                array(
-                    'label' => 'admin.thread.createdAt.label'
-                )
+                [
+                    'label' => 'admin.thread.createdAt.label',
+                ]
             );
 
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
@@ -66,13 +69,13 @@ class ThreadAdmin extends BaseAdmin
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
                     'validate' => [
                         'template' => 'CocoricoSonataAdminBundle::list_action_message_validate.html.twig',
-                    ]
-                )
-            )
+                    ],
+                ],
+            ]
         );
     }
 
@@ -145,25 +148,27 @@ class ThreadAdmin extends BaseAdmin
 //        );
 //    }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add(
                 'fromName',
                 'doctrine_orm_callback',
-                array(
-                    'callback' => array($this, 'getFromNameFilter'),
+                [
+                    'callback' => [$this, 'getFromNameFilter'],
                     'field_type' => 'text',
                     'operator_type' => 'hidden',
-                    'operator_options' => array(),
-                    'label' => 'admin.thread.from.label'
-                )
+                    'operator_options' => [],
+                    'label' => 'admin.thread.from.label',
+                ]
             )
             ->add(
                 'createdAt',
                 'doctrine_orm_callback',
-                array(
+                [
                     'label' => 'admin.thread.created_at.label',
                     'callback' => function ($queryBuilder, $alias, $field, $value) {
                         /** @var \DateTime $date */
@@ -179,12 +184,11 @@ class ThreadAdmin extends BaseAdmin
                         return true;
                     },
                     'field_type' => 'sonata_type_date_picker',
-                    'field_options' => array('format' => 'dd/MM/yyyy'),
-                ),
+                    'field_options' => ['format' => 'dd/MM/yyyy'],
+                ],
                 null
             );
     }
-
 
     public function getFromNameFilter($queryBuilder, $alias, $field, $value)
     {
@@ -215,7 +219,7 @@ class ThreadAdmin extends BaseAdmin
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
-        unset($actions["delete"]);
+        unset($actions['delete']);
 
         return $actions;
     }

@@ -24,10 +24,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EntityHiddenType extends AbstractType
 {
-
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     protected $objectManager;
 
     public function __construct(ObjectManager $objectManager)
@@ -44,10 +41,10 @@ class EntityHiddenType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'class' => null,
                 'invalid_message' => 'The entity does not exist.',
-            )
+            ]
         );
     }
 
@@ -56,7 +53,6 @@ class EntityHiddenType extends AbstractType
         return HiddenType::class;
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -64,5 +60,4 @@ class EntityHiddenType extends AbstractType
     {
         return 'entity_hidden';
     }
-
 }

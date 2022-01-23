@@ -12,10 +12,7 @@
 namespace Cocorico\CoreBundle\Controller\Dashboard\Offerer;
 
 use Cocorico\CoreBundle\Entity\Listing;
-use Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditDurationType;
-use Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditPriceType;
 use Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditStatusType;
-use Cocorico\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -32,7 +29,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ListingController extends Controller
 {
-
     /**
      * @param  Listing $listing
      * @return Response
@@ -43,10 +39,10 @@ class ListingController extends Controller
 
         return $this->render(
             '@CocoricoCore/Dashboard/Listing/form_status_index.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'listing' => $listing
-            )
+                'listing' => $listing,
+            ]
         );
     }
 
@@ -60,10 +56,10 @@ class ListingController extends Controller
 
         return $this->render(
             '@CocoricoCore/Dashboard/Listing/form_status_nav_side.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'listing' => $listing
-            )
+                'listing' => $listing,
+            ]
         );
     }
 
@@ -79,18 +75,17 @@ class ListingController extends Controller
             'listing_status',
             ListingEditStatusType::class,
             $listing,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl(
                         'cocorico_dashboard_listing_edit_status',
-                        array('id' => $listing->getId())
+                        ['id' => $listing->getId()]
                     ) . '?view=' . $view,
-            )
+            ]
         );
 
         return $form;
     }
-
 
     /**
      * Edit Listing status.
@@ -116,7 +111,7 @@ class ListingController extends Controller
         $formIsValid = $form->isSubmitted() && $form->isValid();
 
         if ($formIsValid) {
-            $listing = $this->get("cocorico.listing.manager")->save($listing);
+            $listing = $this->get('cocorico.listing.manager')->save($listing);
             $this->addFormSuccessMessagesToFlashBag('status');
         }
 
@@ -125,16 +120,15 @@ class ListingController extends Controller
                 return $this->statusIndexFormAction($listing);
             } elseif ($view == 'nav_side') {
                 return $this->statusNavSideFormAction($listing);
-            } else {
-                return new Response("View missing");
-            }
-        } else {
-            if (!$formIsValid) {
-                $this->addFormErrorMessagesToFlashBag($form);
             }
 
-            return new RedirectResponse($request->headers->get('referer'));
+            return new Response('View missing');
         }
+        if (!$formIsValid) {
+            $this->addFormErrorMessagesToFlashBag($form);
+        }
+
+        return new RedirectResponse($request->headers->get('referer'));
     }
 
     /**
@@ -161,17 +155,16 @@ class ListingController extends Controller
 
         return $this->render(
             'CocoricoCoreBundle:Dashboard/Listing:index.html.twig',
-            array(
+            [
                 'listings' => $listings,
-                'pagination' => array(
+                'pagination' => [
                     'page' => $page,
                     'pages_count' => ceil($listings->count() / $listingManager->maxPerPage),
                     'route' => $request->get('_route'),
-                    'route_params' => $request->query->all()
-                )
-            )
+                    'route_params' => $request->query->all(),
+                ],
+            ]
         );
-
     }
 
     /**
@@ -199,15 +192,14 @@ class ListingController extends Controller
         if ($type == 'price') {
             $session->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('listing.edit_price.success', array(), 'cocorico_listing')
+                $this->get('translator')->trans('listing.edit_price.success', [], 'cocorico_listing')
             );
         } elseif ($type == 'status') {
             $session->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('listing.edit_status.success', array(), 'cocorico_listing')
+                $this->get('translator')->trans('listing.edit_status.success', [], 'cocorico_listing')
             );
         }
-
     }
 
     /**
@@ -217,24 +209,23 @@ class ListingController extends Controller
     public function completionNoticeAction(Listing $listing)
     {
         $listingCompletion = $listing->getCompletionInformations(
-            $this->getParameter("cocorico.listing_img_min")
+            $this->getParameter('cocorico.listing_img_min')
         );
         $userCompletion = $listing->getUser()->getCompletionInformation(
-            $this->getParameter("cocorico.user_img_min"), 100
+            $this->getParameter('cocorico.user_img_min'), 100
         );
 
         return $this->render(
             '@CocoricoCore/Dashboard/Listing/_completion_notice.html.twig',
-            array(
+            [
                 'listing_id' => $listing->getId(),
-                'listing_title' => $listingCompletion["title"],
-                'listing_desc' => $listingCompletion["description"],
-                'listing_image' => $listingCompletion["image"],
-                'listing_characteristics' => $listingCompletion["characteristic"],
-                'profile_photo' => $userCompletion["image"],
-                'profile_desc' => $userCompletion["description"]
-            )
+                'listing_title' => $listingCompletion['title'],
+                'listing_desc' => $listingCompletion['description'],
+                'listing_image' => $listingCompletion['image'],
+                'listing_characteristics' => $listingCompletion['characteristic'],
+                'profile_photo' => $userCompletion['image'],
+                'profile_desc' => $userCompletion['description'],
+            ]
         );
     }
-
 }

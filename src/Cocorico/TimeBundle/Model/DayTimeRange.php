@@ -11,17 +11,12 @@
 
 namespace Cocorico\TimeBundle\Model;
 
-
 class DayTimeRange
 {
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime */
     public $day;
 
-    /**
-     * @var TimeRange[]
-     */
+    /** @var TimeRange[] */
     public $timeRanges;
 
     /**
@@ -29,7 +24,7 @@ class DayTimeRange
      * @param \DateTime  $day
      * @param array|null $timeRanges
      */
-    public function __construct(\DateTime $day, array $timeRanges = array())
+    public function __construct(\DateTime $day, array $timeRanges = [])
     {
         $this->day = $day;
         $this->timeRanges = $timeRanges;
@@ -97,5 +92,4 @@ class DayTimeRange
 
         return false;
     }
-
 }

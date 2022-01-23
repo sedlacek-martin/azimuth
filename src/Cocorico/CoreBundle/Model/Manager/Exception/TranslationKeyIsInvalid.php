@@ -11,6 +11,6 @@
 
 namespace Cocorico\CoreBundle\Model\Manager\Exception;
 
-class TranslationKeyIsInvalid extends\LogicException {
-
+class TranslationKeyIsInvalid extends\LogicException
+{
 }

@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PasswordCheckFormType extends AbstractType
 {
-
     /**
      * @inheritdoc
      */
@@ -31,13 +30,12 @@ class PasswordCheckFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'csrf_token_id' => 'profile_password_check',
                 'translation_domain' => 'cocorico_user',
-            )
+            ]
         );
     }
-
 
     /**
      * {@inheritdoc}

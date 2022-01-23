@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\DQL;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
@@ -24,15 +25,10 @@ use Doctrine\ORM\Query\SqlWalker;
  */
 class TimeDiffFunction extends FunctionNode
 {
-
-    /**
-     * @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression
-     */
+    /** @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression */
     protected $firstDate = null;
 
-    /**
-     * @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression
-     */
+    /** @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression */
     protected $secondDate = null;
 
     /**

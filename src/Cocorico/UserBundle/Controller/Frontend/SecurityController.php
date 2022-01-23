@@ -9,17 +9,12 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Controller\Frontend;
 
 use Cocorico\UserBundle\Form\Type\LoginFormType;
-use Cocorico\UserBundle\Model\UserManager;
-use Cocorico\UserBundle\Security\LoginManager;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Skautis\Skautis;
-use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +25,6 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * Class SecurityController
- *
  */
 class SecurityController extends Controller implements TranslationContainerInterface
 {
@@ -78,16 +72,16 @@ class SecurityController extends Controller implements TranslationContainerInter
             $error = $error->getMessage();
             $session->getFlashBag()->add(
                 'error',
-                /** @Ignore */
-                $translator->trans($error, array(), 'cocorico_user')
+                /* @Ignore */
+                $translator->trans($error, [], 'cocorico_user')
             );
         }
 
         return $this->render(
             '@CocoricoUser/Frontend/Security/login.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 
@@ -101,16 +95,15 @@ class SecurityController extends Controller implements TranslationContainerInter
             '',
             LoginFormType::class,
             null,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl('cocorico_user_login_check'),
-                'username' => $lastUsername
-            )
+                'username' => $lastUsername,
+            ]
         );
 
         return $form;
     }
-
 
     /**
      * Login check
@@ -149,5 +142,4 @@ class SecurityController extends Controller implements TranslationContainerInter
 
         return $messages;
     }
-
 }

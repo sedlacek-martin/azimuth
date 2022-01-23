@@ -15,7 +15,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ActivatorSettingsType extends AbstractType
 {
     private $request;
+
     private $locale;
+
     private $entityManager;
 
     /**
@@ -42,18 +44,18 @@ class ActivatorSettingsType extends AbstractType
             ])
             ->add('registrationAcceptActivation', CheckboxType::class, [
                 'label' => 'activator_settings.user.registration.activation',
-                'required' => false
+                'required' => false,
             ])
             ->add('requiresUserIdentifier', CheckboxType::class, [
                 'label' => 'activator_settings.user.registration.user_identifier_required.label',
                 'required' => false,
             ])
             ->add('userIdentifierDescription', TextType::class, [
-                'label' =>  'activator_settings.user.registration.user_identifier_description.label',
+                'label' => 'activator_settings.user.registration.user_identifier_description.label',
                 'required' => false,
                 'attr' => [
-                    'size' => '80'
-                ]
+                    'size' => '80',
+                ],
             ]);
     }
 
@@ -68,7 +70,6 @@ class ActivatorSettingsType extends AbstractType
                 'translation_domain' => 'SonataAdminBundle',
             ]);
     }
-
 
     /**
      * {@inheritdoc}

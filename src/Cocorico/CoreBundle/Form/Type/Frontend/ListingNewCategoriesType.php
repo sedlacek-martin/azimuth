@@ -55,7 +55,6 @@ class ListingNewCategoriesType extends AbstractType
 //            ->get('listingListingCategories')
 //            ->addModelTransformer(new ListingListingCategoriesToListingCategoriesTransformer($listing));
 
-
         //Dispatch LISTING_NEW_CATEGORIES_FORM_BUILD Event. Listener listening this event can add fields and validation
         //Used for example to add fields to categories
         $this->dispatcher->dispatch(
@@ -71,13 +70,13 @@ class ListingNewCategoriesType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\CoreBundle\Entity\Listing',
                 'csrf_token_id' => 'listing_new_categories',
                 'translation_domain' => 'cocorico_listing',
 //                'cascade_validation' => false,//To have error on collection item field,
                 'validation_groups' => false,//To not have listing validation errors when categories are only edited
-            )
+            ]
         );
     }
 
@@ -88,5 +87,4 @@ class ListingNewCategoriesType extends AbstractType
     {
         return 'listing_new_categories';
     }
-
 }

@@ -2,15 +2,14 @@
 
 namespace Cocorico\CoreBundle\Controller\Dashboard\Offerer;
 
-use Cocorico\CoreBundle\Form\Type\Dashboard\ListingEditCategoriesType;
 use Cocorico\CoreBundle\Form\Type\Dashboard\UserSettingsType;
 use Cocorico\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Listing Dashboard category controller.
@@ -56,7 +55,7 @@ class UserSettingsController extends Controller
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('user_settings.edit.success', array(), 'cocorico_user')
+                $this->get('translator')->trans('user_settings.edit.success', [], 'cocorico_user')
             );
 
             return $this->redirectToRoute('cocorico_dashboard_edit_user_settings');
@@ -64,13 +63,10 @@ class UserSettingsController extends Controller
 
         return $this->render(
             'CocoricoCoreBundle:Dashboard/Settings:edit.html.twig',
-            array(
+            [
                 'user' => $user,
-                'form' => $form->createView()
-            )
+                'form' => $form->createView(),
+            ]
         );
-
     }
-
-
 }

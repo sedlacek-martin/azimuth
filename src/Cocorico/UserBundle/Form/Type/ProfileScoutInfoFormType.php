@@ -15,7 +15,6 @@ use Cocorico\CoreBundle\Entity\MemberOrganization;
 use Cocorico\CoreBundle\Form\Type\PriceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -54,10 +53,10 @@ class ProfileScoutInfoFormType extends AbstractType
             ->add('country', CountryType::class, [
                     'disabled' => true,
                     'label' => 'form.user.country',
-                    'preferred_choices' => array("CZ", "FR", "ES", "DE", "RU"),
+                    'preferred_choices' => ['CZ', 'FR', 'ES', 'DE', 'RU'],
             ])
             ->add('location', TextType::class, [
-                'label' => 'form.user.location'
+                'label' => 'form.user.location',
             ]);
 //            ->add(
 //                'firstName',
@@ -132,8 +131,6 @@ class ProfileScoutInfoFormType extends AbstractType
 //                    'required' => true
 //                )
 //            );
-
-
     }
 
     /**
@@ -142,13 +139,13 @@ class ProfileScoutInfoFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\UserBundle\Entity\User',
                 'csrf_token_id' => 'CocoricoProfileScoutInfo',
                 'translation_domain' => 'cocorico_user',
                 'constraints' => new Valid(),
-                'validation_groups' => array('CocoricoProfileScoutInfo'),
-            )
+                'validation_groups' => ['CocoricoProfileScoutInfo'],
+            ]
         );
     }
 

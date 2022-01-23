@@ -43,26 +43,25 @@ class GeocodingManager
         $geocoding = json_decode($geocoding, true);
 
         try {
-            $vp = $geocoding["viewport"];
-            $vp = '((' . $vp["south"] . ', ' . $vp["west"] . '), (' . $vp["north"] . ', ' . $vp["east"] . '))';
+            $vp = $geocoding['viewport'];
+            $vp = '((' . $vp['south'] . ', ' . $vp['west'] . '), (' . $vp['north'] . ', ' . $vp['east'] . '))';
 
             $geocodingEntity = new Geocoding();
 
-            $type = "get" . ucfirst($type);
+            $type = 'get' . ucfirst($type);
             /** @var Country|Area|Department|City $place */
             $place = $coordinate->$type();
             if (!$place->getGeocoding()) {
-                $geocodingEntity->setLat($geocoding["location"]["lat"]);
-                $geocodingEntity->setLng($geocoding["location"]["lng"]);
+                $geocodingEntity->setLat($geocoding['location']['lat']);
+                $geocodingEntity->setLng($geocoding['location']['lng']);
                 $geocodingEntity->setViewport($vp);
-                $geocodingEntity->setAddressType(implode(',', $geocoding["types"]));
+                $geocodingEntity->setAddressType(implode(',', $geocoding['types']));
 
                 $place->setGeocoding($geocodingEntity);
                 $this->em->persist($place);
                 $this->em->flush();
             }
         } catch (\Exception $e) {
-
         }
     }
 }

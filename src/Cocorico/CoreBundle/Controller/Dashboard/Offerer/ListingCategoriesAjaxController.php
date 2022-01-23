@@ -37,10 +37,10 @@ class ListingCategoriesAjaxController extends Controller
 
         return $this->render(
             '@CocoricoCore/Dashboard/Listing/form_categories_ajax.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'listing' => $listing
-            )
+                'listing' => $listing,
+            ]
         );
     }
 
@@ -55,13 +55,13 @@ class ListingCategoriesAjaxController extends Controller
             'listing_categories',
             ListingEditCategoriesAjaxType::class,
             $listing,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl(
                     'cocorico_dashboard_listing_edit_categories_ajax',
-                    array('id' => $listing->getId())
+                    ['id' => $listing->getId()]
                 ),
-            )
+            ]
         );
 
         return $form;
@@ -88,26 +88,25 @@ class ListingCategoriesAjaxController extends Controller
 
         $formIsValid = $form->isSubmitted() && $form->isValid();
         if ($formIsValid) {
-            $listing = $this->get("cocorico.listing.manager")->save($listing);
+            $listing = $this->get('cocorico.listing.manager')->save($listing);
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('listing.edit.success', array(), 'cocorico_listing')
+                $this->get('translator')->trans('listing.edit.success', [], 'cocorico_listing')
             );
 
             return $this->redirectToRoute(
                 'cocorico_dashboard_listing_edit_categories_ajax',
-                array('id' => $listing->getId())
+                ['id' => $listing->getId()]
             );
         }
 
         return $this->render(
             'CocoricoCoreBundle:Dashboard/Listing:form_categories_ajax.html.twig',
-            array(
+            [
                 'listing' => $listing,
-                'form' => $form->createView()
-            )
+                'form' => $form->createView(),
+            ]
         );
     }
-
 }

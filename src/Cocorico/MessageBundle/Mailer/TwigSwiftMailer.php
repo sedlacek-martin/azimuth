@@ -16,17 +16,24 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-
 class TwigSwiftMailer implements MailerInterface
 {
     protected $locales;
+
     protected $locale;
+
     protected $mailer;
+
     protected $router;
+
     protected $twig;
+
     protected $requestStack;
+
     protected $fromEmail;
+
     protected $templates;
+
     protected $siteName;
 
     /**
@@ -74,22 +81,21 @@ class TwigSwiftMailer implements MailerInterface
 
         $threadUrl = $this->router->generate(
             'cocorico_dashboard_message_thread_view',
-            array(
+            [
                 'threadId' => $threadId,
-                '_locale' => $userLocale
-            ),
+                '_locale' => $userLocale,
+            ],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
-        $context = array(
+        $context = [
             'user' => $recipient,
             'sender' => $sender,
-            'thread_url' => $threadUrl
-        );
+            'thread_url' => $threadUrl,
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $recipient->getEmail());
     }
-
 
     /**
      * @param string $templateName
@@ -117,7 +123,7 @@ class TwigSwiftMailer implements MailerInterface
             $context = $this->twig->mergeGlobals($context);
 
             $subject = $template->renderBlock('subject', $context);
-            $context["message"] = $template->renderBlock('message', $context);
+            $context['message'] = $template->renderBlock('message', $context);
 
             $textBody = $template->renderBlock('body_text', $context);
             $htmlBody = $template->renderBlock('body_html', $context);

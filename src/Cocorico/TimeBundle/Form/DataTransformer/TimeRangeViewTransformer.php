@@ -17,16 +17,15 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class TimeRangeViewTransformer implements DataTransformerInterface
 {
     //Default timezone
     const VIEW_TIMEZONE = 'UTC';
     const MODEL_TIMEZONE = 'UTC';
 
-    protected $options = array();
+    protected $options = [];
 
-    public function __construct(OptionsResolver $resolver, array $options = array())
+    public function __construct(OptionsResolver $resolver, array $options = [])
     {
         $this->configureOptions($resolver);
         $this->options = $resolver->resolve($options);
@@ -35,9 +34,9 @@ class TimeRangeViewTransformer implements DataTransformerInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
-                'timezone' => self::VIEW_TIMEZONE //view_timezone
-            )
+            [
+                'timezone' => self::VIEW_TIMEZONE, //view_timezone
+            ]
         );
     }
 
@@ -106,13 +105,14 @@ class TimeRangeViewTransformer implements DataTransformerInterface
     private function reverseTransformWithDST(TimeRange $timeRange = null)
     {
         if ($timeRange && $timeRange->getStart() && $timeRange->getEnd()) {
-            $fields = array('start', 'end');
+            $fields = ['start', 'end'];
             $viewTimezone = $this->options['timezone'];
             $date = $timeRange->getDate();
 
             if (!$date) {
                 return $timeRange;
             }
+
             try {
                 foreach ($fields as $index => $field) {
                     $getter = 'get' . ucfirst($field);

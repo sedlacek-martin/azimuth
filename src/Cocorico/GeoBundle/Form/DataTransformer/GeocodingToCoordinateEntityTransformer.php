@@ -25,20 +25,17 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
 {
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $om;
-    /**
-     * @var array
-     */
+
+    /** @var array */
     private $locales;
+
     private $locale;
+
     private $googlePlaceAPIKey;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     const DEBUG = false;
 
     /**
@@ -64,10 +61,10 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
     public function transform($coordinate)
     {
         if (null === $coordinate) {
-            return "";
+            return '';
         }
 
-        return "";
+        return '';
     }
 
     /**
@@ -92,6 +89,7 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
 
         if (!$geocodingI18n->{$this->locale}) {
             $this->debug("reverseTransform > Error: No geocodingI18n locale.\n");
+
             throw new TransformationFailedException();
         }
 
@@ -114,20 +112,21 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
         //Current Locale Geocoding
         $geocoding = $this->getGeocoding($geocodingI18n);
         if (!$geocoding) {
-            $this->debug("reverseTransform > Error: No geocoding.");
+            $this->debug('reverseTransform > Error: No geocoding.');
+
             throw new TransformationFailedException();
         }
 
         //JSON and DB lat and lng must be compared with the same precision:
         //ex : 48.869782|2.3508079000000635 (JSON) != 48.8697820|2.3508079 (DB)
         $coordinate = $this->om->getRepository('CocoricoGeoBundle:Coordinate')->findOneBy(
-            array(
+            [
                 'lat' => number_format($lat, 7, '.', ''),
                 'lng' => number_format($lng, 7, '.', ''),
-            )
+            ]
         );
 
-        $this->debug("reverseTransform > LatLng:\n" . $lat . "--" . $lng);
+        $this->debug("reverseTransform > LatLng:\n" . $lat . '--' . $lng);
 //        die();
 
         if (null === $coordinate) {
@@ -148,22 +147,19 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
                 $coordinate->setZip($zip);
                 $coordinate->setAddress($geocodingI18n->formatted_address);
                 $geographicalEntities = $this->getGeographicalEntities($geocodingI18n);
-                $coordinate->setCountry($geographicalEntities["country"]);
-                $coordinate->setArea($geographicalEntities["area"]);
-                $coordinate->setDepartment($geographicalEntities["department"]);
-                $coordinate->setCity($geographicalEntities["city"]);
-
+                $coordinate->setCountry($geographicalEntities['country']);
+                $coordinate->setArea($geographicalEntities['area']);
+                $coordinate->setDepartment($geographicalEntities['department']);
+                $coordinate->setCity($geographicalEntities['city']);
             } catch (\Exception $e) {
                 throw new TransformationFailedException();
             }
-
         }
 
         return $coordinate;
     }
 
     /**
-     *
      * Get geocoding server datas
      *
      * @param $region
@@ -176,7 +172,7 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
     {
         //Server geocoding. If we can we use it instead of client geocoding
         try {
-            $geocodingsServer = $geocodingI18nServer = array();
+            $geocodingsServer = $geocodingI18nServer = [];
 
             $httpClient = new Client();
             $provider = new GoogleMaps($httpClient, $region, $this->googlePlaceAPIKey);
@@ -200,18 +196,18 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
             foreach ($geocodingsServer as $geocodingServer) {
                 $geocodingI18nServer = array_merge($geocodingI18nServer, $geocodingServer);
             }
-
         } catch (\Exception $e) {
             $this->debug("getGeocodingServer NoResult Error:\n" . $e->getMessage());
+
             throw new TransformationFailedException();
         }
 
         //Replace the client geocoding by the server one
         if ($geocodingI18nServer) {
             return json_decode(json_encode($geocodingI18nServer));
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -225,7 +221,7 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
     private function getGeographicalEntities($geocodingI18n)
     {
         //Translations
-        $countries = $areas = $departments = $cities = array();
+        $countries = $areas = $departments = $cities = [];
         foreach ($this->locales as $locale) {
             $geoLocale = $geocodingI18n->{$locale};
             //Country
@@ -256,13 +252,12 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
         $department = $this->getOrCreateDepartment($departments, $area);
         $city = $this->getOrCreateCity($cities, $department);
 
-        return array(
-            "country" => $country,
-            "area" => $area,
-            "department" => $department,
-            "city" => $city,
-        );
-
+        return [
+            'country' => $country,
+            'area' => $area,
+            'department' => $department,
+            'city' => $city,
+        ];
     }
 
     /**
@@ -300,9 +295,9 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
     private function getOrCreateCountry($code, $names)
     {
         $country = $this->om->getRepository('CocoricoGeoBundle:Country')->findOneBy(
-            array(
-                'code' => $code
-            )
+            [
+                'code' => $code,
+            ]
         );
 
         if (null === $country) {
@@ -429,7 +424,7 @@ class GeocodingToCoordinateEntityTransformer implements DataTransformerInterface
     private function debug($message)
     {
         if (self::DEBUG) {
-            echo '<pre>' . nl2br($message) . "</pre><br>";
+            echo '<pre>' . nl2br($message) . '</pre><br>';
         }
     }
 }

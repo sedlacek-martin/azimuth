@@ -47,7 +47,7 @@ class ListingListingCharacteristicType extends AbstractType
                 $form->add(
                     'listingCharacteristicValue',
                     'entity',
-                    array(
+                    [
                         'query_builder' => function (ListingCharacteristicValueRepository $lcvr) use ($llc) {
                             $lct = $llc->getListingCharacteristic()->getListingCharacteristicType();
 
@@ -59,7 +59,7 @@ class ListingListingCharacteristicType extends AbstractType
                         'placeholder' => 'listing.form.characteristic.choose',
                         'choice_label' => 'translations[' . $this->locale . '].name',
                         'class' => 'Cocorico\CoreBundle\Entity\ListingCharacteristicValue',
-                    )
+                    ]
                 );
             }
         );
@@ -71,10 +71,10 @@ class ListingListingCharacteristicType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\CoreBundle\Entity\ListingListingCharacteristic',
-                'translation_domain' => 'cocorico_listing'
-            )
+                'translation_domain' => 'cocorico_listing',
+            ]
         );
     }
 

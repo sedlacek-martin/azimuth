@@ -54,7 +54,6 @@ class GeocodingController extends Controller
         return new Response('true');
     }
 
-
     /**
      * Reverse geocoding from server
      *
@@ -89,4 +88,3 @@ class GeocodingController extends Controller
         return new JsonResponse($geocoder->reverseAsJson($lat, $lng));
     }
 }
-

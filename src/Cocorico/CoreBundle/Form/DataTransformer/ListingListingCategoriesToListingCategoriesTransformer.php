@@ -19,10 +19,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 class ListingListingCategoriesToListingCategoriesTransformer implements DataTransformerInterface
 {
-
-    /**
-     * @var Listing $listing
-     */
+    /** @var Listing $listing */
     private $listing;
 
     /**
@@ -66,7 +63,7 @@ class ListingListingCategoriesToListingCategoriesTransformer implements DataTran
      */
     public function reverseTransform($listingCategories)
     {
-        $newListingListingCategories = array();
+        $newListingListingCategories = [];
         $listingListingCategories = $this->listing->getListingListingCategories();
 
         if (!is_array($listingCategories)) {
@@ -106,10 +103,8 @@ class ListingListingCategoriesToListingCategoriesTransformer implements DataTran
             }
         }
 
-
         return $newListingListingCategories;
     }
-
 
     /**
      * Check if category exist in collection
@@ -133,5 +128,4 @@ class ListingListingCategoriesToListingCategoriesTransformer implements DataTran
 
         return false;
     }
-
 }

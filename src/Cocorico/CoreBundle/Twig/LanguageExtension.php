@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\Twig;
 
 use Symfony\Component\Intl\Intl;
@@ -22,17 +23,18 @@ class LanguageExtension extends \Twig_Extension implements \Twig_Extension_Globa
      */
     public function getGlobals()
     {
-        return array();
+        return [];
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('language_name', array($this, 'languageNameFilter'))
-        );
+        return [
+            new \Twig_SimpleFilter('language_name', [$this, 'languageNameFilter']),
+        ];
     }
-
 
     /**
      * languageNameFilter checks the available name of language, and returns the name
@@ -42,18 +44,18 @@ class LanguageExtension extends \Twig_Extension implements \Twig_Extension_Globa
      *
      * @return mixed
      */
-    public function languageNameFilter($code, $locale = "en")
+    public function languageNameFilter($code, $locale = 'en')
     {
         $languages = Intl::getLanguageBundle()->getLanguageNames($locale);
 
         return array_key_exists($code, $languages) ? $languages[$code] : $code;
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function getName()
     {
         return 'language_extension';
     }
-
 }

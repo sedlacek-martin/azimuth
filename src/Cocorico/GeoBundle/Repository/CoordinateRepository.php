@@ -15,6 +15,4 @@ use Doctrine\ORM\EntityRepository;
 
 class CoordinateRepository extends EntityRepository
 {
-
-
 }

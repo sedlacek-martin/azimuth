@@ -9,15 +9,12 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Form\Handler;
 
 use Cocorico\UserBundle\Entity\User;
-use Cocorico\UserBundle\Entity\UserAddress;
 use Cocorico\UserBundle\Event\UserEvent;
 use Cocorico\UserBundle\Event\UserEvents;
 use Cocorico\UserBundle\Model\UserManager;
-use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,8 +22,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class ContactFormHandler
 {
     protected $request;
+
     protected $userManager;
+
     protected $dispatcher;
+
     protected $addressDelivery;
 
     /**
@@ -98,6 +98,4 @@ class ContactFormHandler
 
         return $result;
     }
-
-
 }

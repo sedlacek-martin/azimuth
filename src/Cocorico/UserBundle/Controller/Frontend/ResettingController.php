@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Controller\Frontend;
 
 use FOS\UserBundle\Event\FilterUserResponseEvent;
@@ -27,11 +26,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Controller managing the resetting of the password.
- *
  */
 class ResettingController extends Controller
 {
-
     /**
      * Request reset user password
      *
@@ -110,7 +107,7 @@ class ResettingController extends Controller
         }
 
         return new RedirectResponse(
-            $this->generateUrl('cocorico_user_resetting_check_email', array('username' => $username))
+            $this->generateUrl('cocorico_user_resetting_check_email', ['username' => $username])
         );
     }
 
@@ -134,10 +131,10 @@ class ResettingController extends Controller
 
         return $this->render(
             'CocoricoUserBundle:Frontend/Resetting:checkEmail.html.twig',
-            array(
+            [
                 'username' => $username,
                 'tokenLifetime' => ceil($this->getParameter('fos_user.resetting.retry_ttl') / 3600),
-            )
+            ]
         );
     }
 
@@ -188,7 +185,7 @@ class ResettingController extends Controller
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('cocorico_user_profile_show', array('id' => $user->getId()));
+                $url = $this->generateUrl('cocorico_user_profile_show', ['id' => $user->getId()]);
                 $response = new RedirectResponse($url);
             }
 
@@ -202,11 +199,10 @@ class ResettingController extends Controller
 
         return $this->render(
             'CocoricoUserBundle:Frontend/Resetting:reset.html.twig',
-            array(
+            [
                 'token' => $token,
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
-
 }

@@ -23,7 +23,6 @@ use FOS\MessageBundle\Model\ThreadInterface;
  */
 class Message extends BaseMessage
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

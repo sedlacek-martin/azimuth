@@ -27,7 +27,6 @@ trait GeocodableTrait
      **/
     protected $geocoding;
 
-
     /**
      * @return Geocoding
      */

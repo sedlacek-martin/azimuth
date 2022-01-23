@@ -17,23 +17,35 @@ use Symfony\Component\Intl\Intl;
  * Class ListingLocationSearchRequest
  *
  * Represent the listing location search request
- *
  */
 class ListingLocationSearchRequest
 {
     protected $lat;
+
     protected $lng;
+
     protected $country;
+
     protected $countryText;
+
     protected $area;
+
     protected $department;
+
     protected $city;
+
     protected $zip;
+
     protected $route;
+
     protected $streetNumber;
+
     protected $address;
+
     protected $viewport;
+
     protected $addressType;
+
     protected $locale;
 
     /**
@@ -253,7 +265,6 @@ class ListingLocationSearchRequest
         $this->addressType = $addressType;
     }
 
-
     /**
      * Get bound coordinate from viewport string
      *
@@ -276,7 +287,7 @@ class ListingLocationSearchRequest
                 $latitude = floatval(trim($coordinate[0]));
                 $longitude = floatval(trim($coordinate[1]));
 
-                $sw = array("lat" => $latitude, "lng" => $longitude);
+                $sw = ['lat' => $latitude, 'lng' => $longitude];
             }
 
             $coordinate = explode(',', $matches[2]);
@@ -284,11 +295,11 @@ class ListingLocationSearchRequest
                 $latitude = floatval(trim($coordinate[0]));
                 $longitude = floatval(trim($coordinate[1]));
 
-                $ne = array("lat" => $latitude, "lng" => $longitude);
+                $ne = ['lat' => $latitude, 'lng' => $longitude];
             }
 
             if (!is_null($sw) && !is_null($ne)) {
-                return array("sw" => $sw, "ne" => $ne);
+                return ['sw' => $sw, 'ne' => $ne];
             }
         }
 
@@ -314,9 +325,9 @@ class ListingLocationSearchRequest
             return 'area';
         } elseif ($this->getCountry()) {
             return 'country';
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -327,7 +338,7 @@ class ListingLocationSearchRequest
      */
     public function getSimplifiedAddressType()
     {
-        $simplifiedAddressType = "";
+        $simplifiedAddressType = '';
         $addressType = $this->getAddressType();
 
         if (stripos($addressType, 'street_address') !== false
@@ -338,22 +349,22 @@ class ListingLocationSearchRequest
             || stripos($addressType, 'establishment') !== false
             || stripos($addressType, 'transit_station') !== false
         ) {
-            $simplifiedAddressType = "route";
+            $simplifiedAddressType = 'route';
         } elseif (stripos($addressType, 'postal_code') !== false
             || stripos($addressType, 'sublocality') !== false
             || stripos($addressType, 'neighborhood') !== false
         ) {
-            $simplifiedAddressType = "zip";
+            $simplifiedAddressType = 'zip';
         } elseif (stripos($addressType, 'locality') !== false) {
-            $simplifiedAddressType = "city";
+            $simplifiedAddressType = 'city';
         } elseif (stripos($addressType, 'administrative_area_level_') !== false) {
             if (stripos($addressType, 'administrative_area_level_1') !== false) {
-                $simplifiedAddressType = "area";
+                $simplifiedAddressType = 'area';
             } else {
-                $simplifiedAddressType = "department";
+                $simplifiedAddressType = 'department';
             }
         } elseif (stripos($addressType, 'country') !== false) {
-            $simplifiedAddressType = "country";
+            $simplifiedAddressType = 'country';
         }
 
         return $simplifiedAddressType;
@@ -363,12 +374,11 @@ class ListingLocationSearchRequest
      * Return the address of the parent level of current location
      *
      * @return array|false
-     *
      */
     public function getParentLocation()
     {
-        $parentLocation = array("address" => "", "type" => "");
-        $parentAddressType = "";
+        $parentLocation = ['address' => '', 'type' => ''];
+        $parentAddressType = '';
         $addressType = $this->getSimplifiedAddressType();
 
         if ($addressType == 'route') {//If current address is route
@@ -418,52 +428,55 @@ class ListingLocationSearchRequest
             }
         }
 
-
         //Construct parent address of current address
         if ($parentAddressType) {
-            $parentLocation["type"] = $parentAddressType;
+            $parentLocation['type'] = $parentAddressType;
 
             switch ($parentAddressType) {
                 case 'route':
-                    $parentLocation["address"] = $this->getStreetNumber() . " " . $this->getRoute() . "##|##" .
-                        $this->getCity() . "##|##" . $this->getCountryText();
+                    $parentLocation['address'] = $this->getStreetNumber() . ' ' . $this->getRoute() . '##|##' .
+                        $this->getCity() . '##|##' . $this->getCountryText();
+
                     break;
                 case 'zip':
-                    $parentLocation["address"] = $this->getZip() . "##|##" . $this->getCity() . "##|##" .
+                    $parentLocation['address'] = $this->getZip() . '##|##' . $this->getCity() . '##|##' .
                         $this->getCountryText();
+
                     break;
                 case 'city':
-                    $parentLocation["address"] = $this->getCity() . "##|##" . $this->getCountryText();
+                    $parentLocation['address'] = $this->getCity() . '##|##' . $this->getCountryText();
+
                     break;
                 case 'department':
-                    $parentLocation["address"] = $this->getDepartment() . "##|##" . $this->getCountryText();
+                    $parentLocation['address'] = $this->getDepartment() . '##|##' . $this->getCountryText();
 //                    $parentLocation["address"] = $this->getDepartment() . "##|##" . $this->getArea() . "##|##"
 //                        . $this->getCountryText();
                     break;
                 case 'area':
-                    $parentLocation["address"] = $this->getArea() . "##|##" . $this->getCountryText();
+                    $parentLocation['address'] = $this->getArea() . '##|##' . $this->getCountryText();
+
                     break;
                 case 'country':
-                    $parentLocation["address"] = $this->getCountryText();
+                    $parentLocation['address'] = $this->getCountryText();
+
                     break;
             }
-
 
             //Special case where parent address is the same that current address.
             //In this case the parent address is replaced by country
-            if (str_replace(array("##|##", ", ", ","), " ", $parentLocation["address"]) ==
-                str_replace(array(", ", ","), " ", $this->getAddress())
+            if (str_replace(['##|##', ', ', ','], ' ', $parentLocation['address']) ==
+                str_replace([', ', ','], ' ', $this->getAddress())
             ) {
                 //Remove first part of the search string
-                $parentAddress = substr(strstr($parentLocation["address"], "##|##"), 5);
-                $parentLocation["address"] = $parentAddress;
+                $parentAddress = substr(strstr($parentLocation['address'], '##|##'), 5);
+                $parentLocation['address'] = $parentAddress;
             }
             //Delete separator string at the beginning if any
-            if (substr($parentLocation["address"], 0, 5) == "##|##") {
-                $parentLocation["address"] = substr($parentLocation["address"], 5);
+            if (substr($parentLocation['address'], 0, 5) == '##|##') {
+                $parentLocation['address'] = substr($parentLocation['address'], 5);
             }
 
-            $parentLocation["address"] = str_replace("##|##", ", ", $parentLocation["address"]);
+            $parentLocation['address'] = str_replace('##|##', ', ', $parentLocation['address']);
         }
 
         return $parentLocation;
@@ -472,7 +485,7 @@ class ListingLocationSearchRequest
     public function getAccuracyMethod()
     {
         if ($accuracy = $this->getAccuracy()) {
-            return "get" . ucfirst($accuracy);
+            return 'get' . ucfirst($accuracy);
         }
 
         return false;
@@ -487,40 +500,39 @@ class ListingLocationSearchRequest
     {
         switch ($this->getAccuracy()) {
             case 'route':
-                return array(
+                return [
                     'table' => '',
-                    'field' => 'route'
-                );
+                    'field' => 'route',
+                ];
             case 'zip':
-                return array(
+                return [
                     'table' => '',
-                    'field' => 'zip'
-                );
+                    'field' => 'zip',
+                ];
             case 'city':
-                return array(
+                return [
                     'table' => 'city',
                     'field' => 'name',
-                );
+                ];
             case 'department':
-                return array(
+                return [
                     'table' => 'department',
                     'field' => 'name',
-                );
+                ];
             case 'area':
-                return array(
+                return [
                     'table' => 'area',
                     'field' => 'name',
-                );
+                ];
             case 'country':
-                return array(
+                return [
                     'table' => 'country',
                     'field' => 'name',
-                );
+                ];
             default:
                 return false;
         }
     }
-
 
     /**
      * Get viewport diagonal distance in km
@@ -539,10 +551,10 @@ class ListingLocationSearchRequest
             return 0;
         }
 
-        $neLat = $bounds["ne"]["lat"];
-        $neLng = $bounds["ne"]["lng"];
-        $swLat = $bounds["sw"]["lat"];
-        $swLng = $bounds["sw"]["lng"];
+        $neLat = $bounds['ne']['lat'];
+        $neLng = $bounds['ne']['lng'];
+        $swLat = $bounds['sw']['lat'];
+        $swLng = $bounds['sw']['lng'];
 
         $distance = (sin($neLat * $_piBy180) * sin($swLat * $_piBy180)) +
             (cos($neLat * $_piBy180) * cos($swLat * $_piBy180) * cos(($neLng - $swLng) * $_piBy180));

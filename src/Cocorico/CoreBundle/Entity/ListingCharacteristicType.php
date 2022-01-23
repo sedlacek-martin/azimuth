@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  *
  * @ORM\Table(name="listing_characteristic_type")
- *
  */
 class ListingCharacteristicType
 {
@@ -43,14 +42,10 @@ class ListingCharacteristicType
      */
     protected $name;
 
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="ListingCharacteristic", mappedBy="listingCharacteristicType", cascade={"persist", "remove"})
-     */
+    /** @ORM\OneToMany(targetEntity="ListingCharacteristic", mappedBy="listingCharacteristicType", cascade={"persist", "remove"}) */
     private $listingCharacteristics;
 
     /**
-     *
      * @ORM\OneToMany(targetEntity="ListingCharacteristicValue", mappedBy="listingCharacteristicType", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"position" = "asc"})
      */
@@ -168,6 +163,6 @@ class ListingCharacteristicType
 
     public function __toString()
     {
-        return (string)$this->name;
+        return (string) $this->name;
     }
 }

@@ -34,19 +34,17 @@ class ListingSearchType extends ListingSearchResultType
         if ($this->timeUnitIsDay) {
             $builder->remove('time_range');
         }
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'translation_domain' => 'cocorico_listing',
-            )
+            ]
         );
     }
-
 
     /**
      * {@inheritdoc}

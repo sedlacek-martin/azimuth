@@ -22,7 +22,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ListingLocationSearchType extends AbstractType implements TranslationContainerInterface
 {
-
     public static $locationCountryError = 'listing.search.form.country.not_blank';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -31,9 +30,9 @@ class ListingLocationSearchType extends AbstractType implements TranslationConta
             ->add(
                 'address',
                 SearchType::class,
-                array(
-                    'label' => 'listing.search.form.address'
-                )
+                [
+                    'label' => 'listing.search.form.address',
+                ]
             )
             ->add('lat', HiddenType::class)
             ->add('lng', HiddenType::class)
@@ -58,18 +57,17 @@ class ListingLocationSearchType extends AbstractType implements TranslationConta
             ->add('route', HiddenType::class)
             ->add('streetNumber', HiddenType::class)
             ->add('addressType', HiddenType::class);
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'csrf_protection' => false,
                 'data_class' => 'Cocorico\CoreBundle\Model\ListingLocationSearchRequest',
                 'translation_domain' => 'cocorico_listing',
-            )
+            ]
         );
     }
 
@@ -81,7 +79,6 @@ class ListingLocationSearchType extends AbstractType implements TranslationConta
         return 'listing_location_search';
     }
 
-
     /**
      * JMS Translation messages
      *
@@ -89,7 +86,7 @@ class ListingLocationSearchType extends AbstractType implements TranslationConta
      */
     public static function getTranslationMessages()
     {
-        $messages = array();
+        $messages = [];
         $messages[] = new Message(self::$locationCountryError, 'cocorico');
 
         return $messages;

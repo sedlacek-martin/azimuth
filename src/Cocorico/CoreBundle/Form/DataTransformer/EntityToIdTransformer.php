@@ -17,15 +17,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class EntityToIdTransformer implements DataTransformerInterface
 {
-
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     protected $objectManager;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $class;
 
     /**
@@ -71,5 +66,4 @@ class EntityToIdTransformer implements DataTransformerInterface
 
         return $entity;
     }
-
 }

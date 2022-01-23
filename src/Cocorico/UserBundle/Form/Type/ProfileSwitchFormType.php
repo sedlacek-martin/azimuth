@@ -24,23 +24,22 @@ class ProfileSwitchFormType extends AbstractType
             ->add(
                 'profile',
                 ChoiceType::class,
-                array(
-                    'choices' => array('Asker' => 'asker', 'Offerer' => 'offerer'),
-                    /** @Ignore */
+                [
+                    'choices' => ['Asker' => 'asker', 'Offerer' => 'offerer'],
+                    /* @Ignore */
                     'label' => false,
                     'expanded' => true,
-                )
+                ]
             );
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'translation_domain' => 'cocorico_user',
                 'csrf_token_id' => 'profile',
-            )
+            ]
         );
     }
 

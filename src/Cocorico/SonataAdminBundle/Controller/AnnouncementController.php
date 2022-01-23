@@ -11,8 +11,6 @@ use Cocorico\UserBundle\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,7 +27,7 @@ class AnnouncementController extends Controller
     public function addNewAction(Request $request, Announcement $announcement = null): ?Response
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
-            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+            throw $this->createAccessDeniedException('You are not allowed to visit this page');
         }
 
         $action = $announcement
@@ -46,7 +44,6 @@ class AnnouncementController extends Controller
         ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $new = false;
             $em->persist($announcement);
             // only for newly created announcements
@@ -104,8 +101,6 @@ class AnnouncementController extends Controller
                 );
             }
 
-
-
             return $this->redirectToRoute('announcement_list');
         }
 
@@ -113,7 +108,5 @@ class AnnouncementController extends Controller
             'form' => $form->createView(),
             'announcement' => $announcement,
         ]);
-
     }
-
 }

@@ -39,7 +39,7 @@ class UriHasher
      *
      * @return string the hashed URI or '' if malformed url is passed
      */
-    public function hash($url, $onlyPathAndQuery = true, $fieldsToRemove = array())
+    public function hash($url, $onlyPathAndQuery = true, $fieldsToRemove = [])
     {
         $uri = parse_url($url);
         if ($uri) {
@@ -52,7 +52,7 @@ class UriHasher
                 //remove fields from query string
                 $params = $this->unsetArrayByKeys($params, $fieldsToRemove);
             } else {
-                $params = array();
+                $params = [];
             }
 
             $uri = $this->buildUrl($uri, $params);
@@ -63,7 +63,6 @@ class UriHasher
         return null;
     }
 
-
     /**
      * Unset array by keys expressed as strings
      *
@@ -71,7 +70,7 @@ class UriHasher
      * @param string[] $unwantedKeys ex: array(["location"]["address"], ["page"])
      * @return array
      */
-    private function unsetArrayByKeys($array, $unwantedKeys = array())
+    private function unsetArrayByKeys($array, $unwantedKeys = [])
     {
         foreach ($unwantedKeys as $unwantedKey) {
             if ($unwantedKey) {
@@ -102,19 +101,19 @@ class UriHasher
      * @param array $params
      * @return string
      */
-    public function buildUrl(array $url, array $params = array())
+    public function buildUrl(array $url, array $params = [])
     {
         PHP::ksort_recursive($params, SORT_STRING);
 
         $url['query'] = http_build_query($params, '', '&');
 
         $scheme = isset($url['scheme']) ? $url['scheme'] . '://' : '';
-        $host = isset($url['host']) ? $url['host'] : '';
+        $host = $url['host'] ?? '';
         $port = isset($url['port']) ? ':' . $url['port'] : '';
-        $user = isset($url['user']) ? $url['user'] : '';
+        $user = $url['user'] ?? '';
         $pass = isset($url['pass']) ? ':' . $url['pass'] : '';
         $pass = ($user || $pass) ? "$pass@" : '';
-        $path = isset($url['path']) ? $url['path'] : '';
+        $path = $url['path'] ?? '';
         $query = isset($url['query']) && $url['query'] ? '?' . $url['query'] : '';
         $fragment = isset($url['fragment']) ? '#' . $url['fragment'] : '';
 
@@ -141,6 +140,4 @@ class UriHasher
 
         return @openssl_decrypt(hex2bin($string), 'AES-256-CBC', $key, 0, $iv);
     }
-
-
 }

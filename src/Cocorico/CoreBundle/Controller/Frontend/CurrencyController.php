@@ -43,9 +43,8 @@ class CurrencyController extends Controller
 
         if ($request->headers->get('referer')) {
             return $this->redirect($request->headers->get('referer'));
-        } else {
-            return $this->redirect($this->generateUrl('cocorico_home'));
         }
-    }
 
+        return $this->redirect($this->generateUrl('cocorico_home'));
+    }
 }

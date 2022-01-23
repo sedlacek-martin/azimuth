@@ -27,13 +27,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserImageController extends Controller
 {
-
     /**
      * Lists all UserImage entities.
      *
      * @Route("/", name="cocorico_user_image")
      * @Method("GET")
-     *
      */
     public function indexAction()
     {
@@ -41,9 +39,9 @@ class UserImageController extends Controller
 
         $images = $em->getRepository('CocoricoUserBundle:ListingImage')->findAll();
 
-        return array(
+        return [
             'images' => $images,
-        );
+        ];
     }
 
     /**

@@ -28,8 +28,7 @@ class CustomAdminSecurityHandler extends RoleSecurityHandler
         // prevent any user form editing developers
         if ($object instanceof User
             && $object->hasRole('ROLE_DEVELOPER')
-            && !$this->authorizationChecker->isGranted('ROLE_DEVELOPER'))
-        {
+            && !$this->authorizationChecker->isGranted('ROLE_DEVELOPER')) {
             return false;
         }
 
@@ -42,6 +41,4 @@ class CustomAdminSecurityHandler extends RoleSecurityHandler
             return false;
         }
     }
-
-
 }

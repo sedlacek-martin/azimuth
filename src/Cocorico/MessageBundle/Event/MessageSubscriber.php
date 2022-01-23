@@ -44,15 +44,12 @@ class MessageSubscriber implements EventSubscriberInterface
         if ($message->isVerified() && $recipient->isNewMessageNotifications()) {
             $this->mailer->sendNewThreadMessageToUser($thread->getId(), $recipient, $sender);
         }
-
     }
-
 
     public static function getSubscribedEvents()
     {
-        return array(
-            MessageEvents::MESSAGE_POST_SEND => array('onMessagePostSend', 1),
-        );
+        return [
+            MessageEvents::MESSAGE_POST_SEND => ['onMessagePostSend', 1],
+        ];
     }
-
 }

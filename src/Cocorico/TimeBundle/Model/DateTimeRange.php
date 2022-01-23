@@ -25,14 +25,10 @@ use DateTimeZone;
  */
 class DateTimeRange
 {
-    /**
-     * @var DateRange
-     */
+    /** @var DateRange */
     public $dateRange;
 
-    /**
-     * @var TimeRange[]
-     */
+    /** @var TimeRange[] */
     public $timeRanges;
 
     /**
@@ -40,7 +36,7 @@ class DateTimeRange
      * @param DateRange|null $dateRange
      * @param TimeRange[]    $timeRanges
      */
-    public function __construct(DateRange $dateRange = null, $timeRanges = array())
+    public function __construct(DateRange $dateRange = null, $timeRanges = [])
     {
         $this->setDateRange($dateRange);
         $this->setTimeRanges($timeRanges);
@@ -60,7 +56,7 @@ class DateTimeRange
         DateTime $endTime = null
     ) {
         $dateRange = new DateRange($start, $end);
-        $timeRanges = array(new TimeRange($startTime, $endTime, $start));
+        $timeRanges = [new TimeRange($startTime, $endTime, $start)];
 
         return new static($dateRange, $timeRanges);
     }
@@ -118,7 +114,6 @@ class DateTimeRange
         return count($this->timeRanges) ? $this->timeRanges[0] : null;
     }
 
-
     /**
      * Get time ranges for each day of this date range.
      * For each date if a time range spans day (22h -> 02h) the time range is splitted in two time ranges on the two spanning days:
@@ -131,7 +126,7 @@ class DateTimeRange
      *
      * @return DayTimeRange[]
      */
-    public function getDaysTimeRanges($endDayIncluded, $weekDays = array(), $timezone = 'UTC')
+    public function getDaysTimeRanges($endDayIncluded, $weekDays = [], $timezone = 'UTC')
     {
         $start = clone $this->getDateRange()->getStart();
         $start->setTime(0, 0, 0);
@@ -142,7 +137,7 @@ class DateTimeRange
             $end->modify('+1 day');
         }
 
-        $firstDayTimeRange = array();
+        $firstDayTimeRange = [];
         if (count($this->getTimeRanges()) && $this->getFirstTimeRange()->getStart()) {
             $this->adjustStartAndEndDay($start, $end);
             $firstDayTimeRange = $this->getInitialTimeRanges($start);
@@ -156,7 +151,6 @@ class DateTimeRange
         }
 
         return $daysTimeRanges;
-
     }
 
     /**
@@ -191,7 +185,7 @@ class DateTimeRange
      */
     private function getInitialTimeRanges(DateTime $firstDay)
     {
-        $ranges = array();
+        $ranges = [];
         $nextDayTimeRange = null;
         foreach ($this->getTimeRanges() as $i => $timeRange) {
             $startTime = $timeRange->getStart();
@@ -248,7 +242,7 @@ class DateTimeRange
         $nbDays = max(iterator_count($days), 1);
 
         /** @var DayTimeRange[] $daysTimeRanges */
-        $daysTimeRanges = array();
+        $daysTimeRanges = [];
         $newOffset = 0;
         for ($d = 0; $d < $nbDays; $d++) {
             $day = clone $start;
@@ -266,7 +260,7 @@ class DateTimeRange
             } else {
                 $newDay = clone $day;
                 $startDayString = $day->format('Y-m-d');
-                $daysTimeRanges[$startDayString] = new DayTimeRange($newDay, array());
+                $daysTimeRanges[$startDayString] = new DayTimeRange($newDay, []);
             }
         }
 //        print_r($daysTimeRanges);
@@ -292,7 +286,7 @@ class DateTimeRange
         &$daysTimeRanges
     ) {
         foreach ($initialTimeRanges as $diffDay => $timeRanges) {
-            /** @var TimeRange $timeRange */
+            /* @var TimeRange $timeRange */
             foreach ($timeRanges as $nbMinutes => $startMinutes) {
                 foreach ($startMinutes as $startMinute) {
 //                        echo $newOffset . '<br>';
@@ -337,14 +331,14 @@ class DateTimeRange
         $startDayString = $startTime->format('Y-m-d');
         $endDayString = $endTime->format('Y-m-d');
         /** @var DateTime[][] $newTimeRanges */
-        $newTimeRanges = array($startDayString => array($startTime, $endTime));
+        $newTimeRanges = [$startDayString => [$startTime, $endTime]];
         //If endTime is tomorrow then time range is splitted on spanning days
         if ($endDayString != $startDayString && $endTime->format('H:i') != '00:00') {
             $midnight = clone $endTime;
             $midnight->setTime(0, 0, 0);
 
             $newTimeRanges[$startDayString][1] = $midnight;
-            $newTimeRanges[$endDayString] = array($midnight, $endTime);
+            $newTimeRanges[$endDayString] = [$midnight, $endTime];
         }
 
         //Fill $daysTimeRanges day by day and time range by time range
@@ -354,7 +348,7 @@ class DateTimeRange
             } else {
                 $newDay = clone $newTimeRange[0];
                 $newDay->setTime(0, 0, 0);
-                $dayTimeRange = new DayTimeRange($newDay, array());
+                $dayTimeRange = new DayTimeRange($newDay, []);
             }
 
 //                            echo $newTimeRange[0]->format('Y-m-d H:i') . ' / ' . $newTimeRange[1]->format('Y-m-d H:i') . '<br>';
@@ -382,13 +376,13 @@ class DateTimeRange
             if ($time->format('Y-m-d H:i') >= $dstDateString) {// First start range impacted by DST
                 $dstOffset = $offset * 60;
                 unset($dstTransitions[$dstDateString]);
+
                 break;
             }
         }
 
         return $dstOffset;
     }
-
 
     /**
      * Get date and offset in hour for DST transitions between start and end date
@@ -410,7 +404,7 @@ class DateTimeRange
         $tz = new DateTimeZone($timezone);
         $transitions = $tz->getTransitions($start->getTimestamp(), $end->getTimestamp());
 
-        $dstTransitions = array();
+        $dstTransitions = [];
         if (count($transitions) > 1) {
             foreach ($transitions as $i => $transition) {
                 if ($i == 0) {
@@ -430,7 +424,6 @@ class DateTimeRange
 
         return $dstTransitions;
     }
-
 
     /**
      * Filter DayTimeRanges by week days
@@ -478,7 +471,6 @@ class DateTimeRange
                     unset($daysTimeRanges[$day]);
                 }
             }
-
         }
 
         return $daysTimeRanges;
@@ -507,7 +499,6 @@ class DateTimeRange
             }
         }
 
-        return new static($dateRange, array($timeRange));
+        return new static($dateRange, [$timeRange]);
     }
-
 }

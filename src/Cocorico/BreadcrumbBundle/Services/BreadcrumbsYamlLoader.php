@@ -17,9 +17,7 @@ use Symfony\Component\Yaml\Parser as YamlParser;
 
 class BreadcrumbsYamlLoader extends FileLoader
 {
-    /**
-     * @var YamlParser
-     */
+    /** @var YamlParser */
     protected $yamlParser;
 
     /**

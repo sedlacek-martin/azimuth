@@ -19,7 +19,6 @@ use Doctrine\ORM\QueryBuilder;
 
 class ContactRepository extends EntityRepository
 {
-
     /**
      * @param string $role
      * @param int|null $moId
@@ -35,12 +34,12 @@ class ContactRepository extends EntityRepository
 
         if ($moId) {
             $qb->andWhere($qb->expr()->orX(
-                    $qb->expr()->andX("c.user IS NOT NULL", 'mo.id = :moId'),
-                    $qb->expr()->isNull("c.user")
+                    $qb->expr()->andX('c.user IS NOT NULL', 'mo.id = :moId'),
+                    $qb->expr()->isNull('c.user')
                 ))
                 ->setParameter('moId', $moId);
         }
-           $qb
+        $qb
             ->andWhere('c.recipientRoles LIKE :role')
             ->andWhere('c.status = :statusNew')
             ->setParameter('role', "%{$role}%")

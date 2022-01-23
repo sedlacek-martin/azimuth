@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Admin;
 
 use Sonata\UserBundle\Admin\Model\GroupAdmin as SonataGroupAdmin;

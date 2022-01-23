@@ -2,8 +2,8 @@
 
 namespace Cocorico\CoreBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Cocorico\UserBundle\Entity\User;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Page Access
@@ -11,7 +11,6 @@ use Cocorico\UserBundle\Entity\User;
  * @ORM\Entity(repositoryClass="Cocorico\CoreBundle\Repository\PageAccessRepository")
  *
  * @ORM\Table(name="page_access")
- *
  */
 class PageAccess
 {
@@ -66,7 +65,6 @@ class PageAccess
             ->setUser($user);
     }
 
-
     public function __construct()
     {
         $this->accessedAt = new \DateTime();
@@ -87,6 +85,7 @@ class PageAccess
     public function setId(int $id): PageAccess
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -105,6 +104,7 @@ class PageAccess
     public function setRoute(string $route): PageAccess
     {
         $this->route = $route;
+
         return $this;
     }
 
@@ -123,6 +123,7 @@ class PageAccess
     public function setSlug(?string $slug): PageAccess
     {
         $this->slug = $slug;
+
         return $this;
     }
 
@@ -141,6 +142,7 @@ class PageAccess
     public function setUser(?User $user): PageAccess
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -159,6 +161,7 @@ class PageAccess
     public function setAccessedAt(\DateTime $accessedAt): PageAccess
     {
         $this->accessedAt = $accessedAt;
+
         return $this;
     }
 }

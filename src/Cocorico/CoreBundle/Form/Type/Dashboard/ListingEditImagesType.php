@@ -23,9 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ListingEditImagesType extends ListingEditType
 {
-    /**
-     * @var array|string uploaded files
-     */
+    /** @var array|string uploaded files */
     protected $uploaded;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -38,27 +36,25 @@ class ListingEditImagesType extends ListingEditType
             ->add(
                 'images',
                 CollectionType::class,
-                array(
+                [
                     'allow_delete' => true,
                     'entry_type' => ListingImageType::class,
-                    /** @Ignore */
-                    'label' => false
-                )
+                    /* @Ignore */
+                    'label' => false,
+                ]
             );
-
 
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
             function (FormEvent $event) {
                 $data = $event->getData();
-                $data = $data ?: array();
-                if (array_key_exists('uploaded', $data["image"])) {
+                $data = $data ?: [];
+                if (array_key_exists('uploaded', $data['image'])) {
                     // capture uploaded files and store them for onSubmit event
-                    $this->uploaded = $data["image"]['uploaded'];
+                    $this->uploaded = $data['image']['uploaded'];
                 }
             }
         );
-
 
         $builder->addEventListener(
             FormEvents::SUBMIT,
@@ -69,7 +65,7 @@ class ListingEditImagesType extends ListingEditType
                 if ($this->uploaded) {
                     $nbImages = $listing->getImages()->count();
                     //Add new images
-                    $imagesUploadedArray = explode(",", trim($this->uploaded, ","));
+                    $imagesUploadedArray = explode(',', trim($this->uploaded, ','));
                     foreach ($imagesUploadedArray as $i => $image) {
                         $listingImage = new ListingImage();
                         $listingImage->setListing($listing);
@@ -82,8 +78,6 @@ class ListingEditImagesType extends ListingEditType
                 }
             }
         );
-
-
     }
 
     /**

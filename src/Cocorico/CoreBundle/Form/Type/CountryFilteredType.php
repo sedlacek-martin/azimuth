@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
@@ -20,6 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CountryFilteredType extends BaseCountryType
 {
     private $countries;
+
     private $favoriteCountries;
 
     /**
@@ -46,7 +46,7 @@ class CountryFilteredType extends BaseCountryType
         }
 
         $resolver->setDefaults(
-            array(
+            [
 //                'choices' => array_flip($countries),
                 'choice_loader' => new CallbackChoiceLoader(
                     function () use ($countries) {
@@ -55,7 +55,7 @@ class CountryFilteredType extends BaseCountryType
                 ),
                 'preferred_choices' => $this->favoriteCountries,
                 'required' => true,
-            )
+            ]
         );
     }
 

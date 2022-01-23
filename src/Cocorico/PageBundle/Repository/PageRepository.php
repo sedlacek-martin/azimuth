@@ -26,7 +26,7 @@ class PageRepository extends EntityRepository
     public function findOneBySlug($slug, $locale)
     {
         $queryBuilder = $this->createQueryBuilder('p')
-            ->addSelect("t")
+            ->addSelect('t')
             ->leftJoin('p.translations', 't')
             ->where('t.slug = :slug')
             ->andWhere('t.locale = :locale')
@@ -34,6 +34,7 @@ class PageRepository extends EntityRepository
             ->setParameter('slug', $slug)
             ->setParameter('locale', $locale)
             ->setParameter('published', true);
+
         try {
             $query = $queryBuilder->getQuery();
 
@@ -57,6 +58,7 @@ class PageRepository extends EntityRepository
             ->from('CocoricoPageBundle:PageTranslation', 'pt')
             ->where('pt.translatable = :page')
             ->setParameter('page', $page);
+
         try {
             return $queryBuilder->getQuery()->getResult();
         } catch (NoResultException $e) {
@@ -70,12 +72,13 @@ class PageRepository extends EntityRepository
     public function findAllPublished()
     {
         $queryBuilder = $this->createQueryBuilder('p')
-            ->addSelect("t")
+            ->addSelect('t')
             ->leftJoin('p.translations', 't')
             ->andWhere('p.published = :published')
             ->setParameter('published', true)
             ->orderBy('p.id', 'ASC')
             ->addOrderBy('t.locale', 'ASC');
+
         try {
             $query = $queryBuilder->getQuery();
 
@@ -84,5 +87,4 @@ class PageRepository extends EntityRepository
             return null;
         }
     }
-
 }

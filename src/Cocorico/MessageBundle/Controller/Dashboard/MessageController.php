@@ -18,7 +18,6 @@ use Cocorico\MessageBundle\Event\MessageEvent;
 use Cocorico\MessageBundle\Event\MessageEvents;
 use Cocorico\MessageBundle\FormModel\NewThreadMessage;
 use Cocorico\MessageBundle\Repository\MessageRepository;
-use Cocorico\MessageBundle\Repository\ThreadRepository;
 use Cocorico\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -47,7 +46,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class MessageController extends Controller
 {
-
     /**
      * Lists all the available messages
      *
@@ -72,17 +70,16 @@ class MessageController extends Controller
 
         return $this->render(
             'CocoricoMessageBundle:Dashboard/Message:inbox.html.twig',
-            array(
+            [
                 'threads' => $threads,
-                'pagination' => array(
+                'pagination' => [
                     'page' => $page,
                     'pages_count' => ceil($threads->count() / $threadManager->maxPerPage),
                     'route' => $request->get('_route'),
                     'route_params' => $request->query->all(),
-                ),
-            )
+                ],
+            ]
         );
-
     }
 
     /**
@@ -112,7 +109,6 @@ class MessageController extends Controller
         $thread->setRecipient($user);
 
         return $this->handleMessageForm($form, $thread, $user, $user->getId(), $request->get('_route'));
-
     }
 
     /**
@@ -144,8 +140,7 @@ class MessageController extends Controller
         $thread->setSubject($listing->getTitle());
         $thread->setRecipient($listing->getUser());
 
-       return $this->handleMessageForm($form, $thread, $listing->getUser(), $listing->getSlug(), $request->get('_route'), $listing->getTitle());
-
+        return $this->handleMessageForm($form, $thread, $listing->getUser(), $listing->getSlug(), $request->get('_route'), $listing->getTitle());
     }
 
     /**
@@ -169,10 +164,8 @@ class MessageController extends Controller
         /** @var Message $message */
         $message = $formHandler->process($form);
 
-
         $translator = $this->get('translator');
         $session = $this->get('session');
-
 
         if ($message) {
             if ($actualUser->getMemberOrganization()->isMessagesConfirmation()) {
@@ -188,28 +181,26 @@ class MessageController extends Controller
 
             $session->getFlashBag()->add(
                 'success',
-                $translator->trans('message.new.success', array(), 'cocorico_message')
+                $translator->trans('message.new.success', [], 'cocorico_message')
             );
-
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $session->getFlashBag()->add(
                 'error',
-                $translator->trans('message.new.error', array(), 'cocorico_message')
+                $translator->trans('message.new.error', [], 'cocorico_message')
             );
         }
 
         return $this->render(
             'CocoricoMessageBundle:Dashboard/Message:new_thread.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'thread' => $form->getData(),
                 'user' => $user,
                 'slug' => $slug,
                 'title' => $title,
                 'route' => $route,
-            )
+            ]
         );
-
     }
 
     /**
@@ -242,12 +233,11 @@ class MessageController extends Controller
 
         $selfUrl = $this->generateUrl(
             'cocorico_dashboard_message_thread_view',
-            array('threadId' => $thread->getId())
+            ['threadId' => $thread->getId()]
         );
 
         $message = $formHandler->process($form);
         if ($message) {
-
             if ($actualUser->getMemberOrganization()->isMessagesConfirmation()) {
                 $message->setVerified(false);
                 $em = $this->getDoctrine()->getManager();
@@ -269,10 +259,10 @@ class MessageController extends Controller
 
         return $this->render(
             'CocoricoMessageBundle:Dashboard/Message:thread.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'thread' => $thread,
-            )
+            ]
         );
     }
 
@@ -312,7 +302,7 @@ class MessageController extends Controller
      */
     public function nbUnReadMessagesAction(Request $request)
     {
-        $response = array('total' => 0);
+        $response = ['total' => 0];
         if ($request->isXmlHttpRequest()) {
             /** @var User $user */
             $user = $this->getUser();

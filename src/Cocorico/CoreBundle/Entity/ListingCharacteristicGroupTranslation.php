@@ -26,7 +26,6 @@ class ListingCharacteristicGroupTranslation
 {
     use ORMBehaviors\Translatable\Translation;
 
-
     /**
      * @Assert\NotBlank(message="assert.not_blank")
      *
@@ -68,5 +67,4 @@ class ListingCharacteristicGroupTranslation
     {
         return $this->name;
     }
-
 }

@@ -18,10 +18,15 @@ use Symfony\Component\Validator\ConstraintValidator;
 class ListingValidator extends ConstraintValidator
 {
     private $emr;
+
     private $maxImages;
+
     private $minImages;
+
     private $minCategories;
+
     private $minPrice;
+
     private $countries;
 
     /**
@@ -49,7 +54,7 @@ class ListingValidator extends ConstraintValidator
     public function validate($listing, Constraint $constraint)
     {
         /** @var $listing \Cocorico\CoreBundle\Entity\Listing */
-        /** @var $constraint \Cocorico\CoreBundle\Validator\Constraints\Listing */
+        /* @var $constraint \Cocorico\CoreBundle\Validator\Constraints\Listing */
 
         //Images
         if ($listing->getImages()->count() > $this->maxImages) {
@@ -76,5 +81,4 @@ class ListingValidator extends ConstraintValidator
                 ->addViolation();
         }
     }
-
 }

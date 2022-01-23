@@ -36,13 +36,14 @@ class DepartmentRepository extends EntityRepository
     public function findOneByNameAndArea($name, $area)
     {
         $queryBuilder = $this->createQueryBuilder('d')
-            ->addSelect("dt, dg")
+            ->addSelect('dt, dg')
             ->leftJoin('d.translations', 'dt')
             ->leftJoin('d.geocoding', 'dg')
             ->where('dt.name = :name')
             ->andWhere('d.area = :area')
             ->setParameter('name', $name)
             ->setParameter('area', $area);
+
         try {
             return $queryBuilder->getQuery()->getOneOrNullResult();
         } catch (NonUniqueResultException $e) {
@@ -56,11 +57,12 @@ class DepartmentRepository extends EntityRepository
     public function findAllDepartments()
     {
         $queryBuilder = $this->createQueryBuilder('d')
-            ->addSelect("c, dg, dt")
+            ->addSelect('c, dg, dt')
             ->leftJoin('d.country', 'c')
             ->leftJoin('d.translations', 'dt')
             ->leftJoin('d.geocoding', 'dg')
             ->orderBy('dt.name');
+
         try {
             $query = $queryBuilder->getQuery();
 

@@ -25,7 +25,7 @@ class RegistrationAdditionalInfoFormType extends AbstractType
                 'data_class' => User::class,
                 'csrf_token_id' => 'user_registration_additional_info',
                 'translation_domain' => 'cocorico_user',
-                'validation_groups' => array('CocoricoRegistration'),
+                'validation_groups' => ['CocoricoRegistration'],
             ]);
     }
 
@@ -33,6 +33,4 @@ class RegistrationAdditionalInfoFormType extends AbstractType
     {
         return 'user_registration_additional_info';
     }
-
-
 }

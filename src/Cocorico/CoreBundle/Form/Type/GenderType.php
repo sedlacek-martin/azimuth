@@ -32,6 +32,4 @@ class GenderType extends AbstractType
     {
         return 'gender';
     }
-
-
 }

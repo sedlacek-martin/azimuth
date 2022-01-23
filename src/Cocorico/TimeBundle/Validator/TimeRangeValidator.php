@@ -22,9 +22,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TimeRangeValidator implements EventSubscriberInterface, TranslationContainerInterface
 {
-    protected $options = array();
+    protected $options = [];
 
-    public function __construct(OptionsResolver $resolver, array $options = array())
+    public function __construct(OptionsResolver $resolver, array $options = [])
     {
         $this->configureOptions($resolver);
         $this->options = $resolver->resolve($options);
@@ -32,25 +32,25 @@ class TimeRangeValidator implements EventSubscriberInterface, TranslationContain
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $hoursAvailable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
+        $hoursAvailable = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         $resolver->setDefaults(
-            array(
+            [
                 'required' => true,
                 'display_mode' => 'range',
                 'hours_available' => $hoursAvailable,
-            )
+            ]
         );
 
-        $resolver->setAllowedValues('required', array(true, false));
-        $resolver->setAllowedValues('display_mode', array('range', 'duration'));
+        $resolver->setAllowedValues('required', [true, false]);
+        $resolver->setAllowedValues('display_mode', ['range', 'duration']);
         $resolver->setAllowedValues(
             'hours_available',
             function ($value) use ($hoursAvailable) {
                 if (!is_array($value) || count(array_intersect($value, $hoursAvailable)) != count($value)) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
         );
     }
@@ -88,11 +88,10 @@ class TimeRangeValidator implements EventSubscriberInterface, TranslationContain
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::POST_SUBMIT => 'onPostBind',
-        );
+        ];
     }
-
 
     /**
      * JMS Translation messages
@@ -101,12 +100,12 @@ class TimeRangeValidator implements EventSubscriberInterface, TranslationContain
      */
     public static function getTranslationMessages()
     {
-        $messages = array();
-        $messages[] = new Message("time_range.invalid.required", 'cocorico');
-        $messages[] = new Message("time_range.invalid.end_before_start", 'cocorico');
-        $messages[] = new Message("time_range.invalid.single_time", 'cocorico');
-        $messages[] = new Message("time_range.invalid.duration", 'cocorico');
-        $messages[] = new Message("time_range.invalid.min_start {{ min_start_time }}", 'cocorico');
+        $messages = [];
+        $messages[] = new Message('time_range.invalid.required', 'cocorico');
+        $messages[] = new Message('time_range.invalid.end_before_start', 'cocorico');
+        $messages[] = new Message('time_range.invalid.single_time', 'cocorico');
+        $messages[] = new Message('time_range.invalid.duration', 'cocorico');
+        $messages[] = new Message('time_range.invalid.min_start {{ min_start_time }}', 'cocorico');
 
         return $messages;
     }

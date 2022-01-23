@@ -12,7 +12,6 @@
 namespace Cocorico\ContactBundle\Entity;
 
 use Cocorico\ContactBundle\Model\BaseContact;
-use Cocorico\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
@@ -50,6 +49,6 @@ class Contact extends BaseContact
 
     public function __toString()
     {
-        return (string)$this->getSubject();
+        return (string) $this->getSubject();
     }
 }

@@ -22,7 +22,6 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,18 +29,19 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Valid;
 
 class ProfileAboutMeFormType extends AbstractType implements TranslationContainerInterface
 {
     private $class;
+
     private $request;
+
     private $locale;
+
     private $locales;
-    /**
-     * @var array|string uploaded files
-     */
+
+    /** @var array|string uploaded files */
     protected $uploaded;
 
     /**
@@ -63,33 +63,33 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
         $user = $builder->getData();
 
         //Translations fields
-        $descriptions = array();
+        $descriptions = [];
         foreach ($this->locales as $i => $locale) {
-            $descriptions[$locale] = array(
-                /** @Ignore */
+            $descriptions[$locale] = [
+                /* @Ignore */
                 'label' => false,
                 'required' => false,
-                'attr' => array(
-                    'placeholder' => 'auto'
-                )
-            );
+                'attr' => [
+                    'placeholder' => 'auto',
+                ],
+            ];
         }
 
         $builder->add(
             'translations',
             TranslationsType::class,
-            array(
+            [
                 'locales' => $this->locales,
                 'required_locales' => [],
-                'fields' => array(
-                    'description' => array(
+                'fields' => [
+                    'description' => [
                         'field_type' => 'textarea',
                         'locale_options' => $descriptions,
-                    ),
-                ),
-                /** @Ignore */
-                'label' => false
-            )
+                    ],
+                ],
+                /* @Ignore */
+                'label' => false,
+            ]
         );
 
         $builder
@@ -100,89 +100,88 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
             ->add(
                 'images',
                 CollectionType::class,
-                array(
+                [
                     'allow_delete' => true,
                     'entry_type' => UserImageType::class,
-                    /** @Ignore */
-                    'label' => false
-                )
+                    /* @Ignore */
+                    'label' => false,
+                ]
             )
             ->add(
                 'language',
                 LanguageType::class,
-                array(
+                [
                     'mapped' => false,
                     'label' => 'cocorico.language',
-                    'preferred_choices' => array("en", "cs", "fr", "es", "de", "ru"),
+                    'preferred_choices' => ['en', 'cs', 'fr', 'es', 'de', 'ru'],
                     'placeholder' => 'user.about.language.select',
-                    'required' => false
-                )
+                    'required' => false,
+                ]
             )
             ->add(
                 'languages',
                 CollectionType::class,
-                array(
+                [
                     'allow_delete' => true,
                     'allow_add' => true,
                     'by_reference' => false,
                     'entry_type' => UserLanguageType::class,
-                    /** @Ignore */
-                    'label' => false
-                )
+                    /* @Ignore */
+                    'label' => false,
+                ]
             )
             ->add(
                 'motherTongue',
                 LanguageType::class,
-                array(
+                [
                     'label' => 'cocorico.motherTongue',
-                    'preferred_choices' => array("en", "cs", "fr", "es", "de", "ru"),
-                    'data' => $user->getMotherTongue() ? $user->getMotherTongue() : $this->locale
-                )
+                    'preferred_choices' => ['en', 'cs', 'fr', 'es', 'de', 'ru'],
+                    'data' => $user->getMotherTongue() ? $user->getMotherTongue() : $this->locale,
+                ]
             )
             ->add(
                 'birthday',
                 BirthdayType::class,
-                array(
+                [
                     'label' => 'form.user.birthday',
                     'widget' => 'choice',
                     'years' => range(date('Y') - 18, date('Y') - 100),
-                )
+                ]
             )
             ->add('gender', GenderType::class, [
                 'required' => false,
-                'placeholder' => '-- Select-- '
+                'placeholder' => '-- Select-- ',
             ])
             ->add(
                 'fromLang',
                 LanguageFilteredType::class,
-                array(
+                [
                     'mapped' => false,
                     'label' => 'cocorico.from',
-                    'data' => $this->locale
-                )
+                    'data' => $this->locale,
+                ]
             )
             ->add(
                 'toLang',
                 LanguageFilteredType::class,
-                array(
+                [
                     'mapped' => false,
                     'label' => 'cocorico.to',
                     'data' => LanguageFilteredType::getLocaleTo($this->locales, $this->locale),
-                )
+                ]
             );
 
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
             function (FormEvent $event) {
                 $data = $event->getData();
-                $data = $data ?: array();
-                if (array_key_exists('uploaded', $data["image"])) {
+                $data = $data ?: [];
+                if (array_key_exists('uploaded', $data['image'])) {
                     // capture uploaded files and store them for onSubmit event
-                    $this->uploaded = $data["image"]['uploaded'];
+                    $this->uploaded = $data['image']['uploaded'];
                 }
             }
         );
-
 
         $builder->addEventListener(
             FormEvents::SUBMIT,
@@ -193,7 +192,7 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
                 if ($this->uploaded) {
                     $nbImages = $user->getImages()->count();
                     //Add new images
-                    $imagesUploadedArray = explode(",", trim($this->uploaded, ","));
+                    $imagesUploadedArray = explode(',', trim($this->uploaded, ','));
                     foreach ($imagesUploadedArray as $i => $image) {
                         $userImage = new UserImage();
                         $userImage->setuser($user);
@@ -208,17 +207,16 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
         );
     }
 
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => $this->class,
                 'csrf_token_id' => 'profile',
                 'translation_domain' => 'cocorico_user',
 //                'constraints' => new Valid(),
 //                'validation_groups' => array('CocoricoProfile'),
-            )
+            ]
         );
     }
 
@@ -237,12 +235,11 @@ class ProfileAboutMeFormType extends AbstractType implements TranslationContaine
      */
     public static function getTranslationMessages()
     {
-        $messages[] = new Message("cocorico.en", 'cocorico_user');
-        $messages[] = new Message("cocorico.fr", 'cocorico_user');
-        $messages[] = new Message("user_translations_en_description_placeholder", 'cocorico_user');
-        $messages[] = new Message("user_translations_fr_description_placeholder", 'cocorico_user');
+        $messages[] = new Message('cocorico.en', 'cocorico_user');
+        $messages[] = new Message('cocorico.fr', 'cocorico_user');
+        $messages[] = new Message('user_translations_en_description_placeholder', 'cocorico_user');
+        $messages[] = new Message('user_translations_fr_description_placeholder', 'cocorico_user');
 
         return $messages;
     }
-
 }

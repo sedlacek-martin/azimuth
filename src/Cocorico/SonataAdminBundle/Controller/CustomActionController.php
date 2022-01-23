@@ -41,7 +41,6 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
  * @Route("/action/")
  */
@@ -114,7 +113,6 @@ class CustomActionController extends Controller
         }
 
         return new JsonResponse(['hide_sidebar' => $session->get('opened-super-admin-menu', false)]);
-
     }
 
     /**
@@ -124,14 +122,14 @@ class CustomActionController extends Controller
     public function editMOInfoAction(MemberOrganization $memberOrganization, Request $request): ?Response
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN') && !$this->isGranted('ROLE_FACILITATOR')) {
-            throw $this->createAccessDeniedException("You are not allowed to MO content");
+            throw $this->createAccessDeniedException('You are not allowed to MO content');
         }
 
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
             /** @var User $user */
             $user = $this->getUser();
             if ($user->getMemberOrganization()->getId() !== $memberOrganization->getId()) {
-                throw $this->createAccessDeniedException("You are not allowed to edit this MO");
+                throw $this->createAccessDeniedException('You are not allowed to edit this MO');
             }
         }
 
@@ -146,8 +144,6 @@ class CustomActionController extends Controller
         ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             if ($countryInfo === null) {
                 $countryInfo = new CountryInformation();
                 $countryInfo->setCountry($memberOrganization->getCountry());
@@ -157,7 +153,6 @@ class CustomActionController extends Controller
             $em->persist($memberOrganization);
             $em->persist($countryInfo);
             $em->flush();
-
         }
 
         return $this->render('CocoricoSonataAdminBundle::CustomActions/edit_mo.html.twig', [
@@ -174,7 +169,7 @@ class CustomActionController extends Controller
     public function activatorSettingsAction(Request $request)
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN') && !$this->isGranted('ROLE_ACTIVATOR')) {
-            throw $this->createAccessDeniedException("You are not allowed to edit activator settings");
+            throw $this->createAccessDeniedException('You are not allowed to edit activator settings');
         }
 
         /** @var User $user */
@@ -187,7 +182,6 @@ class CustomActionController extends Controller
         ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($memberOrganization);
             $em->flush();
 
@@ -197,7 +191,6 @@ class CustomActionController extends Controller
             );
 
             return $this->redirectToRoute('cocorico_admin__activator_settings');
-
         }
 
         return $this->render('CocoricoSonataAdminBundle::CustomActions/activator_settings.html.twig', [
@@ -214,7 +207,7 @@ class CustomActionController extends Controller
     public function facilitatorSettingsAction(Request $request)
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN') && !$this->isGranted('ROLE_FACILITATOR')) {
-            throw $this->createAccessDeniedException("You are not allowed to edit facilitator settings");
+            throw $this->createAccessDeniedException('You are not allowed to edit facilitator settings');
         }
 
         /** @var User $user */
@@ -227,7 +220,6 @@ class CustomActionController extends Controller
         ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($memberOrganization);
             $em->flush();
 
@@ -237,7 +229,6 @@ class CustomActionController extends Controller
             );
 
             return $this->redirectToRoute('cocorico_admin__facilitator_settings');
-
         }
 
         return $this->render('CocoricoSonataAdminBundle::CustomActions/facilitator_settings.html.twig', [
@@ -264,7 +255,6 @@ class CustomActionController extends Controller
         ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($user);
             $em->flush();
 
@@ -274,7 +264,6 @@ class CustomActionController extends Controller
             );
 
             return $this->redirectToRoute('cocorico_admin__preferences');
-
         }
 
         return $this->render('CocoricoSonataAdminBundle::CustomActions/preferences.html.twig', [
@@ -282,7 +271,6 @@ class CustomActionController extends Controller
                 'form' => $form->createView(),
             ]
         );
-
     }
 
     /**
@@ -296,7 +284,7 @@ class CustomActionController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        if ($listing->getStatus() === Listing::STATUS_TO_VALIDATE ) {
+        if ($listing->getStatus() === Listing::STATUS_TO_VALIDATE) {
             try {
                 $listing->setStatus(Listing::STATUS_PUBLISHED);
                 $em->persist($listing);
@@ -304,7 +292,7 @@ class CustomActionController extends Controller
                     'sonata_flash_success',
                     $this->get('translator')->trans(
                         'flash_action_listing_validate_success',
-                        array(),
+                        [],
                         'SonataAdminBundle')
                 );
             } catch (\Exception $e) {
@@ -312,7 +300,7 @@ class CustomActionController extends Controller
                     'sonata_flash_error',
                     $this->get('translator')->trans(
                         'flash_action_listing_validate_error',
-                        array(),
+                        [],
                         'SonataAdminBundle')
                 );
             }
@@ -335,7 +323,7 @@ class CustomActionController extends Controller
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN')
             && !$this->isGranted('ROLE_FACILITATOR')) {
-            throw $this->createAccessDeniedException("You are not allowed to display this message thread");
+            throw $this->createAccessDeniedException('You are not allowed to display this message thread');
         }
 
         /** @var User $currentUser */
@@ -348,12 +336,13 @@ class CustomActionController extends Controller
         foreach ($threadMeta as $meta) {
             if ($meta->getParticipant()->getMemberOrganization()->getId() === $currentMoId) {
                 $haveUserFromMO = true;
+
                 break;
             }
         }
 
         if (!$haveUserFromMO && !$isSuperAdmin) {
-            throw $this->createAccessDeniedException("You are not allowed to display this message thread");
+            throw $this->createAccessDeniedException('You are not allowed to display this message thread');
         }
 
         return $this->render('CocoricoSonataAdminBundle::CustomActions/message_validation_detail.html.twig', [
@@ -365,7 +354,6 @@ class CustomActionController extends Controller
     }
 
     /**
-     *
      * @Route("message/validation/validate/{id}", name="cocorico_admin__message_validate")
      * @Method("GET")
      */
@@ -373,7 +361,7 @@ class CustomActionController extends Controller
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN')
             && !$this->isGranted('ROLE_FACILITATOR')) {
-            throw $this->createAccessDeniedException("You are not allowed to validate messages");
+            throw $this->createAccessDeniedException('You are not allowed to validate messages');
         }
 
         /** @var User $currentUser */
@@ -382,7 +370,7 @@ class CustomActionController extends Controller
         $isSuperAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         if (!$isSuperAdmin && $currentMoId !== $message->getSender()->getMemberOrganization()->getId()) {
-            throw $this->createAccessDeniedException("You are not allowed to validate this message");
+            throw $this->createAccessDeniedException('You are not allowed to validate this message');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -419,7 +407,7 @@ class CustomActionController extends Controller
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN')
             && !$this->isGranted('ROLE_FACILITATOR')) {
-            throw $this->createAccessDeniedException("You are not allowed to add admin notes to messages");
+            throw $this->createAccessDeniedException('You are not allowed to add admin notes to messages');
         }
 
         /** @var User $currentUser */
@@ -428,7 +416,7 @@ class CustomActionController extends Controller
         $isSuperAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         if (!$isSuperAdmin && $currentMoId !== $message->getSender()->getMemberOrganization()->getId()) {
-            throw $this->createAccessDeniedException("You are not allowed to validate this message");
+            throw $this->createAccessDeniedException('You are not allowed to validate this message');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -466,7 +454,7 @@ class CustomActionController extends Controller
     public function superAdminToolsAction(Request $request)
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
-            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+            throw $this->createAccessDeniedException('You are not allowed to visit this page');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -490,7 +478,7 @@ class CustomActionController extends Controller
             }, $users);
 
             $emails = implode(',', $users);
-            $mailToLink = "mailto:?bcc=" . $emails;
+            $mailToLink = 'mailto:?bcc=' . $emails;
             $userCount = count($users);
         }
 
@@ -535,7 +523,7 @@ class CustomActionController extends Controller
     public function cacheClearAction(Request $request)
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
-            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+            throw $this->createAccessDeniedException('You are not allowed to visit this page');
         }
 
         $php = $this->getParameter('cocorico_config_php_cli_path');
@@ -544,6 +532,7 @@ class CustomActionController extends Controller
         $command = $php . ' ../bin/console cache:clear --env=prod';
 
         $process = new Process($command);
+
         try {
             $process->mustRun();
             $content = $process->getOutput();
@@ -580,6 +569,7 @@ class CustomActionController extends Controller
                 'sonata_flash_error',
                 $this->get('translator')->trans('invitation.resend.is_not_expired.error', [], 'SonataAdminBundle')
             );
+
             return $this->redirectToRoute('invitations_list');
         }
 
@@ -588,6 +578,7 @@ class CustomActionController extends Controller
                 'sonata_flash_error',
                 $this->get('translator')->trans('invitation.resend.already_used.error', [], 'SonataAdminBundle')
             );
+
             return $this->redirectToRoute('invitations_list');
         }
 
@@ -651,7 +642,7 @@ class CustomActionController extends Controller
     public function contactResolveAction(Contact $contact, Request $request): RedirectResponse
     {
         if (!$this->isGranted(BaseVoter::EDIT, $contact)) {
-            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+            throw $this->createAccessDeniedException('You are not allowed to visit this page');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -660,7 +651,6 @@ class CustomActionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($contact->getStatus() === BaseContact::STATUS_READ) {
                 $this->addFlash(
                     'sonata_flash_error',

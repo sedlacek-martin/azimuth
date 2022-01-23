@@ -27,24 +27,16 @@ use Geocoder\Query\ReverseQuery;
  */
 final class StatefulGeocoder implements Geocoder
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $locale;
 
-    /**
-     * @var Bounds
-     */
+    /** @var Bounds */
     protected $bounds;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $limit;
 
-    /**
-     * @var ProviderInterface
-     */
+    /** @var ProviderInterface */
     protected $provider;
 
     /**
@@ -106,7 +98,6 @@ final class StatefulGeocoder implements Geocoder
 
         return $this->provider->reverseQueryAsJson($query);
     }
-
 
     /**
      * {@inheritdoc}

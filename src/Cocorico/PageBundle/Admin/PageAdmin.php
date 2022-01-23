@@ -24,49 +24,53 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class PageAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'page';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'DESC',
-        '_sort_by' => 'createdAt'
-    );
+        '_sort_by' => 'createdAt',
+    ];
 
     public function setLocales($locales)
     {
         $this->locales = $locales;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         //Translations fields
-        $titles = $descriptions = $metaTitles = $metaDescriptions = array();
+        $titles = $descriptions = $metaTitles = $metaDescriptions = [];
         foreach ($this->locales as $i => $locale) {
-            $titles[$locale] = array(
+            $titles[$locale] = [
                 'label' => 'Title',
-                'constraints' => array(new NotBlank())
-            );
-            $descriptions[$locale] = array(
+                'constraints' => [new NotBlank()],
+            ];
+            $descriptions[$locale] = [
                 'label' => 'Content',
-                'constraints' => array(new NotBlank()),
+                'constraints' => [new NotBlank()],
                  'config' => [
                 'filebrowserBrowseRoute' => 'elfinder',
                 'filebrowserBrowseRouteParameters' => [
                     'instance' => 'ckeditor',
-                    'homeFolder' => ElFinderHelper::getOrCreateFolder(ElFinderHelper::GLOBAL_DIR, $this->getKernelRoot())
-                ]
-            ]
-            );
-            $metaTitles[$locale] = array(
+                    'homeFolder' => ElFinderHelper::getOrCreateFolder(ElFinderHelper::GLOBAL_DIR, $this->getKernelRoot()),
+                ],
+            ],
+            ];
+            $metaTitles[$locale] = [
                 'label' => 'Meta Title',
-                'constraints' => array(new NotBlank())
-            );
-            $metaDescriptions[$locale] = array(
+                'constraints' => [new NotBlank()],
+            ];
+            $metaDescriptions[$locale] = [
                 'label' => 'Meta Description',
-                'constraints' => array(new NotBlank())
-            );
+                'constraints' => [new NotBlank()],
+            ];
         }
 
         $formMapper
@@ -74,88 +78,90 @@ class PageAdmin extends BaseAdmin
             ->add(
                 'translations',
                 TranslationsType::class,
-                array(
+                [
                     'locales' => $this->locales,
                     'required_locales' => $this->locales,
-                    'fields' => array(
-                        'title' => array(
+                    'fields' => [
+                        'title' => [
                             'field_type' => 'text',
                             'locale_options' => $titles,
                             'required' => true,
-                        ),
-                        'description' => array(
+                        ],
+                        'description' => [
                             'field_type' => CKEditorType::class,
                             'locale_options' => $descriptions,
                             'required' => true,
-                        ),
-                        'metaTitle' => array(
+                        ],
+                        'metaTitle' => [
                             'field_type' => 'text',
                             'locale_options' => $metaTitles,
                             'required' => true,
-                        ),
-                        'metaDescription' => array(
+                        ],
+                        'metaDescription' => [
                             'field_type' => 'textarea',
                             'locale_options' => $metaDescriptions,
                             'required' => true,
-                        ),
-                        'slug' => array(
+                        ],
+                        'slug' => [
                             'field_type' => 'text',
                             'disabled' => true,
-                        )
-                    ),
+                        ],
+                    ],
 //                    /** @Ignore */
-                    'label' => 'Descriptions'
-                )
+                    'label' => 'Descriptions',
+                ]
             )
             ->add(
                 'published',
                 null,
-                array(
-                    'label' => 'admin.page.published.label'
-                )
+                [
+                    'label' => 'admin.page.published.label',
+                ]
             )
             ->add(
                 'createdAt',
                 null,
-                array(
+                [
                     'disabled' => true,
-                    'label' => 'admin.page.created_at.label'
-                )
+                    'label' => 'admin.page.created_at.label',
+                ]
             )
             ->add(
                 'updatedAt',
                 null,
-                array(
+                [
                     'disabled' => true,
-                    'label' => 'admin.page.updated_at.label'
-                )
+                    'label' => 'admin.page.updated_at.label',
+                ]
             )
             ->end();
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add(
                 'translations.title',
                 null,
-                array('label' => 'admin.page.title.label')
+                ['label' => 'admin.page.title.label']
             )
             ->add(
                 'translations.description',
                 null,
-                array('label' => 'admin.page.description.label')
+                ['label' => 'admin.page.description.label']
             )
             ->add(
                 'published',
                 null,
-                array('label' => 'admin.page.published.label')
+                ['label' => 'admin.page.published.label']
             )
             ->add(
                 'createdAt',
                 'doctrine_orm_callback',
-                array(
+                [
                     'label' => 'admin.page.created_at.label',
                     'callback' => function ($queryBuilder, $alias, $field, $value) {
                         /** @var \DateTime $date */
@@ -171,13 +177,15 @@ class PageAdmin extends BaseAdmin
                         return true;
                     },
                     'field_type' => 'sonata_type_date_picker',
-                    'field_options' => array('format' => 'dd/MM/yyyy'),
-                ),
+                    'field_options' => ['format' => 'dd/MM/yyyy'],
+                ],
                 null
             );
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -185,57 +193,57 @@ class PageAdmin extends BaseAdmin
             ->add(
                 'title',
                 null,
-                array('label' => 'admin.page.title.label')
+                ['label' => 'admin.page.title.label']
             )
             ->add(
                 'description',
                 'html',
-                array(
+                [
                     'label' => 'admin.page.description.label',
-                    'truncate' => array(
+                    'truncate' => [
                         'length' => 100,
-                        'preserve' => true
-                    )
-                )
+                        'preserve' => true,
+                    ],
+                ]
             )
             ->add(
                 'published',
                 null,
-                array(
+                [
                     'editable' => true,
-                    'label' => 'admin.page.published.label'
-                )
+                    'label' => 'admin.page.published.label',
+                ]
             )
             ->add(
                 'createdAt',
                 'date',
-                array(
+                [
                     'label' => 'admin.page.created_at.label',
-                )
+                ]
             );
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
 //                    'create' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            )
+                    'edit' => [],
+                    'delete' => [],
+                ],
+            ]
         );
     }
 
     public function getExportFields()
     {
-        return array(
+        return [
             'Id' => 'id',
             'Title' => 'title',
             'Description' => 'description',
             'Published' => 'published',
-            'Created At' => 'createdAt'
-        );
+            'Created At' => 'createdAt',
+        ];
     }
 
     public function getDataSourceIterator()
@@ -252,7 +260,7 @@ class PageAdmin extends BaseAdmin
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
-        unset($actions["delete"]);
+        unset($actions['delete']);
 
         return $actions;
     }
@@ -262,6 +270,4 @@ class PageAdmin extends BaseAdmin
 //        $collection->remove('create');
 //        $collection->remove('delete');
     }
-
-
 }

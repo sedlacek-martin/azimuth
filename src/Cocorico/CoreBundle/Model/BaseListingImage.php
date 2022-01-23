@@ -21,9 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class BaseListingImage
 {
-
-    const IMAGE_DEFAULT = "default-listing.png";
-    const IMAGE_FOLDER = "/uploads/listings/images/";
+    const IMAGE_DEFAULT = 'default-listing.png';
+    const IMAGE_FOLDER = '/uploads/listings/images/';
 
     /**
      * @Assert\NotBlank(message="assert.not_blank")
@@ -93,5 +92,4 @@ abstract class BaseListingImage
     {
         return null === $this->name ? null : self::IMAGE_FOLDER . $this->name;
     }
-
 }

@@ -28,7 +28,5 @@ class AnnouncementToUserRepository extends EntityRepository
     {
         $resultCache = $this->getEntityManager()->getConfiguration()->getResultCacheImpl();
         $resultCache->delete('announcements' . $userId);
-
     }
-
 }

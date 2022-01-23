@@ -4,12 +4,10 @@ namespace Cocorico\CoreBundle\Controller\Frontend;
 
 use Cocorico\CoreBundle\Entity\MemberOrganization;
 use Cocorico\CoreBundle\Repository\MemberOrganizationRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * MO controller.
@@ -18,7 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class MemberOrganizationController extends Controller
 {
-
     /**
      * @Route("/get-all/{country}", name="cocorico_member_organization__get_all_country")
      * @Method({"GET", "POST"})
@@ -45,5 +42,4 @@ class MemberOrganizationController extends Controller
 
         return $this->json($data);
     }
-
 }

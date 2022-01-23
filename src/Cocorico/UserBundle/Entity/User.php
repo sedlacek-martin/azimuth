@@ -28,7 +28,6 @@ use InvalidArgumentException;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * User.
@@ -58,13 +57,12 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class User extends BaseUser implements ParticipantInterface
 {
-
     const ADMIN_ROLES = [
         'ROLE_ADMIN',
         'ROLE_FACILITATOR',
         'ROLE_ACTIVATOR',
         'ROLE_SUPER_ADMIN',
-        'ROLE_DEVELOPER'
+        'ROLE_DEVELOPER',
     ];
 
     const MALE = 'male';
@@ -80,7 +78,6 @@ class User extends BaseUser implements ParticipantInterface
      * @Assert\Valid
      */
     protected $translations;
-
 
     /**
      * @ORM\Id
@@ -176,12 +173,10 @@ class User extends BaseUser implements ParticipantInterface
      */
     protected $country;
 
-
     /**
      * @var string|null
      *
      * @ORM\Column(name="location", type="string", length=100, nullable=true)
-     *
      */
     protected $location;
 
@@ -239,9 +234,7 @@ class User extends BaseUser implements ParticipantInterface
      */
     protected $timeZone = 'UTC';
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\MessageBundle\Entity\Message", mappedBy="sender", cascade={"remove"}, orphanRemoval=true)
-     */
+    /** @ORM\OneToMany(targetEntity="Cocorico\MessageBundle\Entity\Message", mappedBy="sender", cascade={"remove"}, orphanRemoval=true) */
     private $messages;
 
     /**
@@ -384,7 +377,7 @@ class User extends BaseUser implements ParticipantInterface
         $this->announcements = new ArrayCollection();
 
         // set expiry date to one year from now - you can change it later if needed
-        $this->expiryDate = (new DateTime())->add(new DateInterval("P1Y"));
+        $this->expiryDate = (new DateTime())->add(new DateInterval('P1Y'));
         $this->uniqueHash = str_replace('.', 'd', uniqid('', true));
         parent::__construct();
     }
@@ -393,7 +386,6 @@ class User extends BaseUser implements ParticipantInterface
     {
         return ['firstName', 'id'];
     }
-
 
     /**
      * Translation proxy.
@@ -549,7 +541,6 @@ class User extends BaseUser implements ParticipantInterface
         $now = new DateTime('now');
 
         return $now->diff($this->getBirthday())->y;
-
     }
 
     /**
@@ -618,7 +609,7 @@ class User extends BaseUser implements ParticipantInterface
 
     public function getFullName()
     {
-        return implode(' ', array_filter(array($this->getFirstName(), $this->getLastName())));
+        return implode(' ', array_filter([$this->getFirstName(), $this->getLastName()]));
     }
 
     /**
@@ -733,6 +724,7 @@ class User extends BaseUser implements ParticipantInterface
         foreach ($this->languages as $language) {
             return true;
         }
+
         return false;
     }
 
@@ -764,7 +756,6 @@ class User extends BaseUser implements ParticipantInterface
         return $this->timeZone;
     }
 
-
     /**
      * @param string $timeZone
      */
@@ -780,12 +771,12 @@ class User extends BaseUser implements ParticipantInterface
      */
     public function getCompletionInformation($minImages, $minDescriptionLength): array
     {
-        return array(
+        return [
             'description' => ($this->getDescription() && strlen($this->getDescription()) > $minDescriptionLength) ? 1 : 0,
             'image' => (count($this->getImages()) >= $minImages) ? 1 : 0,
             'location' => $this->getLocation() !== null ? 1 : 0,
             'languages' => $this->hasLanguage() ? 1 : 0,
-        );
+        ];
     }
 
     /**
@@ -800,6 +791,7 @@ class User extends BaseUser implements ParticipantInterface
                 return false;
             }
         }
+
         return true;
     }
 
@@ -876,6 +868,7 @@ class User extends BaseUser implements ParticipantInterface
     public function setTrustedEmailSent(bool $trustedEmailSent): User
     {
         $this->trustedEmailSent = $trustedEmailSent;
+
         return $this;
     }
 
@@ -886,26 +879,25 @@ class User extends BaseUser implements ParticipantInterface
     {
         if (($email = filter_var($this->getEmail(), FILTER_VALIDATE_EMAIL)) !== false) {
             return substr($email, strrpos($email, '@') + 1);
-        } else {
-            throw new InvalidArgumentException("Invalid email format");
         }
 
+        throw new InvalidArgumentException('Invalid email format');
     }
 
     public static function flattenRoles($rolesHierarchy): array
     {
-        $flatRoles = array();
-        foreach($rolesHierarchy as $key => $roles) {
-            if(!isset($flatRoles[$key])) {
+        $flatRoles = [];
+        foreach ($rolesHierarchy as $key => $roles) {
+            if (!isset($flatRoles[$key])) {
                 $flatRoles[$key] = $key;
             }
 
-            if(empty($roles)) {
+            if (empty($roles)) {
                 continue;
             }
 
-            foreach($roles as $role) {
-                if(!isset($flatRoles[$role])) {
+            foreach ($roles as $role) {
+                if (!isset($flatRoles[$role])) {
                     $flatRoles[$role] = $role;
                 }
             }
@@ -1038,6 +1030,7 @@ class User extends BaseUser implements ParticipantInterface
     public function setExpiredSend(bool $expiredSend): User
     {
         $this->expiredSend = $expiredSend;
+
         return $this;
     }
 
@@ -1057,7 +1050,6 @@ class User extends BaseUser implements ParticipantInterface
     public function isToBeDeleted(int $days = 30): bool
     {
         return $this->getExpiryDate()->add(new DateInterval("P{$days}D")) < (new DateTime('now'));
-
     }
 
     /**
@@ -1107,6 +1099,7 @@ class User extends BaseUser implements ParticipantInterface
     public function setReconfirmRequestedAt(?DateTime $reconfirmRequestedAt): User
     {
         $this->reconfirmRequestedAt = $reconfirmRequestedAt;
+
         return $this;
     }
 
@@ -1141,6 +1134,7 @@ class User extends BaseUser implements ParticipantInterface
     public function setDisableAdminNotifications(bool $disableAdminNotifications): User
     {
         $this->disableAdminNotifications = $disableAdminNotifications;
+
         return $this;
     }
 

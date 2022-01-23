@@ -18,7 +18,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -30,23 +29,22 @@ class ImageType extends AbstractType
                 $builder->create(
                     'new',
                     'file',
-                    array(
+                    [
                         'mapped' => false,
                         //'property_path' => 'images',
                         'required' => false,
                         'multiple' => true,
-                    )
+                    ]
                 )
             )
             ->add(
                 'uploaded',
                 HiddenType::class,
-                array(
+                [
                     'mapped' => false,
                     'required' => false,
-                )
+                ]
             );
-
     }
 
     /**
@@ -55,11 +53,11 @@ class ImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'mapped' => false,
-                /** @Ignore */
-                'label' => false
-            )
+                /* @Ignore */
+                'label' => false,
+            ]
         );
     }
 

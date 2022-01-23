@@ -18,6 +18,7 @@ use Symfony\Component\EventDispatcher\Event;
 class ListingSearchEvent extends Event
 {
     protected $listingSearchRequest;
+
     protected $queryBuilder;
 
     /**
@@ -46,7 +47,6 @@ class ListingSearchEvent extends Event
         $this->listingSearchRequest = $listingSearchRequest;
     }
 
-
     /**
      * @return QueryBuilder
      */
@@ -62,6 +62,4 @@ class ListingSearchEvent extends Event
     {
         $this->queryBuilder = $queryBuilder;
     }
-
-
 }

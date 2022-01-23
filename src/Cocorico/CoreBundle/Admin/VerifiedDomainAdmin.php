@@ -14,15 +14,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class VerifiedDomainAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'verified-domain';
+
     protected $baseRouteName = 'verified-domain';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'DESC',
-        '_sort_by' => 'íd'
-    );
+        '_sort_by' => 'íd',
+    ];
 
     public function setLocales($locales)
     {
@@ -34,18 +37,18 @@ class VerifiedDomainAdmin extends BaseAdmin
         $listMapper
 
             ->addIdentifier('id', null, [])
-            ->add('domain', null, array())
+            ->add('domain', null, [])
             ->add('memberOrganization', null, []);
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
-                    'delete' => array(),
-                    'edit' => array(),
-                )
-            )
+            [
+                'actions' => [
+                    'delete' => [],
+                    'edit' => [],
+                ],
+            ]
         );
     }
 
@@ -75,9 +78,8 @@ class VerifiedDomainAdmin extends BaseAdmin
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
         $filter
-            ->add('memberOrganization', null,  []);
+            ->add('memberOrganization', null, []);
     }
-
 
     public function prePersist($object)
     {
@@ -89,7 +91,6 @@ class VerifiedDomainAdmin extends BaseAdmin
             $object->setMemberOrganization($this->getUser()->getMemberOrganization());
         }
     }
-
 
     public function createQuery($context = 'list')
     {
@@ -104,6 +105,4 @@ class VerifiedDomainAdmin extends BaseAdmin
 
         return $query;
     }
-
-
 }

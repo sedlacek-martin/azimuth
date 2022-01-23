@@ -17,7 +17,6 @@ use Cocorico\CoreBundle\Entity\ListingLocation;
 use Cocorico\CoreBundle\Event\ListingFormBuilderEvent;
 use Cocorico\CoreBundle\Event\ListingFormEvents;
 use Cocorico\CoreBundle\Form\Type\ImageType;
-use Cocorico\CoreBundle\Form\Type\PriceType;
 use Cocorico\TimeBundle\Form\Type\DateRangeType;
 use Cocorico\UserBundle\Entity\User;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -26,13 +25,12 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Valid;
 
 /**
@@ -42,11 +40,15 @@ use Symfony\Component\Validator\Constraints\Valid;
 class ListingNewType extends AbstractType implements TranslationContainerInterface
 {
     public static $tacError = 'listing.form.tac.error';
+
     public static $credentialError = 'user.form.credential.error';
 
     private $request;
+
     protected $dispatcher;
+
     private $locale;
+
     private $locales;
 
     /**
@@ -75,78 +77,78 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
         $listing = $builder->getData();
 
         //Translations fields
-        $titles = $descriptions = array();
+        $titles = $descriptions = [];
         foreach ($this->locales as $i => $locale) {
-            $titles[$locale] = array(
+            $titles[$locale] = [
                 'label' => 'listing.form.title',
-                'constraints' => array(new NotBlank(),
+                'constraints' => [new NotBlank(),
                                        new Length(
-                                           array(
+                                           [
                                             'max' => 50,
                                             'min' => 3,
-                                                )
+                                                ]
                                             ),
-                                       ),
-                'attr' => array(
+                                       ],
+                'attr' => [
                     'placeholder' => 'auto',
-                ),
-            );
-            $descriptions[$locale] = array(
+                ],
+            ];
+            $descriptions[$locale] = [
                 'label' => 'listing.form.description',
-                'constraints' => array(new NotBlank()),
+                'constraints' => [new NotBlank()],
 //                'attr' => array(
 //                    'placeholder' => 'auto',
 //                ),
                 'config' => [
                     'toolbar' => 'basic',
                 ],
-            );
+            ];
         }
 
         $builder
             ->add(
                 'translations',
                 TranslationsType::class,
-                array(
-                    'required_locales' => array($this->locale),
-                    'fields' => array(
-                        'title' => array(
+                [
+                    'required_locales' => [$this->locale],
+                    'fields' => [
+                        'title' => [
                             'field_type' => 'text',
                             'locale_options' => $titles,
-                        ),
-                        'description' => array(
+                        ],
+                        'description' => [
                             'field_type' => CKEditorType::class,
                             'locale_options' => $descriptions,
-                        ),
-                        'rules' => array(
+                        ],
+                        'rules' => [
                             'display' => false,
-                        ),
-                        'slug' => array(
-                            'display' => false
-                        ),
-                    ),
-                    /** @Ignore */
+                        ],
+                        'slug' => [
+                            'display' => false,
+                        ],
+                    ],
+                    /* @Ignore */
                     'label' => false,
-                )
+                ]
             )
 
             ->add(
                 'dateRange',
                 DateRangeType::class,
-                array(
-                    'start_options' => array(
+                [
+                    'start_options' => [
                         'label' => 'listing.form.valid_from.label',
-                    ),
-                    'end_options' => array(
+                    ],
+                    'end_options' => [
                         'label' => 'listing.form.valid_to.label',
-                    ),
+                    ],
                     'allow_single_day' => true,
                     'end_day_included' => true,
                     'block_name' => 'date_range',
                     'required' => false,
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => 'listing.form.valid',
-                )
+                ]
             )
             ->add(
                 'image',
@@ -155,25 +157,25 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
             ->add(
                 'location',
                 ListingLocationType::class,
-                array(
+                [
                     'data_class' => 'Cocorico\CoreBundle\Entity\ListingLocation',
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => false,
                     'data' => $this->getDefaultListingLocation($listing->getUser()),
-                )
+                ]
             )
             ->add(
                 'tac',
                 CheckboxType::class,
-                array(
+                [
                     'label' => 'listing.form.tac',
                     'mapped' => false,
                     'constraints' => new IsTrue(
-                        array(
+                        [
                             'message' => self::$tacError,
-                        )
+                        ]
                     ),
-                )
+                ]
             );
 
         //Dispatch LISTING_NEW_FORM_BUILD Event. Listener listening this event can add fields and validation
@@ -196,7 +198,6 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
             $listing = $user->getListings()->first();
             $location = $listing->getLocation();
 
-
             $listingLocation->setCountry($location->getCountry());
             $listingLocation->setCity($location->getCity());
             $listingLocation->setZip($location->getZip());
@@ -215,13 +216,13 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\CoreBundle\Entity\Listing',
                 'csrf_token_id' => 'listing_new',
                 'translation_domain' => 'cocorico_listing',
                 'constraints' => new Valid(),
                 //'validation_groups' => array('Listing'),
-            )
+            ]
         );
     }
 
@@ -240,7 +241,7 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
      */
     public static function getTranslationMessages()
     {
-        $messages = array();
+        $messages = [];
         $messages[] = new Message(self::$tacError, 'cocorico');
         $messages[] = new Message(self::$credentialError, 'cocorico');
 

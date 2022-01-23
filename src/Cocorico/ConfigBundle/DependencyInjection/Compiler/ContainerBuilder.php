@@ -21,9 +21,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ContainerBuilder extends BaseContainerBuilder
 {
-    /**
-     * @var Connection $connection
-     */
+    /** @var Connection $connection */
     protected $connection;
 
     /**
@@ -67,14 +65,14 @@ class ContainerBuilder extends BaseContainerBuilder
     {
         $configs = $this->getExtensionConfig('doctrine');
 
-        $mergedConfig = array();
+        $mergedConfig = [];
         foreach ($configs as $config) {
             $mergedConfig = array_merge($mergedConfig, $config);
         }
         $mergedConfig = $this->getParameterBag()->resolveValue($mergedConfig);
         $params = $mergedConfig['dbal'];
 
-        $connectionFactory = new ConnectionFactory(array());
+        $connectionFactory = new ConnectionFactory([]);
         $this->connection = $connectionFactory->createConnection($params);
         $this->connection->connect();
     }
@@ -111,7 +109,6 @@ class ContainerBuilder extends BaseContainerBuilder
         return true;
     }
 
-
     /**
      * Returns the query used to get database parameters
      *
@@ -140,7 +137,7 @@ class ContainerBuilder extends BaseContainerBuilder
 
         //Get allowed parameters
         $configs = $this->getExtensionConfig('cocorico_config');
-        $mergedConfig = array();
+        $mergedConfig = [];
         foreach ($configs as $config) {
             $mergedConfig = array_merge($mergedConfig, $config);
         }
@@ -158,5 +155,4 @@ class ContainerBuilder extends BaseContainerBuilder
             }
         }
     }
-
 }

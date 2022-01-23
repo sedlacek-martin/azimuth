@@ -43,11 +43,11 @@ class ListingDuplicateController extends Controller
     public function duplicateAction(Request $request, Listing $listing)
     {
         //Duplicate listing
-        $duplicatedListing = $this->get("cocorico.listing.manager")->duplicate($listing);
+        $duplicatedListing = $this->get('cocorico.listing.manager')->duplicate($listing);
 
         if ($duplicatedListing->getId()) {
             //Duplicate availabilities
-            $this->get("cocorico.listing_availability.manager")->duplicate(
+            $this->get('cocorico.listing_availability.manager')->duplicate(
                 $listing->getId(),
                 $duplicatedListing->getId(),
                 $this->getParameter('cocorico.days_max_edition')
@@ -55,14 +55,14 @@ class ListingDuplicateController extends Controller
 
             $url = $this->generateUrl(
                 'cocorico_dashboard_listing_edit_presentation',
-                array(
-                    'id' => $duplicatedListing->getId()
-                )
+                [
+                    'id' => $duplicatedListing->getId(),
+                ]
             );
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('listing.duplicate.success', array(), 'cocorico_listing')
+                $this->get('translator')->trans('listing.duplicate.success', [], 'cocorico_listing')
 
             );
         } else {
@@ -70,7 +70,7 @@ class ListingDuplicateController extends Controller
 
             $this->get('session')->getFlashBag()->add(
                 'error',
-                $this->get('translator')->trans('listing.duplicate.error', array(), 'cocorico_listing')
+                $this->get('translator')->trans('listing.duplicate.error', [], 'cocorico_listing')
 
             );
         }

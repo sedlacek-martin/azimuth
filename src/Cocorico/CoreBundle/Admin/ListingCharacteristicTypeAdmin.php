@@ -20,24 +20,28 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class ListingCharacteristicTypeAdmin extends AbstractAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'listing-characteristic-type';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'ASC',
-        '_sort_by' => 'position'
-    );
+        '_sort_by' => 'position',
+    ];
 
     public function setLocales($locales)
     {
         $this->locales = $locales;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        /** @var ListingCharacteristicType $subject */
+        /* @var ListingCharacteristicType $subject */
 //        $subject = $this->getSubject();
 
         $formMapper
@@ -45,28 +49,29 @@ class ListingCharacteristicTypeAdmin extends AbstractAdmin
             ->add(
                 'name',
                 null,
-                array(
-                    'label' => 'admin.listing_characteristic.name.label'
-                )
+                [
+                    'label' => 'admin.listing_characteristic.name.label',
+                ]
             )
             ->add(
                 'listingCharacteristicValues',
                 'sonata_type_collection',
-                array(
+                [
                     'by_reference' => false,
-                    'label' => 'admin.listing_characteristic_type.values.label'
-                ),
-                array(
+                    'label' => 'admin.listing_characteristic_type.values.label',
+                ],
+                [
                     'edit' => 'inline',
                     'inline' => 'table',
                     'sortable' => 'id',
-                )
+                ]
             )
             ->end();
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -74,30 +79,29 @@ class ListingCharacteristicTypeAdmin extends AbstractAdmin
             ->add(
                 'name',
                 null,
-                array(
+                [
                     'label' => 'admin.listing_characteristic.name.label',
-                )
+                ]
             );
-
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
                     //'show' => array(),
-                    'edit' => array(),
-                )
-            )
+                    'edit' => [],
+                ],
+            ]
         );
     }
 
     public function getExportFields()
     {
-        return array(
+        return [
             'Id' => 'id',
             'Name' => 'name',
-        );
+        ];
     }
 
     public function getDataSourceIterator()
@@ -114,7 +118,7 @@ class ListingCharacteristicTypeAdmin extends AbstractAdmin
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
-        unset($actions["delete"]);
+        unset($actions['delete']);
 
         return $actions;
     }

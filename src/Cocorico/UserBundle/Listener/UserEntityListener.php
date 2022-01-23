@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Cocorico\UserBundle\Listener;
 
 use Cocorico\UserBundle\Entity\User;
@@ -15,11 +14,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Doctrine ORM listener updating the canonical fields and the password.
- *
  */
 class UserEntityListener implements EventSubscriber
 {
-
     private $dispatcher;
 
     /**
@@ -34,10 +31,10 @@ class UserEntityListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::postPersist,
             Events::preUpdate,
-        );
+        ];
     }
 
     public function postPersist(LifecycleEventArgs $args)
@@ -98,7 +95,6 @@ class UserEntityListener implements EventSubscriber
                 $phoneHasChanged = true;
             }
         }
-
 
         return $phoneHasChanged;
     }

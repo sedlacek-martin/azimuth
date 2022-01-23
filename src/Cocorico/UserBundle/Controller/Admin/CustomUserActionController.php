@@ -2,7 +2,6 @@
 
 namespace Cocorico\UserBundle\Controller\Admin;
 
-use Cocorico\CoreBundle\Entity\MemberOrganization;
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -38,7 +37,7 @@ class CustomUserActionController extends Controller
                     'sonata_flash_success',
                     $this->get('translator')->trans(
                         'flash_action_trusted_success',
-                        array(),
+                        [],
                         'SonataAdminBundle')
                 );
             } catch (\Exception $e) {
@@ -46,13 +45,12 @@ class CustomUserActionController extends Controller
                     'sonata_flash_error',
                     $this->get('translator')->trans(
                         'flash_action_trusted_error',
-                        array(),
+                        [],
                         'SonataAdminBundle')
                 );
             }
-        } else if ($user->isExpired() && $user->isReconfirmRequested()) {
+        } elseif ($user->isExpired() && $user->isReconfirmRequested()) {
             try {
-
                 $extensionPeriod = $user->getMemberOrganization()->getUserExpiryPeriod();
                 $newExpiryDate = (new \DateTime())->add(new \DateInterval("P{$extensionPeriod}D"));
                 $user->setExpiryDate($newExpiryDate);
@@ -65,7 +63,7 @@ class CustomUserActionController extends Controller
                     'sonata_flash_success',
                     $this->get('translator')->trans(
                         'flash_action_user_reconfirm_success',
-                        array(),
+                        [],
                         'SonataAdminBundle')
                 );
             } catch (\Exception $e) {
@@ -73,7 +71,7 @@ class CustomUserActionController extends Controller
                     'sonata_flash_error',
                     $this->get('translator')->trans(
                         'flash_action_user_reconfirm_error',
-                        array(),
+                        [],
                         'SonataAdminBundle')
                 );
             }

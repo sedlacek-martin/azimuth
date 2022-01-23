@@ -6,7 +6,6 @@ use Symfony\Component\Intl\Intl;
 
 class CountryUtils
 {
-
     /**
      * @param string $iso
      * @return string
@@ -14,8 +13,7 @@ class CountryUtils
     public static function getCountryName(string $iso): string
     {
         $countries = Intl::getRegionBundle()->getCountryNames();
+
         return $countries[$iso] ?? '';
     }
-
-
 }

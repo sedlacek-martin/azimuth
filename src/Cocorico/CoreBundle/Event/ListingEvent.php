@@ -38,5 +38,4 @@ class ListingEvent extends Event
     {
         $this->queryBuilder = $queryBuilder;
     }
-
 }

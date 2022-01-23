@@ -18,10 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class WeekDaysType extends AbstractType
 {
-
     public function __construct()
     {
-
     }
 
     /**
@@ -30,7 +28,6 @@ class WeekDaysType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
     }
 
     /**
@@ -39,9 +36,9 @@ class WeekDaysType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'mapped' => false,
-                'choices' => array(
+                'choices' => [
                     'cocorico.monday' => '1',
                     'cocorico.tuesday' => '2',
                     'cocorico.wednesday' => '3',
@@ -49,14 +46,14 @@ class WeekDaysType extends AbstractType
                     'cocorico.friday' => '5',
                     'cocorico.saturday' => '6',
                     'cocorico.sunday' => '7',
-                ),
+                ],
                 'translation_domain' => 'cocorico',
                 'multiple' => true,
                 'expanded' => true,
-                /** @Ignore */
+                /* @Ignore */
                 'label' => false,
-                'data' => array('1', '2', '3', '4', '5', '6', '7'),
-            )
+                'data' => ['1', '2', '3', '4', '5', '6', '7'],
+            ]
         );
     }
 
@@ -67,7 +64,6 @@ class WeekDaysType extends AbstractType
     {
         return ChoiceType::class;
     }
-
 
     /**
      * {@inheritdoc}

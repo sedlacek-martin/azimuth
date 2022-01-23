@@ -20,7 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserImageType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -31,44 +30,44 @@ class UserImageType extends AbstractType
             ->add(
                 'name',
                 HiddenType::class,
-                array(
-                    /** @Ignore */
-                    'label' => false
-                )
+                [
+                    /* @Ignore */
+                    'label' => false,
+                ]
             )
             ->add(
                 'file',
                 FileType::class,
-                array(
+                [
                     'image_path' => 'webPath',
                     'imagine_filter' => 'user_small',
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => false,
                     'mapped' => false,
-                    'attr' => array(
-                        "class" => "dn"
-                    )
-                )
+                    'attr' => [
+                        'class' => 'dn',
+                    ],
+                ]
             )
             ->add(
                 'position',
                 HiddenType::class,
-                array(
-                    /** @Ignore */
+                [
+                    /* @Ignore */
                     'label' => false,
-                    'attr' => array(
-                        "class" => "sort-position"
-                    )
-                )
+                    'attr' => [
+                        'class' => 'sort-position',
+                    ],
+                ]
             )
             ->add(
                 'user',
                 EntityHiddenType::class,
-                array(
+                [
                     'class' => 'Cocorico\UserBundle\Entity\User',
-                    /** @Ignore */
-                    'label' => false
-                )
+                    /* @Ignore */
+                    'label' => false,
+                ]
             );
     }
 
@@ -78,14 +77,14 @@ class UserImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\UserBundle\Entity\UserImage',
                 'csrf_token_id' => 'user_image',
                 'translation_domain' => 'cocorico_user',
                 'cascade_validation' => true,
-                /** @Ignore */
-                'label' => false
-            )
+                /* @Ignore */
+                'label' => false,
+            ]
         );
     }
 
@@ -96,5 +95,4 @@ class UserImageType extends AbstractType
     {
         return 'user_image';
     }
-
 }

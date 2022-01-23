@@ -24,11 +24,12 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class DateRangeType extends AbstractType
 {
     protected $timeUnit;
+
     protected $timeUnitIsDay;
+
     protected $daysMax;
 
     /**
@@ -40,13 +41,12 @@ class DateRangeType extends AbstractType
         $this->timeUnit = $timeUnit;
         $this->timeUnitIsDay = $timeUnit % 1440 ? true : false;
         $this->daysMax = $daysMax;
-
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (isset($options["days_max"])) {
-            $this->daysMax = $options["days_max"];
+        if (isset($options['days_max'])) {
+            $this->daysMax = $options['days_max'];
         }
 
         $builder->addEventListener(
@@ -56,13 +56,13 @@ class DateRangeType extends AbstractType
 
                 //Days display mode: range or duration
                 $dateEndType = DateType::class;
-                if ($options['display_mode'] == "duration") {
+                if ($options['display_mode'] == 'duration') {
                     $dateEndType = DateHiddenType::class;
 
                     if ($this->daysMax > 1) {
-                        $endDayIncluded = isset($options["end_day_included"]) ? $options["end_day_included"] : true;
+                        $endDayIncluded = $options['end_day_included'] ?? true;
                         $nbDays = null;
-                        if (isset($options['start_options']['data']) && isset($options['end_options']['data'])) {
+                        if (isset($options['start_options']['data'], $options['end_options']['data'])) {
                             $dateRange = new DateRange(
                                 $options['start_options']['data'],
                                 $options['end_options']['data']
@@ -70,31 +70,31 @@ class DateRangeType extends AbstractType
                             $nbDays = $dateRange->getDuration($endDayIncluded);
                         }
 
-                        /** @var DateRange $dateRange */
+                        /* @var DateRange $dateRange */
                         $form
                             ->add(
                                 'nb_days',
                                 ChoiceType::class,
-                                array(
+                                [
                                     'choices' => array_combine(range(1, $this->daysMax), range(1, $this->daysMax)),
                                     'data' => $nbDays,
-                                    /** @Ignore */
+                                    /* @Ignore */
                                     'placeholder' => '',
-                                    'attr' => array(
-                                        'class' => 'no-arrow'
-                                    ),
+                                    'attr' => [
+                                        'class' => 'no-arrow',
+                                    ],
                                     'label' => 'date_range.nb_days',
                                     'translation_domain' => 'cocorico',
-                                )
+                                ]
                             );
                     } else {//$this->daysMax = 1
                         $form
                             ->add(
                                 'nb_days',
                                 HiddenType::class,
-                                array(
-                                    'data' => 1
-                                )
+                                [
+                                    'data' => 1,
+                                ]
                             );
                     }
                 }
@@ -104,31 +104,30 @@ class DateRangeType extends AbstractType
                         'start',
                         DateType::class,
                         array_merge(
-                            array(
+                            [
                                 'property_path' => 'start',
                                 'widget' => 'single_text',
                                 'format' => 'dd/MM/yyyy',
-                            ),
+                            ],
                             $options['start_options']
                         )
                     )->add(
                         'end',
                         $dateEndType,
                         array_merge(
-                            array(
+                            [
                                 'property_path' => 'end',
                                 'widget' => 'single_text',
                                 'format' => 'dd/MM/yyyy',
-                                'attr' => array(
-                                    'class' => 'to'
-                                )
-                            ),
+                                'attr' => [
+                                    'class' => 'to',
+                                ],
+                            ],
                             $options['end_options']
                         )
                     );
             }
         );
-
 
         $builder->addViewTransformer($options['transformer']);
         $builder->addEventSubscriber($options['validator']);
@@ -137,10 +136,10 @@ class DateRangeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\TimeBundle\Model\DateRange',
-                'end_options' => array(),
-                'start_options' => array(),
+                'end_options' => [],
+                'start_options' => [],
 //                'transformer' => null,
 //                'validator' => null,
                 'allow_single_day' => true,
@@ -149,7 +148,7 @@ class DateRangeType extends AbstractType
                 'min_start_time_delay' => 0,
                 'days_max' => $this->daysMax,
                 'allow_end_in_past' => false,
-            )
+            ]
         );
 
         // Those normalizers lazily create the required objects, if none given.
@@ -160,7 +159,7 @@ class DateRangeType extends AbstractType
                 function (Options $options, $value) {
                     if (!$value) {
                         $value = new DateRangeViewTransformer(
-                            new OptionsResolver(), array('end_day_included' => $options['end_day_included'])
+                            new OptionsResolver(), ['end_day_included' => $options['end_day_included']]
                         );
                     }
 
@@ -169,7 +168,7 @@ class DateRangeType extends AbstractType
             )
             ->setAllowedTypes(
                 'transformer',
-                array('Symfony\Component\Form\DataTransformerInterface', 'null')
+                ['Symfony\Component\Form\DataTransformerInterface', 'null']
             );
 
         // Those normalizers lazily create the required objects, if none given.
@@ -180,13 +179,13 @@ class DateRangeType extends AbstractType
                 function (Options $options, $value) {
                     if (!$value) {
                         $value = new DateRangeValidator(
-                            new OptionsResolver(), array(
-                                'required' => $options["required"],
-                                'allow_single_day' => $options["allow_single_day"],
-                                'min_start_time_delay' => $options["min_start_time_delay"],
-                                'days_max' => $options["days_max"],
-                                'allow_end_in_past' => $options["allow_end_in_past"]
-                            )
+                            new OptionsResolver(), [
+                                'required' => $options['required'],
+                                'allow_single_day' => $options['allow_single_day'],
+                                'min_start_time_delay' => $options['min_start_time_delay'],
+                                'days_max' => $options['days_max'],
+                                'allow_end_in_past' => $options['allow_end_in_past'],
+                            ]
                         );
                     }
 
@@ -195,9 +194,8 @@ class DateRangeType extends AbstractType
             )
             ->setAllowedTypes(
                 'validator',
-                array('Symfony\Component\EventDispatcher\EventSubscriberInterface', 'null')
+                ['Symfony\Component\EventDispatcher\EventSubscriberInterface', 'null']
             );
-
     }
 
     /**

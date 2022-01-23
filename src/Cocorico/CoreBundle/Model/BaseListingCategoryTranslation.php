@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\CoreBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass
- *
  */
 abstract class BaseListingCategoryTranslation
 {
@@ -31,7 +29,6 @@ abstract class BaseListingCategoryTranslation
 
     public function __construct()
     {
-
     }
 
     public function __toString()
@@ -76,5 +73,4 @@ abstract class BaseListingCategoryTranslation
     {
         return $this->name;
     }
-
 }

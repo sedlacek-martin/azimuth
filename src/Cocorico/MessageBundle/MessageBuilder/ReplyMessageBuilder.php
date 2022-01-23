@@ -15,12 +15,9 @@ use FOS\MessageBundle\MessageBuilder\AbstractMessageBuilder;
 
 /**
  * Fluent interface message builder for reply to a thread
- *
- *
  */
 class ReplyMessageBuilder extends AbstractMessageBuilder
 {
-
     /**
      * Sets $createdAt message.
      *
@@ -33,5 +30,4 @@ class ReplyMessageBuilder extends AbstractMessageBuilder
 
         return $this;
     }
-
 }

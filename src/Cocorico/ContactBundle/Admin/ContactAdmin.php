@@ -17,7 +17,6 @@ use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -26,15 +25,18 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class ContactAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'contact';
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'ASC',
-        '_sort_by' => 'status'
-    );
+        '_sort_by' => 'status',
+    ];
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -42,114 +44,116 @@ class ContactAdmin extends BaseAdmin
             ->add(
                 'firstName',
                 null,
-                array(
-                    'label' => 'admin.contact.first_name.label'
-                )
+                [
+                    'label' => 'admin.contact.first_name.label',
+                ]
             )
             ->add(
                 'lastName',
                 null,
-                array(
+                [
                     'label' => 'admin.contact.last_name.label',
-                )
+                ]
             )
             ->add(
                 'email',
                 'email',
-                array(
+                [
                     'label' => 'admin.contact.email.label',
-                )
+                ]
             )
             ->add(
                 'subject',
                 null,
-                array(
+                [
                     'label' => 'admin.contact.subject.label',
-                )
+                ]
             )
             ->add(
                 'message',
                 null,
-                array(
+                [
                     'label' => 'admin.contact.message.label',
-                )
+                ]
             )
             ->add(
                 'status',
                 ChoiceType::class,
-                array(
+                [
                     'choices' => array_flip(Contact::$statusValues),
                     'label' => 'admin.contact.status.label',
                     'translation_domain' => 'cocorico_contact',
-                )
+                ]
             )
             ->add(
                 'createdAt',
                 null,
-                array(
+                [
                     'disabled' => true,
                     'label' => 'admin.contact.created_at.label',
-                )
+                ]
             )
             ->end();
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add(
                 'status',
                 'doctrine_orm_string',
-                array(),
+                [],
                 ChoiceType::class,
-                array(
+                [
                     'choices' => array_flip(Contact::$statusValues),
                     'label' => 'admin.contact.status.label',
                     'translation_domain' => 'cocorico_contact',
-                )
+                ]
             )
             ->add(
                 'firstName',
                 null,
-                array('label' => 'admin.contact.first_name.label')
+                ['label' => 'admin.contact.first_name.label']
             )
             ->add(
                 'lastName',
                 null,
-                array('label' => 'admin.contact.last_name.label')
+                ['label' => 'admin.contact.last_name.label']
             )
             ->add(
                 'email',
                 null,
-                array('label' => 'admin.contact.email.label')
+                ['label' => 'admin.contact.email.label']
             )
             ->add(
                 'subject',
                 null,
-                array('label' => 'admin.contact.subject.label')
+                ['label' => 'admin.contact.subject.label']
             )
             ->add(
                 'recipientRoles',
                 'doctrine_orm_string',
-                array(),
+                [],
                 ChoiceType::class,
-                array(
+                [
                     'choices' => array_flip(BaseContact::RECIPIENT_ROLES),
                     'label' => 'admin.contact.status.label',
                     'translation_domain' => 'cocorico_contact',
-                )
+                ]
             )
             ->add(
                 'createdAt',
                 null,
-                array('label' => 'admin.contact.created_at.label')
+                ['label' => 'admin.contact.created_at.label']
             );
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -157,56 +161,56 @@ class ContactAdmin extends BaseAdmin
             ->add(
                 'statusText',
                 null,
-                array(
+                [
                     'label' => 'admin.contact.status.label',
                     'data_trans' => 'cocorico_contact',
                      'template' => 'CocoricoSonataAdminBundle::list_field_contact_status.html.twig',
-                )
+                ]
             )
             ->add(
                 'firstName',
                 null,
-                array('label' => 'admin.contact.first_name.label')
+                ['label' => 'admin.contact.first_name.label']
             )
             ->add(
                 'lastName',
                 null,
-                array('label' => 'admin.contact.last_name.label')
+                ['label' => 'admin.contact.last_name.label']
             )
             ->add(
                 'email',
                 null,
-                array('label' => 'admin.contact.email.label')
+                ['label' => 'admin.contact.email.label']
             )
             ->add(
                 'subject',
                 null,
-                array('label' => 'admin.contact.subject.label')
+                ['label' => 'admin.contact.subject.label']
             )
             ->add(
                 'createdAt',
                 null,
-                array(
+                [
                     'label' => 'admin.contact.created_at.label',
-                )
+                ]
             );
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
             $listMapper
                 ->add('recipientRoleNames', null, [
                     'label' => 'admin.contact.recipient_roles.label',
                     'template' => 'CocoricoSonataAdminBundle::list_field_array.html.twig',
-                    'data_trans' => 'SonataAdminBundle'
+                    'data_trans' => 'SonataAdminBundle',
                 ]);
         }
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
-                    'show' => array(),
-                )
-            )
+            [
+                'actions' => [
+                    'show' => [],
+                ],
+            ]
         );
     }
 
@@ -237,10 +241,10 @@ class ContactAdmin extends BaseAdmin
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
-        unset($actions["delete"]);
+        unset($actions['delete']);
+
         return $actions;
     }
-
 
     public function getDataSourceIterator()
     {
@@ -257,7 +261,6 @@ class ContactAdmin extends BaseAdmin
         $collection->remove('create');
         $collection->remove('delete');
         $collection->remove('edit');
-
     }
 
     public function createQuery($context = 'list')
@@ -277,10 +280,10 @@ class ContactAdmin extends BaseAdmin
                 ->setParameter(':moId', $this->getUser()->getMemberOrganization()->getId());
             $roleFilters = [];
             if ($this->authIsGranted('ROLE_ACTIVATOR') && $this->getUser() !== null) {
-                $roleFilters[] = $query->expr()->like($rootAlias .'.recipientRoles', $query->expr()->literal('%ROLE_ACTIVATOR%'));
+                $roleFilters[] = $query->expr()->like($rootAlias . '.recipientRoles', $query->expr()->literal('%ROLE_ACTIVATOR%'));
             }
             if ($this->authIsGranted('ROLE_FACILITATOR') && $this->getUser() !== null) {
-                $roleFilters[] = $query->expr()->like($rootAlias .'.recipientRoles', $query->expr()->literal('%ROLE_FACILITATOR%'));
+                $roleFilters[] = $query->expr()->like($rootAlias . '.recipientRoles', $query->expr()->literal('%ROLE_FACILITATOR%'));
             }
 
             if (!empty($roleFilters)) {

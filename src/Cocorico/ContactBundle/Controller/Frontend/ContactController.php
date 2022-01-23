@@ -18,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -51,7 +50,7 @@ class ContactController extends Controller
                 ->setLastName($user->getLastName());
         }
 
-        $form = $this->createCreateForm($contact,  [
+        $form = $this->createCreateForm($contact, [
             'public' => !$user instanceof User,
             'user' => $user,
         ]);
@@ -60,7 +59,7 @@ class ContactController extends Controller
         if ($submitted !== false) {
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('contact.new.success', array(), 'cocorico_contact')
+                $this->get('translator')->trans('contact.new.success', [], 'cocorico_contact')
             );
 
             return $this->redirect($this->generateUrl('cocorico_contact_new'));
@@ -68,9 +67,9 @@ class ContactController extends Controller
 
         return $this->render(
             'CocoricoContactBundle:Frontend:index.html.twig',
-            array(
-                'form' => $form->createView()
-            )
+            [
+                'form' => $form->createView(),
+            ]
         );
     }
 
@@ -89,7 +88,7 @@ class ContactController extends Controller
             $contact,
             array_merge([
                 'method' => 'POST',
-                'action' => $this->generateUrl('cocorico_contact_new')
+                'action' => $this->generateUrl('cocorico_contact_new'),
             ], $options)
         );
 

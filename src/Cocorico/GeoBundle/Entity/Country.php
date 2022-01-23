@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\GeoBundle\Entity;
 
 use Cocorico\GeoBundle\Model\GeocodableTrait;
@@ -26,7 +25,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="geo_country",indexes={
  *    @ORM\Index(name="code_idx", columns={"code"})
  *  })
- *
  */
 class Country
 {
@@ -49,24 +47,16 @@ class Country
      */
     protected $code;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Area", mappedBy="country", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Area", mappedBy="country", cascade={"persist", "remove"}) */
     private $areas;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Department", mappedBy="country", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Department", mappedBy="country", cascade={"persist", "remove"}) */
     private $departments;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\City", mappedBy="country", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\City", mappedBy="country", cascade={"persist", "remove"}) */
     private $cities;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Coordinate", mappedBy="country", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Coordinate", mappedBy="country", cascade={"persist", "remove"}) */
     private $coordinates;
 
     public function __construct()
@@ -271,7 +261,7 @@ class Country
      */
     public function getName()
     {
-        return (string)$this->translate()->getName();
+        return (string) $this->translate()->getName();
     }
 
     /**
@@ -279,6 +269,6 @@ class Country
      */
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string) $this->getName();
     }
 }

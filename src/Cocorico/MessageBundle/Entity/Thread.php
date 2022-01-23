@@ -23,7 +23,6 @@ use FOS\MessageBundle\Entity\Thread as BaseThread;
  */
 class Thread extends BaseThread
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -164,7 +163,7 @@ class Thread extends BaseThread
 
     public function __toString()
     {
-        return "" . $this->getId();
+        return '' . $this->getId();
     }
 
     /**
@@ -174,6 +173,4 @@ class Thread extends BaseThread
     {
         $this->messages->removeElement($message);
     }
-
-
 }

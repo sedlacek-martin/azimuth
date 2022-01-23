@@ -1,28 +1,21 @@
 <?php
 
-
 namespace Cocorico\UserBundle\Admin;
 
-
-use Cocorico\UserBundle\Entity\User;
-use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
-use Doctrine\ORM\QueryBuilder;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\CoreBundle\Form\Type\BooleanType;
-use Sonata\CoreBundle\Form\Type\EqualType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ActivationAdmin extends BaseUserAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'verification';
+
     protected $baseRouteName = 'verification';
+
     protected $locales;
 
     public function setLocales($locales)
@@ -33,7 +26,6 @@ class ActivationAdmin extends BaseUserAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
     }
-
 
     protected function configureListFields(ListMapper $listMapper): void
     {
@@ -61,7 +53,6 @@ class ActivationAdmin extends BaseUserAdmin
                 ->add('memberOrganization', null, []);
         }
 
-
         $actions = [
             'actions' => [
                 'list_user_trusted' => [
@@ -85,9 +76,7 @@ class ActivationAdmin extends BaseUserAdmin
             ->add('fullName')
             ->add('birthday')
             ->end();
-
     }
-
 
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
@@ -96,7 +85,7 @@ class ActivationAdmin extends BaseUserAdmin
                 'advanced_filter' => false,
             ])
             ->add('email', null, [
-                'advanced_filter' => false
+                'advanced_filter' => false,
             ]);
     }
 
@@ -107,11 +96,10 @@ class ActivationAdmin extends BaseUserAdmin
         $collection->remove('show');
     }
 
-
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
-        $query->andWhere($query->getRootAliases()[0] . '.trusted = 0 OR '. $query->getRootAliases()[0] . '.reconfirmRequested = 1');
+        $query->andWhere($query->getRootAliases()[0] . '.trusted = 0 OR ' . $query->getRootAliases()[0] . '.reconfirmRequested = 1');
         if (!$this->authIsGranted('ROLE_SUPER_ADMIN') && $this->getUser() !== null) {
             $query
                 ->join($query->getRootAliases()[0] . '.memberOrganization', 'mo')
