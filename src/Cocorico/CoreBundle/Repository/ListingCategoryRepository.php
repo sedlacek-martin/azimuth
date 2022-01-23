@@ -33,7 +33,8 @@ class ListingCategoryRepository extends NestedTreeRepository
             ->addSelect('t')
             ->leftJoin($this->rootAlias . ".translations", 't')
             ->andWhere('t.locale = :locale')
-            ->setParameter('locale', $locale);
+            ->setParameter('locale', $locale)
+            ->orderBy("{$this->rootAlias}.position", 'asc');
 
         return $qb;
     }

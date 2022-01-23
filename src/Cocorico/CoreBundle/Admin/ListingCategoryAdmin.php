@@ -89,6 +89,11 @@ class ListingCategoryAdmin extends AbstractAdmin
                 )
             )
             ->add(
+                'position',
+                null,
+                []
+            )
+            ->add(
                 'pin',
                 EntityType::class,
                 array (
@@ -163,6 +168,11 @@ class ListingCategoryAdmin extends AbstractAdmin
                 'pin',
                 null,
                 array('label' => 'admin.listing_category.pin.label')
+            )
+            ->add(
+                'position',
+            null,
+                []
             )
             ->add('offer', null, ['editable' => true])
             ->add('search', null, ['editable' => true]);

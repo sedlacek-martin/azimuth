@@ -94,9 +94,6 @@ class ListingNewType extends AbstractType implements TranslationContainerInterfa
             $descriptions[$locale] = array(
                 'label' => 'listing.form.description',
                 'constraints' => array(new NotBlank()),
-//                'attr' => array(
-//                    'placeholder' => 'auto',
-//                ),
                 'config' => [
                     'toolbar' => 'basic',
                 ],

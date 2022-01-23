@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ListingCategory
@@ -95,6 +96,15 @@ class ListingCategory extends BaseListingCategory
      * @var string|null $defaultImageName;
      */
     protected $defaultImageName;
+
+    /**
+     * @var int
+     *
+     * @Assert\NotBlank(message="assert.not_blank")
+     * @ORM\Column(name="position", type="smallint", nullable=false)
+     */
+    private $position;
+
 
     public function __construct()
     {
@@ -289,6 +299,24 @@ class ListingCategory extends BaseListingCategory
     public function setDefaultImageName(string $defaultImageName): ListingCategory
     {
         $this->defaultImageName = $defaultImageName;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     * @return ListingCategory
+     */
+    public function setPosition(int $position): ListingCategory
+    {
+        $this->position = $position;
         return $this;
     }
 
