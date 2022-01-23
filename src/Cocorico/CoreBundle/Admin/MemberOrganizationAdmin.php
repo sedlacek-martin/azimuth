@@ -63,6 +63,20 @@ class MemberOrganizationAdmin extends BaseAdmin
             $countryCode = $mo->getCountry();
         }
 
+        $ckConfig = [];
+
+        if ($countryCode !== null) {
+            $ckConfig = [
+                'config' => [
+                    'filebrowserBrowseRoute' => 'elfinder',
+                    'filebrowserBrowseRouteParameters' => [
+                        'instance' => 'ckeditor',
+                        'homeFolder' => ElFinderHelper::getOrCreateFolder($countryCode, $this->getKernelRoot())
+                    ]
+                ]
+            ];
+        }
+
 
         $formMapper
             ->add('name', TextType::class)
@@ -71,15 +85,7 @@ class MemberOrganizationAdmin extends BaseAdmin
                 'preferred_choices' => ["CZ", "FR", "ES", "DE", "RU"],
             ])
             ->add('abstract', TextType::class)
-            ->add('description', CKEditorType::class, [
-                'config' => [
-                    'filebrowserBrowseRoute' => 'elfinder',
-                    'filebrowserBrowseRouteParameters' => [
-                        'instance' => 'ckeditor',
-                        'homeFolder' => ElFinderHelper::getOrCreateFolder($countryCode, $this->getKernelRoot())
-                    ]
-                ]
-            ])
+            ->add('description', CKEditorType::class, $ckConfig)
             ->add('requiresUserIdentifier')
             ->add('userIdentifierDescription');
     }
