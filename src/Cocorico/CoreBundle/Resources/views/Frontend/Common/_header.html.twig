@@ -10,7 +10,7 @@
     {% endif %}
 
     <div class="topbar {% if is_granted('ROLE_PREVIOUS_ADMIN') %}danger{% endif %}">
-        <div class="container">
+        <div class="container px-0">
             <div class="d-flex align-item-center justify-space-between">
                 <div class="col-xs-5">
                     <ul class="list-inline">
@@ -27,7 +27,7 @@
                     </ul>
                 </div>
 
-                <div class="col-xs-7 col-sm-4 navbar navbar-default">
+                <div class="col-xs-7 col-sm-4 px-0 navbar navbar-default">
                     {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
                         <div class="col-xs-12 d-flex justify-end py-2">
                             <i class="glyphicon glyphicon-user px-2"></i>
@@ -69,8 +69,8 @@
                                 </li>
                             </ul>
                         </div>
-                        </div>
                     {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

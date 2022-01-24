@@ -39,7 +39,7 @@
                         </a>
                     </h2>
 
-                    <p>{{ listing_translation.description | truncate(50,true) }}</p>
+                    <p>{{ listing_translation.description | striptags | truncate(50,true) }}</p>
                 </div>
             </article>
         {% endfor %}
