@@ -26,6 +26,10 @@
         <source>message.new.success</source>
         <target>Message send</target>
       </trans-unit>
+      <trans-unit id="0f1bb6dad16253a6f0ce49b72deb52bf3f0c425f" resname="message_form.describe_input">
+        <source>message_form.describe_input</source>
+        <target state="new">message_form.describe_input</target>
+      </trans-unit>
       <trans-unit id="fb2347e14b0034d052604b360dfbe1b54f300e95" resname="message_form.show_dates_fields">
         <source>message_form.show_dates_fields</source>
         <target>Show date fields</target>

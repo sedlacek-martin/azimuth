@@ -158,6 +158,14 @@ You have received a message, click <a href="%thread_url%">here</a> to read it.]]
         <source>registration.email.subject</source>
         <target>Complete your registrtion</target>
       </trans-unit>
+      <trans-unit id="e3937e7d0cc94296d609d551b8b627d07db35bc7" resname="super_admin_notification.email.message">
+        <source>super_admin_notification.email.message</source>
+        <target state="new">super_admin_notification.email.message</target>
+      </trans-unit>
+      <trans-unit id="b67c32ba800a9c8b01b1070be4973bd8af479cd2" resname="super_admin_notification.email.subject">
+        <source>super_admin_notification.email.subject</source>
+        <target state="new">super_admin_notification.email.subject</target>
+      </trans-unit>
       <trans-unit id="9f2fc1055852dfa393930f7d7f60409edca02168" resname="test.email.message">
         <source>test.email.message</source>
         <target>This is testing email send from Azimuth contact tool</target>

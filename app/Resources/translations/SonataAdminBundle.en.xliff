@@ -470,10 +470,6 @@
         <source>Public</source>
         <target state="new">Public</target>
       </trans-unit>
-      <trans-unit id="29b4ab40e25bff86e4c1eaeaa56c10147b9a1601" resname="Recipient Role Naames">
-        <source>Recipient Role Naames</source>
-        <target>Recipient Role Names</target>
-      </trans-unit>
       <trans-unit id="4278e7de9ee6b4d6c4bc332f8ccda4ac81fa4fcd" resname="Recipient Roles">
         <source>Recipient Roles</source>
         <target state="new">Recipient Roles</target>

@@ -198,10 +198,6 @@
         <source>listing.edit_status.success</source>
         <target>Status updated</target>
       </trans-unit>
-      <trans-unit id="8a218b17dd024c613755aadcddf2bb1003ac6c35" resname="listing.filter">
-        <source>listing.filter</source>
-        <target>Filter</target>
-      </trans-unit>
       <trans-unit id="a96c4feeeb9fa528c736f5ee149d0a1f24234ff1" resname="listing.form.characteristic.choose">
         <source>listing.form.characteristic.choose</source>
         <target>Select</target>
