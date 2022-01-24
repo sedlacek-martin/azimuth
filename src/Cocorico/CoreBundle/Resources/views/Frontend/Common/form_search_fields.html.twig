@@ -72,8 +72,8 @@
                 <input type="submit" value="{{ 'listing.search'|trans }}" class="btn btn-default float-right" style="width:100%;">
             </div>
         </div>
-        
-        <!-- include characteristics filter -->
+
+        <!-- characteristics filter -->
         {% if add_characteristics %}
             {% include '@CocoricoCore/Frontend/ListingResult/form_search_filters.html.twig' with {
                 'form': form
