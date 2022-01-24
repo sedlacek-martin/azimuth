@@ -46,7 +46,6 @@ function createHost($env) {
         ->set('keep_releases', 3);
 
 // Tasks
-
     task( "deploy_$env", [
         'deploy:info',
         'deploy:prepare',
@@ -54,11 +53,12 @@ function createHost($env) {
         'deploy:release',
         'deploy:update_code',
         'deploy:shared',
-        'index_file',
-        'composer',
-        'app_version',
-        'assets',
-        'translations',
+        "index_file_$env",
+        "composer_$env",
+        "app_version_$env",
+        "assets_$env",
+        "translations_$env",
+        "migration_$env",
         'deploy:writable',
         'deploy:symlink',
         'deploy:unlock',
@@ -66,37 +66,37 @@ function createHost($env) {
         'success'
     ]);
 
-    task('composer', function () use ($env) {
+    task("index_file_$env", function () use ($env) {
+        run("mv /usr/home/azimutu/public_html/{$env}/release/web/app_{$env}.php /usr/home/azimutu/public_html/{$env}/release/web/app.php");
+        run("rm /usr/home/azimutu/public_html/{$env}/release/web/app_*");
+    });
+
+    task("composer_$env", function () use ($env) {
         cd('{{release_path}}');
         run("php /usr/home/azimutu/public_html/composer.phar install --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
         run("php /usr/home/azimutu/public_html/composer.phar dump-autoload --optimize --classmap-authoritative --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
     });
 
-    task('migration', function () use ($env) {
-        run("/usr/home/azimutu/public_html/{$env}/release/bin/console doctrine:migrations:migrate -n");
+    task("app_version_$env", function () use ($env) {
+        cd("/usr/home/azimutu/public_html/{$env}/release/app/config");
+        run('current_date_time="`date +%Y%m%d%H%M%S`" && printf "parameters: \n  application_version: $current_date_time" > app_version.yml');
     });
 
-    task('assets', function () use ($env) {
-        run("/usr/home/azimutu/public_html/{$env}/release/bin/console ckeditor:install");
+    task("assets_$env", function () use ($env) {
         run("/usr/home/azimutu/public_html/{$env}/release/bin/console assets:install --symlink");
+        run("/usr/home/azimutu/public_html/{$env}/release/bin/console ckeditor:install");
         run("/usr/home/azimutu/public_html/{$env}/release/bin/console assetic:dump");
     });
 
-    task('index_file', function () use ($env) {
-        run("mv /usr/home/azimutu/public_html/{$env}/release/web/app_{$env}.php /usr/home/azimutu/public_html/{$env}/release/web/app.php");
-        run("rm /usr/home/azimutu/public_html/{$env}/release/web/app_*");
-    });
-
-    task('translations', function () use ($env) {
+    task("translations_$env", function () use ($env) {
         cd("/usr/home/azimutu/public_html/{$env}/release/vendor/jms/translation-bundle/JMS/TranslationBundle/Resources/views");
         run("ln -s Translate translate");
         cd("/usr/home/azimutu/public_html/{$env}/release/");
         run("/usr/home/azimutu/public_html/{$env}/release/bin/console translation:extract en --config=cocorico");
     });
 
-    task('app_version', function () use ($env) {
-        cd("/usr/home/azimutu/public_html/{$env}/release/app/config");
-        run('current_date_time="`date +%Y%m%d%H%M%S`" && printf "parameters: \n  application_version: $current_date_time" > app_version.yml');
+    task("migration_$env", function () use ($env) {
+        run("/usr/home/azimutu/public_html/{$env}/release/bin/console doctrine:migrations:migrate -n");
     });
 
 // If deploy fails automatically unlock.
