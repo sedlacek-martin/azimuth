@@ -28,7 +28,7 @@
       </trans-unit>
       <trans-unit id="fb2347e14b0034d052604b360dfbe1b54f300e95" resname="message_form.show_dates_fields">
         <source>message_form.show_dates_fields</source>
-        <target>Specify dates for your request</target>
+        <target>Show date fields</target>
       </trans-unit>
       <trans-unit id="9ca8da271fa8cdcaf12d1aa0f24ef54b68d46cf3" resname="new_message.label:">
         <source>new_message.label:</source>

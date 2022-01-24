@@ -1,24 +1,22 @@
 {% trans_default_domain 'cocorico_listing' %}
 
-<!-- <div id="characteristics" class="select-holder"> -->
-    {{ form_errors(characteristics) }}
-    {% set listing_characteristic_group, previous_listing_characteristic_group = "", "" %}
-    <!--@formatter:off-->
-    {{ '<ul class="list-unstyled">' }}
-    {% for characteristic in characteristics %}
-        <li class="field-row col-xs-6 col-sm-3" style="padding-left:0; padding-right:1rem">
-            <span class="label">{{ form_label(characteristic) }}</span>
-            <div class="select-holder px-0">
-             {{ form_widget(characteristic, {
-                 'attr': {
-                     'class': "form-control no-arrow characteristics-filter"
-                 },
-                 'placeholder': 'characteristic.filter.empty.placeholder'|trans
-             }) }}
-            </div>
-        </li>
-        {% set previous_listing_characteristic_group =  listing_characteristic_group %}
-    {% endfor %}
-    {{ "</ul>" }}
-    <!--@formatter:on-->
-<!-- </div> -->
+{{ form_errors(characteristics) }}
+{% set listing_characteristic_group, previous_listing_characteristic_group = "", "" %}
+<!--@formatter:off-->
+{{ '<ul class="list-unstyled">' }}
+{% for characteristic in characteristics %}
+    <li class="field-row col-xs-6 col-sm-3" style="padding-left:0; padding-right:1rem">
+        <span class="label">{{ form_label(characteristic) }}</span>
+        <div class="select-holder px-0">
+         {{ form_widget(characteristic, {
+             'attr': {
+                 'class': "form-control no-arrow characteristics-filter"
+             },
+             'placeholder': 'characteristic.filter.empty.placeholder'|trans
+         }) }}
+        </div>
+    </li>
+    {% set previous_listing_characteristic_group =  listing_characteristic_group %}
+{% endfor %}
+{{ "</ul>" }}
+<!--@formatter:on-->

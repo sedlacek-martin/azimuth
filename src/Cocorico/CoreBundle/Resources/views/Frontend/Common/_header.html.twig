@@ -10,7 +10,7 @@
     {% endif %}
 
     <div class="topbar {% if is_granted('ROLE_PREVIOUS_ADMIN') %}danger{% endif %}">
-        <div class="container">
+        <div class="container px-0">
             <div class="d-flex align-item-center justify-space-between">
                 <div class="col-xs-5">
                     <ul class="list-inline">
@@ -27,7 +27,7 @@
                     </ul>
                 </div>
 
-                <div class="col-xs-7 col-sm-4 navbar navbar-default">
+                <div class="col-xs-7 col-sm-4 px-0 navbar navbar-default">
                     {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
                         <div class="col-xs-12 d-flex justify-end py-2">
                             <i class="glyphicon glyphicon-user px-2"></i>
@@ -61,7 +61,6 @@
                                     <a id="dashboard-link" class="dropdown-toggle py-2"
                                        href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"
                                        title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
-                                       <!-- <i class="glyphicon glyphicon-user"></i> -->
                                         {{ 'nav.dashboard.link'|trans }}
                                         <span class="new-message-indicator" style="display: none"></span>
                                         <span class="icon-down-open-mini"></span>
@@ -70,8 +69,8 @@
                                 </li>
                             </ul>
                         </div>
-                        </div>
                     {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -139,16 +138,6 @@
 
                             {# User info #}
                             {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
-                                <!-- <li id="dashboard-dropdown" class="dropdown">
-                                    <a id="dashboard-link" class="dropdown-toggle"
-                                       href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"
-                                       title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        {{ 'nav.dashboard.link'|trans }}
-                                        <span class="new-message-indicator" style="display: none"></span>
-                                        <span class="icon-down-open-mini"></span>
-                                    </a>
-                                    {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}
-                                </li> -->
                                 {% if not is_granted("ROLE_SUPER_ADMIN") and is_granted("IS_AUTHENTICATED_FULLY") %}
                                 <li>
                                     <a href="{{ path('cocorico_listing_new') }}" tabindex="11">

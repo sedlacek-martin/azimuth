@@ -1639,7 +1639,7 @@ ul.dropdown-menu ul.menu-sub-tabs li.firstTab {
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu {
-    width: 145%;
+    /* width: 145%; */
 }
 
 .navbar-default .navbar-nav li ul.display-sub-tabs li.tab-list a {
@@ -2604,6 +2604,10 @@ ul.collection {
 }
 
 /** Search categories */
+.multiselect-container > li {
+    text-align: left;
+}
+
 .form-category .multiselect-container > li.multiselect-group label, .form-category .multiselect-container > li > a > label {
     padding-left: 10px;
 }

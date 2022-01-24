@@ -5654,11 +5654,15 @@ span.btn:focus {
 }
 
 .topbar ul li {
-    display: inline-block;
+    /* display: inline-block; */
     vertical-align: top;
     padding: 0;
     margin: 0 45px 0 0;
     letter-spacing: 0.2px;
+}
+
+.topbar ul li a:hover {
+    color: #c50000;
 }
 
 .topbar ul li i {
@@ -15645,7 +15649,7 @@ body > .jcf-select-drop.jcf-drop-flipped {
         clear: both;
         float: none;
         padding: 16px 0 0;
-        text-align: center;
+        text-align: right;
         margin: 16px 0 0 -10px;
         border-top: solid 1px #e6e6e6;
     }
@@ -16143,7 +16147,7 @@ body > .jcf-select-drop.jcf-drop-flipped {
 
     .navbar-default .navbar-nav > li > a {
         display: block;
-        padding: 7px 10px;
+        padding: 7px 0px 7px 10px;
     }
 
     .navbar-default .navbar-nav > li.open > a,
@@ -17509,7 +17513,7 @@ body > .jcf-select-drop.jcf-drop-flipped {
 /* styles for screens 480px wide and narrower */
 @media screen and (max-width: 480px) {
     .topbar ul {
-        text-align: center;
+        text-align: left;
     }
 
     .topbar ul li {
