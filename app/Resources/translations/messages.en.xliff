@@ -354,6 +354,10 @@
         <source>message_form.from_date.title</source>
         <target>From date</target>
       </trans-unit>
+      <trans-unit id="8b754307596cad254f9b96f5d14841bb4bd22867" resname="message_form.to_date.title">
+        <source>message_form.to_date.title</source>
+        <target state="new">message_form.to_date.title</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
