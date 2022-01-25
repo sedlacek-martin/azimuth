@@ -83,9 +83,9 @@ function createHost($env) {
     });
 
     task("assets_$env", function () use ($env) {
-        run("/usr/home/azimutu/public_html/{$env}/release/bin/console assets:install --symlink");
+        run("/usr/home/azimutu/public_html/{$env}/release/bin/console assets:install --symlink --env={$env}");
         run("/usr/home/azimutu/public_html/{$env}/release/bin/console ckeditor:install");
-        run("/usr/home/azimutu/public_html/{$env}/release/bin/console assetic:dump");
+        run("/usr/home/azimutu/public_html/{$env}/release/bin/console assetic:dump --env={$env}");
     });
 
     task("translations_$env", function () use ($env) {
