@@ -68,8 +68,7 @@
                 'form': form,
                 'add_characteristics': true
             } only %}
-
-            {{ form_end(form) }}
+            {{ form_end(form, {render_rest: false}) }}
             {#end search form with filters#}
 
             {% if not horizontal_map_layout %}
@@ -108,7 +107,7 @@
                 <!-- postarea -->
                 <section class="listing-area {% if horizontal_map_layout %}col-sm-12{% else %}col-sm-8 col-xs-12{% endif %}">
                     {% if horizontal_map_layout %}
-                        <h1 data-id="result-title" class="mb-4">
+                        <h1 data-id="result-title" class="mb-4  px-2">
                             <span data-id="title">{{ seo_title }}</span>
                             <small data-id="nb-result">
                                 {{ 'listing.search.result.results'|trans({'%nb_results%': nb_listings}) }}

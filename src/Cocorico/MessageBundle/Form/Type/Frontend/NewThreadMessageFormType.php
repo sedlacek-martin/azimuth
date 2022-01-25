@@ -61,7 +61,7 @@ class NewThreadMessageFormType extends AbstractType implements TranslationContai
             ])
             ->add('toDate', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'message_form.from_date.title',
+                'label' => 'message_form.to_date.title',
                 'format' => 'dd/MM/yyyy',
                 'required' => false,
                 'attr' => [

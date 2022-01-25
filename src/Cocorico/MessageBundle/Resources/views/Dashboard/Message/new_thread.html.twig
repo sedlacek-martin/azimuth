@@ -23,7 +23,7 @@
             <form id="message-form" class="form-msg" method="post"
                   action="{{ path(route, { 'slug': slug }) }}">
                 <fieldset>
-                    <p>Write a message</p>
+                    {{ 'message_form.describe_input'|trans }}
                     <div class="no-scroll">
                         {{ form_errors(form.body) }}
                         {{ form_widget(form.body, {'attr': {'class': 'col-xs-12'}}) }}

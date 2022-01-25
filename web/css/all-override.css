@@ -1726,6 +1726,18 @@ ul.dropdown-menu li a {
         border-bottom-left-radius: 0;
     }
 
+    #photos .gallery-slider .gallery-slideset .slide {
+        height: 65vw;
+        width: 100%;
+    }
+
+    .vertical-holder .vertical-slider .vertical-slideset .vertical-slide,
+    .vertical-holder .vertical-slider .vertical-slideset .vertical-slide a {
+        width: auto;
+        height: 60px;
+        /* position: relative; */
+    }
+
 }
 
 /* end of new menu for cocorico*/
