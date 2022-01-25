@@ -65,7 +65,7 @@ parameters:
 
     #Max search and booking days number.
     #Min 1. If set to 1 and days_display_mode = duration then only start date is displayed
-    cocorico.days_max: 180
+    cocorico.days_max: 3650
 
     #Max availabilities edition days number
     cocorico.days_max_edition: 360

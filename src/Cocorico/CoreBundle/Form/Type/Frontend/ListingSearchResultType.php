@@ -147,15 +147,15 @@ class ListingSearchResultType extends AbstractType
                     'data' => array_filter($characteristics),
                 )
             )
-            ->add(
-                'sort_by',
-                ChoiceType::class,
-                array(
-                    'choices' => array_flip(ListingSearchRequest::$sortByValues),
-                    'data' => 'distance',
-                    'required' => true,
-                )
-            )
+            // ->add(
+            //     'sort_by',
+            //     ChoiceType::class,
+            //     array(
+            //         'choices' => array_flip(ListingSearchRequest::$sortByValues),
+            //         'data' => 'distance',
+            //         'required' => true,
+            //     )
+            // )
             ->add(
                 'page',
                 HiddenType::class
