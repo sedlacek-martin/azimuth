@@ -27,10 +27,12 @@ class ResetNbBookingsCommand extends ContainerAwareCommand
             ->setDescription(
                 'Reset nb bookings as asker and offerer'
             )
-            ->setHelp("Usage php bin/console cocorico_user:reset_nb_bookings");
+            ->setHelp('Usage php bin/console cocorico_user:reset_nb_bookings');
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 //        return false;
@@ -50,7 +52,7 @@ class ResetNbBookingsCommand extends ContainerAwareCommand
 
         //Set to nb bookings
         $bookingRepo = $em->getRepository('CocoricoCoreBundle:Booking');
-        $bookingsValidated = $bookingRepo->findBy(array('validated' => true));
+        $bookingsValidated = $bookingRepo->findBy(['validated' => true]);
 
         foreach ($bookingsValidated as $i => $bookingValidated) {
             $asker = $bookingValidated->getUser();
@@ -65,6 +67,6 @@ class ResetNbBookingsCommand extends ContainerAwareCommand
 
         $em->flush();
 
-        $output->writeln(count($bookingsValidated) . " bookings(s) processed");
+        $output->writeln(count($bookingsValidated) . ' bookings(s) processed');
     }
 }

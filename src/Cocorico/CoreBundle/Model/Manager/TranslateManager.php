@@ -18,9 +18,10 @@ use Cocorico\CoreBundle\Model\Manager\Exception\TranslationQuotaExceeded;
 
 class TranslateManager
 {
-
     protected $clientSecret;
+
     protected $tokenUrl;
+
     protected $translateUrl;
 
     /**
@@ -39,7 +40,7 @@ class TranslateManager
         $this->tokenUrl = $tokenUrl;
         $this->translateUrl = $translateUrl;
 
-        if(empty($this->clientSecret)) {
+        if (empty($this->clientSecret)) {
             throw new \UnexpectedValueException('Token for translator is missing');
         }
     }
@@ -57,11 +58,11 @@ class TranslateManager
         curl_setopt(
             $curlHandler,
             CURLOPT_HTTPHEADER,
-            array(
+            [
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($dataString),
-                'Ocp-Apim-Subscription-Key: ' . $this->clientSecret
-            )
+                'Ocp-Apim-Subscription-Key: ' . $this->clientSecret,
+            ]
         );
         curl_setopt($curlHandler, CURLOPT_URL, $this->tokenUrl);
         curl_setopt($curlHandler, CURLOPT_HEADER, false);
@@ -70,11 +71,11 @@ class TranslateManager
         $strResponse = curl_exec($curlHandler);
         curl_close($curlHandler);
 
-        if(preg_match('/Out of call volume quota/i', $strResponse)) {
+        if (preg_match('/Out of call volume quota/i', $strResponse)) {
             throw new TranslationQuotaExceeded('quota exceeded for translation');
         }
 
-        if(preg_match('/invalid subscription key/i', $strResponse)) {
+        if (preg_match('/invalid subscription key/i', $strResponse)) {
             throw new TranslationKeyIsInvalid('your key is invalid');
         }
 
@@ -94,7 +95,7 @@ class TranslateManager
         curl_setopt(
             $curlHandler,
             CURLOPT_HTTPHEADER,
-            array('Authorization: Bearer ' . $this->getAccessToken(), 'Content-Type: text/xml')
+            ['Authorization: Bearer ' . $this->getAccessToken(), 'Content-Type: text/xml']
         );
 
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
@@ -111,6 +112,7 @@ class TranslateManager
         $curlErrNo = curl_errno($curlHandler);
         if ($curlErrNo) {
             $curlError = curl_error($curlHandler);
+
             throw new \Exception($curlError);
         }
         curl_close($curlHandler);
@@ -126,9 +128,9 @@ class TranslateManager
      * @param  array  $text
      * @return string
      */
-    public function getTranslation($fromLanguage, $toLanguage, $text = array())
+    public function getTranslation($fromLanguage, $toLanguage, $text = [])
     {
-        $responseArray = array();
+        $responseArray = [];
 
         if (!$this->clientSecret) {
             return $responseArray;
@@ -164,15 +166,14 @@ XML;
 
         $xmlObj = new \SimpleXMLElement($response);
 
-        if(!isset($xmlObj->TranslateArrayResponse)) {
+        if (!isset($xmlObj->TranslateArrayResponse)) {
             throw new \LogicException('Response from translator is incomplete');
         }
 
         foreach ($xmlObj->TranslateArrayResponse as $translatedArrObj) {
-            $responseArray[] = (string)$translatedArrObj->TranslatedText;
+            $responseArray[] = (string) $translatedArrObj->TranslatedText;
         }
 
         return $responseArray;
     }
-
 }

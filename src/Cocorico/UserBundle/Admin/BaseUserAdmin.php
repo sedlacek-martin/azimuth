@@ -6,7 +6,6 @@ use Cocorico\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
 class BaseUserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
@@ -26,7 +25,6 @@ class BaseUserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
     {
         return $this->getContainer()->get('security.token_storage');
     }
-
 
     /**
      * @return AuthorizationCheckerInterface|null
@@ -62,6 +60,7 @@ class BaseUserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
         if ($user instanceof User) {
             return $user;
         }
+
         return null;
     }
 }

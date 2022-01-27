@@ -21,7 +21,6 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class BaseFooter
 {
     /**
-     *
      * @ORM\Column(name="published", type="boolean", nullable=true)
      *
      * @var boolean
@@ -65,5 +64,4 @@ abstract class BaseFooter
     {
         return $this->published;
     }
-
 }

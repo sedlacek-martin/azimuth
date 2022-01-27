@@ -19,6 +19,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 class BreadcrumbsExtractor implements ExtractorInterface
 {
     private $breadcrumbsLoader;
+
     private $domain = 'cocorico_breadcrumbs';
 
     public function __construct(LoaderInterface $breadcrumbsLoader, $translation_domain)

@@ -23,11 +23,17 @@ use Symfony\Component\Validator\Constraints\Valid;
 class ListingEditType extends AbstractType
 {
     protected $securityTokenStorage;
+
     protected $request;
+
     protected $locale;
+
     protected $locales;
+
     protected $lem;
+
     protected $timeUnit;
+
     protected $timeUnitIsDay;
 
     /**
@@ -63,11 +69,11 @@ class ListingEditType extends AbstractType
             ->add(
                 'user',
                 EntityHiddenType::class,
-                array(
+                [
                     'data' => $this->securityTokenStorage->getToken()->getUser(),
                     'class' => 'Cocorico\UserBundle\Entity\User',
-                    'data_class' => null
-                )
+                    'data_class' => null,
+                ]
             );
     }
 
@@ -78,13 +84,13 @@ class ListingEditType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\CoreBundle\Entity\Listing',
                 'csrf_token_id' => 'listing_edit',
                 'translation_domain' => 'cocorico_listing',
                 'constraints' => new Valid(),
                 //'validation_groups' => array('Listing'),
-            )
+            ]
         );
     }
 

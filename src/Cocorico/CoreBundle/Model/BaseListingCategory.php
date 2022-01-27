@@ -21,7 +21,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 abstract class BaseListingCategory
 {
-
     /**
      * @Gedmo\TreeLeft
      * @ORM\Column(name="lft", type="integer")

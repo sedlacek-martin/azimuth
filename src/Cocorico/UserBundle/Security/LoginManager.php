@@ -11,7 +11,6 @@
 
 namespace Cocorico\UserBundle\Security;
 
-
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Model\UserManager;
 use FOS\UserBundle\Security\LoginManager as BaseLoginManager;
@@ -21,10 +20,12 @@ use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
 class LoginManager
 {
-
     private $userManager;
+
     private $loginManager;
+
     private $firewallName;
+
     private $encoderFactory;
 
     /**
@@ -39,7 +40,6 @@ class LoginManager
         EncoderFactory $encoderFactory,
         $firewallName
     ) {
-
         $this->userManager = $userManager;
         $this->loginManager = $loginManager;
         $this->encoderFactory = $encoderFactory;
@@ -88,7 +88,6 @@ class LoginManager
         return $this->loginManager;
     }
 
-
     /**
      * @return mixed
      */
@@ -96,6 +95,4 @@ class LoginManager
     {
         return $this->firewallName;
     }
-
-
 }

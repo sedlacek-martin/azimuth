@@ -20,8 +20,6 @@ use FOS\MessageBundle\ModelManager\ThreadManagerInterface;
 
 /**
  * Factory for message builders
- *
- *
  */
 class Composer implements ComposerInterface
 {

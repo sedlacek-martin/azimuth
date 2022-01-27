@@ -40,13 +40,13 @@ class ListingCategoriesController extends Controller
             'listing_categories',
             ListingEditCategoriesType::class,
             $listing,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl(
                     'cocorico_dashboard_listing_edit_categories',
-                    array('id' => $listing->getId())
+                    ['id' => $listing->getId()]
                 ),
-            )
+            ]
         );
 
         return $form;
@@ -73,7 +73,7 @@ class ListingCategoriesController extends Controller
 
         $formIsValid = $form->isSubmitted() && $form->isValid();
         if ($formIsValid) {
-            $listing = $this->get("cocorico.listing.manager")->save($listing);
+            $listing = $this->get('cocorico.listing.manager')->save($listing);
 
             //Tmp solution to resolve the problem of fields values not removed from Form when category is removed from
             // listing, whereas fields values are removed from database.
@@ -82,22 +82,21 @@ class ListingCategoriesController extends Controller
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('listing.edit.success', array(), 'cocorico_listing')
+                $this->get('translator')->trans('listing.edit.success', [], 'cocorico_listing')
             );
 
             return $this->redirectToRoute(
                 'cocorico_dashboard_listing_edit_categories',
-                array('id' => $listing->getId())
+                ['id' => $listing->getId()]
             );
         }
 
         return $this->render(
             'CocoricoCoreBundle:Dashboard/Listing:edit_categories.html.twig',
-            array(
+            [
                 'listing' => $listing,
-                'form' => $form->createView()
-            )
+                'form' => $form->createView(),
+            ]
         );
     }
-
 }

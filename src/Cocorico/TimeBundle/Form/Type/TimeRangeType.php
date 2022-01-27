@@ -30,9 +30,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class TimeRangeType extends AbstractType
 {
     protected $timezone;
+
     protected $timeUnit;
+
     protected $timeUnitIsDay;
+
     protected $timesMax;
+
     protected $hoursAvailable;
 
     /**
@@ -50,11 +54,13 @@ class TimeRangeType extends AbstractType
         $this->hoursAvailable = $hoursAvailable;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if ($this->timeUnitIsDay) {
-            throw new \Exception("Time ranges are only available for time unit not in day mode");
+            throw new \Exception('Time ranges are only available for time unit not in day mode');
         }
 
         $builder->addEventListener(
@@ -77,7 +83,7 @@ class TimeRangeType extends AbstractType
                         'start',
                         TimeType::class,
                         array_merge(
-                            array(
+                            [
                                 'label' => 'time_range.start',
                                 'property_path' => 'start',
                                 'placeholder' => '',
@@ -85,17 +91,17 @@ class TimeRangeType extends AbstractType
                                 'input' => 'datetime',
                                 'model_timezone' => 'UTC',
                                 'view_timezone' => $this->timezone,
-                                'attr' => array(
+                                'attr' => [
                                     'data-type' => 'start',
-                                ),
-                            ),
+                                ],
+                            ],
                             $options['start_options']
                         )
                     )->add(
                         'end',
                         TimeType::class,
                         array_merge(
-                            array(
+                            [
                                 'label' => 'time_range.end',
                                 'property_path' => 'end',
                                 'placeholder' => '',
@@ -103,21 +109,20 @@ class TimeRangeType extends AbstractType
                                 'input' => 'datetime',
                                 'model_timezone' => 'UTC',
                                 'view_timezone' => $this->timezone,
-                                'attr' => array(
+                                'attr' => [
                                     'data-type' => 'end',
-                                ),
-                            ),
+                                ],
+                            ],
                             $options['end_options']
                         )
                     )
                     ->add(
                         'date',//sync with DateRage start date for DST purpose
                         DateType::class,
-                        array(
-                            'widget' => 'single_text'
-                        )
+                        [
+                            'widget' => 'single_text',
+                        ]
                     );
-
 
                 //TimePicker
                 $form
@@ -125,12 +130,12 @@ class TimeRangeType extends AbstractType
                         'start_picker',
                         TimeType::class,
                         array_merge(
-                            array(
+                            [
                                 'mapped' => false,
                                 'widget' => 'single_text',
-                                /** @Ignore */
-                                'label' => false
-                            ),
+                                /* @Ignore */
+                                'label' => false,
+                            ],
                             $options['start_picker_options']
                         )
                     )
@@ -138,22 +143,21 @@ class TimeRangeType extends AbstractType
                         'end_picker',
                         TimeType::class,
                         array_merge(
-                            array(
+                            [
                                 'mapped' => false,
                                 'widget' => 'single_text',
-                                /** @Ignore */
-                                'label' => false
-                            ),
+                                /* @Ignore */
+                                'label' => false,
+                            ],
                             $options['end_picker_options']
                         )
                     );
 
-
                 //Times display mode: range or duration
-                if ($options['display_mode'] == "duration") {
+                if ($options['display_mode'] == 'duration') {
                     if ($timesMax > 1) {
                         $nbMinutes = null;
-                        if (isset($options['start_options']['data']) && isset($options['end_options']['data'])) {
+                        if (isset($options['start_options']['data'], $options['end_options']['data'])) {
                             $timeRange = new TimeRange(
                                 $options['start_options']['data'],
                                 $options['end_options']['data']
@@ -161,33 +165,33 @@ class TimeRangeType extends AbstractType
                             $nbMinutes = $timeRange->getDuration($timeUnit) * $timeUnit;
                         }
 
-                        /** @var DateRange $dateRange */
+                        /* @var DateRange $dateRange */
                         $form
                             ->add(
                                 'nb_minutes',
                                 ChoiceType::class,
-                                array(
+                                [
                                     //from one time unit to timesMax * timeUnit
                                     'choices' => array_combine(
                                         range(1, $timesMax),
                                         range($timeUnit, $timesMax * $timeUnit, $timeUnit)
                                     ),
                                     'data' => $nbMinutes,
-                                    /** @Ignore */
+                                    /* @Ignore */
                                     'placeholder' => '',
-                                    'attr' => array(
-                                        'class' => 'no-scroll no-arrow'
-                                    ),
-                                )
+                                    'attr' => [
+                                        'class' => 'no-scroll no-arrow',
+                                    ],
+                                ]
                             );
                     } else {//One time unit. $this->timesMax = 1
                         $form
                             ->add(
                                 'nb_minutes',
                                 HiddenType::class,
-                                array(
+                                [
                                     'data' => $timeUnit,
-                                )
+                                ]
                             );
                     }
                 }
@@ -205,7 +209,6 @@ class TimeRangeType extends AbstractType
         $builder->addViewTransformer($options['transformer']);
         $builder->addEventSubscriber($options['validator']);
     }
-
 
     /**
      * Set TimeRange date field from DateRange start field. Used in TimeRangeViewTransformer to assigned date to time range
@@ -238,36 +241,35 @@ class TimeRangeType extends AbstractType
         }
     }
 
-
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\TimeBundle\Model\TimeRange',
-                'start_options' => array(),
-                'end_options' => array(),
-                'start_picker_options' => array(),
-                'end_picker_options' => array(),
+                'start_options' => [],
+                'end_options' => [],
+                'start_picker_options' => [],
+                'end_picker_options' => [],
                 'transformer' => null,
                 'validator' => null,
                 'translation_domain' => 'cocorico_listing',
                 'display_mode' => 'range',
                 'times_max' => null,
                 'time_unit' => null,
-            )
+            ]
         );
 
         $resolver->setAllowedTypes(
             'transformer',
-            array('Symfony\Component\Form\DataTransformerInterface', 'null')
+            ['Symfony\Component\Form\DataTransformerInterface', 'null']
         );
 
         $resolver->setAllowedTypes(
             'validator',
-            array('Symfony\Component\EventDispatcher\EventSubscriberInterface', 'null')
+            ['Symfony\Component\EventDispatcher\EventSubscriberInterface', 'null']
         );
 
         // Those normalizers lazily create the required objects and handle timezone DST
@@ -275,9 +277,9 @@ class TimeRangeType extends AbstractType
             'transformer',
             function (Options $options, $value) {
                 $value = new TimeRangeViewTransformer(
-                    new OptionsResolver(), array(
+                    new OptionsResolver(), [
                         'timezone' => $this->timezone,
-                    )
+                    ]
                 );
 
                 return $value;
@@ -289,10 +291,10 @@ class TimeRangeType extends AbstractType
             function (Options $options, $value) {
                 if (!$value) {
                     $value = new TimeRangeValidator(
-                        new OptionsResolver(), array(
-                            'required' => $options["required"],
-                            'hours_available' => $this->hoursAvailable
-                        )
+                        new OptionsResolver(), [
+                            'required' => $options['required'],
+                            'hours_available' => $this->hoursAvailable,
+                        ]
                     );
                 }
 

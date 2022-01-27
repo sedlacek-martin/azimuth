@@ -13,7 +13,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class FacilitatorSettingsType extends AbstractType
 {
     private $request;
+
     private $locale;
+
     private $entityManager;
 
     /**

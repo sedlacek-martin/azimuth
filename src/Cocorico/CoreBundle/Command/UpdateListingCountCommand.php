@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Symfony\Component\Security\Core\Role\Role;
 
 class UpdateListingCountCommand extends ContainerAwareCommand
 {
@@ -44,14 +43,12 @@ class UpdateListingCountCommand extends ContainerAwareCommand
             $data[$count['code']] = (int) $count['cnt'];
         }
 
-
         /** @var UserRepository $userRepository */
         $userRepository = $em->getRepository(User::class);
         /** @var MemberOrganization[] $memberOrganizations */
         $memberOrganizations = $memberOrganizationManager->getRepository()->findAll();
         foreach ($memberOrganizations as $memberOrganization) {
             if (!isset($data[$memberOrganization->getCountry()])) {
-
                 $facilitators = $userRepository->findByRoleAndMo('ROLE_FACILITATOR', $memberOrganization->getId());
                 $activators = $userRepository->findByRoleAndMo('ROLE_ACTIVATOR', $memberOrganization->getId());
                 if (count($facilitators) !== 0 && count($activators) !== 0) {
@@ -65,6 +62,7 @@ class UpdateListingCountCommand extends ContainerAwareCommand
         //Count json file
         $file = $this->getContainer()->getParameter('cocorico.listing_count');
         $fs = $this->getContainer()->get('filesystem');
+
         try {
             if (!$fs->exists(dirname($file))) {
                 $fs->mkdir(dirname($file));
@@ -72,11 +70,11 @@ class UpdateListingCountCommand extends ContainerAwareCommand
 
             $fs->dumpFile($file, $result);
 
-            $output->writeln("Listing count updated");
+            $output->writeln('Listing count updated');
 
             return true;
         } catch (IOException $e) {
-            throw new IOException("An error occurred while creating " . $file);
+            throw new IOException('An error occurred while creating ' . $file);
         }
     }
 }

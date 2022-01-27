@@ -26,7 +26,6 @@ class ListingCharacteristicTranslation extends BaseListingCharacteristicTranslat
 {
     use ORMBehaviors\Translatable\Translation;
 
-
     /**
      * Get id
      *

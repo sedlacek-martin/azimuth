@@ -14,15 +14,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class MemberOrganizationAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'member-organization';
+
     protected $baseRouteName = 'member-organization';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'DESC',
-        '_sort_by' => 'íd'
-    );
+        '_sort_by' => 'íd',
+    ];
 
     public function setLocales($locales)
     {
@@ -38,19 +41,19 @@ class MemberOrganizationAdmin extends BaseAdmin
             ->add('description', 'html', [
                 'truncate' => [
                     'length' => 75,
-                    'preserve' => true
-                ]
+                    'preserve' => true,
+                ],
             ]);
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
                     'delete' => [],
                     'edit' => [],
-                )
-            )
+                ],
+            ]
         );
     }
 
@@ -58,7 +61,7 @@ class MemberOrganizationAdmin extends BaseAdmin
     {
         /** @var MemberOrganization $mo */
         $mo = $this->getSubject();
-        $countryCode = "";
+        $countryCode = '';
         if ($mo) {
             $countryCode = $mo->getCountry();
         }
@@ -71,18 +74,17 @@ class MemberOrganizationAdmin extends BaseAdmin
                     'filebrowserBrowseRoute' => 'elfinder',
                     'filebrowserBrowseRouteParameters' => [
                         'instance' => 'ckeditor',
-                        'homeFolder' => ElFinderHelper::getOrCreateFolder($countryCode, $this->getKernelRoot())
-                    ]
-                ]
+                        'homeFolder' => ElFinderHelper::getOrCreateFolder($countryCode, $this->getKernelRoot()),
+                    ],
+                ],
             ];
         }
-
 
         $formMapper
             ->add('name', TextType::class)
             ->add('country', 'country', [
                 'required' => true,
-                'preferred_choices' => ["CZ", "FR", "ES", "DE", "RU"],
+                'preferred_choices' => ['CZ', 'FR', 'ES', 'DE', 'RU'],
             ])
             ->add('abstract', TextType::class)
             ->add('description', CKEditorType::class, $ckConfig)
@@ -93,6 +95,6 @@ class MemberOrganizationAdmin extends BaseAdmin
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
         $filter
-            ->add('country', null,  []);
+            ->add('country', null, []);
     }
 }

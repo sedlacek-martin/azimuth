@@ -5,7 +5,6 @@ namespace Cocorico\UserBundle\Controller\Dashboard;
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Form\Type\PasswordCheckFormType;
 use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
-use Cocorico\UserBundle\Model\UserManager;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,7 +20,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class ProfileDeleteController extends Controller
 {
-
     /**
      * Delete user profile
      *
@@ -46,7 +44,6 @@ class ProfileDeleteController extends Controller
         ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $password = $form->getData()['password'];
             /** @var EncoderFactory $encoderFactory */
             $encoderFactory = $this->get('security.encoder_factory');
@@ -73,22 +70,21 @@ class ProfileDeleteController extends Controller
                 $em->flush();
 
                 $success = true;
-
             } else {
                 $this->addFlash(
                     'error',
-                    $translator->trans('user.delete.invalid_password.error', array(), 'cocorico_user')
+                    $translator->trans('user.delete.invalid_password.error', [], 'cocorico_user')
                 );
             }
         }
 
         return $this->render(
             'CocoricoUserBundle:Dashboard/Profile:delete_profile.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'user' => $user,
                 'deleteSuccess' => $success,
-            )
+            ]
         );
     }
 }

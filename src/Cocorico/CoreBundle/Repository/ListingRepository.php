@@ -23,23 +23,22 @@ use Doctrine\ORM\Query;
 class ListingRepository extends EntityRepository
 {
     /**
-     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getFindQueryBuilder()
     {
         $queryBuilder = $this->_em->createQueryBuilder()
             //Select
-            ->select("partial l.{id, certified, createdAt, validFrom, validTo}")
-            ->addSelect("partial t.{id, locale, slug, title, description}")
-            ->addSelect("partial ca.{id, lft, lvl, rgt, root, pin}")
-            ->addSelect("partial pin.{id, name, imagePath}")
-            ->addSelect("partial cat.{id, locale, name}")
-            ->addSelect("partial i.{id, name}")
-            ->addSelect("partial u.{id, firstName}")
-            ->addSelect("partial ln.{id, city, route, country}")
-            ->addSelect("partial co.{id, lat, lng, latRandom, lngRandom}")
-            ->addSelect("partial ui.{id, name}")
+            ->select('partial l.{id, certified, createdAt, validFrom, validTo}')
+            ->addSelect('partial t.{id, locale, slug, title, description}')
+            ->addSelect('partial ca.{id, lft, lvl, rgt, root, pin}')
+            ->addSelect('partial pin.{id, name, imagePath}')
+            ->addSelect('partial cat.{id, locale, name}')
+            ->addSelect('partial i.{id, name}')
+            ->addSelect('partial u.{id, firstName}')
+            ->addSelect('partial ln.{id, city, route, country}')
+            ->addSelect('partial co.{id, lat, lng, latRandom, lngRandom}')
+            ->addSelect('partial ui.{id, name}')
             ->addSelect("'' AS DUMMY")//To maintain fields on same array level when extra fields are added
 
             //From
@@ -76,7 +75,7 @@ class ListingRepository extends EntityRepository
         $listingId = end($slugParts);
 
         $queryBuilder = $this->createQueryBuilder('l')
-            ->addSelect("t")
+            ->addSelect('t')
             ->leftJoin('l.translations', 't')
             ->where('l.id = :listingId')
             ->andWhere('t.locale = :locale')
@@ -85,7 +84,7 @@ class ListingRepository extends EntityRepository
 
         if ($joined) {
             $queryBuilder
-                ->addSelect("u, i")
+                ->addSelect('u, i')
                 ->leftJoin('l.user', 'u')
                 ->leftJoin('u.images', 'i');
         }
@@ -129,6 +128,7 @@ class ListingRepository extends EntityRepository
             ->from('CocoricoCoreBundle:ListingTranslation', 'lt')
             ->where('lt.translatable = :listing')
             ->setParameter('listing', $listing);
+
         try {
             return $queryBuilder->getQuery()->getResult();
         } catch (NoResultException $e) {
@@ -146,7 +146,7 @@ class ListingRepository extends EntityRepository
     public function getFindByOwnerQuery($ownerId, $locale, $status)
     {
         $queryBuilder = $this->createQueryBuilder('l')
-            ->addSelect("t, i, c, ca, cat, u")
+            ->addSelect('t, i, c, ca, cat, u')
             ->leftJoin('l.translations', 't')
             ->leftJoin('l.user', 'u')
             ->leftJoin('l.listingListingCharacteristics', 'c')
@@ -161,7 +161,6 @@ class ListingRepository extends EntityRepository
             ->setParameter('status', $status);
 
         return $queryBuilder;
-
     }
 
     /**
@@ -175,7 +174,6 @@ class ListingRepository extends EntityRepository
         return $this->getFindByOwnerQuery($ownerId, $locale, $status)->getQuery()->getResult();
     }
 
-
     /**
      * @param $title
      * @param $locale
@@ -186,8 +184,8 @@ class ListingRepository extends EntityRepository
     public function findOneByTitle($title, $locale)
     {
         $queryBuilder = $this->createQueryBuilder('l')
-            ->addSelect("t")
-            ->addSelect("u, i")
+            ->addSelect('t')
+            ->addSelect('u, i')
             ->leftJoin('l.translations', 't')
             ->leftJoin('l.user', 'u')
             ->leftJoin('u.images', 'i')
@@ -195,8 +193,8 @@ class ListingRepository extends EntityRepository
             ->andWhere('t.locale = :locale')
             ->setParameter('title', $title)
             ->setParameter('locale', $locale);
-        try {
 
+        try {
             $query = $queryBuilder->getQuery();
 
             return $query->getSingleResult();
@@ -223,13 +221,13 @@ class ListingRepository extends EntityRepository
 
         if ($withUser) {
             $queryBuilder
-                ->addSelect("u")
+                ->addSelect('u')
                 ->leftJoin('l.user', 'u');
         }
 
         if ($withTranslations) {
             $queryBuilder
-                ->addSelect("t")
+                ->addSelect('t')
                 ->leftJoin('l.translations', 't');
         }
 
@@ -271,8 +269,8 @@ class ListingRepository extends EntityRepository
     public function getFindOneByIdAndLocaleQuery($listingId, $locale)
     {
         $queryBuilder = $this->createQueryBuilder('l')
-            ->addSelect("lt")
-            ->leftJoin("l.translations", "lt")
+            ->addSelect('lt')
+            ->leftJoin('l.translations', 'lt')
             ->where('l.id = :listingId')
             ->andWhere('lt.locale = :locale')
             ->setParameter('listingId', $listingId)
@@ -348,7 +346,6 @@ class ListingRepository extends EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-
     public function countByCountry()
     {
         $queryBuilder = $this->createQueryBuilder('listing')
@@ -386,6 +383,7 @@ class ListingRepository extends EntityRepository
                 ->setParameter('moId', $moId);
         }
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 
@@ -457,6 +455,7 @@ class ListingRepository extends EntityRepository
         }
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 
@@ -493,8 +492,5 @@ class ListingRepository extends EntityRepository
         $qb->setParameter(':activeStatuses', BaseListing::$activeStatus);
 
         return new ArrayCollection($qb->getQuery()->getResult());
-
     }
 }
-
-

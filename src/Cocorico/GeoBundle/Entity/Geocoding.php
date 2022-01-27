@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\GeoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -21,7 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Cocorico\GeoBundle\Entity\GeocodingRepository")
  *
  * @ORM\Table(name="geo_geocoding")
- *
  */
 class Geocoding
 {
@@ -62,10 +60,8 @@ class Geocoding
      */
     protected $addressType;
 
-
     public function __construct()
     {
-
     }
 
     /**
@@ -77,7 +73,6 @@ class Geocoding
     {
         return $this->id;
     }
-
 
     /**
      * Set lat
@@ -156,5 +151,4 @@ class Geocoding
     {
         $this->addressType = $addressType;
     }
-
 }

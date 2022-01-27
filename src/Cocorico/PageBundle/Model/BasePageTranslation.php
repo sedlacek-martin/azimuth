@@ -16,11 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass
- *
  */
 abstract class BasePageTranslation
 {
-
     /**
      * @Assert\NotBlank(message="assert.not_blank")
      *
@@ -169,5 +167,4 @@ abstract class BasePageTranslation
     {
         return $this->metaDescription;
     }
-
 }

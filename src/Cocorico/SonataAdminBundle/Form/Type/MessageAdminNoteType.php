@@ -16,7 +16,7 @@ class MessageAdminNoteType extends AbstractType
             ->add('adminNote', TextareaType::class, [
                 'label' => 'message.validation.admin_note.label',
                 'required' => true,
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
             ]);
     }
 
@@ -39,6 +39,4 @@ class MessageAdminNoteType extends AbstractType
     {
         return 'message_admin_note';
     }
-
-
 }

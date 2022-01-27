@@ -12,7 +12,6 @@
 
 namespace Cocorico\GeoBundle\DistanceMatrix;
 
-
 /**
  * A distance matrix response wraps the distance results & the response status.
  *
@@ -22,7 +21,6 @@ namespace Cocorico\GeoBundle\DistanceMatrix;
  */
 class DistanceMatrixResponseElement
 {
-
     /** @var string */
     protected $status;
 

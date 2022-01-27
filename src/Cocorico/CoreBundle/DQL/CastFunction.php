@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\DQL;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
@@ -40,8 +41,7 @@ class CastFunction extends FunctionNode
      */
     protected $type;
 
-
-    protected $supportedTypes = array(
+    protected $supportedTypes = [
         'bool',
         'boolean',
         'char',
@@ -54,7 +54,7 @@ class CastFunction extends FunctionNode
         'string',
         'text',
         'time',
-    );
+    ];
 
     /**
      * parse the provided parser and creates dql
@@ -76,9 +76,9 @@ class CastFunction extends FunctionNode
             $parser->match(Lexer::T_OPEN_PARENTHESIS);
             /** @var Literal $parameter */
             $parameter = $parser->Literal();
-            $parameters = array(
-                $parameter->value
-            );
+            $parameters = [
+                $parameter->value,
+            ];
             if ($lexer->isNextToken(Lexer::T_COMMA)) {
                 while ($lexer->isNextToken(Lexer::T_COMMA)) {
                     $parser->match(Lexer::T_COMMA);

@@ -91,6 +91,4 @@ class MessageEvent extends Event
     {
         $this->thread = $thread;
     }
-
-
 }

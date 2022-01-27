@@ -24,11 +24,11 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Table(name="listing_characteristic",indexes={
  *    @ORM\Index(name="position_idx", columns={"position"})
  *  })
- *
  */
 class ListingCharacteristic extends BaseListingCharacteristic
 {
     use ORMBehaviors\Translatable\Translatable;
+
     /**
      * @var integer
      *
@@ -44,10 +44,7 @@ class ListingCharacteristic extends BaseListingCharacteristic
      */
     private $listingCharacteristicType;
 
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="ListingListingCharacteristic", mappedBy="listingCharacteristic", cascade={"persist", "remove"})
-     */
+    /** @ORM\OneToMany(targetEntity="ListingListingCharacteristic", mappedBy="listingCharacteristic", cascade={"persist", "remove"}) */
     private $listingListingCharacteristics;
 
     /**
@@ -56,9 +53,7 @@ class ListingCharacteristic extends BaseListingCharacteristic
      */
     private $listingCharacteristicGroup;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingCategory", inversedBy="characteristics")
-     */
+    /** @ORM\ManyToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingCategory", inversedBy="characteristics") */
     private $listingCategories;
 
     /**
@@ -194,6 +189,7 @@ class ListingCharacteristic extends BaseListingCharacteristic
     public function setListingCategories($listingCategories)
     {
         $this->listingCategories = $listingCategories;
+
         return $this;
     }
 
@@ -218,6 +214,6 @@ class ListingCharacteristic extends BaseListingCharacteristic
      */
     public function __toString()
     {
-        return (string)$this->translate()->getName();
+        return (string) $this->translate()->getName();
     }
 }

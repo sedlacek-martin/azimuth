@@ -22,9 +22,10 @@ use Symfony\Component\Security\Http\SecurityEvents;
 class UserAuthenticationSubscriber implements EventSubscriberInterface
 {
     protected $session;
+
     protected $timezone;
 
-    const NOT_TRUSTED_ERROR = "Your account is not trusted yet";
+    const NOT_TRUSTED_ERROR = 'Your account is not trusted yet';
 
     /**
      * UserAuthenticationSubscriber constructor.
@@ -57,9 +58,9 @@ class UserAuthenticationSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             SecurityEvents::INTERACTIVE_LOGIN => 'onSecurityInteractiveLogin',
-        );
+        ];
     }
 
     /**
@@ -73,5 +74,4 @@ class UserAuthenticationSubscriber implements EventSubscriberInterface
 
         return $messages;
     }
-
 }

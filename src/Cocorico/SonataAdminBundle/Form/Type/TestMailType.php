@@ -4,7 +4,6 @@ namespace Cocorico\SonataAdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +17,7 @@ class TestMailType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'style' => 'width: 100%;',
-                ]
+                ],
             ]);
     }
 
@@ -34,5 +33,4 @@ class TestMailType extends AbstractType
     {
         return 'super_admin_actions_test_email';
     }
-
 }

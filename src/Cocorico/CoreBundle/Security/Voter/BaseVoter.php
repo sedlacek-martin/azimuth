@@ -22,6 +22,7 @@ abstract class BaseVoter extends Voter
     protected function supports($attribute, $subject)
     {
         $className = $this->getClass();
+
         return ($subject instanceof $className) && in_array(strtoupper($attribute), $this->getAttributes());
     }
 
@@ -45,10 +46,10 @@ abstract class BaseVoter extends Voter
     /**
      * @return string[]
      */
-    abstract function getAttributes(): array;
+    abstract public function getAttributes(): array;
 
     /**
      * @return string
      */
-    abstract function getClass(): string;
+    abstract public function getClass(): string;
 }

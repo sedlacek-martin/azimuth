@@ -20,8 +20,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Form type for a reply
- *
- *
  */
 class ReplyMessageFormType extends AbstractType implements TranslationContainerInterface
 {
@@ -30,23 +28,23 @@ class ReplyMessageFormType extends AbstractType implements TranslationContainerI
         $builder->add(
             'body',
             TextareaType::class,
-            array(
-                /** @Ignore */
+            [
+                /* @Ignore */
                 'label' => false,
                 'required' => true,
-                'constraints' => array(
-                    new NotBlank(array('message' => NewThreadMessageFormType::$messageError))
-                )
-            )
+                'constraints' => [
+                    new NotBlank(['message' => NewThreadMessageFormType::$messageError]),
+                ],
+            ]
         );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'csrf_token_id' => 'reply',
-            )
+            ]
         );
     }
 
@@ -67,5 +65,4 @@ class ReplyMessageFormType extends AbstractType implements TranslationContainerI
     {
         return NewThreadMessageFormType::getTranslationMessages();
     }
-
 }

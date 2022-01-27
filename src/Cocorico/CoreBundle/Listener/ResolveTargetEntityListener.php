@@ -28,20 +28,18 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  */
 class ResolveTargetEntityListener implements EventSubscriber
 {
-    /**
-     * @var array[] indexed by original entity name
-     */
-    private $resolveTargetEntities = array();
+    /** @var array[] indexed by original entity name */
+    private $resolveTargetEntities = [];
 
     /**
      * {@inheritDoc}
      */
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::loadClassMetadata,
-            Events::onClassMetadataNotFound
-        );
+            Events::onClassMetadataNotFound,
+        ];
     }
 
     /**
@@ -55,8 +53,8 @@ class ResolveTargetEntityListener implements EventSubscriber
      */
     public function addResolveTargetEntity($originalEntity, $newEntity, array $mapping)
     {
-        $mapping['targetEntity'] = ltrim($newEntity, "\\");
-        $this->resolveTargetEntities[ltrim($originalEntity, "\\")] = $mapping;
+        $mapping['targetEntity'] = ltrim($newEntity, '\\');
+        $this->resolveTargetEntities[ltrim($originalEntity, '\\')] = $mapping;
     }
 
     /**
@@ -122,21 +120,24 @@ class ResolveTargetEntityListener implements EventSubscriber
         if (class_exists($newMapping['targetEntity']) === false) {
 //            echo $newMapping['targetEntity'] . "<br>";
             return;
-        } else {
         }
 
         switch ($mapping['type']) {
             case ClassMetadata::MANY_TO_MANY:
                 $classMetadata->mapManyToMany($newMapping);
+
                 break;
             case ClassMetadata::MANY_TO_ONE:
                 $classMetadata->mapManyToOne($newMapping);
+
                 break;
             case ClassMetadata::ONE_TO_MANY:
                 $classMetadata->mapOneToMany($newMapping);
+
                 break;
             case ClassMetadata::ONE_TO_ONE:
                 $classMetadata->mapOneToOne($newMapping);
+
                 break;
         }
     }

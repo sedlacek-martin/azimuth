@@ -23,7 +23,6 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class BasePage
 {
     /**
-     *
      * @ORM\Column(name="published", type="boolean", nullable=true)
      *
      * @var boolean
@@ -67,5 +66,4 @@ abstract class BasePage
     {
         return $this->published;
     }
-
 }

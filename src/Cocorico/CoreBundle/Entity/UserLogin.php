@@ -23,7 +23,6 @@ class UserLogin
      */
     private $id;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Cocorico\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
@@ -77,6 +76,7 @@ class UserLogin
     public function setId(int $id): UserLogin
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -95,6 +95,7 @@ class UserLogin
     public function setUser(?User $user): UserLogin
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -113,6 +114,7 @@ class UserLogin
     public function setCreatedAt(\DateTime $createdAt): UserLogin
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -131,6 +133,7 @@ class UserLogin
     public function setIp(?string $ip): UserLogin
     {
         $this->ip = $ip;
+
         return $this;
     }
 }

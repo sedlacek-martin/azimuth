@@ -16,13 +16,21 @@ use Cocorico\ContactBundle\Entity\Contact;
 class TwigSwiftMailer implements MailerInterface
 {
     protected $mailer;
+
     protected $twig;
+
     protected $parameters;
+
     protected $templates;
+
     protected $fromEmail;
+
     protected $contactEmail;
+
     protected $locale;
+
     protected $siteName;
+
     protected $bccEmail;
 
     /**
@@ -40,7 +48,7 @@ class TwigSwiftMailer implements MailerInterface
         $this->mailer = $mailer;
         $this->twig = $twig;
 
-        /** parameters */
+        /* parameters */
         $this->parameters = $parameters['parameters'];
         $this->fromEmail = $parameters['parameters']['cocorico_contact_from_email'];
         $this->contactEmail = $parameters['parameters']['cocorico_contact_contact_email'];
@@ -57,14 +65,13 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->templates['templates']['contact_message'];
 
-        $context = array(
+        $context = [
             'contact' => $contact,
             'user_locale' => $this->locale,
-        );
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $this->contactEmail);
     }
-
 
     /**
      * @param Contact $contact
@@ -80,7 +87,6 @@ class TwigSwiftMailer implements MailerInterface
         ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $contact->getEmail());
-
     }
 
     /**
@@ -101,7 +107,7 @@ class TwigSwiftMailer implements MailerInterface
             $context = $this->twig->mergeGlobals($context);
 
             $subject = $template->renderBlock('subject', $context);
-            $context["message"] = $template->renderBlock('message', $context);
+            $context['message'] = $template->renderBlock('message', $context);
 
             $textBody = $template->renderBlock('body_text', $context);
             $htmlBody = $template->renderBlock('body_html', $context);
@@ -122,6 +128,5 @@ class TwigSwiftMailer implements MailerInterface
             $this->mailer->send($message);
         } catch (\Exception $e) {
         }
-
     }
 }

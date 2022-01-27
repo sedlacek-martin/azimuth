@@ -30,7 +30,7 @@ class PageAccessRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
-
 }

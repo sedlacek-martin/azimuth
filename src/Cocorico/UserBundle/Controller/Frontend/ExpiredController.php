@@ -4,7 +4,6 @@ namespace Cocorico\UserBundle\Controller\Frontend;
 
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Model\UserManager;
-use Cocorico\UserBundle\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ExpiredController extends Controller
 {
-
     /**
      * @Route("/", name="cocorico_user_expired")
      * @param Request $request
@@ -35,7 +33,7 @@ class ExpiredController extends Controller
         if (!$user->isExpired()) {
             $session->getFlashBag()->add(
                 'warning',
-                /** @Ignore */
+                /* @Ignore */
                 $translator->trans('user.expired.not_expired', [], 'cocorico_user')
             );
         }
@@ -58,10 +56,10 @@ class ExpiredController extends Controller
         $userManager = $this->get('cocorico_user.user_manager');
 
         if (!$user instanceof User) {
-          $token = $request->get('token');
-          if ($token) {
-            $user = $userManager->getRepository()->findOneByUniqueHash($token);
-          }
+            $token = $request->get('token');
+            if ($token) {
+                $user = $userManager->getRepository()->findOneByUniqueHash($token);
+            }
         }
 
         if (!$user instanceof User) {
@@ -78,28 +76,26 @@ class ExpiredController extends Controller
 
                 $userManager->persistAndFlush($user);
 
-
                 $session->getFlashBag()->add(
                     'success',
-                    /** @Ignore */
+                    /* @Ignore */
                     $translator->trans('reconfirm_request_successful', [], 'cocorico_user')
                 );
             } else {
                 $session->getFlashBag()->add(
                     'warning',
-                    /** @Ignore */
+                    /* @Ignore */
                     $translator->trans('reconfirm_request_already_requested', [], 'cocorico_user')
                 );
             }
         } else {
             $session->getFlashBag()->add(
                 'error',
-                /** @Ignore */
+                /* @Ignore */
                 $translator->trans('user.expired.not_expired', [], 'cocorico_user')
             );
         }
 
         return $this->redirectToRoute('cocorico_home');
     }
-
 }

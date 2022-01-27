@@ -11,7 +11,6 @@
 
 namespace Cocorico\MessageBundle\MessageBuilder;
 
-use Cocorico\CoreBundle\Entity\Booking;
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\UserBundle\Entity\User;
 use Doctrine\Common\Collections\Collection;
@@ -20,12 +19,9 @@ use FOS\MessageBundle\Model\ParticipantInterface;
 
 /**
  * Fluent interface message builder for new thread messages
- *
- *
  */
 class NewThreadMessageBuilder extends AbstractMessageBuilder
 {
-
     /**
      * The thread listing
      *
@@ -113,5 +109,4 @@ class NewThreadMessageBuilder extends AbstractMessageBuilder
 
         return $this;
     }
-
 }

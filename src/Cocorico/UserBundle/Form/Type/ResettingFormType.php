@@ -19,13 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ResettingFormType
- *
  */
 class ResettingFormType extends AbstractType
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $class;
 
     /**
@@ -45,13 +42,13 @@ class ResettingFormType extends AbstractType
         $builder->add(
             'plainPassword',
             RepeatedType::class,
-            array(
+            [
                 'type' => PasswordType::class,
-                'options' => array('translation_domain' => 'cocorico_user'),
-                'first_options' => array('label' => 'form.new_password'),
-                'second_options' => array('label' => 'form.new_password_confirmation'),
+                'options' => ['translation_domain' => 'cocorico_user'],
+                'first_options' => ['label' => 'form.new_password'],
+                'second_options' => ['label' => 'form.new_password_confirmation'],
                 'invalid_message' => 'fos_user.password.mismatch',
-            )
+            ]
         );
     }
 
@@ -61,14 +58,13 @@ class ResettingFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => $this->class,
                 'csrf_token_id' => 'resetting',
-                'translation_domain' => 'cocorico_user'
-            )
+                'translation_domain' => 'cocorico_user',
+            ]
         );
     }
-
 
     /**
      * {@inheritdoc}

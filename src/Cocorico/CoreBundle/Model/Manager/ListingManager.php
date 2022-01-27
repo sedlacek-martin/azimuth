@@ -32,9 +32,13 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ListingManager extends BaseManager
 {
     protected $em;
+
     protected $securityTokenStorage;
+
     protected $newListingIsPublished;
+
     public $maxPerPage;
+
     protected $mailer;
 
     /**
@@ -102,7 +106,7 @@ class ListingManager extends BaseManager
             $this->em->persist($translation);
         }
 
-        /** @var ListingOptionInterface $option */
+        /* @var ListingOptionInterface $option */
         if ($listing->getOptions()) {
             foreach ($listing->getOptions() as $option) {
                 $option->mergeNewTranslations();
@@ -162,7 +166,7 @@ class ListingManager extends BaseManager
         //Associate new characteristics not already associated to listing
         /** @var ListingCharacteristic $listingCharacteristic */
         foreach ($listingCharacteristics as $listingCharacteristic) {
-            if( !$listingCharacteristic->getListingCategories()->isEmpty()) {
+            if (!$listingCharacteristic->getListingCategories()->isEmpty()) {
                 $characteristicCategories = $listingCharacteristic->getListingCategories();
                 if (!$characteristicCategories->contains($listing->getCategory())) {
                     continue;
@@ -206,7 +210,6 @@ class ListingManager extends BaseManager
                 $this->em->flush();
                 $this->em->refresh($listing);
             }
-
         } else {
             throw new AccessDeniedException();
         }
@@ -225,7 +228,7 @@ class ListingManager extends BaseManager
             return;
         }
 
-        $defaultImagesArray = explode(",", trim($defaultImages, ","));
+        $defaultImagesArray = explode(',', trim($defaultImages, ','));
         if (count($defaultImagesArray) === 0) {
             return;
         }
@@ -304,7 +307,7 @@ class ListingManager extends BaseManager
         }
 
         //Options
-        /** @var ListingOptionInterface $option */
+        /* @var ListingOptionInterface $option */
         if ($listingCloned->getOptions()) {
             foreach ($listingCloned->getOptions() as $option) {
                 $option->mergeNewTranslations();
@@ -356,19 +359,16 @@ class ListingManager extends BaseManager
             $this->mailer->sendListingExpired($listing);
 
             ++$count;
-
         }
 
         return $count;
     }
 
     /**
-     *
      * @return ListingRepository
      */
     public function getRepository()
     {
         return $this->em->getRepository('CocoricoCoreBundle:Listing');
     }
-
 }

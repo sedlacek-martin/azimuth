@@ -20,11 +20,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Cocorico\CoreBundle\Repository\ListingListingCharacteristicRepository")
  *
  * @ORM\Table(name="listing_listing_characteristic")
- *
  */
 class ListingListingCharacteristic extends BaseListingListingCharacteristic
 {
-
     /**
      * @var integer
      *
@@ -52,7 +50,6 @@ class ListingListingCharacteristic extends BaseListingListingCharacteristic
      */
     private $listingCharacteristicValue;
 
-
     /**
      * Get id
      *
@@ -62,7 +59,6 @@ class ListingListingCharacteristic extends BaseListingListingCharacteristic
     {
         return $this->id;
     }
-
 
     /**
      * Set listing

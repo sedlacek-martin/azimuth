@@ -31,7 +31,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ListingFixtures extends Fixture implements DependentFixtureInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -40,7 +39,7 @@ class ListingFixtures extends Fixture implements DependentFixtureInterface
 
         //GeoGraphical entities
         $country = new Country();
-        $country->setCode("FR");
+        $country->setCode('FR');
         $country->translate('en')->setName('France');
         $country->translate('fr')->setName('France');
 
@@ -77,21 +76,21 @@ class ListingFixtures extends Fixture implements DependentFixtureInterface
         $coordinate->setArea($area);
         $coordinate->setDepartment($department);
         $coordinate->setCity($city);
-        $coordinate->setZip("75002");
-        $coordinate->setRoute("Rue de la Lune");
-        $coordinate->setStreetNumber("9");
-        $coordinate->setAddress("9 Rue de la Lune, 75002 Paris, France");
+        $coordinate->setZip('75002');
+        $coordinate->setRoute('Rue de la Lune');
+        $coordinate->setStreetNumber('9');
+        $coordinate->setAddress('9 Rue de la Lune, 75002 Paris, France');
         $coordinate->setLat(48.8697174);
         $coordinate->setLng(2.3509855);
         $manager->persist($coordinate);
 
         //Listing Location
         $location = new ListingLocation();
-        $location->setCountry("FR");
-        $location->setCity("Paris");
-        $location->setZip("75002");
-        $location->setRoute("rue de la Lune");
-        $location->setStreetNumber("9");
+        $location->setCountry('FR');
+        $location->setCity('Paris');
+        $location->setZip('75002');
+        $location->setRoute('rue de la Lune');
+        $location->setStreetNumber('9');
         $location->setCoordinate($coordinate);
         $manager->persist($location);
 
@@ -136,7 +135,6 @@ class ListingFixtures extends Fixture implements DependentFixtureInterface
         $listingListingCharacteristic->setListingCharacteristicValue($value);
         $listing->addListingListingCharacteristic($listingListingCharacteristic);
 
-
         $characteristic = $manager->merge($this->getReference('characteristic_2'));
         $listingListingCharacteristic = new ListingListingCharacteristic();
         $listingListingCharacteristic->setListing($listing);
@@ -145,7 +143,6 @@ class ListingFixtures extends Fixture implements DependentFixtureInterface
         $listingListingCharacteristic->setListingCharacteristicValue($value);
         $listing->addListingListingCharacteristic($listingListingCharacteristic);
 
-
         $characteristic = $manager->merge($this->getReference('characteristic_3'));
         $listingListingCharacteristic = new ListingListingCharacteristic();
         $listingListingCharacteristic->setListing($listing);
@@ -153,7 +150,6 @@ class ListingFixtures extends Fixture implements DependentFixtureInterface
         $value = $manager->merge($this->getReference('characteristic_value_custom_1'));
         $listingListingCharacteristic->setListingCharacteristicValue($value);
         $listing->addListingListingCharacteristic($listingListingCharacteristic);
-
 
         $characteristic = $manager->merge($this->getReference('characteristic_4'));
         $listingListingCharacteristic = new ListingListingCharacteristic();
@@ -167,7 +163,6 @@ class ListingFixtures extends Fixture implements DependentFixtureInterface
         $listing->mergeNewTranslations();
         $manager->flush();
 
-
         /** @var ListingTranslation $translation */
         foreach ($listing->getTranslations() as $i => $translation) {
             $translation->generateSlug();
@@ -180,12 +175,11 @@ class ListingFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return array(
+        return [
             UserFixtures::class,
             ListingCategoryFixtures::class,
             ListingCharacteristicFixtures::class,
             ListingCharacteristicValueFixtures::class,
-        );
+        ];
     }
-
 }

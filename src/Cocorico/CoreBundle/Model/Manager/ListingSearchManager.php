@@ -28,12 +28,19 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ListingSearchManager
 {
     protected $em;
+
     protected $dm;
+
     protected $dispatcher;
+
     protected $endDayIncluded;
+
     protected $timeUnit;
+
     protected $timeUnitIsDay;
+
     protected $maxPerPage;
+
     protected $listingDefaultStatus;
 
     /**
@@ -49,12 +56,12 @@ class ListingSearchManager
         $this->em = $em;
         $this->dispatcher = $dispatcher;
 
-        $parameters = $parameters["parameters"];
-        $this->endDayIncluded = $parameters["cocorico_booking_end_day_included"];
-        $this->timeUnit = $parameters["cocorico_time_unit"];
+        $parameters = $parameters['parameters'];
+        $this->endDayIncluded = $parameters['cocorico_booking_end_day_included'];
+        $this->timeUnit = $parameters['cocorico_time_unit'];
         $this->timeUnitIsDay = ($this->timeUnit % 1440 == 0) ? true : false;
-        $this->maxPerPage = $parameters["cocorico_listing_search_max_per_page"];
-        $this->listingDefaultStatus = $parameters["cocorico_listing_availability_status"];
+        $this->maxPerPage = $parameters['cocorico_listing_search_max_per_page'];
+        $this->listingDefaultStatus = $parameters['cocorico_listing_availability_status'];
     }
 
     /**
@@ -84,8 +91,8 @@ class ListingSearchManager
         $categories = $listingSearchRequest->getCategories();
         if (count($categories)) {
             $queryBuilder
-                ->andWhere("ca.id IN (:categories)")
-                ->setParameter("categories", $categories);
+                ->andWhere('ca.id IN (:categories)')
+                ->setParameter('categories', $categories);
         }
 
         //Characteristics
@@ -94,13 +101,15 @@ class ListingSearchManager
         //Order
         switch ($listingSearchRequest->getSortBy()) {
             case 'distance':
-                $queryBuilder->orderBy("distance", "ASC");
+                $queryBuilder->orderBy('distance', 'ASC');
+
                 break;
             default:
-                $queryBuilder->orderBy("distance", "ASC");
+                $queryBuilder->orderBy('distance', 'ASC');
+
                 break;
         }
-        $queryBuilder->addOrderBy("l.adminNotation", "DESC");
+        $queryBuilder->addOrderBy('l.adminNotation', 'DESC');
 
         if (!$listingSearchRequest->getIsXmlHttpRequest()) {
             $event = new ListingSearchEvent($listingSearchRequest, $queryBuilder);
@@ -133,8 +142,8 @@ class ListingSearchManager
             ->setParameter('locale', $locale)
             ->setParameter('listingStatus', Listing::STATUS_PUBLISHED);
 
-        $queryBuilder->addOrderBy("l.id", "DESC");
-        $queryBuilder->addOrderBy("l.adminNotation", "DESC");
+        $queryBuilder->addOrderBy('l.id', 'DESC');
+        $queryBuilder->addOrderBy('l.adminNotation', 'DESC');
 
         //Pagination
         if ($listingSearchRequest->getMaxPerPage()) {
@@ -148,7 +157,6 @@ class ListingSearchManager
         $query->setHydrationMode(Query::HYDRATE_ARRAY);
 
         return new Paginator($query);
-
     }
 
     /**
@@ -158,14 +166,14 @@ class ListingSearchManager
      */
     public function getSearchByValidDatesQueryBuilder(ListingSearchRequest $listingSearchRequest, $queryBuilder): QueryBuilder
     {
-       $range = $listingSearchRequest->getDateRange();
+        $range = $listingSearchRequest->getDateRange();
 
-       if ($range === null) {
-           return $queryBuilder;
-       }
+        if ($range === null) {
+            return $queryBuilder;
+        }
 
-       if ($range->getStart() && $range->getEnd()) {
-           $queryBuilder
+        if ($range->getStart() && $range->getEnd()) {
+            $queryBuilder
                ->andWhere('(
                    (l.validTo >= :from AND l.validTo <= :to) 
                    OR (l.validFrom >= :from AND l.validFrom <= :to) 
@@ -173,7 +181,7 @@ class ListingSearchManager
                )')
                ->setParameter('from', $range->getStart())
                ->setParameter('to', $range->getEnd());
-       }
+        }
 
 //       if ($range->getEnd()) {
 //           $queryBuilder
@@ -204,10 +212,10 @@ class ListingSearchManager
             ->andWhere('co.lat > :swLat')
             ->andWhere('co.lng < :neLng')
             ->andWhere('co.lng > :swLng')
-            ->setParameter('neLat', $viewport["ne"]["lat"])
-            ->setParameter('swLat', $viewport["sw"]["lat"])
-            ->setParameter('neLng', $viewport["ne"]["lng"])
-            ->setParameter('swLng', $viewport["sw"]["lng"]);
+            ->setParameter('neLat', $viewport['ne']['lat'])
+            ->setParameter('swLat', $viewport['sw']['lat'])
+            ->setParameter('neLng', $viewport['ne']['lng'])
+            ->setParameter('swLng', $viewport['sw']['lng']);
 
         return $queryBuilder;
     }
@@ -240,10 +248,10 @@ class ListingSearchManager
 
             $queryBuilderCharacteristics
                 ->groupBy('c.listing')
-                ->having("COUNT(c.listing) = :nbCharacteristics");
+                ->having('COUNT(c.listing) = :nbCharacteristics');
 
             $queryBuilder
-                ->setParameter("nbCharacteristics", count($characteristics));
+                ->setParameter('nbCharacteristics', count($characteristics));
 
             $queryBuilder
                 ->leftJoin('l.listingListingCharacteristics', 'llc')
@@ -286,7 +294,6 @@ class ListingSearchManager
         }
     }
 
-
     /**
      * getListingsByIds returns the listings, depending upon ids provided
      *
@@ -304,7 +311,7 @@ class ListingSearchManager
         $ids,
         $page,
         $locale,
-        array $idsExcluded = array(),
+        array $idsExcluded = [],
         $maxPerPage = null
     ) {
         // Remove the current listing id from the similar listings
@@ -350,14 +357,11 @@ class ListingSearchManager
         return $this->listingDefaultStatus;
     }
 
-
     /**
-     *
      * @return ListingRepository
      */
     public function getRepository(): ListingRepository
     {
         return $this->em->getRepository('CocoricoCoreBundle:Listing');
     }
-
 }

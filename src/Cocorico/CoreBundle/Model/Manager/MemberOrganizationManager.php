@@ -8,13 +8,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class MemberOrganizationManager extends BaseManager
 {
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     private $em;
-    /**
-     * @var TokenStorage
-     */
+
+    /** @var TokenStorage */
     private $securityTokenStorage;
 
     public function __construct(EntityManager $em, TokenStorage $securityTokenStorage)
@@ -24,13 +21,10 @@ class MemberOrganizationManager extends BaseManager
     }
 
     /**
-     *
      * @return MemberOrganizationRepository
      */
     public function getRepository()
     {
         return $this->em->getRepository('CocoricoCoreBundle:MemberOrganization');
     }
-
-
 }

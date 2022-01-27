@@ -9,14 +9,12 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\MessageBundle\Mailer;
 
 use FOS\UserBundle\Model\UserInterface;
 
 /**
  * Interface MailerInterface
- *
  */
 interface MailerInterface
 {
@@ -30,5 +28,4 @@ interface MailerInterface
      * @return void
      */
     public function sendNewThreadMessageToUser($threadId, UserInterface $recipient, UserInterface $sender);
-
 }

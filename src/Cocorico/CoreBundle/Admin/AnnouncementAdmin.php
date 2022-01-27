@@ -8,8 +8,11 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 class AnnouncementAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'announcement';
+
     protected $baseRouteName = 'announcement';
+
     protected $locales;
 
     public function setLocales($locales)
@@ -25,14 +28,14 @@ class AnnouncementAdmin extends BaseAdmin
             ->add('heading', null, [])
             ->add('shortDescription', null, [
                 'truncate' => [
-                    'length' => 50
-                ]
+                    'length' => 50,
+                ],
             ])
             ->add('content', 'html', [
                 'truncate' => [
                     'length' => 150,
-                    'preserve' => true
-                ]
+                    'preserve' => true,
+                ],
             ])
             ->add('showAt', null, [])
             ->add('createdAt', null, [])
@@ -41,16 +44,15 @@ class AnnouncementAdmin extends BaseAdmin
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
                     'delete' => [],
                     'edit' => [],
                     'show_users' => [
                         'template' => 'CocoricoSonataAdminBundle::list_action_announcement_show_users.html.twig',
-                    ]
-                )
-            )
+                    ],
+                ],
+            ]
         );
     }
-
 }

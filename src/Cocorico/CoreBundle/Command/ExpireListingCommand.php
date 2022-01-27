@@ -16,7 +16,6 @@ class ExpireListingCommand extends ContainerAwareCommand
             ->setDescription('This command will expire users');
     }
 
-
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var ListingManager $listingMabooking.nager */
@@ -28,8 +27,6 @@ class ExpireListingCommand extends ContainerAwareCommand
         $output->writeln("{$expireSoonCount} 'listing expire soon' notification send");
         $output->writeln("{$expiredCount} listing expired");
 
-
         return 1;
     }
-
 }

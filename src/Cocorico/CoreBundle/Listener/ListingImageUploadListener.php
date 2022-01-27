@@ -32,30 +32,27 @@ class ListingImageUploadListener
         $request = $event->getRequest();
         $response = $event->getResponse();
         //print_r($request->request->all());
-        $idListing = $request->query->get("listing_id");
+        $idListing = $request->query->get('listing_id');
 
         if ($idListing) {
 
-            /** @var Listing $listing */
+            /* @var Listing $listing */
 //            $listing = $this->lem->getRepository()->find($idListing);
 //            $this->lem->addImages(
 //                $listing,
 //                array($file->getFilename()),
 //                true
 //            );
-        } else {//New Listing
+        }  //New Listing
 
-        }
-
-        $response['files'] = array(
-            array(
+        $response['files'] = [
+            [
                 'name' => $file->getFilename(),
 //                'size' => $file->getSize(),
 //                'url' => '',
 //                'deleteUrl' => '',
 //                'deleteType' => 'DELETE'
-            )
-        );
+            ],
+        ];
     }
-
 }

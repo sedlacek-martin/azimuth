@@ -11,7 +11,6 @@
 
 namespace Cocorico\CoreBundle\Event;
 
-
 class ListingSearchEvents
 {
     /**

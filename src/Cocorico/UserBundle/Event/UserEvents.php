@@ -11,7 +11,6 @@
 
 namespace Cocorico\UserBundle\Event;
 
-
 class UserEvents
 {
     /**
@@ -22,7 +21,6 @@ class UserEvents
      */
     const USER_REGISTER = 'cocorico.user.register';
 
-
     /**
      * The USER_PROFILE_UPDATE event occurs before user profile data are updated.
      *
@@ -30,7 +28,6 @@ class UserEvents
      * The event listener method receives a Cocorico\UserBundle\Event\UserEvent instance.
      */
     const USER_PROFILE_UPDATE = 'cocorico.user.profile_update';
-
 
     /**
      * The USER_BANK_ACCOUNT_UPDATE event occurs before user bank account data are updated.

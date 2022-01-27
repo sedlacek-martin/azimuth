@@ -18,7 +18,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class PageFixtures extends Fixture
 {
-
     /**
      * {@inheritDoc}
      */
@@ -64,7 +63,6 @@ class PageFixtures extends Fixture
             <h3>Avez-vous une mascotte ?</h3>
             <p>Voici une vid&eacute;o de &quot;Cocotte&quot;&nbsp;: <a href="http://cocorico.rocks/">http://cocorico.rocks/</a></p>'
         );
-
 
         //Page How it Works
         $page1 = new Page();
@@ -114,7 +112,6 @@ class PageFixtures extends Fixture
         $page3->translate('en')->setDescription('in progress');
         $page3->translate('fr')->setDescription('en cours');
 
-
         //Page Legal notices
         $page4 = new Page();
         $page4->setPublished(true);
@@ -130,7 +127,6 @@ class PageFixtures extends Fixture
 
         $page4->translate('en')->setDescription('in progress');
         $page4->translate('fr')->setDescription('en cours');
-
 
         $page5 = new Page();
         $page5->setPublished(true);
@@ -197,8 +193,5 @@ class PageFixtures extends Fixture
         $this->addReference('faq', $page3);
         $this->addReference('legal-notice', $page4);
         $this->addReference('terms-of-use', $page5);
-
     }
-
-
 }

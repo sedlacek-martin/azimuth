@@ -24,12 +24,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Message form type for starting a new conversation
- *
- *
  */
 class NewThreadMessageFormType extends AbstractType implements TranslationContainerInterface
 {
-
     public static $messageError = 'message.body.not_blank';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -38,17 +35,17 @@ class NewThreadMessageFormType extends AbstractType implements TranslationContai
             ->add(
                 'listing',
                 EntityHiddenType::class,
-                array('class' => 'Cocorico\CoreBundle\Entity\Listing')
+                ['class' => 'Cocorico\CoreBundle\Entity\Listing']
             )
             ->add(
                 'recipient',
                 EntityHiddenType::class,
-                array('class' => 'Cocorico\UserBundle\Entity\User')
+                ['class' => 'Cocorico\UserBundle\Entity\User']
             )
             ->add(
                 'subject',
                 HiddenType::class,
-                array('data' => 'Contact')
+                ['data' => 'Contact']
             )
             ->add('fromDate', DateType::class, [
                 'widget' => 'single_text',
@@ -57,7 +54,7 @@ class NewThreadMessageFormType extends AbstractType implements TranslationContai
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control',
-                ]
+                ],
             ])
             ->add('toDate', DateType::class, [
                 'widget' => 'single_text',
@@ -66,30 +63,30 @@ class NewThreadMessageFormType extends AbstractType implements TranslationContai
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control',
-                ]
+                ],
             ])
             ->add(
                 'body',
                 TextareaType::class,
-                array(
-                    /** @Ignore */
+                [
+                    /* @Ignore */
                     'label' => false,
-                    'attr' => array('rows' => '6'),
+                    'attr' => ['rows' => '6'],
                     'required' => true,
-                    'constraints' => array(
-                        new NotBlank(array('message' => self::$messageError))
-                    )
-                )
+                    'constraints' => [
+                        new NotBlank(['message' => self::$messageError]),
+                    ],
+                ]
             );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
 //                'data_class' => 'Cocorico\MessageBundle\Entity\Thread',
                 'csrf_token_id' => 'message',
-            )
+            ]
         );
     }
 
@@ -108,7 +105,7 @@ class NewThreadMessageFormType extends AbstractType implements TranslationContai
      */
     public static function getTranslationMessages()
     {
-        $messages = array();
+        $messages = [];
         $messages[] = new Message(self::$messageError, 'cocorico');
 
         return $messages;

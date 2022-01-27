@@ -18,7 +18,6 @@ use FOS\MessageBundle\Model\ParticipantInterface;
 
 class NewThreadMessage extends AbstractMessage
 {
-
     /**
      * The user who receives the message
      *
@@ -47,14 +46,10 @@ class NewThreadMessage extends AbstractMessage
      */
     protected $user;
 
-    /**
-     * @var \DateTime|null
-     */
+    /** @var \DateTime|null */
     protected $fromDate;
 
-    /**
-     * @var \DateTime|null
-     */
+    /** @var \DateTime|null */
     protected $toDate;
 
     /**
@@ -142,6 +137,7 @@ class NewThreadMessage extends AbstractMessage
     public function setFromDate(?\DateTime $fromDate): NewThreadMessage
     {
         $this->fromDate = $fromDate;
+
         return $this;
     }
 
@@ -160,6 +156,7 @@ class NewThreadMessage extends AbstractMessage
     public function setToDate(?\DateTime $toDate): NewThreadMessage
     {
         $this->toDate = $toDate;
+
         return $this;
     }
 }

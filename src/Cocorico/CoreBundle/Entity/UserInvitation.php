@@ -24,7 +24,6 @@ class UserInvitation
      */
     private $id;
 
-
     /**
      * @var string|null
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
@@ -76,7 +75,6 @@ class UserInvitation
         $this->createdAt = new \DateTime();
         $this->expiration = (new \DateTime())->add(new DateInterval('P7D'));
     }
-
 
     /**
      * @return int|null
@@ -145,7 +143,6 @@ class UserInvitation
     public function isExpired(): bool
     {
         return $this->expiration < new \DateTime();
-
     }
 
     /**
@@ -179,6 +176,7 @@ class UserInvitation
     public function setMemberOrganization(?MemberOrganization $memberOrganization): UserInvitation
     {
         $this->memberOrganization = $memberOrganization;
+
         return $this;
     }
 
@@ -186,6 +184,4 @@ class UserInvitation
     {
         return 'Invitation' . ($this->getEmail() ? " ({$this->getEmail()})  " : '');
     }
-
-
 }

@@ -12,7 +12,6 @@
 
 namespace Cocorico\GeoBundle\DistanceMatrix;
 
-
 /**
  * A distance matrix response wraps the distance results & the response status.
  *
@@ -67,7 +66,7 @@ class DistanceMatrixResponse
      */
     public function setOrigins(array $origins)
     {
-        $this->origins = array();
+        $this->origins = [];
 
         foreach ($origins as $origin) {
             $this->addOrigin($origin);
@@ -101,7 +100,7 @@ class DistanceMatrixResponse
      */
     public function setDestinations(array $destinations)
     {
-        $this->destinations = array();
+        $this->destinations = [];
 
         foreach ($destinations as $destination) {
             $this->addDestination($destination);
@@ -135,7 +134,7 @@ class DistanceMatrixResponse
      */
     public function setRows(array $rows)
     {
-        $this->rows = array();
+        $this->rows = [];
 
         foreach ($rows as $row) {
             $this->addRow($row);

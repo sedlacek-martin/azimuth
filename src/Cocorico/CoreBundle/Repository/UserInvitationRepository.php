@@ -27,6 +27,4 @@ class UserInvitationRepository extends EntityRepository
             return null;
         }
     }
-
-
 }

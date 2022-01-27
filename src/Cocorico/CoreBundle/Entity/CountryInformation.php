@@ -2,7 +2,6 @@
 
 namespace Cocorico\CoreBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Intl\Intl;
@@ -14,7 +13,6 @@ use Symfony\Component\Intl\Intl;
  * @UniqueEntity(fields={"country"}, message="Country info already exists for country {{ value }}", ignoreNull=true)
  *
  * @ORM\Table(name="country_information")
- *
  */
 class CountryInformation
 {
@@ -88,7 +86,7 @@ class CountryInformation
     public function getCountryName(): string
     {
         $countries = Intl::getRegionBundle()->getCountryNames();
+
         return $countries[$this->country] ?? '';
     }
-
 }

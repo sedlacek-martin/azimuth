@@ -22,7 +22,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="listing_image", indexes={
  *    @ORM\Index(name="position_li_idx", columns={"position"})
  *  })
- *
  */
 class ListingImage extends BaseListingImage
 {

@@ -50,16 +50,15 @@ class ListingEditCategoriesAjaxType extends AbstractType
             ->add(
                 'category',
                 ListingCategoryType::class,
-                array(
+                [
                     'label' => 'listing_search.form.categories',
                     'placeholder' => 'listing_search.form.categories.empty_value',
-                )
+                ]
             );
 
 //        $builder
 //            ->get('listingListingCategories')
 //            ->addModelTransformer(new ListingListingCategoriesToListingCategoriesTransformer($listing));
-
 
         //Dispatch LISTING_EDIT_CATEGORIES_FORM_BUILD Event. Listener listening this event can add fields and validation
         //Used for example to add fields to categories
@@ -76,12 +75,12 @@ class ListingEditCategoriesAjaxType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\CoreBundle\Entity\Listing',
                 'csrf_token_id' => 'listing_edit',
                 'translation_domain' => 'cocorico_listing',
                 'constraints' => new Valid(),//To have error on collection item field,
-            )
+            ]
         );
     }
 
@@ -92,5 +91,4 @@ class ListingEditCategoriesAjaxType extends AbstractType
     {
         return 'listing_edit_categories_ajax';
     }
-
 }

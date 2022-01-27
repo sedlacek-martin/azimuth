@@ -11,7 +11,6 @@
 
 namespace Cocorico\CoreBundle\Event;
 
-
 class ListingFormEvents
 {
     /**
@@ -41,7 +40,6 @@ class ListingFormEvents
      */
     const LISTING_EDIT_PRICE_FORM_BUILD = 'cocorico.listing_edit.price.form.build';
 
-
     /**
      * The LISTING_NEW_FORM_BUILD event is thrown each time listing new form is build
      *
@@ -51,7 +49,6 @@ class ListingFormEvents
      */
     const LISTING_NEW_FORM_BUILD = 'cocorico.listing_new.form.build';
 
-
     /**
      * The LISTING_AVAILABILITIES_FORM_BUILD event is thrown each time a listing availability edition form is build
      *
@@ -60,5 +57,4 @@ class ListingFormEvents
      * The event listener receives a \Cocorico\CoreBundle\Event\ListingFormBuilderEvent instance.
      */
     const LISTING_AVAILABILITIES_FORM_BUILD = 'cocorico.listing_edit.availabilities.form.build';
-
 }

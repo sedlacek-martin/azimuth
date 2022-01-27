@@ -27,13 +27,10 @@ class UserExpirySubscriber implements EventSubscriberInterface
         'ROLE_SUPER_ADMIN',
     ];
 
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $router;
-    /**
-     * @var TokenStorageInterface
-     */
+
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     public function __construct(UrlGeneratorInterface $router, TokenStorageInterface $tokenStorage)

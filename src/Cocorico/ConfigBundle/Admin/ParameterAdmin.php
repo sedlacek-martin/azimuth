@@ -24,75 +24,79 @@ use Symfony\Component\Process\Process;
 class ParameterAdmin extends AbstractAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'parameter';
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'ASC',
         '_sort_by' => 'name',
-    );
+    ];
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         /** @var Parameter $parameter */
         $parameter = $this->getSubject();
 
-
         $formMapper
             ->with(
                 'admin.parameter.title',
-                array(
+                [
                     'description' => 'admin.parameters.warning',
                     'translation_domain' => 'SonataAdminBundle',
-                )
+                ]
             )
             ->add(
                 'name',
                 null,
-                array(
+                [
                     'label' => 'admin.parameter.name.label',
                     'disabled' => true,
-                )
+                ]
             )
             ->add(
                 'description',
                 null,
-                array(
+                [
                     'label' => 'admin.parameter.description.label',
                     'disabled' => true,
-                )
+                ]
             )
             ->add(
                 'value',
                 $parameter ? $parameter->getType() : null,
-                array(
+                [
                     'label' => 'admin.parameter.value.label',
                     'required' => false,
-                )
+                ]
             )
             ->end();
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add(
                 'name',
                 null,
-                array('label' => 'admin.parameter.name.label')
+                ['label' => 'admin.parameter.name.label']
             )
             ->add(
                 'value',
                 null,
-                array('label' => 'admin.parameter.value.label')
+                ['label' => 'admin.parameter.value.label']
             );
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -100,41 +104,42 @@ class ParameterAdmin extends AbstractAdmin
             ->add(
                 'name',
                 null,
-                array('label' => 'admin.parameter.name.label')
+                ['label' => 'admin.parameter.name.label']
             )
             ->add(
                 'value',
                 null,
-                array(
+                [
                     'label' => 'admin.parameter.value.label',
                     'template' => 'CocoricoConfigBundle::list_parameter_value.html.twig',
-                )
+                ]
             );
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                ),
-            )
+            [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                ],
+            ]
         );
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
             ->with(
                 'Parameter',
-                array(
+                [
                     'class' => 'col-md-8',
                     'box_class' => 'box box-solid box-danger',
                     'description' => '',
-                )
+                ]
             )
             ->add('name')
             ->add('value')
@@ -144,7 +149,7 @@ class ParameterAdmin extends AbstractAdmin
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
-        unset($actions["delete"]);
+        unset($actions['delete']);
 
         return $actions;
     }
@@ -177,9 +182,10 @@ class ParameterAdmin extends AbstractAdmin
 
         //Clear cache
         $rootDir = $kernel->getRootDir();
-        $command = $php . ' ../bin/console cache:clear --env='.$kernel->getEnvironment();
+        $command = $php . ' ../bin/console cache:clear --env=' . $kernel->getEnvironment();
 
         $process = new Process($command);
+
         try {
             $process->mustRun();
             $content = $process->getOutput();

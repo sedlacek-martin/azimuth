@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\Translator;
 
 use JMS\TranslationBundle\Model\FileSource;
@@ -21,8 +22,10 @@ use PhpParser\NodeVisitor;
 class AdminExtractor implements FileVisitorInterface, NodeVisitor
 {
     private $traverser;
+
     /** @var  MessageCatalogue */
     private $catalogue;
+
     private $file;
 
     public function __construct()
@@ -38,9 +41,8 @@ class AdminExtractor implements FileVisitorInterface, NodeVisitor
 //        }
         if (!$node instanceof Node\Scalar\String_) {
             return;
-        } else {
-            $id = $node->value;
         }
+        $id = $node->value;
 
         // ignore multiple dot without any string between them
         if (preg_match('/(\.\.|\.\.\.)/', $id)) {
@@ -52,7 +54,7 @@ class AdminExtractor implements FileVisitorInterface, NodeVisitor
             $domain = 'SonataAdminBundle';
 
             $message = new Message($id, $domain);
-            $message->addSource(new FileSource((string)$this->file, $node->getLine()));
+            $message->addSource(new FileSource((string) $this->file, $node->getLine()));
 
             $this->catalogue->add($message);
         }

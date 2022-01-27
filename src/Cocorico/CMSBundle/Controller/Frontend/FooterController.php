@@ -38,10 +38,9 @@ class FooterController extends Controller
 
         return $this->render(
             '@CocoricoCMS/Frontend/Footer/index.html.twig',
-            array(
-                'footers' => $footers
-            )
+            [
+                'footers' => $footers,
+            ]
         );
-
     }
 }

@@ -11,7 +11,6 @@
 
 namespace Cocorico\MessageBundle\Repository;
 
-use Cocorico\CoreBundle\Model\BaseListing;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -89,6 +88,7 @@ class MessageRepository extends EntityRepository
                 ->setParameter('moId', $moId);
         }
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 
@@ -113,7 +113,6 @@ class MessageRepository extends EntityRepository
         $result = $qb->getQuery()->getResult();
 
         return $result;
-
     }
 
     /**
@@ -138,6 +137,7 @@ class MessageRepository extends EntityRepository
         }
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 }

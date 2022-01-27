@@ -2,20 +2,21 @@
 
 namespace Cocorico\CoreBundle\Admin;
 
-use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Model\BaseListing;
 use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Doctrine\ORM\Query\Expr;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ListingValidationAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'listing-validation';
+
     protected $baseRouteName = 'listing-validation';
+
     protected $locales;
 
     public function setLocales($locales)
@@ -30,33 +31,33 @@ class ListingValidationAdmin extends BaseAdmin
             ->add(
                 'statusText',
                 null,
-                array(
+                [
                     'label' => 'admin.listing.status.label',
                     'template' => 'CocoricoSonataAdminBundle::list_field_value_translated.html.twig',
-                    'data_trans' => 'cocorico_listing'
-                )
+                    'data_trans' => 'cocorico_listing',
+                ]
             )
             ->add(
                 'user',
                 null,
-                array('label' => 'admin.listing.user.label')
+                ['label' => 'admin.listing.user.label']
             )
             ->add(
                 'user.email',
                 null,
-                array('label' => 'admin.listing.user_email.label')
+                ['label' => 'admin.listing.user_email.label']
             )
             ->add(
                 'title',
                 null,
-                array('label' => 'admin.listing.title.label')
+                ['label' => 'admin.listing.title.label']
             )
             ->add(
                 'updatedAt',
                 'datetime',
-                array(
+                [
                     'label' => 'admin.listing.updated_at.label',
-                )
+                ]
             );
 
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
@@ -84,30 +85,32 @@ class ListingValidationAdmin extends BaseAdmin
             );
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add(
                 'fullName',
                 'doctrine_orm_callback',
-                array(
-                    'callback' => array($this, 'getFullNameFilter'),
+                [
+                    'callback' => [$this, 'getFullNameFilter'],
                     'field_type' => 'text',
                     'operator_type' => 'hidden',
-                    'operator_options' => array(),
-                    'label' => 'admin.listing.offerer.label'
-                )
+                    'operator_options' => [],
+                    'label' => 'admin.listing.offerer.label',
+                ]
             )
             ->add(
                 'user.email',
                 null,
-                array('label' => 'admin.listing.user_email.label')
+                ['label' => 'admin.listing.user_email.label']
             )
             ->add(
                 'updatedAt',
                 'doctrine_orm_callback',
-                array(
+                [
                     'label' => 'admin.listing.updated_at.label',
                     'callback' => function ($queryBuilder, $alias, $field, $value) {
                         /** @var \DateTime $date */
@@ -123,8 +126,8 @@ class ListingValidationAdmin extends BaseAdmin
                         return true;
                     },
                     'field_type' => 'sonata_type_date_picker',
-                    'field_options' => array('format' => 'dd/MM/yyyy'),
-                )
+                    'field_options' => ['format' => 'dd/MM/yyyy'],
+                ]
             );
     }
 
@@ -174,7 +177,4 @@ class ListingValidationAdmin extends BaseAdmin
 
         return $query;
     }
-
-
-
 }

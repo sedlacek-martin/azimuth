@@ -16,12 +16,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MoEditType extends AbstractType
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $rootDir;
+
     private $request;
+
     private $locale;
+
     private $entityManager;
 
     /**
@@ -44,8 +45,8 @@ class MoEditType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'maxlength' => 150,
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
@@ -64,9 +65,9 @@ class MoEditType extends AbstractType
                         'filebrowserBrowseRoute' => 'elfinder',
                         'filebrowserBrowseRouteParameters' => [
                             'instance' => 'ckeditor',
-                            'homeFolder' => ElFinderHelper::getOrCreateFolder($mo->getCountry(), $this->rootDir)
-                        ]
-                    ]
+                            'homeFolder' => ElFinderHelper::getOrCreateFolder($mo->getCountry(), $this->rootDir),
+                        ],
+                    ],
                 ])
                 ->add('countryDescription', CKEditorType::class, [
                     'mapped' => false,
@@ -77,9 +78,9 @@ class MoEditType extends AbstractType
                         'filebrowserBrowseRoute' => 'elfinder',
                         'filebrowserBrowseRouteParameters' => [
                             'instance' => 'ckeditor',
-                            'homeFolder' => ElFinderHelper::getOrCreateFolder($mo->getCountry(), $this->rootDir)
-                        ]
-                    ]
+                            'homeFolder' => ElFinderHelper::getOrCreateFolder($mo->getCountry(), $this->rootDir),
+                        ],
+                    ],
                 ]);
         });
     }
@@ -89,14 +90,12 @@ class MoEditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-
         $resolver
             ->setDefaults([
                 'class' => MemberOrganization::class,
-                'country_description' => ''
+                'country_description' => '',
             ]);
     }
-
 
     /**
      * {@inheritdoc}

@@ -27,7 +27,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ListingLocationController extends Controller
 {
-
     /**
      * Edits an existing Listing entity.
      *
@@ -49,27 +48,26 @@ class ListingLocationController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->get("cocorico.listing.manager")->save($listing);
+            $this->get('cocorico.listing.manager')->save($listing);
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $translator->trans('listing.edit.success', array(), 'cocorico_listing')
+                $translator->trans('listing.edit.success', [], 'cocorico_listing')
             );
 
             return $this->redirectToRoute(
                 'cocorico_dashboard_listing_edit_location',
-                array('id' => $listing->getId())
+                ['id' => $listing->getId()]
             );
         }
 
         return $this->render(
             'CocoricoCoreBundle:Dashboard/Listing:edit_location.html.twig',
-            array(
+            [
                 'listing' => $listing,
-                'form' => $editForm->createView()
-            )
+                'form' => $editForm->createView(),
+            ]
         );
-
     }
 
     /**
@@ -85,13 +83,13 @@ class ListingLocationController extends Controller
             'listing',
             ListingEditLocationType::class,
             $listing,
-            array(
+            [
                 'action' => $this->generateUrl(
                     'cocorico_dashboard_listing_edit_location',
-                    array('id' => $listing->getId())
+                    ['id' => $listing->getId()]
                 ),
                 'method' => 'POST',
-            )
+            ]
         );
 
         return $form;

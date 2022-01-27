@@ -86,8 +86,6 @@ class VerifiedDomain
 
     public function __toString()
     {
-        return "Domain" . ($this->getDomain() ? " ({$this->getDomain()})" : '');
+        return 'Domain' . ($this->getDomain() ? " ({$this->getDomain()})" : '');
     }
-
-
 }

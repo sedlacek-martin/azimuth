@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * BaseContact
  *
  * @ORM\MappedSuperclass()
- *
  */
 abstract class BaseContact
 {
@@ -29,10 +28,10 @@ abstract class BaseContact
     const STATUS_NEW = 1;
     const STATUS_READ = 2;
 
-    public static $statusValues = array(
+    public static $statusValues = [
         self::STATUS_NEW => 'entity.contact.status.new',
         self::STATUS_READ => 'entity.contact.status.read',
-    );
+    ];
 
     public const RECIPIENT_ROLES = [
         'ROLE_SUPER_ADMIN' => 'role.super_admin',
@@ -153,7 +152,6 @@ abstract class BaseContact
      */
     protected $user;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Cocorico\ContactBundle\Entity\ContactCategory")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
@@ -163,14 +161,12 @@ abstract class BaseContact
      */
     protected $category;
 
-
     /**
      * @ORM\Column(name="status", type="smallint")
      *
      * @var integer
      */
     protected $status = self::STATUS_NEW;
-
 
     /**
      * @var bool
@@ -188,7 +184,6 @@ abstract class BaseContact
     {
         return $this->firstName;
     }
-
 
     /**
      * Sets FirstName
@@ -333,7 +328,6 @@ abstract class BaseContact
     public function isNew(): bool
     {
         return $this->status === self::STATUS_NEW;
-
     }
 
     /**
@@ -349,7 +343,7 @@ abstract class BaseContact
     /**
      * @return string|null
      */
-    public function getReply (): ?string
+    public function getReply(): ?string
     {
         return $this->reply;
     }
@@ -358,9 +352,10 @@ abstract class BaseContact
      * @param string|null $reply
      * @return BaseContact
      */
-    public function setReply (?string $reply): BaseContact
+    public function setReply(?string $reply): BaseContact
     {
         $this->reply = $reply;
+
         return $this;
     }
 
@@ -372,7 +367,6 @@ abstract class BaseContact
         return $this->recipientRoles;
     }
 
-
     /**
      * @param string[] $recipientRoles
      * @return BaseContact
@@ -380,6 +374,7 @@ abstract class BaseContact
     public function setRecipientRoles(array $recipientRoles): BaseContact
     {
         $this->recipientRoles = $recipientRoles;
+
         return $this;
     }
 
@@ -391,7 +386,6 @@ abstract class BaseContact
         return array_map(function ($val) {
             return ContactCategory::getRecipientRoleName($val);
         }, $this->recipientRoles);
-
     }
 
     /**
@@ -409,6 +403,7 @@ abstract class BaseContact
     public function setUser(?User $user): BaseContact
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -427,13 +422,14 @@ abstract class BaseContact
     public function setCategory(?ContactCategory $category): BaseContact
     {
         $this->category = $category;
+
         return $this;
     }
 
     /**
      * @return bool
      */
-    public function isReplySend (): bool
+    public function isReplySend(): bool
     {
         return $this->replySend;
     }
@@ -442,9 +438,10 @@ abstract class BaseContact
      * @param bool $replySend
      * @return BaseContact
      */
-    public function setReplySend (bool $replySend): BaseContact
+    public function setReplySend(bool $replySend): BaseContact
     {
         $this->replySend = $replySend;
+
         return $this;
     }
 }

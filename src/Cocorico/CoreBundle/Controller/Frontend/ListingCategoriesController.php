@@ -36,10 +36,10 @@ class ListingCategoriesController extends Controller
 
         return $this->render(
             '@CocoricoCore/Frontend/Listing/form_categories.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'listing' => $listing
-            )
+                'listing' => $listing,
+            ]
         );
     }
 
@@ -54,12 +54,12 @@ class ListingCategoriesController extends Controller
             'listing_categories',
             ListingNewCategoriesType::class,
             $listing,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl(
                     'cocorico_dashboard_listing_new_categories'
                 ),
-            )
+            ]
         );
 
         return $form;
@@ -91,20 +91,19 @@ class ListingCategoriesController extends Controller
         if ($request->isXmlHttpRequest()) {
             return $this->render(
                 'CocoricoCoreBundle:Frontend/Listing:form_categories.html.twig',
-                array(
+                [
                     'listing' => $listing,
-                    'form' => $form->createView()
-                )
+                    'form' => $form->createView(),
+                ]
             );
-        } else {
-            if (!$formIsValid) {
-                $this->get('cocorico.helper.global')->addFormErrorMessagesToFlashBag(
+        }
+        if (!$formIsValid) {
+            $this->get('cocorico.helper.global')->addFormErrorMessagesToFlashBag(
                     $form,
                     $this->get('session')->getFlashBag()
                 );
-            }
-
-            return new RedirectResponse($request->headers->get('referer'));
         }
+
+        return new RedirectResponse($request->headers->get('referer'));
     }
 }

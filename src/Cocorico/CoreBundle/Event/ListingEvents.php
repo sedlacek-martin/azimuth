@@ -11,7 +11,6 @@
 
 namespace Cocorico\CoreBundle\Event;
 
-
 class ListingEvents
 {
     /**
@@ -21,5 +20,4 @@ class ListingEvents
      * The event listener method receives a Cocorico\CoreBundle\Event\ListingEvent instance.
      */
     const LISTING_SHOW_QUERY = 'cocorico.listing_show.query';
-
 }

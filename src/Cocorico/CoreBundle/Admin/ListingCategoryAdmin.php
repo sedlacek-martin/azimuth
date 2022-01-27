@@ -27,8 +27,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class ListingCategoryAdmin extends AbstractAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'listing-category';
+
     protected $locales;
+
     protected $bundles;
 
     public function setLocales($locales)
@@ -41,23 +44,25 @@ class ListingCategoryAdmin extends AbstractAdmin
         $this->bundles = $bundles;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         /** @var ListingCategory $subject */
 //        $subject = $this->getSubject();
 
         //Translations fields
-        $titles = $descriptions = array();
+        $titles = $descriptions = [];
         foreach ($this->locales as $i => $locale) {
-            $titles[$locale] = array(
+            $titles[$locale] = [
                 'label' => 'Name',
-                'constraints' => array(new NotBlank())
-            );
-            $descriptions[$locale] = array(
+                'constraints' => [new NotBlank()],
+            ];
+            $descriptions[$locale] = [
                 'label' => 'Description',
-                'constraints' => array(new NotBlank())
-            );
+                'constraints' => [new NotBlank()],
+            ];
         }
 
         $formMapper
@@ -65,28 +70,28 @@ class ListingCategoryAdmin extends AbstractAdmin
             ->add(
                 'translations',
                 TranslationsType::class,
-                array(
+                [
                     'locales' => $this->locales,
                     'required_locales' => $this->locales,
-                    'fields' => array(
-                        'name' => array(
+                    'fields' => [
+                        'name' => [
                             'field_type' => 'text',
                             'locale_options' => $titles,
-                        ),
-                        'slug' => array(
-                            'display' => false
-                        )
-                    ),
-                    /** @Ignore */
-                    'label' => 'Descriptions'
-                )
+                        ],
+                        'slug' => [
+                            'display' => false,
+                        ],
+                    ],
+                    /* @Ignore */
+                    'label' => 'Descriptions',
+                ]
             )
             ->add(
                 'parent',
                 null,
-                array(
-                    'label' => 'admin.listing_category.parent.label'
-                )
+                [
+                    'label' => 'admin.listing_category.parent.label',
+                ]
             )
             ->add(
                 'position',
@@ -96,27 +101,27 @@ class ListingCategoryAdmin extends AbstractAdmin
             ->add(
                 'pin',
                 EntityType::class,
-                array (
+                [
                     'label' => 'admin.listing_category.pin.label',
                     'class' => ListingCategoryPin::class,
                     'required' => false,
                     'placeholder' => ' - Select - ',
-                )
+                ]
             )
             ->add('defaultImageName', null, [])
             ->add('offer', null, [])
             ->add('search', null, []);
 
-        if (array_key_exists("CocoricoListingCategoryFieldBundle", $this->bundles)) {
+        if (array_key_exists('CocoricoListingCategoryFieldBundle', $this->bundles)) {
             $formMapper
                 ->add(
                     'fields',
                     null,
-                    array(
+                    [
                         'label' => 'admin.listing_category.fields.label',
                         'disabled' => true,
-                        'choice_label' => 'field'
-                    )
+                        'choice_label' => 'field',
+                    ]
                 );
         }
 
@@ -124,30 +129,34 @@ class ListingCategoryAdmin extends AbstractAdmin
             ->end();
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add(
                 'translations.name',
                 null,
-                array('label' => 'admin.listing_category.name.label')
+                ['label' => 'admin.listing_category.name.label']
             )
             ->add(
                 'parent',
                 null,
-                array('label' => 'admin.listing_category.parent.label')
+                ['label' => 'admin.listing_category.parent.label']
             )
             ->add(
                 'pin',
                 null,
-                array(
+                [
                     'label' => 'admin.listing_category.pin.label',
-                )
+                ]
             );
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -155,19 +164,19 @@ class ListingCategoryAdmin extends AbstractAdmin
             ->add(
                 'name',
                 null,
-                array(
+                [
                     'label' => 'admin.listing_category.name.label',
-                )
+                ]
             )
             ->addIdentifier(
                 'parent',
                 null,
-                array('label' => 'admin.listing_category.parent.label')
+                ['label' => 'admin.listing_category.parent.label']
             )
             ->add(
                 'pin',
                 null,
-                array('label' => 'admin.listing_category.pin.label')
+                ['label' => 'admin.listing_category.pin.label']
             )
             ->add(
                 'position',
@@ -177,37 +186,37 @@ class ListingCategoryAdmin extends AbstractAdmin
             ->add('offer', null, ['editable' => true])
             ->add('search', null, ['editable' => true]);
 
-        if (array_key_exists("CocoricoListingCategoryFieldBundle", $this->bundles)) {
+        if (array_key_exists('CocoricoListingCategoryFieldBundle', $this->bundles)) {
             $listMapper
                 ->add(
                     'fields',
                     null,
-                    array(
+                    [
                         'label' => 'admin.listing_category.fields.label',
-                        'associated_property' => 'field'
-                    )
+                        'associated_property' => 'field',
+                    ]
                 );
         }
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
                     //'show' => array(),
-                    'edit' => array(),
-                )
-            )
+                    'edit' => [],
+                ],
+            ]
         );
     }
 
     public function getExportFields()
     {
-        return array(
+        return [
             'Id' => 'id',
             'name' => 'name',
             'parent' => 'parent',
-        );
+        ];
     }
 
     public function createQuery($context = 'list')
@@ -238,7 +247,7 @@ class ListingCategoryAdmin extends AbstractAdmin
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
-        unset($actions["delete"]);
+        unset($actions['delete']);
 
         return $actions;
     }

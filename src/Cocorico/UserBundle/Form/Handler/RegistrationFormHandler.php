@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Form\Handler;
 
 use Cocorico\CoreBundle\Entity\UserInvitation;
@@ -34,22 +33,30 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class RegistrationFormHandler
 {
-
     const ERROR = 0;
 
     protected $request;
+
     /** @var  TwigSwiftMailer */
     protected $mailer;
+
     /** @var  UserManager */
     protected $userManager;
+
     protected $formFactory;
+
     protected $tokenGenerator;
+
     protected $loginManager;
+
     protected $dispatcher;
+
     /** @var ParameterBag */
     private $parameterBag;
+
     /** @var Session */
     private $session;
+
     /** @var EntityManagerInterface */
     private $em;
 
@@ -163,19 +170,17 @@ class RegistrationFormHandler
         $expiryDate = (new \DateTime())->add(new \DateInterval("P{$daysToAdd}D"));
         $user->setExpiryDate($expiryDate);
 
-
         //Eventually change user info before persist it
         $event = new UserEvent($user);
         $this->dispatcher->dispatch(UserEvents::USER_REGISTER, $event);
         $user = $event->getUser();
 
         if (!$user->isTrusted()) {
-
             if ($verifiedDomain || $invited) {
                 $user
                     ->setTrusted(true)
                     ->setTrustedEmailSent(true);
-            }  else {
+            } else {
                 $user->setTrusted(false);
                 $this->session->set('cocorico_user_need_verification', true);
             }
@@ -200,5 +205,4 @@ class RegistrationFormHandler
             }
         }
     }
-
 }

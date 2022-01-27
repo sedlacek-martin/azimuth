@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Controller\Dashboard;
 
 use Cocorico\UserBundle\Form\Type\ProfileAboutMeFormType;
@@ -28,7 +27,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class ProfileAboutMeController extends Controller
 {
-
     /**
      *  Edit user profile
      *
@@ -51,10 +49,10 @@ class ProfileAboutMeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get("cocorico_user.user_manager")->updateUser($user);
+            $this->get('cocorico_user.user_manager')->updateUser($user);
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('user.edit.about_me.success', array(), 'cocorico_user')
+                $this->get('translator')->trans('user.edit.about_me.success', [], 'cocorico_user')
             );
 
             $url = $this->generateUrl('cocorico_user_dashboard_profile_edit_about_me');
@@ -64,14 +62,12 @@ class ProfileAboutMeController extends Controller
 
         return $this->render(
             'CocoricoUserBundle:Dashboard/Profile:edit_about_me.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'user' => $user
-            )
+                'user' => $user,
+            ]
         );
-
     }
-
 
     /**
      * Creates a form to edit a user entity.
@@ -86,10 +82,10 @@ class ProfileAboutMeController extends Controller
             'user',
             ProfileAboutMeFormType::class,
             $user,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl('cocorico_user_dashboard_profile_edit_about_me'),
-            )
+            ]
         );
 
         return $form;

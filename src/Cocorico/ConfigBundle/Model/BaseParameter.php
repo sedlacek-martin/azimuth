@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class BaseParameter
 {
-
     /**
      * @Assert\NotBlank(message="assert.not_blank")
      *
@@ -129,13 +128,12 @@ abstract class BaseParameter
     public function setDescription(string $description): BaseParameter
     {
         $this->description = $description;
+
         return $this;
     }
 
-
-
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string) $this->getName();
     }
 }

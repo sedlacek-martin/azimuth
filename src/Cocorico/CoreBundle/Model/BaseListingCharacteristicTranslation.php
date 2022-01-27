@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class BaseListingCharacteristicTranslation
 {
-
     /**
      * @Assert\NotBlank(message="assert.not_blank")
      *
@@ -83,5 +82,4 @@ abstract class BaseListingCharacteristicTranslation
     {
         return $this->description;
     }
-
 }

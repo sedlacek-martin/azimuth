@@ -15,7 +15,6 @@ use Cocorico\PageBundle\Model\BasePage;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
-
 /**
  * Page
  *
@@ -25,7 +24,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  *    @ORM\Index(name="published_idx", columns={"published"}),
  *    @ORM\Index(name="created_at_p_idx", columns={"createdAt"})
  *  })
- *
  */
 class Page extends BasePage
 {
@@ -57,22 +55,22 @@ class Page extends BasePage
 
     public function getTitle()
     {
-        return (string)$this->translate()->getTitle();
+        return (string) $this->translate()->getTitle();
     }
 
     public function getDescription()
     {
-        return (string)$this->translate()->getDescription();
+        return (string) $this->translate()->getDescription();
     }
 
     public function getMetaTitle()
     {
-        return (string)$this->translate()->getMetaTitle();
+        return (string) $this->translate()->getMetaTitle();
     }
 
     public function getMetaDescription()
     {
-        return (string)$this->translate()->getMetaDescription();
+        return (string) $this->translate()->getMetaDescription();
     }
 
     public function __toString()

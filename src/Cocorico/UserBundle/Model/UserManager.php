@@ -9,42 +9,37 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Model;
 
 use Cocorico\CoreBundle\Mailer\TwigSwiftMailer;
 use Cocorico\UserBundle\Entity\User;
-use Cocorico\UserBundle\Entity\UserFacebook;
 use Cocorico\UserBundle\Entity\UserImage;
 use Cocorico\UserBundle\Entity\UserTranslation;
-use Cocorico\UserBundle\Event\UserEvent;
-use Cocorico\UserBundle\Event\UserEvents;
-use Cocorico\UserBundle\Repository\UserFacebookRepository;
 use Cocorico\UserBundle\Repository\UserRepository;
-use DateTime;
-use DateTimeImmutable;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
-use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
-use stdClass;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 class UserManager extends BaseUserManager implements UserManagerInterface
 {
     protected $objectManager;
+
     protected $repository;
+
     protected $kernelRoot;
+
     protected $dispatcher;
+
     protected $timeUnitIsDay;
+
     protected $timeZone;
-    /**
-     * @var TwigSwiftMailer
-     */
+
+    /** @var TwigSwiftMailer */
     private $mailer;
 
     /**
@@ -110,7 +105,7 @@ class UserManager extends BaseUserManager implements UserManagerInterface
         $this->updateCanonicalFields($user);
         $this->updatePassword($user);
 
-        /** @var User $user */
+        /* @var User $user */
         $user->mergeNewTranslations();
         $user->generateSlug();
 
@@ -150,7 +145,6 @@ class UserManager extends BaseUserManager implements UserManagerInterface
                 $this->objectManager->persist($user);
                 $this->objectManager->flush();
             }
-
         } else {
             throw new AccessDeniedException();
         }
@@ -189,7 +183,6 @@ class UserManager extends BaseUserManager implements UserManagerInterface
                 $this->objectManager->persist($user);
                 $this->objectManager->flush();
             }
-
         } else {
             throw new AccessDeniedException();
         }
@@ -231,7 +224,6 @@ class UserManager extends BaseUserManager implements UserManagerInterface
     public function notifyExpire(User $user): bool
     {
         if (!$user->isExpiredSend()) {
-
             $this->mailer->sendUserExpired($user);
 
             $user->setExpiredSend(true);
@@ -252,11 +244,9 @@ class UserManager extends BaseUserManager implements UserManagerInterface
         }
 
         return false;
-
     }
 
     /**
-     *
      * @return UserRepository
      */
     public function getRepository()
@@ -269,6 +259,4 @@ class UserManager extends BaseUserManager implements UserManagerInterface
         $this->objectManager->persist($entity);
         $this->objectManager->flush();
     }
-
-
 }

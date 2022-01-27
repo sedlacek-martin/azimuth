@@ -18,7 +18,6 @@ use Cocorico\CoreBundle\Entity\ListingListingCharacteristic;
 use Cocorico\CoreBundle\Repository\ListingListingCharacteristicRepository;
 use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Doctrine\ORM\EntityManagerInterface;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -29,37 +28,41 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class ListingCharacteristicAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'listing-characteristic';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'ASC',
-        '_sort_by' => 'position'
-    );
+        '_sort_by' => 'position',
+    ];
 
     public function setLocales($locales)
     {
         $this->locales = $locales;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         /** @var ListingCharacteristic $subject */
 //        $subject = $this->getSubject();
 
         //Translations fields
-        $titles = $descriptions = array();
+        $titles = $descriptions = [];
         foreach ($this->locales as $i => $locale) {
-            $titles[$locale] = array(
+            $titles[$locale] = [
                 'label' => 'Name',
-                'constraints' => array(new NotBlank())
-            );
-            $descriptions[$locale] = array(
+                'constraints' => [new NotBlank()],
+            ];
+            $descriptions[$locale] = [
                 'label' => 'Description',
-                'constraints' => array(new NotBlank())
-            );
+                'constraints' => [new NotBlank()],
+            ];
         }
 
         $formMapper
@@ -67,85 +70,89 @@ class ListingCharacteristicAdmin extends BaseAdmin
             ->add(
                 'translations',
                 TranslationsType::class,
-                array(
+                [
                     'locales' => $this->locales,
                     'required_locales' => $this->locales,
-                    'fields' => array(
-                        'name' => array(
+                    'fields' => [
+                        'name' => [
                             'field_type' => 'text',
                             'locale_options' => $titles,
-                        ),
-                        'description' => array(
+                        ],
+                        'description' => [
                             'field_type' => 'textarea',
                             'locale_options' => $descriptions,
-                        )
-                    ),
-                    /** @Ignore */
-                    'label' => 'Descriptions'
-                )
+                        ],
+                    ],
+                    /* @Ignore */
+                    'label' => 'Descriptions',
+                ]
             )
             ->add(
                 'position',
                 null,
-                array(
-                    'label' => 'admin.listing_characteristic.position.label'
-                )
+                [
+                    'label' => 'admin.listing_characteristic.position.label',
+                ]
             )
             ->add('filter', null, [
                 'label' => 'admin.listing_characteristic.filter.label',
-                'help' => 'admin.listing_characteristic.filter.help'
+                'help' => 'admin.listing_characteristic.filter.help',
             ])
             ->add(
                 'listingCharacteristicType',
                 'sonata_type_model_list',
-                array(
+                [
                     'label' => 'admin.listing_characteristic.type.label',
-                    'constraints' => array(new NotBlank())
-                )
+                    'constraints' => [new NotBlank()],
+                ]
             )
             ->add(
                 'listingCharacteristicGroup',
                 'sonata_type_model_list',
-                array(
+                [
                     'label' => 'admin.listing_characteristic.group.label',
-                    'constraints' => array(new NotBlank())
-                )
+                    'constraints' => [new NotBlank()],
+                ]
             )
             ->add(
                 'listingCategories',
                 EntityType::class,
-                array(
+                [
                     'label' => 'admin.listing_characteristic.categories.label',
                     'class' => ListingCategory::class,
                     'multiple' => true,
                     'help' => 'admin.listing_characteristic.categories.help',
-                )
+                ]
             )
             ->end();
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add(
                 'translations.name',
                 null,
-                array('label' => 'admin.listing_characteristic.name.label')
+                ['label' => 'admin.listing_characteristic.name.label']
             )
             ->add(
                 'listingCharacteristicType',
                 null,
-                array('label' => 'admin.listing_characteristic.type.label')
+                ['label' => 'admin.listing_characteristic.type.label']
             )
             ->add(
                 'listingCharacteristicGroup',
                 null,
-                array('label' => 'admin.listing_characteristic.group.label')
+                ['label' => 'admin.listing_characteristic.group.label']
             );
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -153,51 +160,50 @@ class ListingCharacteristicAdmin extends BaseAdmin
             ->add(
                 'name',
                 null,
-                array(
+                [
                     'label' => 'admin.listing_characteristic.name.label',
-                )
+                ]
             )
             ->addIdentifier(
                 'listingCharacteristicType',
                 null,
-                array('label' => 'admin.listing_characteristic.type.label')
+                ['label' => 'admin.listing_characteristic.type.label']
             )
             ->addIdentifier(
                 'listingCharacteristicGroup',
                 null,
-                array('label' => 'admin.listing_characteristic.group.label')
+                ['label' => 'admin.listing_characteristic.group.label']
             )
             ->add(
                 'position',
                 null,
-                array('label' => 'admin.listing_characteristic.position.label')
+                ['label' => 'admin.listing_characteristic.position.label']
             )
             ->add('filter', null, [
                 'label' => 'admin.listing_characteristic.filter.label',
             ]);
 
-
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
                     //'show' => array(),
-                    'edit' => array(),
-                )
-            )
+                    'edit' => [],
+                ],
+            ]
         );
     }
 
     public function getExportFields()
     {
-        return array(
+        return [
             'Id' => 'id',
             'Name' => 'name',
             'Type of Characteristic' => 'listingCharacteristicType',
             'Group' => 'listingCharacteristicGroup',
-            'Position' => 'position'
-        );
+            'Position' => 'position',
+        ];
     }
 
     public function getDataSourceIterator()
@@ -214,7 +220,7 @@ class ListingCharacteristicAdmin extends BaseAdmin
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
-        unset($actions["delete"]);
+        unset($actions['delete']);
 
         return $actions;
     }
@@ -242,7 +248,6 @@ class ListingCharacteristicAdmin extends BaseAdmin
 //            $object->getListingCategories()->toArray()
 //        );
     }
-
 
     protected function configureRoutes(RouteCollection $collection)
     {

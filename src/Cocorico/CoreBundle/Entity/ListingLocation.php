@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\CoreBundle\Entity;
 
 use Cocorico\CoreBundle\Model\BaseListingLocation;
@@ -112,9 +111,9 @@ class ListingLocation extends BaseListingLocation
      */
     public function getCompleteAddress()
     {
-        $address = $this->getStreetNumber() . " " . $this->getRoute() . ", " . $this->getZip() . " " . $this->getCity();
+        $address = $this->getStreetNumber() . ' ' . $this->getRoute() . ', ' . $this->getZip() . ' ' . $this->getCity();
         if ($this->getCoordinate()) {
-            $address .= ", " . $this->getCoordinate()->getCountry();
+            $address .= ', ' . $this->getCoordinate()->getCountry();
         }
 
         return $address;

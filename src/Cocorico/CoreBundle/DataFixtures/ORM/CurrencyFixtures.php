@@ -17,7 +17,6 @@ use Lexik\Bundle\CurrencyBundle\Entity\Currency;
 
 class CurrencyFixtures extends Fixture
 {
-
     /**
      * {@inheritDoc}
      */
@@ -45,5 +44,4 @@ class CurrencyFixtures extends Fixture
 
         $manager->flush();
     }
-
 }

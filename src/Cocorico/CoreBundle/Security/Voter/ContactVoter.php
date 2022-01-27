@@ -9,12 +9,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ContactVoter extends BaseVoter
 {
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
-
 
     public function __construct(AuthorizationCheckerInterface $authorizationChecker)
     {
@@ -28,7 +24,7 @@ class ContactVoter extends BaseVoter
      */
     public function voteOnEdit(Contact $contact, TokenInterface $token): bool
     {
-        if ($this->authorizationChecker->isGranted("ROLE_SUPER_ADMIN")) {
+        if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
             return true;
         }
         /** @var User $currentUser */
@@ -58,7 +54,7 @@ class ContactVoter extends BaseVoter
         return  $this->voteOnEdit($contact, $token);
     }
 
-    function getAttributes(): array
+    public function getAttributes(): array
     {
         return [
             self::EDIT,
@@ -67,7 +63,7 @@ class ContactVoter extends BaseVoter
         ];
     }
 
-    function getClass(): string
+    public function getClass(): string
     {
         return Contact::class;
     }

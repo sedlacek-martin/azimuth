@@ -21,7 +21,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Table(name="listing_translation",indexes={
  *    @ORM\Index(name="slug_idx", columns={"slug"})
  *  })
- *
  */
 class ListingTranslation extends BaseListingTranslation
 {

@@ -24,7 +24,7 @@ class FooterRepository extends EntityRepository
     public function findByHash($urlHash, $locale)
     {
         $queryBuilder = $this->createQueryBuilder('f')
-            ->addSelect("ft")
+            ->addSelect('ft')
             ->leftJoin('f.translations', 'ft')
             ->where('(ft.urlHash IS NULL OR ft.urlHash =:urlHash)')
             ->andWhere('ft.locale = :locale')
@@ -33,6 +33,7 @@ class FooterRepository extends EntityRepository
             ->setParameter('published', true)
             ->setParameter('urlHash', $urlHash)
             ->orderBy('ft.title');
+
         try {
             $query = $queryBuilder->getQuery();
 
@@ -41,5 +42,4 @@ class FooterRepository extends EntityRepository
             return null;
         }
     }
-
 }

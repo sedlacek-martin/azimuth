@@ -27,18 +27,20 @@ class CurrencyCommand extends ContainerAwareCommand
         $this
             ->setName('cocorico:currency:update')
             ->setDescription('Update DB currencies rates and generate JSON file. To execute daily around 5PM.')
-            ->setHelp("Usage php bin/console cocorico:currency:update");
+            ->setHelp('Usage php bin/console cocorico:currency:update');
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $command = $this->getApplication()->find('lexik:currency:import');
 
-        $arguments = array(
+        $arguments = [
             'command' => 'lexik:currency:import',
-            'adapter' => 'ecb'
-        );
+            'adapter' => 'ecb',
+        ];
 
         $input = new ArrayInput($arguments);
         $returnCode = $command->run($input, $output);
@@ -50,7 +52,7 @@ class CurrencyCommand extends ContainerAwareCommand
             $this->getContainer()->getParameter('lexik_currency.currency_class')
         )->findAll();
 
-        $result = array();
+        $result = [];
         /** @var Currency $currency */
         foreach ($currencies as $currency) {
             $result[$currency->getCode()] = $currency->getRate();
@@ -61,6 +63,7 @@ class CurrencyCommand extends ContainerAwareCommand
             //Currencies json file
             $file = $this->getContainer()->getParameter('cocorico.currencies_json');
             $fs = $this->getContainer()->get('filesystem');
+
             try {
                 if (!$fs->exists(dirname($file))) {
                     $fs->mkdir(dirname($file));
@@ -68,11 +71,11 @@ class CurrencyCommand extends ContainerAwareCommand
 
                 $fs->dumpFile($file, $result);
 
-                $output->writeln("Currencies updated");
+                $output->writeln('Currencies updated');
 
                 return true;
             } catch (IOException $e) {
-                throw new IOException("An error occurred while creating " . $file);
+                throw new IOException('An error occurred while creating ' . $file);
             }
         }
 

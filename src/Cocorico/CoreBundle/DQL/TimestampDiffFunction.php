@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\DQL;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
@@ -24,27 +25,21 @@ use Doctrine\ORM\Query\SqlWalker;
  */
 class TimestampDiffFunction extends FunctionNode
 {
-    /**
-     * @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression
-     */
+    /** @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression */
     protected $unit = null;
 
-    /**
-     * @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression
-     */
+    /** @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression */
     protected $firstDate = null;
-    /**
-     * @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression
-     */
-    protected $secondDate = null;
 
+    /** @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression */
+    protected $secondDate = null;
 
     /**
      * List of supported units.
      *
      * @var array
      */
-    protected $supportedUnits = array(
+    protected $supportedUnits = [
         'MICROSECOND',
         'SECOND',
         'MINUTE',
@@ -53,9 +48,8 @@ class TimestampDiffFunction extends FunctionNode
         'WEEK',
         'MONTH',
         'QUARTER',
-        'YEAR'
-    );
-
+        'YEAR',
+    ];
 
     /**
      * {@inheritdoc}
@@ -70,7 +64,6 @@ class TimestampDiffFunction extends FunctionNode
         . $this->secondDate->dispatch($sqlWalker)
         . ')';
     }
-
 
     /**
      * {@inheritdoc}

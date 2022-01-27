@@ -9,11 +9,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class VerifiedDomainVoter extends BaseVoter
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
-
 
     public function __construct(AuthorizationCheckerInterface $authorizationChecker)
     {
@@ -27,7 +24,7 @@ class VerifiedDomainVoter extends BaseVoter
      */
     public function voteOnEdit(VerifiedDomain $verifiedDomain, TokenInterface $token): bool
     {
-        if ($this->authorizationChecker->isGranted("ROLE_SUPER_ADMIN")) {
+        if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
             return true;
         }
 
@@ -42,7 +39,7 @@ class VerifiedDomainVoter extends BaseVoter
         return $this->voteOnEdit($verifiedDomain, $token);
     }
 
-    function getAttributes(): array
+    public function getAttributes(): array
     {
         return [
             self::EDIT,
@@ -50,7 +47,7 @@ class VerifiedDomainVoter extends BaseVoter
         ];
     }
 
-    function getClass(): string
+    public function getClass(): string
     {
         return VerifiedDomain::class;
     }

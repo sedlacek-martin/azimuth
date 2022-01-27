@@ -13,14 +13,10 @@ namespace Cocorico\CoreBundle\Model;
 
 class NumberRange
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $min;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $max;
 
     /**
@@ -64,6 +60,4 @@ class NumberRange
     {
         $this->max = $max;
     }
-
-
 }

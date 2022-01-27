@@ -39,9 +39,9 @@ class LanguageController extends Controller
 
         return $this->render(
             '@CocoricoCore/Frontend/Common/language_switcher.html.twig',
-            array(
+            [
                 'languages_links' => $languagesLinks,
-            )
+            ]
         );
     }
 
@@ -57,7 +57,7 @@ class LanguageController extends Controller
      */
     public function translateDataAction(Request $request)
     {
-        $response = array('textData' => '');
+        $response = ['textData' => ''];
         if ($request->isXmlHttpRequest()) {
             $from = $request->request->get('from');
             $to = $request->request->get('to');

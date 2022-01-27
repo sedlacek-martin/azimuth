@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="listing_characteristic_value",indexes={
  *    @ORM\Index(name="position_lcv_idx", columns={"position"})
  *  })
- *
  */
 class ListingCharacteristicValue
 {
@@ -53,11 +52,7 @@ class ListingCharacteristicValue
      */
     private $listingCharacteristicType;
 
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="ListingListingCharacteristic", mappedBy="listingCharacteristicValue", cascade={"persist", "remove"})
-     *
-     */
+    /** @ORM\OneToMany(targetEntity="ListingListingCharacteristic", mappedBy="listingCharacteristicValue", cascade={"persist", "remove"}) */
     private $listingListingCharacteristics;
 
     /**
@@ -65,9 +60,7 @@ class ListingCharacteristicValue
      */
     public function __construct()
     {
-
     }
-
 
     /**
      * Translation proxy

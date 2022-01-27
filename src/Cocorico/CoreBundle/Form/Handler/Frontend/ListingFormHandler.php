@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\Form\Handler\Frontend;
 
 use Cocorico\CoreBundle\Entity\Listing;
@@ -28,7 +29,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ListingFormHandler
 {
     protected $request;
+
     protected $listingManager;
+
     /** @var User|null */
     private $user = null;
 
@@ -51,9 +54,7 @@ class ListingFormHandler
         }
         $this->request = $requestStack->getCurrentRequest();
         $this->listingManager = $listingManager;
-
     }
-
 
     /**
      * @return Listing
@@ -68,7 +69,6 @@ class ListingFormHandler
         $listing = $this->addCategory($listing);
 
         return $listing;
-        
     }
 
     /**
@@ -113,7 +113,6 @@ class ListingFormHandler
         return true;
     }
 
-
     /**
      * @param  Listing $listing
      * @throws AccessDeniedException
@@ -122,11 +121,11 @@ class ListingFormHandler
     private function addImages(Listing $listing)
     {
         //Files to upload
-        $imagesUploaded = $this->request->request->get("listing");
-        $imagesUploaded = $imagesUploaded["image"]["uploaded"];
+        $imagesUploaded = $this->request->request->get('listing');
+        $imagesUploaded = $imagesUploaded['image']['uploaded'];
 
         if ($imagesUploaded) {
-            $imagesUploadedArray = explode(",", trim($imagesUploaded, ","));
+            $imagesUploadedArray = explode(',', trim($imagesUploaded, ','));
             $listing = $this->listingManager->addImages(
                 $listing,
                 $imagesUploadedArray
@@ -144,11 +143,10 @@ class ListingFormHandler
      */
     public function addCategory(Listing $listing)
     {
-        $data = $this->request->request->get("listing_categories");
+        $data = $this->request->request->get('listing_categories');
 
-        $listingCategory = $data["category"] ?? null;
+        $listingCategory = $data['category'] ?? null;
         $listingType = $data['type'] ?? BaseListing::OFFER;
-
 
         $listing->setType($listingType);
 
@@ -161,5 +159,4 @@ class ListingFormHandler
 
         return $listing;
     }
-
 }

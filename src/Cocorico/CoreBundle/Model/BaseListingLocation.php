@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\CoreBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -23,7 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class BaseListingLocation
 {
-
     /**
      * @ORM\Column(name="country", type="string", length=3, nullable=false)
      * @Assert\NotBlank(message="assert.not_blank")
@@ -63,7 +61,6 @@ abstract class BaseListingLocation
 
     public function __construct()
     {
-
     }
 
     /**
@@ -95,6 +92,7 @@ abstract class BaseListingLocation
     public function getCountryName(): string
     {
         $countries = Intl::getRegionBundle()->getCountryNames();
+
         return $countries[$this->country] ?? '';
     }
 

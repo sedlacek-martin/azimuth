@@ -32,11 +32,11 @@ class CocoricoUserExtension extends Extension
 //        $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load("Services/overridden/mailer.xml");
-        $loader->load("Services/overridden/registration.xml");
-        $loader->load("Services/overridden/resetting.xml");
-        $loader->load("Services/overridden/profile.xml");
-        $loader->load("Services/overridden/admin_orm.xml");
-        $loader->load("Services/overridden/email_confirmation.xml");
+        $loader->load('Services/overridden/mailer.xml');
+        $loader->load('Services/overridden/registration.xml');
+        $loader->load('Services/overridden/resetting.xml');
+        $loader->load('Services/overridden/profile.xml');
+        $loader->load('Services/overridden/admin_orm.xml');
+        $loader->load('Services/overridden/email_confirmation.xml');
     }
 }

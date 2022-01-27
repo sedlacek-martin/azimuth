@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
@@ -43,10 +42,10 @@ class LanguageFilteredType extends LanguageType
         }
 
         $resolver->setDefaults(
-            array(
+            [
                 'choices' => array_flip($locales),
                 'required' => true,
-            )
+            ]
         );
     }
 
@@ -75,7 +74,6 @@ class LanguageFilteredType extends LanguageType
     {
         return LanguageType::class;
     }
-
 
     /**
      * {@inheritdoc}

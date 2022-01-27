@@ -19,7 +19,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserLanguageType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -30,19 +29,19 @@ class UserLanguageType extends AbstractType
             ->add(
                 'code',
                 HiddenType::class,
-                array(
-                    /** @Ignore */
-                    'label' => false
-                )
+                [
+                    /* @Ignore */
+                    'label' => false,
+                ]
             )
             ->add(
                 'user',
                 EntityHiddenType::class,
-                array(
+                [
                     'class' => 'Cocorico\UserBundle\Entity\User',
-                    /** @Ignore */
-                    'label' => false
-                )
+                    /* @Ignore */
+                    'label' => false,
+                ]
             );
     }
 
@@ -52,14 +51,14 @@ class UserLanguageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\UserBundle\Entity\UserLanguage',
                 'csrf_token_id' => 'user_language',
                 'translation_domain' => 'cocorico_user',
                 'cascade_validation' => true,
-                /** @Ignore */
-                'label' => false
-            )
+                /* @Ignore */
+                'label' => false,
+            ]
         );
     }
 
@@ -70,5 +69,4 @@ class UserLanguageType extends AbstractType
     {
         return 'user_language';
     }
-
 }

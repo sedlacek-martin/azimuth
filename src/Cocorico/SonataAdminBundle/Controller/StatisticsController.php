@@ -19,13 +19,11 @@ use Cocorico\MessageBundle\Repository\ThreadRepository;
 use Cocorico\SonataAdminBundle\Form\Type\StatisticsFilterType;
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/statistics/")
@@ -39,7 +37,7 @@ class StatisticsController extends Controller
     public function indexAction(Request $request): ?Response
     {
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
-            throw $this->createAccessDeniedException("You are not allowed to visit this page");
+            throw $this->createAccessDeniedException('You are not allowed to visit this page');
         }
 
         $from = $to = null;
@@ -51,8 +49,8 @@ class StatisticsController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $from = $data['from'] ? \DateTime::createFromFormat('m/d/Y H:i',  $data['from'] . "00:00") : null;
-            $to = $data['to'] ? \DateTime::createFromFormat('m/d/Y H:i',  $data['to'] . "00:00") : null;
+            $from = $data['from'] ? \DateTime::createFromFormat('m/d/Y H:i', $data['from'] . '00:00') : null;
+            $to = $data['to'] ? \DateTime::createFromFormat('m/d/Y H:i', $data['to'] . '00:00') : null;
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -94,7 +92,7 @@ class StatisticsController extends Controller
         $diff = $dtF->diff($dtT);
         if ($diff->days > 0) {
             $verificationTime = $diff->format('%a days and %h hours');
-        } else if ($diff->h > 0) {
+        } elseif ($diff->h > 0) {
             $verificationTime = $diff->format('%h hours and %i minutes');
         } else {
             $verificationTime = $diff->format('%i minutes and %s seconds');
@@ -127,5 +125,4 @@ class StatisticsController extends Controller
             'messageCount' => $messageCount,
         ]);
     }
-
 }

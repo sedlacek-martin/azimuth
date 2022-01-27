@@ -13,7 +13,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class AdminPreferencesType extends AbstractType
 {
     private $request;
+
     private $locale;
+
     private $entityManager;
 
     /**

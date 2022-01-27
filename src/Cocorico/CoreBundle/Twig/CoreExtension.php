@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\CoreBundle\Twig;
 
 use Cocorico\CoreBundle\Entity\Listing;
@@ -29,51 +28,83 @@ use Twig_SimpleFunction;
 class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
     protected $currencyExtension;
+
     protected $translator;
+
     protected $session;
+
     protected $locales;
+
     protected $timeUnit;
+
     protected $timeUnitIsDay;
+
     protected $timeZone;
+
     protected $daysDisplayMode;
+
     protected $timesDisplayMode;
+
     protected $timeUnitFlexibility;
+
     protected $timeUnitAllDay;
+
     protected $timeHoursAvailable;
+
     protected $allowSingleDay;
+
     protected $endDayIncluded;
+
     protected $listingDefaultStatus;
+
     protected $listingPricePrecision;
+
     protected $currencies;
+
     protected $defaultCurrency;
+
     protected $currentCurrency;
+
     protected $priceMin;
+
     protected $priceMax;
+
     protected $feeAsOfferer;
+
     protected $feeAsAsker;
+
     protected $displayMarker;
+
     protected $bookingExpirationDelay;
+
     protected $bookingAcceptationDelay;
+
     protected $bookingValidationMoment;
+
     protected $bookingValidationDelay;
+
     protected $bookingPriceMin;
+
     protected $vatRate;
+
     protected $includeVat;
+
     protected $displayVat;
+
     protected $listingSearchMinResult;
+
     protected $listingDuplication;
+
     protected $minStartTimeDelay;
+
     protected $addressDelivery;
 
     /**
-     *
      * @param CurrencyExtension   $currencyExtension
      * @param TranslatorInterface $translator
      * @param Session             $session
      * @param array               $parameters
-     *
      */
-
     public function __construct(
         $currencyExtension,
         TranslatorInterface $translator,
@@ -87,58 +118,58 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
 
         $parameters = $parameters['parameters'];
 
-        $this->locales = $parameters["cocorico_locales"];
+        $this->locales = $parameters['cocorico_locales'];
 
         //Time unit
-        $this->timeUnit = $parameters["cocorico_time_unit"];
+        $this->timeUnit = $parameters['cocorico_time_unit'];
         $this->timeUnitIsDay = ($this->timeUnit % 1440 == 0) ? true : false;
-        $this->timeZone = $parameters["cocorico_time_zone"];
-        $this->timeUnitAllDay = $parameters["cocorico_time_unit_allday"];
-        $this->timeUnitFlexibility = $parameters["cocorico_time_unit_flexibility"];
-        $this->daysDisplayMode = $parameters["cocorico_days_display_mode"];
-        $this->timesDisplayMode = $parameters["cocorico_times_display_mode"];
-        $this->timeHoursAvailable = $parameters["cocorico_time_hours_available"];
+        $this->timeZone = $parameters['cocorico_time_zone'];
+        $this->timeUnitAllDay = $parameters['cocorico_time_unit_allday'];
+        $this->timeUnitFlexibility = $parameters['cocorico_time_unit_flexibility'];
+        $this->daysDisplayMode = $parameters['cocorico_days_display_mode'];
+        $this->timesDisplayMode = $parameters['cocorico_times_display_mode'];
+        $this->timeHoursAvailable = $parameters['cocorico_time_hours_available'];
 
         //Currencies
-        $this->currencies = $parameters["cocorico_currencies"];
-        $this->defaultCurrency = $parameters["cocorico_currency"];
+        $this->currencies = $parameters['cocorico_currencies'];
+        $this->defaultCurrency = $parameters['cocorico_currency'];
         $this->currentCurrency = $session->get('currency', $this->defaultCurrency);
 
         //Fees
-        $this->feeAsOfferer = $parameters["cocorico_fee_as_offerer"];
-        $this->feeAsAsker = $parameters["cocorico_fee_as_asker"];
+        $this->feeAsOfferer = $parameters['cocorico_fee_as_offerer'];
+        $this->feeAsAsker = $parameters['cocorico_fee_as_asker'];
 
         //Status
-        $this->listingDefaultStatus = $parameters["cocorico_listing_availability_status"];
+        $this->listingDefaultStatus = $parameters['cocorico_listing_availability_status'];
 
         //Prices
-        $this->listingPricePrecision = $parameters["cocorico_listing_price_precision"];
-        $this->priceMin = $parameters["cocorico_listing_price_min"];
-        $this->priceMax = $parameters["cocorico_listing_price_max"];
-        $this->bookingPriceMin = $parameters["cocorico_booking_price_min"];
+        $this->listingPricePrecision = $parameters['cocorico_listing_price_precision'];
+        $this->priceMin = $parameters['cocorico_listing_price_min'];
+        $this->priceMax = $parameters['cocorico_listing_price_max'];
+        $this->bookingPriceMin = $parameters['cocorico_booking_price_min'];
 
         //Map
-        $this->displayMarker = $parameters["cocorico_listing_map_display_marker"];
+        $this->displayMarker = $parameters['cocorico_listing_map_display_marker'];
 
-        $this->listingSearchMinResult = $parameters["cocorico_listing_search_min_result"];
-        $this->listingDuplication = $parameters["cocorico_listing_duplication"];
+        $this->listingSearchMinResult = $parameters['cocorico_listing_search_min_result'];
+        $this->listingDuplication = $parameters['cocorico_listing_duplication'];
 
-        $this->allowSingleDay = $parameters["cocorico_booking_allow_single_day"];
-        $this->endDayIncluded = $parameters["cocorico_booking_end_day_included"];
+        $this->allowSingleDay = $parameters['cocorico_booking_allow_single_day'];
+        $this->endDayIncluded = $parameters['cocorico_booking_end_day_included'];
 
         //Delay
-        $this->bookingExpirationDelay = $parameters["cocorico_booking_expiration_delay"];
-        $this->bookingAcceptationDelay = $parameters["cocorico_booking_acceptation_delay"];
-        $this->bookingValidationMoment = $parameters["cocorico_booking_validated_moment"];
-        $this->bookingValidationDelay = $parameters["cocorico_booking_validated_delay"];
-        $this->minStartTimeDelay = $parameters["cocorico_booking_min_start_time_delay"];
+        $this->bookingExpirationDelay = $parameters['cocorico_booking_expiration_delay'];
+        $this->bookingAcceptationDelay = $parameters['cocorico_booking_acceptation_delay'];
+        $this->bookingValidationMoment = $parameters['cocorico_booking_validated_moment'];
+        $this->bookingValidationDelay = $parameters['cocorico_booking_validated_delay'];
+        $this->minStartTimeDelay = $parameters['cocorico_booking_min_start_time_delay'];
 
         //VAT
-        $this->vatRate = $parameters["cocorico_vat"];
-        $this->includeVat = $parameters["cocorico_include_vat"];
-        $this->displayVat = $parameters["cocorico_display_vat"];
+        $this->vatRate = $parameters['cocorico_vat'];
+        $this->includeVat = $parameters['cocorico_include_vat'];
+        $this->displayVat = $parameters['cocorico_display_vat'];
 
-        $this->addressDelivery = $parameters["cocorico_user_address_delivery"];
+        $this->addressDelivery = $parameters['cocorico_user_address_delivery'];
     }
 
     /**
@@ -148,12 +179,12 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
      */
     public function getFilters()
     {
-        return array(
-            new Twig_SimpleFilter('repeat', array($this, 'stringRepeatFilter')),
+        return [
+            new Twig_SimpleFilter('repeat', [$this, 'stringRepeatFilter']),
             new Twig_SimpleFilter('ucwords', 'ucwords'),
-            new Twig_SimpleFilter('format_price', array($this, 'formatPriceFilter')),
-            new Twig_SimpleFilter('strip_private_info', array($this, 'stripPrivateInfoFilter')),
-        );
+            new Twig_SimpleFilter('format_price', [$this, 'formatPriceFilter']),
+            new Twig_SimpleFilter('strip_private_info', [$this, 'stripPrivateInfoFilter']),
+        ];
     }
 
     /**
@@ -165,7 +196,6 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
     {
         return str_repeat($input, $multiplier);
     }
-
 
     /**
      * @param int    $price
@@ -194,7 +224,6 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
 
         $price = $this->currencyExtension->format($price, $targetCurrency, $precision);
 
-
         return $price;
     }
 
@@ -207,21 +236,19 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
      */
     public function stripPrivateInfoFilter(
         $text,
-        $typeInfo = array("phone", "email", "domain"),
+        $typeInfo = ['phone', 'email', 'domain'],
         $replaceBy = 'default'
     ) {
-
         if ($replaceBy == 'default') {
             $replaceBy = $this->translator->trans(
                 'private_info_replacement',
-                array(),
+                [],
                 'cocorico'
             );
         }
 
         return PHP::strip_texts($text, $typeInfo, $replaceBy);
     }
-
 
     /**
      * @inheritdoc
@@ -230,15 +257,15 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new Twig_SimpleFunction(
                 'session_upload_progress_name', function () {
-                return ini_get("session.upload_progress.name");
-            }
+                    return ini_get('session.upload_progress.name');
+                }
             ),
-            new Twig_SimpleFunction('currencySymbol', array($this, 'currencySymbolFunction')),
-            new Twig_SimpleFunction('staticProperty', array($this, 'staticProperty')),
-        );
+            new Twig_SimpleFunction('currencySymbol', [$this, 'currencySymbolFunction']),
+            new Twig_SimpleFunction('staticProperty', [$this, 'staticProperty']),
+        ];
     }
 
     /**
@@ -251,7 +278,6 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
     {
         return Intl::getCurrencyBundle()->getCurrencySymbol($currency);
     }
-
 
     /**
      * Get static properties values
@@ -285,7 +311,7 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
         $userImage = new ReflectionClass(UserImage::class);
         $userImageConstants = $userImage->getConstants();
 
-        return array(
+        return [
             'locales' => $this->locales,
             'ListingConstants' => $listingConstants,
             'ListingImageConstants' => $listingImageConstants,
@@ -321,10 +347,9 @@ class CoreExtension extends Twig_Extension implements Twig_Extension_GlobalsInte
             'listingSearchMinResult' => $this->listingSearchMinResult,
             'listingDuplication' => $this->listingDuplication,
             'minStartTimeDelay' => $this->minStartTimeDelay,
-            'addressDelivery' => $this->addressDelivery
-        );
+            'addressDelivery' => $this->addressDelivery,
+        ];
     }
-
 
     /**
      * @inheritdoc

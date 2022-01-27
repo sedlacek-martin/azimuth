@@ -16,12 +16,11 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class DateRangeViewTransformer implements DataTransformerInterface
 {
-    protected $options = array();
+    protected $options = [];
 
-    public function __construct(OptionsResolver $resolver, array $options = array())
+    public function __construct(OptionsResolver $resolver, array $options = [])
     {
         $this->configureOptions($resolver);
         $this->options = $resolver->resolve($options);
@@ -30,12 +29,12 @@ class DateRangeViewTransformer implements DataTransformerInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'end_day_included' => true,
-            )
+            ]
         );
 
-        $resolver->setAllowedValues('end_day_included', array(true, false));
+        $resolver->setAllowedValues('end_day_included', [true, false]);
     }
 
     public function transform($value)

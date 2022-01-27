@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Controller\Dashboard;
 
 use Cocorico\UserBundle\Form\Type\ProfileContactFormType;
@@ -57,7 +56,7 @@ class ProfileContactController extends Controller
         if ($success > 0) {
             $session->getFlashBag()->add(
                 'success',
-                $translator->trans('user.edit.contact.success', array(), 'cocorico_user')
+                $translator->trans('user.edit.contact.success', [], 'cocorico_user')
             );
 
             return $this->redirect(
@@ -68,16 +67,16 @@ class ProfileContactController extends Controller
         } elseif ($success < 0) {
             $session->getFlashBag()->add(
                 'error',
-                $translator->trans('user.edit.contact.error', array(), 'cocorico_user')
+                $translator->trans('user.edit.contact.error', [], 'cocorico_user')
             );
         }
 
         return $this->render(
             'CocoricoUserBundle:Dashboard/Profile:edit_contact.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'user' => $user
-            )
+                'user' => $user,
+            ]
         );
     }
 
@@ -94,10 +93,10 @@ class ProfileContactController extends Controller
             'user',
             ProfileContactFormType::class,
             $user,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl('cocorico_user_dashboard_profile_edit_contact'),
-            )
+            ]
         );
     }
 }

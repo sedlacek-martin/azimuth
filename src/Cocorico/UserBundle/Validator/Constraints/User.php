@@ -20,8 +20,9 @@ use Symfony\Component\Validator\Constraint;
  */
 class User extends Constraint implements TranslationContainerInterface
 {
-    public static $messageMaxImages = "user_images.max {{ max_images }}";
-    public static $messageMinImages = "user_images.min {{ min_images }}";
+    public static $messageMaxImages = 'user_images.max {{ max_images }}';
+
+    public static $messageMinImages = 'user_images.min {{ min_images }}';
 
     public function validatedBy()
     {
@@ -40,7 +41,7 @@ class User extends Constraint implements TranslationContainerInterface
      */
     public static function getTranslationMessages()
     {
-        $messages = array();
+        $messages = [];
         $messages[] = new Message(self::$messageMaxImages, 'cocorico_user');
         $messages[] = new Message(self::$messageMinImages, 'cocorico_user');
 

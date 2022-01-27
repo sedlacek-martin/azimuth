@@ -8,24 +8,20 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserVoter extends BaseVoter
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
-
 
     public function __construct(AuthorizationCheckerInterface $authorizationChecker)
     {
-
         $this->authorizationChecker = $authorizationChecker;
     }
 
-    function getAttributes(): array
+    public function getAttributes(): array
     {
         return [self::EDIT, self::DELETE];
     }
 
-    function getClass(): string
+    public function getClass(): string
     {
         return User::class;
     }
@@ -45,7 +41,7 @@ class UserVoter extends BaseVoter
             return false;
         }
 
-        if ($this->authorizationChecker->isGranted("ROLE_SUPER_ADMIN")) {
+        if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
             return true;
         }
 

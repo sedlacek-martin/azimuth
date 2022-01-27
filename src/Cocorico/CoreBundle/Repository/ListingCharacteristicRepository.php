@@ -23,7 +23,7 @@ class ListingCharacteristicRepository extends EntityRepository
     public function getFindAllTranslatedQueryBuilder($locale)
     {
         $queryBuilder = $this->createQueryBuilder('lc')
-            ->addSelect("lct, lcg, lcgt, lcty, lcv, lcvt")
+            ->addSelect('lct, lcg, lcgt, lcty, lcv, lcvt')
             ->leftJoin('lc.translations', 'lct')
             ->leftJoin('lc.listingCharacteristicGroup', 'lcg')
             ->leftJoin('lcg.translations', 'lcgt')
@@ -56,8 +56,7 @@ class ListingCharacteristicRepository extends EntityRepository
             ->getResult();
     }
 
-
-    /**
+    /*
      * @param $locale
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -75,7 +74,7 @@ class ListingCharacteristicRepository extends EntityRepository
 //        return $queryBuilder;
 //    }
 
-    /**
+    /*
      * @param string $locale
      *
      * @return ArrayCollection|array|null

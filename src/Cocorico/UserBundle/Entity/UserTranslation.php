@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  *
  * @ORM\Table(name="user_translation")
- *
  */
 class UserTranslation
 {
@@ -67,5 +66,4 @@ class UserTranslation
     {
         return $this->description;
     }
-
 }

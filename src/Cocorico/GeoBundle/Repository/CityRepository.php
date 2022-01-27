@@ -20,7 +20,6 @@ use Doctrine\ORM\NoResultException;
 
 /**
  * CityRepository
- *
  */
 class CityRepository extends EntityRepository
 {
@@ -34,7 +33,7 @@ class CityRepository extends EntityRepository
     public function findOneByNameAndDepartment($name, $department)
     {
         $queryBuilder = $this->createQueryBuilder('c')
-            ->addSelect("ct, cg")
+            ->addSelect('ct, cg')
             ->leftJoin('c.translations', 'ct')
             ->leftJoin('c.geocoding', 'cg')
             ->where('ct.name = :name')
@@ -49,18 +48,18 @@ class CityRepository extends EntityRepository
         }
     }
 
-
     /**
      * @return array|null
      */
     public function findAllCities()
     {
         $queryBuilder = $this->createQueryBuilder('ci')
-            ->addSelect("c, cig, cit")
+            ->addSelect('c, cig, cit')
             ->leftJoin('ci.country', 'c')
             ->leftJoin('ci.translations', 'cit')
             ->leftJoin('ci.geocoding', 'cig')
             ->orderBy('cit.name');
+
         try {
             $query = $queryBuilder->getQuery();
 

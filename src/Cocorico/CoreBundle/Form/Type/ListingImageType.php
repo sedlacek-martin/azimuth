@@ -20,7 +20,6 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 class ListingImageType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -31,44 +30,44 @@ class ListingImageType extends AbstractType
             ->add(
                 'name',
                 HiddenType::class,
-                array(
-                    /** @Ignore */
-                    'label' => false
-                )
+                [
+                    /* @Ignore */
+                    'label' => false,
+                ]
             )
             ->add(
                 'file',
                 FileType::class,
-                array(
+                [
                     'image_path' => 'webPath',
                     'imagine_filter' => 'listing_xxmedium',
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => false,
                     'mapped' => false,
-                    'attr' => array(
-                        "class" => "dn"
-                    )
-                )
+                    'attr' => [
+                        'class' => 'dn',
+                    ],
+                ]
             )
             ->add(
                 'position',
                 HiddenType::class,
-                array(
-                    /** @Ignore */
+                [
+                    /* @Ignore */
                     'label' => false,
-                    'attr' => array(
-                        "class" => "sort-position"
-                    )
-                )
+                    'attr' => [
+                        'class' => 'sort-position',
+                    ],
+                ]
             )
             ->add(
                 'listing',
                 EntityHiddenType::class,
-                array(
+                [
                     'class' => 'Cocorico\CoreBundle\Entity\Listing',
-                    /** @Ignore */
-                    'label' => false
-                )
+                    /* @Ignore */
+                    'label' => false,
+                ]
             );
     }
 
@@ -78,14 +77,14 @@ class ListingImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\CoreBundle\Entity\ListingImage',
                 'csrf_token_id' => 'listing_image',
                 'translation_domain' => 'cocorico_listing',
                 'constraints' => new Valid(),
-                /** @Ignore */
-                'label' => false
-            )
+                /* @Ignore */
+                'label' => false,
+            ]
         );
     }
 

@@ -16,12 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass
- *
  */
 abstract class BaseFooterTranslation
 {
     /**
-     *
      * @ORM\Column(name="url", type="string", length=2000, nullable=true)
      *
      * @var string
@@ -29,7 +27,6 @@ abstract class BaseFooterTranslation
     protected $url;
 
     /**
-     *
      * @ORM\Column(name="url_hash", type="string", length=255, nullable=true)
      *
      * @var string
@@ -147,6 +144,4 @@ abstract class BaseFooterTranslation
     {
         $this->urlHash = $urlHash;
     }
-
-
 }

@@ -24,9 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class UserImage
 {
-
-    const IMAGE_DEFAULT = "default-user.png";
-    const IMAGE_FOLDER = "/uploads/users/images/";
+    const IMAGE_DEFAULT = 'default-user.png';
+    const IMAGE_FOLDER = '/uploads/users/images/';
 
     /**
      * @var integer
@@ -142,5 +141,4 @@ class UserImage
     {
         return null === $this->name ? null : self::IMAGE_FOLDER . $this->name;
     }
-
 }

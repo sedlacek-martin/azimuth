@@ -3,12 +3,10 @@
 namespace Cocorico\CoreBundle\Admin;
 
 use Cocorico\CoreBundle\Entity\UserInvitation;
-use Cocorico\CoreBundle\Entity\VerifiedDomain;
 use Cocorico\CoreBundle\Repository\MemberOrganizationRepository;
 use Cocorico\SonataAdminBundle\Admin\BaseAdmin;
 use Cocorico\UserBundle\Mailer\TwigSwiftMailer;
 use Doctrine\ORM\QueryBuilder;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -20,15 +18,18 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 class InvitationAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'invitations';
+
     protected $baseRouteName = 'invitations';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'DESC',
-        '_sort_by' => 'createdAt'
-    );
+        '_sort_by' => 'createdAt',
+    ];
 
     public function setLocales($locales)
     {
@@ -40,10 +41,10 @@ class InvitationAdmin extends BaseAdmin
         $listMapper
 
             ->addIdentifier('id', null, [])
-            ->add('email', null, array())
-            ->add('used', null, array())
-            ->add('expiration', null, array())
-            ->add('createdAt', null, array())
+            ->add('email', null, [])
+            ->add('used', null, [])
+            ->add('expiration', null, [])
+            ->add('createdAt', null, [])
             ->add('memberOrganization', null, [
                 'template' => 'CocoricoSonataAdminBundle::list_action_mo_all_on_null.html.twig',
             ]);
@@ -51,16 +52,16 @@ class InvitationAdmin extends BaseAdmin
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
                     'delete' => [],
                     'edit' => [],
                     'list_resend' => [
                         'template' => 'CocoricoSonataAdminBundle::list_action_resend_invitation.html.twig',
                     ],
-                ),
+                ],
 
-            )
+            ]
         );
     }
 
@@ -68,7 +69,7 @@ class InvitationAdmin extends BaseAdmin
     {
         $moFieldOptions = [
             'required' => false,
-            'placeholder' => "All member organizations",
+            'placeholder' => 'All member organizations',
         ];
 
         if ($this->getUser()) {
@@ -91,7 +92,7 @@ class InvitationAdmin extends BaseAdmin
             ->add('expiration', DateTimeType::class)
             ->add('used', CheckboxType::class, [
                 'required' => false,
-                'help' => 'invite.used.help'
+                'help' => 'invite.used.help',
             ]);
     }
 
@@ -116,11 +117,10 @@ class InvitationAdmin extends BaseAdmin
         $mailer->sendUserInvited($object->getEmail());
     }
 
-
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
         $filter
-            ->add('used', null,  []);
+            ->add('used', null, []);
     }
 
     protected function configureRoutes(RouteCollection $collection)
@@ -142,5 +142,4 @@ class InvitationAdmin extends BaseAdmin
 
         return $query;
     }
-
 }

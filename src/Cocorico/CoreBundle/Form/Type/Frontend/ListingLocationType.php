@@ -24,54 +24,53 @@ use Symfony\Component\Validator\Constraints\Valid;
  */
 class ListingLocationType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'country',
                 CountryFilteredType::class,
-                array(
+                [
                     'label' => 'listing.form.location.country',
                     'translation_domain' => 'cocorico_listing',//Not recognized elsewhere
                     'required' => true,
-                )
+                ]
             )
             ->add(
                 'city',
                 TextType::class,
-                array(
+                [
                     'label' => 'listing.form.location.city',
                     'translation_domain' => 'cocorico_listing',
                     'required' => true,
-                )
+                ]
             )
             ->add(
                 'zip',
                 TextType::class,
-                array(
+                [
                     'label' => 'listing.form.location.zip',
                     'translation_domain' => 'cocorico_listing',
                     'required' => false,
-                )
+                ]
             )
             ->add(
                 'route',
                 TextType::class,
-                array(
+                [
                     'label' => 'listing.form.location.route',
                     'translation_domain' => 'cocorico_listing',
                     'required' => false,
-                )
+                ]
             )
             ->add(
                 'street_number',
                 TextType::class,
-                array(
+                [
                     'label' => 'listing.form.location.street_number',
                     'translation_domain' => 'cocorico_listing',
                     'required' => false,
-                )
+                ]
             )
             //This field contains geocoding information in JSON format.
             //Its value is transformed to Coordinate entity through data transformer
@@ -79,7 +78,6 @@ class ListingLocationType extends AbstractType
                 'coordinate',
                 GeocodingToCoordinateType::class
             );
-
     }
 
     /**
@@ -89,11 +87,11 @@ class ListingLocationType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'translation_domain' => 'cocorico_listing',
                 'data_class' => 'Cocorico\CoreBundle\Entity\ListingLocation',
                 'constraints' => new Valid(),
-            )
+            ]
         );
     }
 

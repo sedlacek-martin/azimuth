@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Form\Handler;
 
 use Cocorico\UserBundle\Event\UserEvent;
@@ -22,7 +21,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class ScoutInfoFormHandler
 {
     protected $request;
+
     protected $userManager;
+
     protected $dispatcher;
 
     /**
@@ -88,6 +89,4 @@ class ScoutInfoFormHandler
 
         return $result;
     }
-
-
 }

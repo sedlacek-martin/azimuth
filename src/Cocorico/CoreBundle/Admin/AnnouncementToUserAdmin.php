@@ -10,8 +10,11 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class AnnouncementToUserAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'user-announcement';
+
     protected $baseRouteName = 'user-announcement';
+
     protected $locales;
 
     public function setLocales($locales)
@@ -27,29 +30,28 @@ class AnnouncementToUserAdmin extends BaseAdmin
             ->add('announcement', null, [])
             ->add('displayed', null, [])
             ->add('dismissed', null, [])
-            ->add('displayedAt', 'datetime', array())
-            ->add('dismissedAt', 'datetime', array());
+            ->add('displayedAt', 'datetime', [])
+            ->add('dismissedAt', 'datetime', []);
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
-                    'delete' => array(),
-                    'edit' => array(),
-                )
-            )
+            [
+                'actions' => [
+                    'delete' => [],
+                    'edit' => [],
+                ],
+            ]
         );
     }
 
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
         $filter
-            ->add('announcement', null,  [])
-            ->add('user', null,  [])
-            ->add('displayed', null,  [])
-            ->add('dismissed', null,  []);
-
+            ->add('announcement', null, [])
+            ->add('user', null, [])
+            ->add('displayed', null, [])
+            ->add('dismissed', null, []);
     }
 
     protected function configureRoutes(RouteCollection $collection)
@@ -57,6 +59,4 @@ class AnnouncementToUserAdmin extends BaseAdmin
         $collection->remove('edit');
         $collection->remove('create');
     }
-
-
 }

@@ -25,11 +25,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="listing_characteristic_group", indexes={
  *    @ORM\Index(name="position_lcg_idx", columns={"position"})
  *  })
- *
  */
 class ListingCharacteristicGroup
 {
     use ORMBehaviors\Translatable\Translatable;
+
     /**
      * @var integer
      *
@@ -49,12 +49,10 @@ class ListingCharacteristicGroup
     private $position;
 
     /**
-     *
      * @ORM\OneToMany(targetEntity="ListingCharacteristic", mappedBy="listingCharacteristicGroup", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "asc"})
      */
     private $listingCharacteristics;
-
 
     /**
      * Constructor
@@ -109,7 +107,6 @@ class ListingCharacteristicGroup
         return $this->position;
     }
 
-
     /**
      * Add listingCharacteristics
      *
@@ -154,6 +151,6 @@ class ListingCharacteristicGroup
      */
     public function __toString()
     {
-        return (string)$this->translate()->getName();
+        return (string) $this->translate()->getName();
     }
 }

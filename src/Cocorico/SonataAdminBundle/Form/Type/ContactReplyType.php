@@ -13,7 +13,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContactReplyType extends AbstractType
 {
     private $request;
+
     private $locale;
+
     private $entityManager;
 
     /**
@@ -33,7 +35,7 @@ class ContactReplyType extends AbstractType
             ->add('reply', TextareaType::class, [
                 'label' => 'admin.contact.reply.label',
                 'required' => false,
-                'attr' => ['class' => 'form-control', 'rows' => 5]
+                'attr' => ['class' => 'form-control', 'rows' => 5],
             ]);
     }
 
@@ -50,7 +52,4 @@ class ContactReplyType extends AbstractType
     {
         return 'admin_contact_reply';
     }
-
-
-
 }
