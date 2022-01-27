@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Cocorico\GeoBundle\Geocoder\Provider;
 
 use Geocoder\Exception\InvalidCredentials;
@@ -24,5 +23,4 @@ interface ProviderInterface extends \Geocoder\Provider\Provider
      * @throws QuotaExceeded
      */
     public function reverseQueryAsJson(ReverseQuery $query);
-
 }

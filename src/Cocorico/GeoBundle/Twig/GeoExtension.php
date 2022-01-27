@@ -9,15 +9,13 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\GeoBundle\Twig;
-
 
 class GeoExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
     protected $googlePlaceAPIKey;
-    protected $ipInfoDbAPIKey;
 
+    protected $ipInfoDbAPIKey;
 
     /**
      * @param string $googlePlaceAPIKey
@@ -29,13 +27,12 @@ class GeoExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInt
         $this->ipInfoDbAPIKey = $ipInfoDbAPIKey;
     }
 
-
     public function getGlobals()
     {
-        return array(
+        return [
             'googlePlaceAPIKey' => $this->googlePlaceAPIKey,
             'ipInfoDbAPIKey' => $this->ipInfoDbAPIKey,
-        );
+        ];
     }
 
     public function getName()

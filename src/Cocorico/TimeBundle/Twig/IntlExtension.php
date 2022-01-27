@@ -16,7 +16,6 @@ namespace Cocorico\TimeBundle\Twig;
  *
  * Tmp solution to fix old ICU versions having trouble with some timezone like Moscow.
  * To remove when ICU will be updated on servers
- *
  */
 class IntlExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
@@ -25,10 +24,12 @@ class IntlExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
      */
     public function getGlobals()
     {
-        return array();
+        return [];
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function __construct()
     {
         if (!class_exists('IntlDateFormatter')) {
@@ -43,11 +44,11 @@ class IntlExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
      */
     public function getFilters()
     {
-        return array(
+        return [
             new \Twig_SimpleFilter(
-                'localizeddate', array($this, 'localizedDateFilter'), array('needs_environment' => true)
+                'localizeddate', [$this, 'localizedDateFilter'], ['needs_environment' => true]
             ),
-        );
+        ];
     }
 
     /**
@@ -76,13 +77,13 @@ class IntlExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
     ) {
         $date = twig_date_converter($env, $date, $timezone);
 
-        $formatValues = array(
+        $formatValues = [
             'none' => \IntlDateFormatter::NONE,
             'short' => \IntlDateFormatter::SHORT,
             'medium' => \IntlDateFormatter::MEDIUM,
             'long' => \IntlDateFormatter::LONG,
             'full' => \IntlDateFormatter::FULL,
-        );
+        ];
 
         //Intl/ICU formatting in a special format
         $formatter = \IntlDateFormatter::create(
@@ -127,7 +128,6 @@ class IntlExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
 
         return $formattedDate;
     }
-
 
     /**
      * Returns the name of the extension.

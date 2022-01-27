@@ -11,7 +11,6 @@
 
 namespace Cocorico\MessageBundle\Event;
 
-
 class MessageEvents
 {
     /**

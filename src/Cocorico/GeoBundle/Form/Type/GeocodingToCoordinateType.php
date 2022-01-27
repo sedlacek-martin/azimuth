@@ -21,16 +21,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GeocodingToCoordinateType extends AbstractType
 {
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $om;
-    /**
-     * @var array
-     */
+
+    /** @var array */
     private $locales;
+
     private $request;
+
     private $locale;
+
     private $googlePlaceAPIKey;
 
     /**
@@ -62,12 +62,12 @@ class GeocodingToCoordinateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'invalid_message' => 'geo.location.address_invalid',
                 'error_bubbling' => false,
                 'compound' => false,
 
-            )
+            ]
         );
         parent::configureOptions($resolver);
     }
@@ -76,6 +76,7 @@ class GeocodingToCoordinateType extends AbstractType
     {
         return HiddenType::class;
     }
+
     /**
      * {@inheritdoc}
      */

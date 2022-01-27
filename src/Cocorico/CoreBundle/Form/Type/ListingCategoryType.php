@@ -22,9 +22,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ListingCategoryType extends AbstractType
 {
-
     private $request;
+
     private $locale;
+
     private $entityManager;
 
     /**
@@ -48,32 +49,35 @@ class ListingCategoryType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $categories = $this->entityManager->getRepository("CocoricoCoreBundle:ListingCategory")->findCategories(
+        $categories = $this->entityManager->getRepository('CocoricoCoreBundle:ListingCategory')->findCategories(
             $this->locale
         );
 
         $resolver
             ->setDefaults(
-                array(
+                [
                     'class' => ListingCategory::class,
                     'choices' => $categories,
                     'multiple' => false,
                     'required' => false,
                     'placeholder' => null,
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => false,
-                    'choice_attr' => static function(?ListingCategory $choice) {
-                        if (is_null($choice)) return [];
-                        $characteristics = $choice->getCharacteristics()->map(function(ListingCharacteristic $char) {
+                    'choice_attr' => static function (?ListingCategory $choice) {
+                        if (is_null($choice)) {
+                            return [];
+                        }
+                        $characteristics = $choice->getCharacteristics()->map(function (ListingCharacteristic $char) {
                             return $char->getId();
                         })->toArray();
+
                         return [
                             'data-offer' => $choice->isOffer() ? 'true' : 'false',
                             'data-search' => $choice->isSearch() ? 'true' : 'false',
                             'data-characteristics' => json_encode($characteristics),
                         ];
-                    }
-                )
+                    },
+                ]
             );
     }
 
@@ -84,7 +88,6 @@ class ListingCategoryType extends AbstractType
     {
         return EntityType::class;
     }
-
 
     /**
      * {@inheritdoc}

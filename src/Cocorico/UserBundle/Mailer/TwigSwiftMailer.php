@@ -16,17 +16,24 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-
 class TwigSwiftMailer implements MailerInterface
 {
     protected $locale;
+
     protected $locales;
+
     protected $mailer;
+
     protected $router;
+
     protected $twig;
+
     protected $requestStack;
+
     protected $parameters;
+
     protected $fromEmail;
+
     protected $siteName;
 
     /**
@@ -64,10 +71,10 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['templates']['account_created_user'];
 
-        $context = array(
+        $context = [
             'user' => $user,
-            'cocorico_site_name' => $this->parameters['site_name']
-        );
+            'cocorico_site_name' => $this->parameters['site_name'],
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
@@ -80,13 +87,13 @@ class TwigSwiftMailer implements MailerInterface
         $template = $this->parameters['templates']['forgot_password_user'];
         $password_reset_link = $this->router->generate(
             'cocorico_user_resetting_reset',
-            array('token' => $user->getConfirmationToken()),
+            ['token' => $user->getConfirmationToken()],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-        $context = array(
+        $context = [
             'user' => $user,
-            'password_reset_link' => $password_reset_link
-        );
+            'password_reset_link' => $password_reset_link,
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
@@ -99,13 +106,13 @@ class TwigSwiftMailer implements MailerInterface
         $template = $this->parameters['templates']['account_creation_confirmation_user'];
         $url = $this->router->generate(
             'cocorico_user_register_confirmation',
-            array('token' => $user->getConfirmationToken()),
+            ['token' => $user->getConfirmationToken()],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-        $context = array(
+        $context = [
             'user' => $user,
-            'confirmationUrl' => $url
-        );
+            'confirmationUrl' => $url,
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
@@ -199,7 +206,7 @@ class TwigSwiftMailer implements MailerInterface
             $context = $this->twig->mergeGlobals($context);
 
             $subject = $template->renderBlock('subject', $context);
-            $context["message"] = $template->renderBlock('message', $context);
+            $context['message'] = $template->renderBlock('message', $context);
 
             $textBody = $template->renderBlock('body_text', $context);
             $htmlBody = $template->renderBlock('body_html', $context);

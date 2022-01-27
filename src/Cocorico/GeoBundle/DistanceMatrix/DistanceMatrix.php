@@ -12,7 +12,6 @@
 
 namespace Cocorico\GeoBundle\DistanceMatrix;
 
-
 use GuzzleHttp\Client;
 
 /**
@@ -25,21 +24,16 @@ use GuzzleHttp\Client;
  */
 class DistanceMatrix extends AbstractDistanceMatrixConstants
 {
-    /**
-     * @var Client
-     */
+    /** @var Client */
     private $client;
-
 
     /**
      * Creates a distance matrix service.
-     *
      */
     public function __construct()
     {
         $this->client = new Client();
     }
-
 
     /**
      * Processes the given request.
@@ -70,10 +64,10 @@ class DistanceMatrix extends AbstractDistanceMatrixConstants
      */
     protected function generateUrl(DistanceMatrixRequest $distanceMatrixRequest)
     {
-        $httpQuery = array(
-            'origins' => array(),
-            'destinations' => array(),
-        );
+        $httpQuery = [
+            'origins' => [],
+            'destinations' => [],
+        ];
 
         foreach ($distanceMatrixRequest->getOrigins() as $origin) {
             $httpQuery['origins'][] = $origin;
@@ -135,7 +129,6 @@ class DistanceMatrix extends AbstractDistanceMatrixConstants
         return json_decode($response);
     }
 
-
     /**
      * Builds the distance matrix response according to the normalized distance matrix API results.
      *
@@ -162,7 +155,7 @@ class DistanceMatrix extends AbstractDistanceMatrixConstants
      */
     protected function buildDistanceMatrixRows($rows)
     {
-        $results = array();
+        $results = [];
 
         foreach ($rows as $row) {
             $results[] = $this->buildDistanceMatrixRow($row);
@@ -180,7 +173,7 @@ class DistanceMatrix extends AbstractDistanceMatrixConstants
      */
     protected function buildDistanceMatrixRow($row)
     {
-        $elements = array();
+        $elements = [];
 
         foreach ($row->elements as $element) {
             $elements[] = $this->buildDistanceMatrixResponseElement($element);
@@ -210,7 +203,6 @@ class DistanceMatrix extends AbstractDistanceMatrixConstants
         return new DistanceMatrixResponseElement($status, $distance, $duration);
     }
 
-
     /**
      * Sends a service request.
      *
@@ -226,7 +218,7 @@ class DistanceMatrix extends AbstractDistanceMatrixConstants
         if ($response === null) {
             throw new \Exception('Invalid service response null');
         }
-        $statusCode = (string)$response->getStatusCode();
+        $statusCode = (string) $response->getStatusCode();
         if ($statusCode[0] === '4' || $statusCode[0] === '5') {
             throw new \Exception('Invalid service response ' . $statusCode);
         }

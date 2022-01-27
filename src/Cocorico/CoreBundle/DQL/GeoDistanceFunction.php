@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Cocorico\CoreBundle\DQL;
 
+namespace Cocorico\CoreBundle\DQL;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
@@ -18,13 +18,10 @@ use Doctrine\ORM\Query\SqlWalker;
 
 class GeoDistanceFunction extends FunctionNode
 {
-    /**
-     * @var \Doctrine\ORM\Query\AST\ComparisonExpression
-     */
+    /** @var \Doctrine\ORM\Query\AST\ComparisonExpression */
     private $latitude;
-    /**
-     * @var \Doctrine\ORM\Query\AST\ComparisonExpression
-     */
+
+    /** @var \Doctrine\ORM\Query\AST\ComparisonExpression */
     private $longitude;
 
     /**
@@ -66,13 +63,11 @@ class GeoDistanceFunction extends FunctionNode
                 $this->longitude->leftExpression->dispatch($sqlWalker),
                 '111.18957696' //60 * 1.1515 * 1.609344
             );
-        } else {//Disable distance for sqlite because missing trigonometric functions. todo: Add trigonometric functions to sqlite
-            return sprintf(
+        }  //Disable distance for sqlite because missing trigonometric functions. todo: Add trigonometric functions to sqlite
+        return sprintf(
                 '(%s - %s)',
                 $this->latitude->rightExpression->dispatch($sqlWalker),
                 $this->longitude->rightExpression->dispatch($sqlWalker)
             );
-        }
-
     }
 }

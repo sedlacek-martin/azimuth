@@ -17,7 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 class ListingSearchActionEvent extends Event
 {
     protected $request;
-    protected $extraViewParams = array();
+
+    protected $extraViewParams = [];
 
     /**
      * @param Request $request

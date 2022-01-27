@@ -19,7 +19,6 @@ use Symfony\Component\Intl\Intl;
  */
 class CountryExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
-
 //    private $request;
 //    private $locale;
 //    public function onKernelRequest(GetResponseEvent $event) {
@@ -34,16 +33,17 @@ class CountryExtension extends \Twig_Extension implements \Twig_Extension_Global
      */
     public function getGlobals()
     {
-        return array();
+        return [];
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('country_name', array($this, 'countryNameFilter'))
-        );
-
+        return [
+            new \Twig_SimpleFilter('country_name', [$this, 'countryNameFilter']),
+        ];
     }
 
     /**
@@ -54,11 +54,10 @@ class CountryExtension extends \Twig_Extension implements \Twig_Extension_Global
      *
      * @return mixed
      */
-    public function countryNameFilter($countryCode, $locale = "en")
+    public function countryNameFilter($countryCode, $locale = 'en')
     {
         return Intl::getRegionBundle()->getCountryName($countryCode, $locale);
     }
-
 
     /**
      * @inheritdoc
@@ -67,10 +66,10 @@ class CountryExtension extends \Twig_Extension implements \Twig_Extension_Global
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('countries_translated', array($this, 'getCountriesTranslated')),
-            new \Twig_SimpleFunction('culture_code', array($this, 'getCultureCode')),
-        );
+        return [
+            new \Twig_SimpleFunction('countries_translated', [$this, 'getCountriesTranslated']),
+            new \Twig_SimpleFunction('culture_code', [$this, 'getCultureCode']),
+        ];
     }
 
     /**
@@ -95,7 +94,9 @@ class CountryExtension extends \Twig_Extension implements \Twig_Extension_Global
         return PHP::locale_get_culture($locale);
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function getName()
     {
         return 'country_extension';

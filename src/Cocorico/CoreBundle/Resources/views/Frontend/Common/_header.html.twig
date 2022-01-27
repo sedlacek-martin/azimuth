@@ -3,7 +3,7 @@
 <!-- header of the page -->
 <header id="header">
     <!-- topbar -->
-    {% if app.environment != 'prod' %}
+    {% if app.environment != 'prod' and app.environment != 'dev' %}
         <div class="d-flex align-item-center justify-center env-header">
             <div class="text-bold">{{ app.environment|upper }} ENVIRONMENT</div>
         </div>

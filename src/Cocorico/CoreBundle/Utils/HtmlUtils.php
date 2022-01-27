@@ -19,11 +19,10 @@ class HtmlUtils
         $config->set('AutoFormat.AutoParagraph', true);
         $config->set('AutoFormat.RemoveEmpty', true);
 
-        $purified =  $purifier->purify($data, $config);
+        $purified = $purifier->purify($data, $config);
 
         // TODO in future: add protection against external links and always lead them through our redirect page to warn users
 
         return $purified;
     }
-
 }

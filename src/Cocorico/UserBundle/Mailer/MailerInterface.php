@@ -9,14 +9,12 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Mailer;
 
 use FOS\UserBundle\Model\UserInterface;
 
 /**
  * Interface MailerInterface
- *
  */
 interface MailerInterface
 {
@@ -47,7 +45,6 @@ interface MailerInterface
      */
     public function sendResettingEmailMessageToUser(UserInterface $user);
 
-
     /**
      * Send an email to user with information, that his registration has to be verified.
      *
@@ -56,7 +53,6 @@ interface MailerInterface
      * @return void
      */
     public function sendWaitingForTrusted(UserInterface $user);
-
 
     /**
      * Send an email to user, that his registration was verified.

@@ -23,7 +23,7 @@ class ExtraBundleExtension extends \Twig_Extension implements \Twig_Extension_Gl
      */
     public function getGlobals()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -39,12 +39,12 @@ class ExtraBundleExtension extends \Twig_Extension implements \Twig_Extension_Gl
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new \Twig_SimpleFunction(
                 'bundleExist',
-                array($this, 'bundleExist')
+                [$this, 'bundleExist']
             ),
-        );
+        ];
     }
 
     /**

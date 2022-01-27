@@ -12,7 +12,6 @@
 
 namespace Cocorico\GeoBundle\DistanceMatrix;
 
-
 /**
  * DistanceMatrixRequest represents a google map distance matrix query.
  *
@@ -20,7 +19,6 @@ namespace Cocorico\GeoBundle\DistanceMatrix;
  * @author GeLo <geloen.eric@gmail.com>
  * @author Tyler Sommer <sommertm@gmail.com>
  */
-
 class DistanceMatrixRequest
 {
     /** @var boolean */
@@ -43,7 +41,6 @@ class DistanceMatrixRequest
 
     /** @var string */
     protected $unitSystem;
-
 
     /**
      * @param array $origins
@@ -69,13 +66,11 @@ class DistanceMatrixRequest
      * Sets if the the distance matrix request avoids highways.
      *
      * @param boolean $avoidHighways TRUE if the distance matrix request avoids highways else FALSE.
-     *
      */
     public function setAvoidHighways($avoidHighways = null)
     {
         $this->avoidHighways = $avoidHighways;
     }
-
 
     /**
      * Checks if the distance matrix request avoid tolls.
@@ -91,13 +86,11 @@ class DistanceMatrixRequest
      * Sets if the the distance matrix request avoids tolls.
      *
      * @param boolean $avoidTolls TRUE if the distance matrix request avoids tolls else FALSE.
-     *
      */
     public function setAvoidTolls($avoidTolls = null)
     {
         $this->avoidTolls = $avoidTolls;
     }
-
 
     /**
      * Gets the distance matrix request destinations
@@ -114,9 +107,9 @@ class DistanceMatrixRequest
      *
      * @param array $destinations The distance matrix request destinations.
      */
-    public function setDestinations(array $destinations = array())
+    public function setDestinations(array $destinations = [])
     {
-        $this->destinations = array();
+        $this->destinations = [];
 
         foreach ($destinations as $destination) {
             $this->addDestination($destination);
@@ -133,7 +126,6 @@ class DistanceMatrixRequest
         $this->destinations[] = $destination;
     }
 
-
     /**
      * Gets the distance matrix request origin.
      *
@@ -149,9 +141,9 @@ class DistanceMatrixRequest
      *
      * @param array $origins The distance matrix request origins.
      */
-    public function setOrigins(array $origins = array())
+    public function setOrigins(array $origins = [])
     {
-        $this->origins = array();
+        $this->origins = [];
 
         foreach ($origins as $origin) {
             $this->addOrigin($origin);
@@ -168,7 +160,6 @@ class DistanceMatrixRequest
         $this->origins[] = $origin;
     }
 
-
     /**
      * Gets the distance matrix request language.
      *
@@ -183,7 +174,6 @@ class DistanceMatrixRequest
      * Sets the distance matrix request language.
      *
      * @param string $language The distance matrix request language.
-     *
      */
     public function setLanguage($language = null)
     {
@@ -208,7 +198,7 @@ class DistanceMatrixRequest
      */
     public function setTravelMode($travelMode = null)
     {
-        $travelModes = array_diff(DistanceMatrix::$travelModes, array(DistanceMatrix::TRAVEL_TRANSIT));
+        $travelModes = array_diff(DistanceMatrix::$travelModes, [DistanceMatrix::TRAVEL_TRANSIT]);
 
         if (!in_array($travelMode, $travelModes) && ($travelMode !== null)) {
             throw new \Exception('Invalid distance matrix request travelMode');
@@ -242,7 +232,6 @@ class DistanceMatrixRequest
 
         $this->unitSystem = $unitSystem;
     }
-
 
     /**
      * Checks if the distance matrix request is valid.

@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\Event;
 
 use Cocorico\CoreBundle\Model\ListingSearchRequest;
@@ -17,6 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class ListingSearchFormBuilderEvent extends Event
 {
     private $formBuilder;
+
     private $listingSearchRequest;
 
     /**
@@ -36,7 +38,6 @@ class ListingSearchFormBuilderEvent extends Event
     {
         return $this->formBuilder;
     }
-
 
     /**
      * @return ListingSearchRequest

@@ -21,10 +21,8 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Table(name="footer_translation",indexes={
  *    @ORM\Index(name="footer_url_hash_idx", columns={"url_hash"})
  *  })
- *
  */
 class FooterTranslation extends BaseFooterTranslation
 {
     use ORMBehaviors\Translatable\Translation;
-
 }

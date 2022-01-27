@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ListingCategory
@@ -27,7 +28,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Entity(repositoryClass="Cocorico\CoreBundle\Repository\ListingCategoryRepository")
  *
  * @ORM\Table(name="listing_category")
- *
  */
 class ListingCategory extends BaseListingCategory
 {
@@ -55,12 +55,8 @@ class ListingCategory extends BaseListingCategory
      */
     private $children;
 
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Model\ListingCategoryListingCategoryFieldInterface", mappedBy="category", cascade={"persist", "remove"})
-     */
+    /** @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Model\ListingCategoryListingCategoryFieldInterface", mappedBy="category", cascade={"persist", "remove"}) */
     private $fields;
-
 
     /**
      * @var ListingCategoryPin|null
@@ -96,6 +92,14 @@ class ListingCategory extends BaseListingCategory
      */
     protected $defaultImageName;
 
+    /**
+     * @var int
+     *
+     * @Assert\NotBlank(message="assert.not_blank")
+     * @ORM\Column(name="position", type="smallint", nullable=false)
+     */
+    private $position;
+
     public function __construct()
     {
         $this->fields = new ArrayCollection();
@@ -110,7 +114,6 @@ class ListingCategory extends BaseListingCategory
     public function getId()
     {
         return $this->id;
-
     }
 
     /**
@@ -135,7 +138,6 @@ class ListingCategory extends BaseListingCategory
     {
         return $this->parent;
     }
-
 
     /**
      * Add children
@@ -223,6 +225,7 @@ class ListingCategory extends BaseListingCategory
     public function setPin($pin)
     {
         $this->pin = $pin;
+
         return $this;
     }
 
@@ -289,6 +292,26 @@ class ListingCategory extends BaseListingCategory
     public function setDefaultImageName(string $defaultImageName): ListingCategory
     {
         $this->defaultImageName = $defaultImageName;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     * @return ListingCategory
+     */
+    public function setPosition(int $position): ListingCategory
+    {
+        $this->position = $position;
+
         return $this;
     }
 
@@ -297,6 +320,6 @@ class ListingCategory extends BaseListingCategory
      */
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string) $this->getName();
     }
 }

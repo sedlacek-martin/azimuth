@@ -11,7 +11,6 @@
 
 namespace Cocorico\CoreBundle\Helper;
 
-
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -34,7 +33,7 @@ class GlobalHelper
      */
     public function getFormErrorMessages(Form $form)
     {
-        $errors = array();
+        $errors = [];
 
         foreach ($form->getErrors() as $key => $error) {
             if ($form->isRoot()) {
@@ -68,14 +67,14 @@ class GlobalHelper
             $datas = $request->query->all();
         }
 
-        $message = "";
+        $message = '';
 
         if ($firstCall) {
-            $message = "<strong>REQUEST DATAS:</strong><br/>";
+            $message = '<strong>REQUEST DATAS:</strong><br/>';
             foreach ($datas as $field => $data) {
                 $message .= "$field: <pre>";
                 $message .= print_r($data, 1);
-                $message .= "</pre>";
+                $message .= '</pre>';
             }
 
             echo $message;
@@ -83,31 +82,28 @@ class GlobalHelper
 
         $children = $form->all();
         if (count($children)) {
-            $message .= "<br/><strong>FORM CHILDREN OF " . $form->getName() . ":</strong><br/>";
+            $message .= '<br/><strong>FORM CHILDREN OF ' . $form->getName() . ':</strong><br/>';
             /** @var Form $child */
             foreach ($children as $child) {
-                $message .= $child->getName() . "<br/>";
+                $message .= $child->getName() . '<br/>';
 //                $this->displayExtraFieldsFormErrorMessage($request, $child, false);
             }
         }
 
         $extraFields = array_diff_key($datas, $children);
         if (count($extraFields)) {
-            $message .= "<br/><strong>EXTRA FIELDS</strong><br/>";
+            $message .= '<br/><strong>EXTRA FIELDS</strong><br/>';
             foreach ($extraFields as $field => $data) {
                 $message .= "$field: <pre>";
                 $message .= print_r($data, 1);
-                $message .= "</pre>";
+                $message .= '</pre>';
             }
         }
 
         echo $message;
-
     }
 
-
     /**
-     *
      * @param Form              $form
      * @param FlashBagInterface $flashBag
      */
@@ -176,7 +172,6 @@ class GlobalHelper
         curl_close($ch);
 
         return $output;
-
     }
 
     /**
@@ -191,7 +186,7 @@ class GlobalHelper
      * @return mixed|string
      * @throws \Exception
      */
-    function curlExecFollow(&$ch, $redirects = 20, $curlOptHeader = false)
+    public function curlExecFollow(&$ch, $redirects = 20, $curlOptHeader = false)
     {
         if ((!ini_get('open_basedir') && !ini_get('safe_mode')) || $redirects < 1) {
             curl_setopt($ch, CURLOPT_HEADER, $curlOptHeader);
@@ -200,44 +195,41 @@ class GlobalHelper
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
             return curl_exec($ch);
-        } else {
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
-            curl_setopt($ch, CURLOPT_HEADER, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_FORBID_REUSE, false);
+        }
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FORBID_REUSE, false);
 
-            do {
-                $data = curl_exec($ch);
-                if (curl_errno($ch)) {
-                    break;
-                }
-                $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                if ($code != 301 && $code != 302) {
+        do {
+            $data = curl_exec($ch);
+            if (curl_errno($ch)) {
+                break;
+            }
+            $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            if ($code != 301 && $code != 302) {
 //                    error_log("curlExecFollow> B $code");
-                    break;
-                }
-                $headerStart = strpos($data, "\r\n") + 2;
-                $headers = substr($data, $headerStart, strpos($data, "\r\n\r\n", $headerStart) + 2 - $headerStart);
-                if (!preg_match("!\r\n(?:Location|URI): *(.*?) *\r\n!", $headers, $matches)) {
-                    break;
-                }
+                break;
+            }
+            $headerStart = strpos($data, "\r\n") + 2;
+            $headers = substr($data, $headerStart, strpos($data, "\r\n\r\n", $headerStart) + 2 - $headerStart);
+            if (!preg_match("!\r\n(?:Location|URI): *(.*?) *\r\n!", $headers, $matches)) {
+                break;
+            }
 
-                curl_setopt($ch, CURLOPT_URL, $matches[1]);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-            } while (--$redirects);
+            curl_setopt($ch, CURLOPT_URL, $matches[1]);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        } while (--$redirects);
 
-            if (!$redirects) {
-                throw new \Exception(
+        if (!$redirects) {
+            throw new \Exception(
                     'Too many redirects. When following redirects, lib curl hit the maximum amount.'
                 );
-            }
-            if (!$curlOptHeader) {
-                $data = substr($data, strpos($data, "\r\n\r\n") + 4);
-            }
-
-            return $data;
         }
+        if (!$curlOptHeader) {
+            $data = substr($data, strpos($data, "\r\n\r\n") + 4);
+        }
+
+        return $data;
     }
-
-
 }

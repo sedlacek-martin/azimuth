@@ -47,7 +47,7 @@ class ProfileScoutInfoController extends Controller
         if ($success > 0) {
             $session->getFlashBag()->add(
                 'success',
-                $translator->trans('user.edit.scout_info.success', array(), 'cocorico_user')
+                $translator->trans('user.edit.scout_info.success', [], 'cocorico_user')
             );
 
             return $this->redirect(
@@ -58,16 +58,16 @@ class ProfileScoutInfoController extends Controller
         } elseif ($success < 0) {
             $session->getFlashBag()->add(
                 'error',
-                $translator->trans('user.edit.scout_info.error', array(), 'cocorico_user')
+                $translator->trans('user.edit.scout_info.error', [], 'cocorico_user')
             );
         }
 
         return $this->render(
             'CocoricoUserBundle:Dashboard/Profile:edit_scout_info.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'user' => $user
-            )
+                'user' => $user,
+            ]
         );
     }
 
@@ -84,10 +84,10 @@ class ProfileScoutInfoController extends Controller
             'user',
             ProfileScoutInfoFormType::class,
             $user,
-            array(
+            [
                 'method' => 'POST',
                 'action' => $this->generateUrl('cocorico_user_dashboard_profile_edit_scout_info'),
-            )
+            ]
         );
     }
 }

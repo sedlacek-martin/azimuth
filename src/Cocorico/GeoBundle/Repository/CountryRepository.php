@@ -19,7 +19,6 @@ use Doctrine\ORM\NoResultException;
 
 class CountryRepository extends EntityRepository
 {
-
     /**
      * @param $code
      * @return Country|null
@@ -29,11 +28,12 @@ class CountryRepository extends EntityRepository
     public function findOneByCode($code)
     {
         $queryBuilder = $this->createQueryBuilder('c')
-            ->addSelect("ct, cg")
+            ->addSelect('ct, cg')
             ->leftJoin('c.translations', 'ct')
             ->leftJoin('c.geocoding', 'cg')
             ->where('c.code = :code')
             ->setParameter('code', $code);
+
         try {
             return $queryBuilder->getQuery()->getOneOrNullResult();
         } catch (NonUniqueResultException $e) {
@@ -47,10 +47,11 @@ class CountryRepository extends EntityRepository
     public function findAllCountries()
     {
         $queryBuilder = $this->createQueryBuilder('c')
-            ->addSelect("cg, ct")
+            ->addSelect('cg, ct')
             ->leftJoin('c.translations', 'ct')
             ->leftJoin('c.geocoding', 'cg')
             ->orderBy('ct.name');
+
         try {
             $query = $queryBuilder->getQuery();
 
@@ -71,6 +72,7 @@ class CountryRepository extends EntityRepository
             ->select('COUNT(c.id) as cnt');
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 }

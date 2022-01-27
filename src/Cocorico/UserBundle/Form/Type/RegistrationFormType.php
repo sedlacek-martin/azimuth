@@ -12,7 +12,6 @@
 namespace Cocorico\UserBundle\Form\Type;
 
 use Cocorico\CoreBundle\Entity\MemberOrganization;
-use Cocorico\CoreBundle\Form\Type\GenderType;
 use Cocorico\UserBundle\Entity\User;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -38,7 +37,9 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 class RegistrationFormType extends AbstractType implements TranslationContainerInterface
 {
     public static $tacError = 'cocorico_user.tac.error';
+
     public static $moCountryMismatchError = 'cocorico_user.mo_country_mismatch.error';
+
     protected $timeUnitIsDay;
 
     /**
@@ -60,59 +61,59 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
             ->add(
                 'firstName',
                 TextType::class,
-                array(
+                [
                     'label' => 'form.first_name',
-                )
+                ]
             )
             ->add(
                 'lastName',
                 TextType::class,
-                array(
+                [
                     'label' => 'form.last_name',
-                )
+                ]
             )
             ->add(
                 'email',
                 EmailType::class,
-                array('label' => 'form.email')
+                ['label' => 'form.email']
             )
             ->add(
                 'birthday',
                 BirthdayType::class,
-                array(
+                [
                     'label' => 'form.user.birthday',
                     'widget' => 'choice',
                     'years' => range(date('Y') - 13, date('Y') - 100),
                     'required' => true,
-                )
+                ]
             )
             ->add(
                 'country',
                 CountryType::class,
-                array(
+                [
                     'placeholder' => '- Select -',
                     'label' => 'form.user.country',
                     'required' => true,
-                    'preferred_choices' => array("CZ", "FR", "ES", "DE", "RU"),
-                )
+                    'preferred_choices' => ['CZ', 'FR', 'ES', 'DE', 'RU'],
+                ]
             )
             ->add(
                 'plainPassword',
                 RepeatedType::class,
-                array(
+                [
                     'type' => 'password',
-                    'options' => array('translation_domain' => 'cocorico_user'),
-                    'first_options' => array(
+                    'options' => ['translation_domain' => 'cocorico_user'],
+                    'first_options' => [
                         'label' => 'form.password',
                         'required' => true,
-                    ),
-                    'second_options' => array(
+                    ],
+                    'second_options' => [
                         'label' => 'form.password_confirmation',
                         'required' => true,
-                    ),
+                    ],
                     'invalid_message' => 'fos_user.password.mismatch',
                     'required' => true,
-                )
+                ]
             )
             ->add('memberOrganization', EntityType::class, [
                 'class' => MemberOrganization::class,
@@ -125,16 +126,16 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
             ->add(
                 'tac',
                 CheckboxType::class,
-                array(
+                [
                     'label' => 'listing.form.tac',
                     'mapped' => false,
                     'constraints' => new IsTrue(
-                        array(
+                        [
                             'message' => self::$tacError,
-                        )
+                        ]
                     ),
                     'translation_domain' => 'cocorico_listing',
-                )
+                ]
             );
 
         if (!$this->timeUnitIsDay) {
@@ -142,24 +143,24 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
                 ->add(
                     'timeZone',
                     TimezoneType::class,
-                    array(
+                    [
                         'label' => 'form.time_zone',
                         'required' => true,
-                    )
+                    ]
                 );
         }
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
 
             /** @var User $user */
-                $user = $event->getData();
-                $form = $event->getForm();
+            $user = $event->getData();
+            $form = $event->getForm();
 
-                if ($user->getMemberOrganization()->getCountry() !== $user->getCountry()) {
-                    $form->addError(new FormError(self::$moCountryMismatchError));
-                }
-                $event->setData($user);
+            if ($user->getMemberOrganization()->getCountry() !== $user->getCountry()) {
+                $form->addError(new FormError(self::$moCountryMismatchError));
             }
+            $event->setData($user);
+        }
         );
     }
 
@@ -169,15 +170,14 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Cocorico\UserBundle\Entity\User',
                 'csrf_token_id' => 'user_registration',
                 'translation_domain' => 'cocorico_user',
-                'validation_groups' => array('CocoricoRegistration'),
-            )
+                'validation_groups' => ['CocoricoRegistration'],
+            ]
         );
     }
-
 
     /**
      * {@inheritdoc}
@@ -194,7 +194,7 @@ class RegistrationFormType extends AbstractType implements TranslationContainerI
      */
     public static function getTranslationMessages()
     {
-        $messages = array();
+        $messages = [];
         $messages[] = new Message(self::$tacError, 'cocorico');
         $messages[] = new Message(self::$tacError, 'cocorico');
 

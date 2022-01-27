@@ -24,15 +24,18 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class FooterAdmin extends AbstractAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'footer';
+
     protected $locales;
+
     /** @var  FooterManager */
     protected $footerManager;
 
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'DESC',
-        '_sort_by' => 'createdAt'
-    );
+        '_sort_by' => 'createdAt',
+    ];
 
     public function setLocales($locales)
     {
@@ -44,26 +47,28 @@ class FooterAdmin extends AbstractAdmin
         $this->footerManager = $footerManager;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         //Translations fields
-        $titles = $links = $urls = $urlsHash = array();
+        $titles = $links = $urls = $urlsHash = [];
         foreach ($this->locales as $i => $locale) {
-            $titles[$locale] = array(
+            $titles[$locale] = [
                 'label' => 'Title',
-                'constraints' => array(new NotBlank())
-            );
-            $links[$locale] = array(
+                'constraints' => [new NotBlank()],
+            ];
+            $links[$locale] = [
                 'label' => 'Link',
-                'constraints' => array(new NotBlank())
-            );
-            $urls[$locale] = array(
+                'constraints' => [new NotBlank()],
+            ];
+            $urls[$locale] = [
                 'label' => 'URL',
-            );
-            $urlsHash[$locale] = array(
+            ];
+            $urlsHash[$locale] = [
                 'label' => 'URL Hash',
-            );
+            ];
         }
 
         $formMapper
@@ -71,86 +76,88 @@ class FooterAdmin extends AbstractAdmin
             ->add(
                 'translations',
                 TranslationsType::class,
-                array(
+                [
                     'locales' => $this->locales,
                     'required_locales' => $this->locales,
-                    'fields' => array(
-                        'url' => array(
+                    'fields' => [
+                        'url' => [
                             'field_type' => 'url',
                             'locale_options' => $urls,
                             'required' => false,
-                        ),
-                        'urlHash' => array(
+                        ],
+                        'urlHash' => [
                             'field_type' => 'text',
                             'locale_options' => $urlsHash,
                             'required' => false,
-                            'disabled' => true
-                        ),
-                        'title' => array(
+                            'disabled' => true,
+                        ],
+                        'title' => [
                             'field_type' => 'text',
                             'locale_options' => $titles,
                             'required' => true,
-                        ),
-                        'link' => array(
+                        ],
+                        'link' => [
                             'field_type' => 'url',
                             'locale_options' => $links,
                             'required' => true,
-                        ),
-                    ),
-                    /** @Ignore */
+                        ],
+                    ],
+                    /* @Ignore */
                     'label' => 'Descriptions',
-                    'help' => 'admin.footer.help'
-                )
+                    'help' => 'admin.footer.help',
+                ]
             )
             ->add(
                 'published',
                 null,
-                array(
-                    'label' => 'admin.page.published.label'
-                )
+                [
+                    'label' => 'admin.page.published.label',
+                ]
             )
             ->add(
                 'createdAt',
                 null,
-                array(
+                [
                     'disabled' => true,
-                    'label' => 'admin.page.created_at.label'
-                )
+                    'label' => 'admin.page.created_at.label',
+                ]
             )
             ->add(
                 'updatedAt',
                 null,
-                array(
+                [
                     'disabled' => true,
-                    'label' => 'admin.page.updated_at.label'
-                )
+                    'label' => 'admin.page.updated_at.label',
+                ]
             )
             ->end();
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add(
                 'translations.title',
                 null,
-                array('label' => 'admin.page.title.label')
+                ['label' => 'admin.page.title.label']
             )
             ->add(
                 'translations.link',
                 null,
-                array('label' => 'admin.page.link.label')
+                ['label' => 'admin.page.link.label']
             )
             ->add(
                 'published',
                 null,
-                array('label' => 'admin.page.published.label')
+                ['label' => 'admin.page.published.label']
             )
             ->add(
                 'createdAt',
                 'doctrine_orm_callback',
-                array(
+                [
                     'label' => 'admin.page.created_at.label',
                     'callback' => function ($queryBuilder, $alias, $field, $value) {
                         /** @var \DateTime $date */
@@ -166,13 +173,15 @@ class FooterAdmin extends AbstractAdmin
                         return true;
                     },
                     'field_type' => 'sonata_type_date_picker',
-                    'field_options' => array('format' => 'dd/MM/yyyy'),
-                ),
+                    'field_options' => ['format' => 'dd/MM/yyyy'],
+                ],
                 null
             );
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -180,67 +189,67 @@ class FooterAdmin extends AbstractAdmin
             ->add(
                 'title',
                 null,
-                array('label' => 'admin.page.title.label')
+                ['label' => 'admin.page.title.label']
             )
             ->add(
                 'link',
                 'url',
-                array(
+                [
                     'label' => 'admin.page.link.label',
-                    'truncate' => array(
+                    'truncate' => [
                         'length' => 100,
-                        'preserve' => true
-                    )
-                )
+                        'preserve' => true,
+                    ],
+                ]
             )
             ->add(
                 'url',
                 'html',
-                array(
+                [
                     'label' => 'admin.footer.url.label',
-                    'truncate' => array(
-                        'length' => 50
-                    )
-                )
+                    'truncate' => [
+                        'length' => 50,
+                    ],
+                ]
             )
             ->add(
                 'published',
                 null,
-                array(
+                [
                     'editable' => true,
                     'label' => 'admin.page.published.label',
-                )
+                ]
             )
             ->add(
                 'createdAt',
                 null,
-                array(
+                [
                     'label' => 'admin.page.created_at.label',
-                )
+                ]
             );
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
 //                    'create' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            )
+                    'edit' => [],
+                    'delete' => [],
+                ],
+            ]
         );
     }
 
     public function getExportFields()
     {
-        return array(
+        return [
             'Id' => 'id',
             'Title' => 'title',
             'Links' => 'link',
             'Published' => 'published',
-            'Created At' => 'createdAt'
-        );
+            'Created At' => 'createdAt',
+        ];
     }
 
     public function getDataSourceIterator()
@@ -257,7 +266,7 @@ class FooterAdmin extends AbstractAdmin
     public function getBatchActions()
     {
         $actions = parent::getBatchActions();
-        unset($actions["delete"]);
+        unset($actions['delete']);
 
         return $actions;
     }
@@ -285,6 +294,4 @@ class FooterAdmin extends AbstractAdmin
 //        $collection->remove('create');
 //        $collection->remove('delete');
     }
-
-
 }

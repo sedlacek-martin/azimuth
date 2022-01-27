@@ -11,7 +11,6 @@
 
 namespace Cocorico\CoreBundle\Model;
 
-
 use Cocorico\CoreBundle\Entity\Listing;
 
 interface ListingOptionInterface
@@ -32,5 +31,4 @@ interface ListingOptionInterface
     public function getTranslations();
 
     public function getName();
-
 }

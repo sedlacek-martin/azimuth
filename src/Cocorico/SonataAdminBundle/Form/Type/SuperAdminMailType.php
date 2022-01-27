@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SuperAdminMailType extends AbstractType
 {
     protected static $facilitatorLabel = 'super_admin_actions.emails_filter.role_facilitator.label';
+
     protected static $activatorLabel = 'super_admin_actions.emails_filter.role_activator.label';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -48,7 +49,7 @@ class SuperAdminMailType extends AbstractType
      */
     public static function getTranslationMessages()
     {
-        $messages = array();
+        $messages = [];
         $messages[] = new Message('super_admin_actions.emails_filter.role_facilitator.label', 'SonataAdminBundle');
         $messages[] = new Message('super_admin_actions.emails_filter.role_activator.label', 'SonataAdminBundle');
 

@@ -30,13 +30,14 @@ class AreaRepository extends EntityRepository
     public function findOneByNameAndCountry($name, $country)
     {
         $queryBuilder = $this->createQueryBuilder('a')
-            ->addSelect("at, ag")
+            ->addSelect('at, ag')
             ->leftJoin('a.translations', 'at')
             ->leftJoin('a.geocoding', 'ag')
             ->where('at.name = :name')
             ->andWhere('a.country = :country')
             ->setParameter('name', $name)
             ->setParameter('country', $country);
+
         try {
             return $queryBuilder->getQuery()->getOneOrNullResult();
         } catch (NonUniqueResultException $e) {
@@ -50,11 +51,12 @@ class AreaRepository extends EntityRepository
     public function findAllAreas()
     {
         $queryBuilder = $this->createQueryBuilder('a')
-            ->addSelect("c, ag, at")
+            ->addSelect('c, ag, at')
             ->leftJoin('a.country', 'c')
             ->leftJoin('a.translations', 'at')
             ->leftJoin('a.geocoding', 'ag')
             ->orderBy('at.name');
+
         try {
             $query = $queryBuilder->getQuery();
 
@@ -63,5 +65,4 @@ class AreaRepository extends EntityRepository
             return null;
         }
     }
-
 }

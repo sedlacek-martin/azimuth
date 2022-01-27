@@ -11,7 +11,6 @@
 
 namespace Cocorico\CoreBundle\Mailer;
 
-use Cocorico\CoreBundle\Entity\Booking;
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -23,20 +22,34 @@ class TwigSwiftMailer implements MailerInterface
     const TRANS_DOMAIN = 'cocorico_mail';
 
     protected $mailer;
+
     protected $router;
+
     protected $twig;
+
     protected $requestStack;
+
     protected $translator;
+
     protected $timeUnit;
+
     protected $timeUnitIsDay;
+
     protected $locale;
+
     /** @var  array locales */
     protected $locales;
+
     protected $timezone;
+
     protected $templates;
+
     protected $fromEmail;
+
     protected $bccEmail;
+
     protected $adminEmail;
+
     protected $siteName;
 
     /**
@@ -92,10 +105,10 @@ class TwigSwiftMailer implements MailerInterface
         $user = $listing->getUser();
         $template = $this->templates['listing_activated_offerer'];
 
-        $context = array(
+        $context = [
             'user' => $user,
             'listing' => $listing,
-        );
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
@@ -139,9 +152,9 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->templates['user_deleted'];
 
-        $context = array(
+        $context = [
             'user' => $this->locale,
-        );
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
     }
@@ -186,7 +199,6 @@ class TwigSwiftMailer implements MailerInterface
         ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $user->getEmail());
-
     }
 
     public function sendListingExpireSoonNotification(Listing $listing)
@@ -215,11 +227,11 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->templates['admin_message'];
 
-        $context = array(
+        $context = [
             'user_locale' => $this->locale,
             'subject' => $subject,
-            'admin_message' => $message
-        );
+            'admin_message' => $message,
+        ];
 
         $this->sendMessage($template, $context, $this->fromEmail, $this->adminEmail);
     }
@@ -262,10 +274,10 @@ class TwigSwiftMailer implements MailerInterface
             }
             $context['listing_public_url'] = $this->router->generate(
                 'cocorico_listing_show',
-                array(
+                [
                     '_locale' => $context['user_locale'],
-                    'slug' => $slug
-                ),
+                    'slug' => $slug,
+                ],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
 
@@ -278,7 +290,7 @@ class TwigSwiftMailer implements MailerInterface
             $context = $this->twig->mergeGlobals($context);
 
             $subject = $template->renderBlock('subject', $context);
-            $context["message"] = $template->renderBlock('message', $context);
+            $context['message'] = $template->renderBlock('message', $context);
 
             $textBody = $template->renderBlock('body_text', $context);
             $htmlBody = $template->renderBlock('body_html', $context);
@@ -300,7 +312,5 @@ class TwigSwiftMailer implements MailerInterface
         } catch (\Exception $e) {
             throw $e;
         }
-
     }
-
 }

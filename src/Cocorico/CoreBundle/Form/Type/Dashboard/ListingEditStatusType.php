@@ -26,7 +26,7 @@ class ListingEditStatusType extends ListingEditType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
     }
 
     public function onPreSetData(FormEvent $event)
@@ -44,10 +44,10 @@ class ListingEditStatusType extends ListingEditType
             ->add(
                 'status',
                 ChoiceType::class,
-                array(
+                [
                     'label' => 'listing.form.status',
                     'choices' => array_flip($choices),
-                )
+                ]
             );
     }
 
@@ -58,9 +58,9 @@ class ListingEditStatusType extends ListingEditType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'translation_domain' => 'cocorico_listing',
-            )
+            ]
         );
     }
 

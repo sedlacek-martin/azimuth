@@ -17,8 +17,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class UserValidator extends ConstraintValidator
 {
-
     private $maxImages;
+
     private $minImages;
 
     /**
@@ -38,7 +38,7 @@ class UserValidator extends ConstraintValidator
     public function validate($user, Constraint $constraint)
     {
         /** @var UserEntity $user */
-        /** @var \Cocorico\UserBundle\Validator\Constraints\User $constraint */
+        /* @var \Cocorico\UserBundle\Validator\Constraints\User $constraint */
 
         //Images
         if ($user->getImages()->count() > $this->maxImages) {
@@ -56,7 +56,5 @@ class UserValidator extends ConstraintValidator
 //                ->setTranslationDomain('cocorico_validators')
 //                ->addViolation();
 //        }
-
     }
-
 }

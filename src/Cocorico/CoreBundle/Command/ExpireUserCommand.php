@@ -5,7 +5,6 @@ namespace Cocorico\CoreBundle\Command;
 use Cocorico\CoreBundle\Model\Manager\ListingManager;
 use Cocorico\UserBundle\Entity\User;
 use Cocorico\UserBundle\Model\UserManager;
-use Cocorico\UserBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,7 +30,7 @@ class ExpireUserCommand extends ContainerAwareCommand
 
         $expireNotificationsCount = $userManager->sendExpireNotifications();
 
-        $output->writeln($expireNotificationsCount . " expire notification(s) send");
+        $output->writeln($expireNotificationsCount . ' expire notification(s) send');
 
         $userRepository = $userManager->getRepository();
 
@@ -56,6 +55,4 @@ class ExpireUserCommand extends ContainerAwareCommand
 
         return 1;
     }
-
-
 }

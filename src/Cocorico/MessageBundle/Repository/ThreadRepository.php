@@ -46,6 +46,7 @@ class ThreadRepository extends EntityRepository
         }
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 
@@ -70,5 +71,4 @@ class ThreadRepository extends EntityRepository
             return null;
         }
     }
-
 }

@@ -69,7 +69,6 @@ class AdminNotificationCommand extends ContainerAwareCommand
 
             $this->mailer->sendSuperAdminNotification($superAdmin, $contactCount);
         }
-
     }
 
     /**
@@ -199,13 +198,12 @@ class AdminNotificationCommand extends ContainerAwareCommand
     protected function getFromToDates(): array
     {
         $to = new \DateTime();
-        $from = (new \DateTime())->modify("-1 day");
+        $from = (new \DateTime())->modify('-1 day');
 
         if (date('D') == 'Sun') {
-            $from = (new \DateTime())->modify("-6 day")->setTime(0, 01);
+            $from = (new \DateTime())->modify('-6 day')->setTime(0, 01);
         }
 
         return [$from, $to];
-
     }
 }

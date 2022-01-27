@@ -1,6 +1,6 @@
 # Server Installation
 
-- For a quick installation based on Docker see [Docker installation](development.md)
+- For a quick installation based on Docker see [Docker installation](local-setup.md)
 
 ⛔️ **NOT RECOMMENDER AND DEPRECATED OPTIONS:**
 - For a manual installation on Linux see [Linux installation](installation-server-linux.md)

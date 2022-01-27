@@ -16,11 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass
- *
  */
 abstract class BaseListingTranslation
 {
-
     /**
      * @Assert\NotBlank(message="assert.not_blank")
      * @Assert\NotNull(message="assert.not_blank")
@@ -142,5 +140,4 @@ abstract class BaseListingTranslation
     {
         return $this->rules;
     }
-
 }

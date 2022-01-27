@@ -12,10 +12,8 @@
 namespace Cocorico\UserBundle\Admin;
 
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
-use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\UserBundle\Entity\User;
 use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\QueryBuilder;
 use JMS\TranslationBundle\Annotation\Ignore;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -41,13 +39,15 @@ class UserAdmin extends BaseUserAdmin
     ];
 
     protected $baseRoutePattern = 'user';
+
     protected $bundles;
+
     protected $locales;
 
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'DESC',
         '_sort_by' => 'createdAt',
-    );
+    ];
 
     public function setBundlesEnabled($bundles)
     {
@@ -59,7 +59,9 @@ class UserAdmin extends BaseUserAdmin
         $this->locales = $locales;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper): void
     {
         /* @var $subject \Cocorico\UserBundle\Entity\User */
@@ -87,16 +89,16 @@ class UserAdmin extends BaseUserAdmin
             ->add(
                 'enabled',
                 null,
-                array(
+                [
                     'required' => false,
-                )
+                ]
             )
             ->add(
                 'trusted',
                 null,
-                array(
+                [
                     'required' => false,
-                )
+                ]
             )
             ->add(
                 'reconfirmRequested',
@@ -106,76 +108,76 @@ class UserAdmin extends BaseUserAdmin
             ->add(
                 'emailVerified',
                 null,
-                array(
+                [
                     'required' => false,
-                )
+                ]
             )
             ->add(
                 'id',
                 null,
-                array(
+                [
                     'required' => true,
                     'disabled' => true,
-                )
+                ]
             )
             ->add(
                 'firstName',
                 null,
-                array(
+                [
                     'required' => true,
-                )
+                ]
             );
 
         $formMapper->add(
                 'lastName',
                 null,
-                array(
+                [
                     'required' => true,
-                )
+                ]
             )
             ->add(
                 'email',
                 null,
-                array(
+                [
                     'required' => true,
                     'disabled' => !$isSuperAdmin,
-                )
+                ]
             )
             ->add(
                 'plainPassword',
                 'text',
-                array(
+                [
                     'required' => (!$subject || is_null($subject->getId())),
-                )
+                ]
             )
             ->add(
                 'motherTongue',
                 'language',
-                array(
+                [
                     'required' => true,
-                    'disabled' => true
-                )
+                    'disabled' => true,
+                ]
             );
 
-            if ($isSuperAdmin) {
-                $formMapper
-                    ->add('roles', 'choice', array(
-                            'choices'  => $rolesChoices,
+        if ($isSuperAdmin) {
+            $formMapper
+                    ->add('roles', 'choice', [
+                            'choices' => $rolesChoices,
                             'multiple' => true,
                             'expanded' => true,
-                            'help' => 'admin.user.roles.help'
-                        )
+                            'help' => 'admin.user.roles.help',
+                        ]
                     );
-            }
-            $formMapper->end();
+        }
+        $formMapper->end();
 
         //Translations fields
-        $descriptions = array();
+        $descriptions = [];
         foreach ($this->locales as $i => $locale) {
-            $descriptions[$locale] = array(
+            $descriptions[$locale] = [
                 'label' => 'Description (about me)',
-                'constraints' => array(new NotBlank())
-            );
+                'constraints' => [new NotBlank()],
+            ];
         }
         $formMapper->with('Additional information')
             ->add(
@@ -195,40 +197,40 @@ class UserAdmin extends BaseUserAdmin
             ->add(
                 'translations',
                 TranslationsType::class,
-                array(
+                [
                     'locales' => $this->locales,
                     'required_locales' => $this->locales,
-                    'fields' => array(
-                        'description' => array(
+                    'fields' => [
+                        'description' => [
                             'field_type' => 'textarea',
                             'locale_options' => $descriptions,
-                            'required' => false
-                        ),
-                    ),
-                    /** @Ignore */
+                            'required' => false,
+                        ],
+                    ],
+                    /* @Ignore */
                     'label' => false,
-                )
+                ]
             )
             ->add(
                 'birthday',
                 'birthday',
-                array(
+                [
                     'format' => 'dd MMMM yyyy',
                     'years' => range(date('Y') - 18, date('Y') - 80),
                     'disabled' => !$isSuperAdmin,
-                )
+                ]
             )
             ->add(
                 'timeZone',
                 'timezone',
-                array(
+                [
                     'label' => 'form.time_zone',
                     'required' => true,
                     'disabled' => !$isSuperAdmin,
-                ),
-                array(
+                ],
+                [
                     'translation_domain' => 'cocorico_user',
-                )
+                ]
             )
             ->add(
                 'expiryDate',
@@ -241,22 +243,23 @@ class UserAdmin extends BaseUserAdmin
             ->add(
                 'createdAt',
                 null,
-                array(
+                [
                     'disabled' => true,
-                )
+                ]
             )
             ->end();
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
             ->addIdentifier(
                 'id',
                 null,
-                array()
+                []
             );
 
         $listMapper
@@ -267,7 +270,7 @@ class UserAdmin extends BaseUserAdmin
                 'template' => 'CocoricoSonataAdminBundle::list_field_registration_type.html.twig',
             ])
             ->add('enabled', null, [
-                'label' => 'Enabled (email confirmed)'
+                'label' => 'Enabled (email confirmed)',
             ]);
 
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
@@ -279,7 +282,6 @@ class UserAdmin extends BaseUserAdmin
 
         $listMapper
             ->add('createdAt', null, []);
-
 
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
             $listMapper
@@ -295,7 +297,7 @@ class UserAdmin extends BaseUserAdmin
         ];
 
         if ($this->authIsGranted('ROLE_ALLOWED_TO_SWITCH')) {
-            $actions['actions']['impersonate'] = ['template' => 'CocoricoSonataAdminBundle::list_action_impersonate.html.twig',];
+            $actions['actions']['impersonate'] = ['template' => 'CocoricoSonataAdminBundle::list_action_impersonate.html.twig'];
         }
 
         $listMapper
@@ -306,8 +308,9 @@ class UserAdmin extends BaseUserAdmin
             );
     }
 
-
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureDatagridFilters(DatagridMapper $filterMapper): void
     {
         $filterMapper
@@ -315,12 +318,12 @@ class UserAdmin extends BaseUserAdmin
             ->add(
                 'fullname',
                 'doctrine_orm_callback',
-                array(
-                    'callback' => array($this, 'getFullNameFilter'),
+                [
+                    'callback' => [$this, 'getFullNameFilter'],
                     'field_type' => 'text',
                     'operator_type' => 'hidden',
-                    'operator_options' => array(),
-                )
+                    'operator_options' => [],
+                ]
             );
 
         if ($this->authIsGranted('ROLE_SUPER_ADMIN')) {
@@ -390,14 +393,14 @@ class UserAdmin extends BaseUserAdmin
 
     public function getExportFields()
     {
-        $fields = array(
+        $fields = [
             'Id' => 'id',
             'First name' => 'firstName',
             'Last name' => 'lastName',
             'Email' => 'email',
             'Enabled' => 'enabled',
             'Created At' => 'createdAt',
-        );
+        ];
 
         return $fields;
     }

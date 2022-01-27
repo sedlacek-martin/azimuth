@@ -3,9 +3,6 @@ fos_ck_editor:
     configs:
         default:
             toolbar: full
-            filebrowserBrowseRoute: elfinder
-            filebrowserBrowseRouteParameters:
-                instance: ckeditor
         simple:
             toolbar: simple
     toolbars:

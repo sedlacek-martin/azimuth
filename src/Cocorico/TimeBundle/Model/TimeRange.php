@@ -11,30 +11,21 @@
 
 namespace Cocorico\TimeBundle\Model;
 
-
 use DateInterval;
 use DateTime;
 
 class TimeRange
 {
-    /**
-     * @var DateTime
-     */
+    /** @var DateTime */
     public $start;
 
-    /**
-     * @var DateTime
-     */
+    /** @var DateTime */
     public $end;
 
-    /**
-     * @var DateTime
-     */
+    /** @var DateTime */
     private $date;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $nbMinutes;
 
     /**
@@ -46,11 +37,11 @@ class TimeRange
     public function __construct(DateTime $start = null, DateTime $end = null, DateTime $date = null)
     {
         if (!$start) {
-            $start = new DateTime("1970-01-01 00:00:00");
+            $start = new DateTime('1970-01-01 00:00:00');
         }
 
         if (!$end) {
-            $end = new DateTime("1970-01-01 23:59:59");
+            $end = new DateTime('1970-01-01 23:59:59');
         }
 
         if (!$date) {
@@ -143,7 +134,6 @@ class TimeRange
         $this->nbMinutes = $nbMinutes;
     }
 
-
     /**
      * Return start minute since midnight
      *
@@ -173,7 +163,6 @@ class TimeRange
         }
 
         return $endMinute;
-
     }
 
     /**
@@ -186,7 +175,6 @@ class TimeRange
 
         return max($duration, 0);
     }
-
 
     /**
      * Check if a time range is overlapping two consecutive days (22h -> 02h)
@@ -203,7 +191,6 @@ class TimeRange
         if ($end->format('H:i') != '00:00' &&
             ($start->getTimestamp() > $end->getTimestamp() || $start->format('Ymd') != $end->format('Ymd'))
         ) {
-
             return true;
         }
 
@@ -228,10 +215,9 @@ class TimeRange
         return false;
     }
 
-
     public function log($prefix = '')
     {
-        echo "TimeRange";
+        echo 'TimeRange';
         if ($prefix) {
             echo "<br>$prefix";
         }

@@ -2,7 +2,6 @@
 
 namespace Cocorico\CoreBundle\Repository;
 
-use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 
 class UserLoginRepository extends \Doctrine\ORM\EntityRepository
@@ -29,7 +28,7 @@ class UserLoginRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
-
 }

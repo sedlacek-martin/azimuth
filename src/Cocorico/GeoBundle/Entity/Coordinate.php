@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\GeoBundle\Entity;
 
 use Cocorico\CoreBundle\Entity\ListingLocation;
@@ -27,13 +26,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    @ORM\Index(name="coordinate_idx", columns={"lat", "lng"})
  *  }
  * )
- *
  */
 class Coordinate
 {
     const MAX_JITTER = 25;
 
     use ORMBehaviors\Timestampable\Timestampable;
+
     /**
      * @var integer
      *
@@ -78,7 +77,6 @@ class Coordinate
     protected $country;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="Cocorico\GeoBundle\Entity\Area", inversedBy="coordinates", cascade={"persist"})
      * @ORM\JoinColumn(name="area_id", referencedColumnName="id", nullable=true)
      *
@@ -128,21 +126,17 @@ class Coordinate
     protected $streetNumber;
 
     /**
-     *
      * @ORM\Column(name="address", type="string", length=255, nullable=false)
      *
      * @var string $address formatted address
      */
     protected $address;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingLocation", mappedBy="coordinate", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\CoreBundle\Entity\ListingLocation", mappedBy="coordinate", cascade={"persist", "remove"}) */
     protected $listingLocations;
 
     public function __construct()
     {
-
         $this->listingLocations = new ArrayCollection();
     }
 
@@ -287,7 +281,7 @@ class Coordinate
      */
     protected function getJitter()
     {
-        return rand(-self::MAX_JITTER, self::MAX_JITTER)/10000;
+        return rand(-self::MAX_JITTER, self::MAX_JITTER) / 10000;
     }
 
     /**

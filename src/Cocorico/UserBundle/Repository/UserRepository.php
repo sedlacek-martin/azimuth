@@ -55,9 +55,10 @@ class UserRepository extends EntityRepository
     public function findOneByEmail($email)
     {
         $queryBuilder = $this->createQueryBuilder('u')
-            ->addSelect("u")
+            ->addSelect('u')
             ->where('u.email = :email')
             ->setParameter('email', $email);
+
         try {
             $query = $queryBuilder->getQuery();
 
@@ -116,6 +117,7 @@ class UserRepository extends EntityRepository
             ->addSelect('u')
             ->where('u.uniqueHash = :hash')
             ->setParameter('hash', $hash);
+
         try {
             $query = $queryBuilder->getQuery();
 
@@ -174,6 +176,7 @@ class UserRepository extends EntityRepository
                 ->setParameter('moId', $moId);
         }
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 
@@ -198,14 +201,12 @@ class UserRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('u');
 
-        $qb->andWhere("u.roles LIKE :role")
-            ->andWhere("u.memberOrganization = :moId")
+        $qb->andWhere('u.roles LIKE :role')
+            ->andWhere('u.memberOrganization = :moId')
             ->setParameter('role', "%{$role}%")
             ->setParameter('moId', $memberOrganizationId);
 
-
         return $qb->getQuery()->getResult();
-
     }
 
     /**
@@ -218,6 +219,7 @@ class UserRepository extends EntityRepository
             ->select('COUNT(u.id) as cnt');
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 
@@ -232,6 +234,7 @@ class UserRepository extends EntityRepository
             ->andWhere('c.enabled = 1 AND c.trusted = 1');
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 
@@ -248,9 +251,9 @@ class UserRepository extends EntityRepository
             ->addSelect('SUM(TIME_DIFF(u.verifiedAt, u.createdAt)) as total')
             ->addSelect('COUNT(u.id) as cnt')
             ->andWhere('u.verifiedAt IS NOT NULL');
-        
+
         if ($from) {
-           $qb->andWhere('u.verifiedAt > :from')
+            $qb->andWhere('u.verifiedAt > :from')
                ->setParameter('from', $from->format('Y-m-d H:i:s'));
         }
 
@@ -299,6 +302,5 @@ class UserRepository extends EntityRepository
         $result = $qb->getQuery()->getResult();
 
         return $result;
-
     }
 }

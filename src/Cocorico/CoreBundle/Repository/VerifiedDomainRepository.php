@@ -28,5 +28,4 @@ class VerifiedDomainRepository extends EntityRepository
             return null;
         }
     }
-
 }

@@ -1,34 +1,27 @@
 # Development
 
-## Docker
+### Branches, merge requests
+When developing, use pull requests to merge the code to master branch. 
+When you push code to branch, an automatic code-style pipeline will run for your code. 
 
-For development purposes, there are prepared docker containers, which you can run locally to develop. 
-However, these containers are **NOT** used in production environment.
+Pull request could only be merged, when pipeline succeeds ✅.
 
-To start up the containers, run command in `/docker`:
-  
-    docker-compose up
+### Code style
+When developing, you can fix your code style in whole project using this command
 
-_If you start these containers for the first time, the application will get installed. 
-If it isn't the case and something goes wrong, please, install the application using [this page](installation-application.md)._
+    ./bin/csfix
 
-To run commands, you need to enter the containers, using this command
+### Translations
+On production server, the translations are persistent. It means, that translations in repository are ignored on deployment. 
+It's recommended to change the translations on _Beta_ server environment and then copy the translations to _Production_ environment
 
-    docker exec -it --user cocorico docker_cocorico_1 sh
 
-## Mailcatcher
+To do so, you can use helper command on server
 
-There is also a container for testing email receiving. The user interface is accessible on http://localhost:1080/
+    /tools/copy-translations <from> <to>
 
-## Adminer
+So for example command `/tools/copy-translations prod beta` will copy all translations from production to beta.
 
-There is also a container to access the DB using [Adminer](https://www.adminer.org/en/). You can access adminer on http://localhost:8080/
-
-To login, use credential:
-
-        server: mysql
-        user: cocorico
-        pass: cocorico
-    
-        
-    
+### Deployment
+Deployment can be done using GitHub actions. There are to automatic deployment workflows setup (one for Production, one for Beta).
+Both of these actions have to be triggered manually.

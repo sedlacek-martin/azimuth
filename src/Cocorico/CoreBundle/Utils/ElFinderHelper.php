@@ -6,8 +6,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class ElFinderHelper
 {
-
-    const GLOBAL_DIR = "global";
+    const GLOBAL_DIR = 'global';
 
     public static function getOrCreateFolder(string $folder, string $rootDir): string
     {
@@ -20,5 +19,4 @@ class ElFinderHelper
 
         return $folder;
     }
-
 }

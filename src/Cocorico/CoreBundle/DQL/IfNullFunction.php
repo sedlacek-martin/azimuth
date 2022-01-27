@@ -7,7 +7,6 @@ use Doctrine\ORM\Query\Lexer;
 
 class IfNullFunction extends FunctionNode
 {
-
     private $expr1;
 
     private $expr2;
@@ -25,7 +24,7 @@ class IfNullFunction extends FunctionNode
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
         return 'IFNULL('
-            .$sqlWalker->walkArithmeticPrimary($this->expr1). ', '
-            .$sqlWalker->walkArithmeticPrimary($this->expr2).')';
+            . $sqlWalker->walkArithmeticPrimary($this->expr1) . ', '
+            . $sqlWalker->walkArithmeticPrimary($this->expr2) . ')';
     }
 }

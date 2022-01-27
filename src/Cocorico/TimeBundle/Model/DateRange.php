@@ -11,22 +11,15 @@
 
 namespace Cocorico\TimeBundle\Model;
 
-
 class DateRange
 {
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime */
     public $start;
 
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime */
     public $end;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $nbDays;
 
     public function __construct(\DateTime $start = null, \DateTime $end = null, bool $keepNulls = false)
@@ -97,7 +90,6 @@ class DateRange
         $this->nbDays = $nbDays;
     }
 
-
     /**
      * @param bool $endDayIncluded
      * @return int
@@ -115,7 +107,7 @@ class DateRange
 
     public function log($prefix = '')
     {
-        echo "<br>DateRange";
+        echo '<br>DateRange';
         if ($prefix) {
             echo "<br>$prefix";
         }

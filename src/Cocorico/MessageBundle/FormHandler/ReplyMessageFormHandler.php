@@ -18,7 +18,6 @@ use FOS\MessageBundle\Model\MessageInterface;
 
 class ReplyMessageFormHandler extends AbstractMessageFormHandler
 {
-
     /**
      * Composes a message from the form data
      *
@@ -39,5 +38,4 @@ class ReplyMessageFormHandler extends AbstractMessageFormHandler
             ->setBody($message->getBody())
             ->getMessage();
     }
-
 }

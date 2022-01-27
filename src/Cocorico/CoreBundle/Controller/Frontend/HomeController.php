@@ -13,10 +13,8 @@ namespace Cocorico\CoreBundle\Controller\Frontend;
 
 use Cocorico\CoreBundle\Entity\Announcement;
 use Cocorico\CoreBundle\Entity\AnnouncementToUser;
-use Cocorico\CoreBundle\Repository\AnnouncementRepository;
 use Cocorico\CoreBundle\Repository\AnnouncementToUserRepository;
 use Cocorico\PageBundle\Entity\Page;
-use Cocorico\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class HomeController
- *
  */
 class HomeController extends Controller
 {
@@ -37,7 +34,7 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request): Response
     {
-        $listings = $this->get("cocorico.listing_search.manager")->getHighestRanked(
+        $listings = $this->get('cocorico.listing_search.manager')->getHighestRanked(
             $this->get('cocorico.listing_search_request'),
             6,
             $request->getLocale()
@@ -53,10 +50,10 @@ class HomeController extends Controller
 
         return $this->render(
             'CocoricoCoreBundle:Frontend\Home:index.html.twig',
-            array(
+            [
                 'listings' => $listings->getIterator(),
                 'page' => $page,
-            )
+            ]
         );
     }
 
@@ -69,7 +66,7 @@ class HomeController extends Controller
 
         $this->addFlash(
             'success',
-            $translator->trans('user.delete.success', array(), 'cocorico_user')
+            $translator->trans('user.delete.success', [], 'cocorico_user')
         );
 
         return $this->redirectToRoute('cocorico_home');
@@ -151,9 +148,7 @@ class HomeController extends Controller
         return JsonResponse::create();
     }
 
-
     /**
-     *
      * @return Response
      */
     public function rssFeedsAction()
@@ -167,21 +162,21 @@ class HomeController extends Controller
         $cacheDir = $this->getParameter('kernel.cache_dir');
         $cacheFile = $cacheDir . '/rss-home-feed.json';
         $timeDif = @(time() - filemtime($cacheFile));
-        $renderFeeds = array();
+        $renderFeeds = [];
 
         if (file_exists($cacheFile) && $timeDif < $cacheTime) {
             $renderFeeds = json_decode(@file_get_contents($cacheFile), true);
         } else {
-            $options = array(
-                'http' => array(
+            $options = [
+                'http' => [
                     'user_agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1',
                     'timeout' => 5,
-                ),
-            );
+                ],
+            ];
 
             $content = @file_get_contents($feed, false, stream_context_create($options));
 
-            $feeds = array();
+            $feeds = [];
             if ($content) {
                 try {
                     $feeds = new \SimpleXMLElement($content);
@@ -196,9 +191,9 @@ class HomeController extends Controller
              * @var  \SimpleXMLElement $feed
              */
             foreach ($feeds as $key => $feed) {
-                $renderFeeds[$key]['title'] = (string)$feed->children()->title;
-                $renderFeeds[$key]['pubDate'] = (string)$feed->children()->pubDate;
-                $renderFeeds[$key]['link'] = (string)$feed->children()->link;
+                $renderFeeds[$key]['title'] = (string) $feed->children()->title;
+                $renderFeeds[$key]['pubDate'] = (string) $feed->children()->pubDate;
+                $renderFeeds[$key]['link'] = (string) $feed->children()->link;
                 $description = $feed->children()->description;
                 $matches = [];
                 preg_match('/src="([^"]+)"/', $description, $matches);
@@ -210,13 +205,11 @@ class HomeController extends Controller
             @file_put_contents($cacheFile, json_encode($renderFeeds));
         }
 
-
         return $this->render(
             'CocoricoCoreBundle:Frontend/Home:rss_feed.html.twig',
-            array(
+            [
                 'feeds' => $renderFeeds,
-            )
+            ]
         );
     }
-
 }

@@ -1,0 +1,19 @@
+<?php declare(strict_types=1);
+
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+$configFile = require __DIR__ . '/app/config/codestyle.php';
+
+// Create CS finder & config
+$finder = Finder::create();
+$config = new Config();
+
+foreach ($configFile['directory'] as $directory) {
+    $finder->in($directory);
+}
+
+return $config
+    ->setLineEnding(PHP_EOL)
+    ->setFinder($finder)
+    ->setRules($configFile['rules']);

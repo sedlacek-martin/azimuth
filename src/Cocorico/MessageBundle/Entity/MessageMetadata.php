@@ -45,6 +45,4 @@ class MessageMetadata extends BaseMessageMetadata
      * @var ParticipantInterface
      */
     protected $participant;
-
-
 }

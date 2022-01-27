@@ -3,7 +3,6 @@
 namespace Cocorico\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Intl;
 
 /**
@@ -12,7 +11,6 @@ use Symfony\Component\Intl\Intl;
  * @ORM\Entity(repositoryClass="Cocorico\CoreBundle\Repository\MemberOrganizationRepository")
  *
  * @ORM\Table(name="member_organization")
- *
  */
 class MemberOrganization
 {
@@ -36,7 +34,6 @@ class MemberOrganization
      * @var string|null
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
-     *
      */
     protected $name;
 
@@ -112,8 +109,6 @@ class MemberOrganization
      */
     protected $messagesConfirmation = false;
 
-
-
     public function __construct()
     {
     }
@@ -156,6 +151,7 @@ class MemberOrganization
     public function getCountryName(): string
     {
         $countries = Intl::getRegionBundle()->getCountryNames();
+
         return $countries[$this->country] ?? '';
     }
 
@@ -339,6 +335,4 @@ class MemberOrganization
     {
         return $this->getName() ?? '';
     }
-
-
 }

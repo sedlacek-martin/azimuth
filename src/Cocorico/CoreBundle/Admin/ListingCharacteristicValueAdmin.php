@@ -22,72 +22,75 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class ListingCharacteristicValueAdmin extends AbstractAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'listing-characteristic-value';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'ASC',
-        '_sort_by' => 'position'
-    );
+        '_sort_by' => 'position',
+    ];
 
     public function setLocales($locales)
     {
         $this->locales = $locales;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         /** @var ListingCharacteristicValue $subject */
 //        $subject = $this->getSubject();
 
         //Translations fields
-        $titles = $descriptions = array();
+        $titles = $descriptions = [];
         foreach ($this->locales as $i => $locale) {
-            $titles[$locale] = array(
+            $titles[$locale] = [
                 'label' => 'Name',
-                'constraints' => array(new NotBlank())
-            );
+                'constraints' => [new NotBlank()],
+            ];
         }
 
         $formMapper
             ->add(
                 'translations',
                 TranslationsType::class,
-                array(
+                [
                     'locales' => $this->locales,
                     'required_locales' => $this->locales,
-                    'fields' => array(
-                        'name' => array(
+                    'fields' => [
+                        'name' => [
                             'field_type' => 'text',
                             'locale_options' => $titles,
-                        ),
-                    ),
-                    /** @Ignore */
-                    'label' => 'Descriptions'
-                )
+                        ],
+                    ],
+                    /* @Ignore */
+                    'label' => 'Descriptions',
+                ]
             )
             ->add(
                 'position',
                 null,
-                array(
-                    'label' => 'admin.listing_characteristic.position.label'
-                )
+                [
+                    'label' => 'admin.listing_characteristic.position.label',
+                ]
             )
             ->add(
                 'listingCharacteristicType',
                 EntityHiddenType::class,
-                array(
-                    /** @Ignore */
+                [
+                    /* @Ignore */
                     'label' => false,
                     'class' => 'Cocorico\CoreBundle\Entity\ListingCharacteristicType',
-                    'data_class' => null
-                )
+                    'data_class' => null,
+                ]
             )
             ->end();
     }
-
 
     protected function configureRoutes(RouteCollection $collection)
     {

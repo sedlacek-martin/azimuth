@@ -23,7 +23,6 @@ use Cocorico\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,7 +69,7 @@ class PageController extends Controller
     public function getState(Request $request, string $slug)
     {
         // this is here to prevent errors regarding CORS error
-        header("Access-Control-Allow-Origin: *");
+        header('Access-Control-Allow-Origin: *');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -118,8 +117,6 @@ class PageController extends Controller
             'memberOrganizations' => $memberOrganizations,
             'countryName' => $countryName,
         ]);
-
-
     }
 
     /**
@@ -157,12 +154,9 @@ class PageController extends Controller
 
         return $this->render(
             '@CocoricoPage/Frontend/Page/show.html.twig',
-            array(
-                'page' => $page
-            )
+            [
+                'page' => $page,
+            ]
         );
-
     }
-
-
 }

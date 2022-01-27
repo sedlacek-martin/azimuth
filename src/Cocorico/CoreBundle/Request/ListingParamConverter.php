@@ -23,10 +23,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ListingParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     protected $em;
+
     protected $dispatcher;
 
     public function __construct(EntityManager $em, EventDispatcherInterface $dispatcher)
@@ -47,7 +46,7 @@ class ListingParamConverter implements ParamConverterInterface
         $class = $configuration->getClass();
         $options = $this->getOptions($configuration);
 
-        if (!isset($name) || $name != "listing") {
+        if (!isset($name) || $name != 'listing') {
             return false;
         }
 
@@ -55,11 +54,11 @@ class ListingParamConverter implements ParamConverterInterface
             return false;
         }
 
-        if (!isset($options['repository_method']) || $options['repository_method'] != "findOneBySlug") {
+        if (!isset($options['repository_method']) || $options['repository_method'] != 'findOneBySlug') {
             return false;
         }
 
-        $slug = $request->attributes->get("slug");
+        $slug = $request->attributes->get('slug');
         if (!$slug) {
             return false;
         }
@@ -69,7 +68,7 @@ class ListingParamConverter implements ParamConverterInterface
             return false;
         }
 
-        $queryBuilder = $this->em->getRepository("CocoricoCoreBundle:Listing")->getFindOneBySlugQuery($slug, $locale);
+        $queryBuilder = $this->em->getRepository('CocoricoCoreBundle:Listing')->getFindOneBySlugQuery($slug, $locale);
 
         //Dispatch listing show query building event to eventually modify it
         $event = new ListingEvent($queryBuilder);
@@ -103,14 +102,13 @@ class ListingParamConverter implements ParamConverterInterface
     protected function getOptions(ParamConverter $configuration)
     {
         return array_replace(
-            array(
+            [
                 'entity_manager' => null,
-                'exclude' => array(),
-                'mapping' => array(),
+                'exclude' => [],
+                'mapping' => [],
                 'strip_null' => false,
-            ),
+            ],
             $configuration->getOptions()
         );
     }
-
 }

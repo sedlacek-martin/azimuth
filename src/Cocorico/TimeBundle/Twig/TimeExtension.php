@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\TimeBundle\Twig;
 
 use Cocorico\TimeBundle\Utils\PHP;
@@ -18,8 +17,11 @@ use Symfony\Component\Translation\TranslatorInterface;
 class TimeExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
     protected $translator;
+
     protected $timeUnit;
+
     protected $timeUnitAllDay;
+
     protected $timeUnitIsDay;
 
     /**
@@ -43,11 +45,11 @@ class TimeExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
      */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('add_time_unit_text', array($this, 'addTimeUnitTextFilter')),
-            new \Twig_SimpleFilter('format_seconds', array($this, 'formatSecondsFilter')),
-            new \Twig_SimpleFilter('timezone_name', array($this, 'timezoneName'))
-        );
+        return [
+            new \Twig_SimpleFilter('add_time_unit_text', [$this, 'addTimeUnitTextFilter']),
+            new \Twig_SimpleFilter('format_seconds', [$this, 'formatSecondsFilter']),
+            new \Twig_SimpleFilter('timezone_name', [$this, 'timezoneName']),
+        ];
     }
 
     /**
@@ -64,28 +66,28 @@ class TimeExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
                 return $this->translator->transChoice(
                     'time_unit_day',
                     $duration,
-                    array('%count%' => $duration),
-                    'cocorico',
-                    $locale
-                );
-            } else {
-                return $this->translator->transChoice(
-                    'time_unit_night',
-                    $duration,
-                    array('%count%' => $duration),
+                    ['%count%' => $duration],
                     'cocorico',
                     $locale
                 );
             }
-        } else {
+
             return $this->translator->transChoice(
+                    'time_unit_night',
+                    $duration,
+                    ['%count%' => $duration],
+                    'cocorico',
+                    $locale
+                );
+        }
+
+        return $this->translator->transChoice(
                 'time_unit_hour',
                 $duration,
-                array('%count%' => $duration),
+                ['%count%' => $duration],
                 'cocorico',
                 $locale
             );
-        }
     }
 
     /**
@@ -101,15 +103,15 @@ class TimeExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
         $time = PHP::seconds_to_time($seconds);
         switch ($format) {
             case 'h':
-                $result = ($time['d'] * 24) + $time['h'] . "h";
+                $result = ($time['d'] * 24) + $time['h'] . 'h';
+
                 break;
             default:
-                $result = ($time['d'] * 24) + $time['h'] . "h " . $time['m'] . "m";
+                $result = ($time['d'] * 24) + $time['h'] . 'h ' . $time['m'] . 'm';
         }
 
         return $result;
     }
-
 
     /**
      * @param string $timezone ex Europe/Paris
@@ -135,7 +137,7 @@ class TimeExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
      */
     public function getGlobals()
     {
-        return array();
+        return [];
     }
 
     /**

@@ -14,15 +14,18 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class CountryInformationAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'country-information';
+
     protected $baseRouteName = 'country-information';
+
     protected $locales;
 
     // setup the default sort column and order
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'DESC',
-        '_sort_by' => 'íd'
-    );
+        '_sort_by' => 'íd',
+    ];
 
     public function setLocales($locales)
     {
@@ -39,18 +42,18 @@ class CountryInformationAdmin extends BaseAdmin
                 'label' => 'admin.page.description.label',
                 'truncate' => [
                     'length' => 75,
-                    'preserve' => true
-                ]
+                    'preserve' => true,
+                ],
             ]);
 
         $listMapper->add(
             '_action',
             'actions',
-            array(
-                'actions' => array(
+            [
+                'actions' => [
                     'edit' => [],
-                )
-            )
+                ],
+            ]
         );
     }
 
@@ -59,7 +62,7 @@ class CountryInformationAdmin extends BaseAdmin
         /** @var CountryInformation $country */
         $country = $this->getSubject();
 
-        $countryCode = "";
+        $countryCode = '';
         if ($country) {
             $countryCode = $country->getCountry();
         }
@@ -71,16 +74,16 @@ class CountryInformationAdmin extends BaseAdmin
                     'filebrowserBrowseRoute' => 'elfinder',
                     'filebrowserBrowseRouteParameters' => [
                         'instance' => 'ckeditor',
-                        'homeFolder' => ElFinderHelper::getOrCreateFolder($countryCode, $this->getKernelRoot())
-                    ]
-                ]
+                        'homeFolder' => ElFinderHelper::getOrCreateFolder($countryCode, $this->getKernelRoot()),
+                    ],
+                ],
             ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
         $filter
-            ->add('country', null,  []);
+            ->add('country', null, []);
     }
 
     protected function configureRoutes(RouteCollection $collection)
@@ -88,4 +91,4 @@ class CountryInformationAdmin extends BaseAdmin
         $collection->remove('create');
         $collection->remove('delete');
     }
-    }
+}

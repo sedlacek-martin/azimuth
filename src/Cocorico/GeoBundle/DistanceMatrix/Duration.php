@@ -12,7 +12,6 @@
 
 namespace Cocorico\GeoBundle\DistanceMatrix;
 
-
 /**
  * A duration which describes a google map duration.
  *

@@ -14,7 +14,6 @@ namespace Cocorico\CoreBundle\Security\Voter;
 use Cocorico\CoreBundle\Entity\Listing;
 use Cocorico\CoreBundle\Model\BaseListing;
 use Cocorico\UserBundle\Entity\User;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -29,9 +28,8 @@ class ListingVoter extends Voter
         self::VIEW,
         self::EDIT,
     ];
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+
+    /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
 
     public function __construct(AuthorizationCheckerInterface $authorizationChecker)
@@ -91,7 +89,6 @@ class ListingVoter extends Voter
             $token->getUser()->getMemberOrganization()->getId() === $listing->getUser()->getMemberOrganization()->getId();
 
         return $isOwner || $isSuperAdmin || ($isFacilitator && $isOwnMo);
-
     }
 
     /**

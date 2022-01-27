@@ -9,7 +9,6 @@ use Doctrine\ORM\NoResultException;
 
 class CountryInformationRepository extends EntityRepository
 {
-
     /**
      * @param string $countryCode
      * @return CountryInformation|null
@@ -25,7 +24,5 @@ class CountryInformationRepository extends EntityRepository
         } catch (NoResultException | NonUniqueResultException $e) {
             return null;
         }
-
     }
-
 }

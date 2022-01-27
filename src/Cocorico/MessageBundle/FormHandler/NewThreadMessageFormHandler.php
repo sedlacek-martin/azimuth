@@ -18,7 +18,6 @@ use FOS\MessageBundle\Model\MessageInterface;
 
 class NewThreadMessageFormHandler extends AbstractMessageFormHandler
 {
-
     /**
      * Composes a message from the form data
      *
@@ -53,5 +52,4 @@ class NewThreadMessageFormHandler extends AbstractMessageFormHandler
 
         return $newThread->getMessage();
     }
-
 }

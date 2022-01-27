@@ -22,16 +22,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class InsertNewTranslationsCommand extends ContainerAwareCommand
 {
-
     public function configure()
     {
         $this
             ->setName('cocorico:db:insert-new-translations')
             ->setDescription('Copy DB translations content from existing locale to a new locale')
-            ->setHelp("Usage php bin/console cocorico:db:insert-new-translations");
+            ->setHelp('Usage php bin/console cocorico:db:insert-new-translations');
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $newLocale = 'en';
@@ -100,7 +101,6 @@ SQLQUERY;
 SQLQUERY;
         $con->executeQuery($sql);
 
-
         $sql = <<<SQLQUERY
             INSERT IGNORE INTO listing_characteristic_value_translation (translatable_id, name, locale)
             SELECT lcharv.translatable_id, lcharv.name, '{$newLocale}' FROM listing_characteristic_value_translation lcharv
@@ -125,7 +125,6 @@ SQLQUERY;
 SQLQUERY;
         $con->executeQuery($sql);
 
-        $output->writeln("New translations added!");
+        $output->writeln('New translations added!');
     }
-
 }

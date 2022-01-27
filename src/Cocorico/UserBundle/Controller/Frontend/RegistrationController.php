@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\UserBundle\Controller\Frontend;
 
 use Cocorico\UserBundle\Entity\User;
@@ -89,7 +88,6 @@ class RegistrationController extends Controller
         ]);
     }
 
-
     /**
      * Creates a Registration form
      *
@@ -105,7 +103,6 @@ class RegistrationController extends Controller
             $user
         );
     }
-
 
     /**
      * Tell the user to check their email provider.
@@ -135,7 +132,6 @@ class RegistrationController extends Controller
             'user' => $user,
         ]);
     }
-
 
     /**
      * Receive the confirmation token from user email provider, login the user.
@@ -171,7 +167,6 @@ class RegistrationController extends Controller
         return new RedirectResponse($this->get('router')->generate('cocorico_user_register_confirmed'));
     }
 
-
     /**
      * Tell the user his account is now confirmed.
      *
@@ -187,11 +182,11 @@ class RegistrationController extends Controller
         if ($needVerification) {
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('registration.email_verified.success', array(), 'cocorico_user')
+                $this->get('translator')->trans('registration.email_verified.success', [], 'cocorico_user')
             );
             $this->get('session')->getFlashBag()->add(
                 'warning',
-                $this->get('translator')->trans('registration.needVerification', array(), 'cocorico_user')
+                $this->get('translator')->trans('registration.needVerification', [], 'cocorico_user')
             );
             $this->get('session')->remove('cocorico_user_need_verification');
         }
@@ -203,11 +198,11 @@ class RegistrationController extends Controller
 
         return $this->render(
             'CocoricoUserBundle:Frontend/Registration:confirmed.html.twig',
-            array(
+            [
                 'user' => $user,
                 'targetUrl' => $this->getTargetUrlFromSession(),
                 'needVerification' => $needVerification,
-            )
+            ]
         );
     }
 
@@ -230,13 +225,14 @@ class RegistrationController extends Controller
         if ($user->getOrganizationIdentifier() !== null) {
             $this->get('session')->getFlashBag()->add(
                 'warning',
-                $this->get('translator')->trans('registration.additional_info.already_filled', array(), 'cocorico_user')
+                $this->get('translator')->trans('registration.additional_info.already_filled', [], 'cocorico_user')
             );
+
             return new RedirectResponse($this->get('router')->generate('cocorico_user_login'));
         }
 
         /** @var FormFactory $formFactory */
-        $formFactory =  $this->get('form.factory');
+        $formFactory = $this->get('form.factory');
         $form = $formFactory
             ->createNamed('user_registration_additional_info', RegistrationAdditionalInfoFormType::class, $user, [])
             ->handleRequest($request);
@@ -246,7 +242,7 @@ class RegistrationController extends Controller
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('registration.additional_info.success', array(), 'cocorico_user')
+                $this->get('translator')->trans('registration.additional_info.success', [], 'cocorico_user')
             );
 
             return new RedirectResponse($this->get('router')->generate('cocorico_user_login'));

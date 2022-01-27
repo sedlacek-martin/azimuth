@@ -13,7 +13,6 @@ namespace Cocorico\ContactBundle\Model\Manager;
 
 abstract class BaseManager
 {
-
     protected function persistAndFlush($entity)
     {
         $this->em->persist($entity);

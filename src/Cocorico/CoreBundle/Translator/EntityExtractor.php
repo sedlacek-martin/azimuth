@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cocorico\CoreBundle\Translator;
 
 use JMS\TranslationBundle\Model\FileSource;
@@ -21,8 +22,10 @@ use PhpParser\NodeVisitor;
 class EntityExtractor implements FileVisitorInterface, NodeVisitor
 {
     private $traverser;
+
     /** @var  MessageCatalogue */
     private $catalogue;
+
     /** @var  \SplFileInfo */
     private $file;
 
@@ -39,9 +42,8 @@ class EntityExtractor implements FileVisitorInterface, NodeVisitor
 //        }
         if (!$node instanceof Node\Scalar\String_) {
             return;
-        } else {
-            $id = $node->value;
         }
+        $id = $node->value;
 
         // ignore multiple dot without any string between them
         if (preg_match('/(\.\.|\.\.\.)/', $id)) {
@@ -55,27 +57,27 @@ class EntityExtractor implements FileVisitorInterface, NodeVisitor
             //echo $this->file->getFilename() . PHP_EOL;
 
             //Add here Custom entities and corresponding domains
-            if (strstr($this->file->getFilename(), "BookingDepositRefund") !== false) {
+            if (strstr($this->file->getFilename(), 'BookingDepositRefund') !== false) {
                 $domain = 'cocorico_listing_deposit';
             } elseif (
-                strstr($this->file->getFilename(), "ListingOption") !== false ||
-                strstr($this->file->getFilename(), "BookingOption") !== false
+                strstr($this->file->getFilename(), 'ListingOption') !== false ||
+                strstr($this->file->getFilename(), 'BookingOption') !== false
             ) {
                 $domain = 'cocorico_listing_option';
-            } elseif (strstr($this->file->getFilename(), "Listing") !== false) {
+            } elseif (strstr($this->file->getFilename(), 'Listing') !== false) {
                 $domain = 'cocorico_listing';
-            } elseif (strstr($this->file->getFilename(), "Booking") !== false) {
+            } elseif (strstr($this->file->getFilename(), 'Booking') !== false) {
                 $domain = 'cocorico_booking';
-            } elseif (strstr($this->file->getFilename(), "Contact") !== false) {
+            } elseif (strstr($this->file->getFilename(), 'Contact') !== false) {
                 $domain = 'cocorico_contact';
-            } elseif (strstr($this->file->getFilename(), "Voucher") !== false) {
+            } elseif (strstr($this->file->getFilename(), 'Voucher') !== false) {
                 $domain = 'cocorico_voucher';
-            } elseif (strstr($this->file->getFilename(), "User") !== false) {
+            } elseif (strstr($this->file->getFilename(), 'User') !== false) {
                 $domain = 'cocorico_user';
             }
 
             $message = new Message($id, $domain);
-            $message->addSource(new FileSource((string)$this->file, $node->getLine()));
+            $message->addSource(new FileSource((string) $this->file, $node->getLine()));
 
             $this->catalogue->add($message);
         }

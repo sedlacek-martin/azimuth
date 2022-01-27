@@ -22,7 +22,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 abstract class BaseListingCharacteristic
 {
-
     /**
      * @var int
      *
@@ -64,5 +63,4 @@ abstract class BaseListingCharacteristic
     {
         return $this->position;
     }
-
 }

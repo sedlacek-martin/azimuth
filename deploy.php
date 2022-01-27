@@ -73,8 +73,8 @@ function createHost($env) {
 
     task("composer_$env", function () use ($env) {
         cd('{{release_path}}');
-        run("php /usr/home/azimutu/public_html/composer.phar install --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
-        run("php /usr/home/azimutu/public_html/composer.phar dump-autoload --optimize --classmap-authoritative --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
+        run("php /usr/home/azimutu/public_html/tools/composer.phar install --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
+        run("php /usr/home/azimutu/public_html/tools/composer.phar dump-autoload --optimize --classmap-authoritative --no-interaction -d /usr/home/azimutu/public_html/{$env}/release");
     });
 
     task("app_version_$env", function () use ($env) {

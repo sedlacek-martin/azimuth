@@ -22,7 +22,6 @@ use Doctrine\ORM\Mapping as ORM;
 //class Group extends BaseGroup
 class Group
 {
-
     /**
      * @var integer $id
      *

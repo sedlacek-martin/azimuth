@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\GeoBundle\Entity;
 
 use Cocorico\GeoBundle\Model\GeocodableTrait;
@@ -24,7 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Cocorico\GeoBundle\Repository\AreaRepository")
  *
  * @ORM\Table(name="geo_area")
- *
  */
 class Area
 {
@@ -50,19 +48,13 @@ class Area
      */
     private $country;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Department", mappedBy="area", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Department", mappedBy="area", cascade={"persist", "remove"}) */
     private $departments;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\City", mappedBy="area", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\City", mappedBy="area", cascade={"persist", "remove"}) */
     private $cities;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Coordinate", mappedBy="area", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Coordinate", mappedBy="area", cascade={"persist", "remove"}) */
     private $coordinates;
 
     public function __construct()
@@ -230,7 +222,7 @@ class Area
      */
     public function getName()
     {
-        return (string)$this->translate()->getName();
+        return (string) $this->translate()->getName();
     }
 
     /**
@@ -238,6 +230,6 @@ class Area
      */
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string) $this->getName();
     }
 }

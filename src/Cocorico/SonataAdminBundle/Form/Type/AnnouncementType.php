@@ -18,12 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnnouncementType extends AbstractType
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $rootDir;
+
     private $request;
+
     private $locale;
+
     private $entityManager;
 
     /**
@@ -45,15 +46,15 @@ class AnnouncementType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'maxlength' => 50,
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
             ->add('shortDescription', TextType::class, [
                 'required' => true,
                 'attr' => [
                     'maxlength' => 150,
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
             ->add('content', CKEditorType::class, [
                 'required' => true,
@@ -61,9 +62,9 @@ class AnnouncementType extends AbstractType
                     'filebrowserBrowseRoute' => 'elfinder',
                     'filebrowserBrowseRouteParameters' => [
                         'instance' => 'ckeditor',
-                        'homeFolder' => ElFinderHelper::getOrCreateFolder(ElFinderHelper::GLOBAL_DIR, $this->rootDir)
-                    ]
-                ]
+                        'homeFolder' => ElFinderHelper::getOrCreateFolder(ElFinderHelper::GLOBAL_DIR, $this->rootDir),
+                    ],
+                ],
             ])
             ->add('showAt', DateTimeType::class, [
                 'data' => new \DateTime(),
@@ -73,7 +74,7 @@ class AnnouncementType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'placeholder' => 'All organizations',
-                'mapped' => false
+                'mapped' => false,
             ])
             ->add('includeAdmins', CheckboxType::class, [
                 'mapped' => false,
@@ -86,13 +87,11 @@ class AnnouncementType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-
         $resolver
             ->setDefaults([
                 'class' => Announcement::class,
             ]);
     }
-
 
     /**
      * {@inheritdoc}
@@ -101,5 +100,4 @@ class AnnouncementType extends AbstractType
     {
         return 'announcement_new';
     }
-
 }

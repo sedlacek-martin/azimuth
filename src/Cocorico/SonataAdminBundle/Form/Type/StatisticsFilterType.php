@@ -16,13 +16,13 @@ class StatisticsFilterType extends AbstractType
                 'label' => 'listing.form.expiry_date.label',
                 'attr' => [
                     'class' => 'form-control datepicker',
-                ]
+                ],
             ])
             ->add('to', TextType::class, [
                 'label' => 'listing.form.expiry_date.label',
                 'attr' => [
                     'class' => 'form-control datepicker',
-                ]
+                ],
             ]);
     }
 
@@ -38,6 +38,4 @@ class StatisticsFilterType extends AbstractType
     {
         return 'statistics_filter';
     }
-
-
 }

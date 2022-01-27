@@ -82,6 +82,7 @@ class AnnouncementToUser
     public function setId(int $id): AnnouncementToUser
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -100,6 +101,7 @@ class AnnouncementToUser
     public function setUser(?User $user): AnnouncementToUser
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -118,6 +120,7 @@ class AnnouncementToUser
     public function setDismissed(bool $dismissed): AnnouncementToUser
     {
         $this->dismissed = $dismissed;
+
         return $this;
     }
 
@@ -136,6 +139,7 @@ class AnnouncementToUser
     public function setDisplayed(bool $displayed): AnnouncementToUser
     {
         $this->displayed = $displayed;
+
         return $this;
     }
 
@@ -154,6 +158,7 @@ class AnnouncementToUser
     public function setAnnouncement(?Announcement $announcement): AnnouncementToUser
     {
         $this->announcement = $announcement;
+
         return $this;
     }
 
@@ -172,6 +177,7 @@ class AnnouncementToUser
     public function setDismissedAt(?\DateTime $dismissedAt): AnnouncementToUser
     {
         $this->dismissedAt = $dismissedAt;
+
         return $this;
     }
 
@@ -190,13 +196,12 @@ class AnnouncementToUser
     public function setDisplayedAt(?\DateTime $displayedAt): AnnouncementToUser
     {
         $this->displayedAt = $displayedAt;
+
         return $this;
     }
 
     public function __toString()
     {
-       return "Announcement {$this->getAnnouncement()->getHeading()} to user {$this->getUser()->getFullName()}";
+        return "Announcement {$this->getAnnouncement()->getHeading()} to user {$this->getUser()->getFullName()}";
     }
-
-
 }

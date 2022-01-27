@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\CoreBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -20,25 +19,23 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class ImageTypeExtension extends AbstractTypeExtension
 {
-
     public function getExtendedType()
     {
         return 'file';
     }
 
     /**
-     *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefined(
-            array(
+            [
                 'image_path',
                 'imagine_filter',
                 'allow_delete',
 
-            )
+            ]
         );
     }
 
@@ -68,5 +65,4 @@ class ImageTypeExtension extends AbstractTypeExtension
             $view->vars['imagine_filter'] = $options['imagine_filter'];
         }
     }
-
 }

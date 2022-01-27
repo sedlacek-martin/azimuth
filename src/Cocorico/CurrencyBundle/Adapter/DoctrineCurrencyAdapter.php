@@ -9,14 +9,10 @@ use Lexik\Bundle\CurrencyBundle\Entity\Currency;
 //todo: remove when https://github.com/lexik/LexikCurrencyBundle/commit/a4c08e0 will be released
 class DoctrineCurrencyAdapter extends AbstractCurrencyAdapter
 {
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     private $manager;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $initialized = false;
 
     /**

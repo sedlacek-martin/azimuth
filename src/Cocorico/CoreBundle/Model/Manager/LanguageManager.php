@@ -17,7 +17,9 @@ use Symfony\Component\Routing\RouterInterface;
 class LanguageManager
 {
     protected $em;
+
     protected $router;
+
     protected $locales;
 
     /**
@@ -35,7 +37,6 @@ class LanguageManager
         $this->locales = $locales;
     }
 
-
     /**
      * getLanguageLinks returns the generated links depending upon the parameters provided.
      *
@@ -45,9 +46,8 @@ class LanguageManager
      *
      * @return array all translated routes for each locales
      */
-    public function getLanguageLinks($routeName, $routeParams = array(), $queryString)
+    public function getLanguageLinks($routeName, $routeParams = [], $queryString)
     {
-
         $languagesLinks = array_flip($this->locales);
         foreach ($languagesLinks as $lang => $languagesLink) {
             $languagesLinks[$lang] = '';
@@ -57,7 +57,7 @@ class LanguageManager
             return $languagesLinks;
         }
 
-        $slugs = array();
+        $slugs = [];
         //Get slug translations to generate correct listing_show url for each languages
         if ($routeName == 'cocorico_listing_show') {
             $slugs = $this->setTranslatedSlugs('CocoricoCoreBundle:Listing', $routeParams);
@@ -66,11 +66,10 @@ class LanguageManager
             $slugs = $this->setTranslatedSlugs('CocoricoPageBundle:Page', $routeParams);
         }
 
-
         // generate the urls as per the locales available
         foreach ($this->locales as $locale) {
             if (isset($slugs[$locale])) {
-                $routeParams["slug"] = $slugs[$locale];
+                $routeParams['slug'] = $slugs[$locale];
             }
 
             $languagesLinks[$locale] = $this->router->generate(
@@ -78,7 +77,7 @@ class LanguageManager
                 array_merge(
                     $routeParams,
                     $queryString,
-                    array("_locale" => $locale)
+                    ['_locale' => $locale]
                 )
             );
         }
@@ -96,7 +95,7 @@ class LanguageManager
      */
     private function setTranslatedSlugs($entityName, $routeParams)
     {
-        $slugs = array();
+        $slugs = [];
         /** @var mixed $entityTranslations */
         $entityTranslations = $this->em->getRepository($entityName)
             ->findTranslationsBySlug($routeParams['slug'], $routeParams['_locale']);

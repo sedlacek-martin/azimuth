@@ -20,6 +20,7 @@ use Doctrine\ORM\EntityManager;
 class FooterManager
 {
     protected $em;
+
     const SECRET = 'CG5DT3FW6R93FZ';
 
     /**
@@ -29,7 +30,6 @@ class FooterManager
     {
         $this->em = $em;
     }
-
 
     /**
      * @param  Footer $footer
@@ -55,7 +55,6 @@ class FooterManager
         return $footer;
     }
 
-
     /**
      * @param $url
      * @param $locale
@@ -78,7 +77,7 @@ class FooterManager
         $uriHasher = new UriHasher(self::SECRET);
 
         //Remove these fields from search query string to display seo content independently of these fields
-        $qsFieldsToRemove = array(
+        $qsFieldsToRemove = [
             '["location"]["address"]',
             '["location"]["addressType"]',
             '["location"]["viewport"]',
@@ -92,14 +91,13 @@ class FooterManager
             '["time_range"]',
             '["price_range"]',
             '["characteristics"]',
-            '["sort_by"]'
-        );
+            '["sort_by"]',
+        ];
 
         return $uriHasher->hash($url, true, $qsFieldsToRemove);
     }
 
     /**
-     *
      * @return FooterRepository
      */
     public function getRepository()

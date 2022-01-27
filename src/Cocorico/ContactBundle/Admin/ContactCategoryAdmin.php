@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class ContactCategoryAdmin extends BaseAdmin
 {
     protected $translationDomain = 'SonataAdminBundle';
+
     protected $baseRoutePattern = 'contact-category';
 
     protected function configureFormFields(FormMapper $form)
@@ -43,7 +44,7 @@ class ContactCategoryAdmin extends BaseAdmin
             ->add('recipientRoleNames', null, [
                 'label' => 'admin.contact.recipient_roles.label',
                 'template' => 'CocoricoSonataAdminBundle::list_field_array.html.twig',
-                'data_trans' => 'SonataAdminBundle'
+                'data_trans' => 'SonataAdminBundle',
             ]);
 
         $list->add(
@@ -52,11 +53,8 @@ class ContactCategoryAdmin extends BaseAdmin
             [
                 'actions' => [
                     'edit' => [],
-                ]
+                ],
             ]
         );
-
     }
-
-
 }

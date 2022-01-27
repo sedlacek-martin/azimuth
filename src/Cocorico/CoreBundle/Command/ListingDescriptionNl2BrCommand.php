@@ -38,18 +38,18 @@ class ListingDescriptionNl2BrCommand extends ContainerAwareCommand
         foreach ($listings as $listing) {
             $translations = $listing->getTranslations();
             foreach ($translations as $translation) {
-               $description = $translation->getDescription();
-               $translation->setDescription(nl2br($description));
-               $em->persist($translation);
-               if (++$i % 50 === 0) {
-                   $em->flush();
-               }
+                $description = $translation->getDescription();
+                $translation->setDescription(nl2br($description));
+                $em->persist($translation);
+                if (++$i % 50 === 0) {
+                    $em->flush();
+                }
             }
         }
 
         $em->flush();
 
-        $output->writeln("Finish");
+        $output->writeln('Finish');
 
         return 1;
     }

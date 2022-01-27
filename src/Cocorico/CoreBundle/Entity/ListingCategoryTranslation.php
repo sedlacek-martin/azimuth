@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\CoreBundle\Entity;
 
 use Cocorico\CoreBundle\Model\BaseListingCategoryTranslation;
@@ -29,5 +28,4 @@ class ListingCategoryTranslation extends BaseListingCategoryTranslation
 {
     use ORMBehaviors\Translatable\Translation;
     use ORMBehaviors\Sluggable\Sluggable;
-
 }

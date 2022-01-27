@@ -29,41 +29,26 @@ use Http\Client\HttpClient;
  */
 class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     const GEOCODE_ENDPOINT_URL_SSL = 'https://maps.googleapis.com/maps/api/geocode/json?bbb&address=%s';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     const REVERSE_ENDPOINT_URL_SSL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%F,%F';
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     const DEBUG = false;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $region;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $apiKey;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $clientId;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $privateKey;
-
 
     /**
      * Google Maps for Business
@@ -104,7 +89,9 @@ class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
         $this->apiKey = $apiKey;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function geocodeQuery(GeocodeQuery $query): Collection
     {
         // Google API returns invalid data if IP address given
@@ -129,7 +116,9 @@ class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
         return $this->fetchUrl($url, $query->getLocale(), $query->getLimit(), $query->getData('region', $this->region));
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function reverseQuery(ReverseQuery $query): Collection
     {
         $coordinate = $query->getCoordinates();
@@ -146,7 +135,9 @@ class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
         return $this->fetchUrl($url, $query->getLocale(), $query->getLimit(), $query->getData('region', $this->region));
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function reverseQueryAsJson(ReverseQuery $query)
     {
         $coordinate = $query->getCoordinates();
@@ -167,7 +158,6 @@ class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
             $query->getData('region', $this->region)
         );
     }
-
 
     /**
      * @param string $url
@@ -229,19 +219,19 @@ class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
         //This format is also used on client side (@see geocoding_js.html.twig).
         //It must be the same on both sides
         foreach ($json->results as $i => $result) {
-            $resultSet = array();
+            $resultSet = [];
             // update address components
             foreach ($result->address_components as $component) {
                 foreach ($component->types as $type) {
                     $resultSet[$locale][$type] = $component->long_name;
-                    $resultSet[$locale][$type . "_short"] = $component->short_name;
+                    $resultSet[$locale][$type . '_short'] = $component->short_name;
                 }
             }
 
             // update coordinates
             $resultSet['formatted_address'] = $result->formatted_address;
             $geometry = $result->geometry;
-            $resultSet['location_type'] = $geometry->location_type ? $geometry->location_type : "PLACES";
+            $resultSet['location_type'] = $geometry->location_type ? $geometry->location_type : 'PLACES';
             $viewport = $geometry->viewport;
             $resultSet['viewport'] = $viewport;
 
@@ -265,17 +255,17 @@ class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
             //Same checking is done in GeocodingToCoordinateEntityTransformer->getGeocoding($geocodingI18n)
             if (
                 !isset($results[$locale]) ||
-                !isset($results[$locale]["country_short"]) ||
+                !isset($results[$locale]['country_short']) ||
                 !isset($results['formatted_address']) ||
                 (
-                    !isset($results[$locale]["administrative_area_level_1"]) &&
-                    !isset($results[$locale]["administrative_area_level_2"])
+                    !isset($results[$locale]['administrative_area_level_1']) &&
+                    !isset($results[$locale]['administrative_area_level_2'])
                 )
             ) {
                 continue;
-            } else {
-                break; //Only first
             }
+
+            break; //Only first
         }
 
         return new AddressCollection([0 => $results]);
@@ -373,14 +363,13 @@ class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
         return $json;
     }
 
-
     /**
      * @param $message
      */
     private function debug($message)
     {
         if (self::DEBUG) {
-            echo nl2br($message) . "<br>";
+            echo nl2br($message) . '<br>';
         }
     }
 
@@ -391,5 +380,4 @@ class GoogleMaps extends AbstractHttpProvider implements ProviderInterface
     {
         return 'google_maps';
     }
-
 }

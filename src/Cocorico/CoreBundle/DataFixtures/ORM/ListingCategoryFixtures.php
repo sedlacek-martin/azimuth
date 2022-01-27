@@ -17,7 +17,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ListingCategoryFixtures extends Fixture
 {
-
     /**
      * {@inheritDoc}
      */
@@ -39,7 +38,6 @@ class ListingCategoryFixtures extends Fixture
         $subCategory2->translate('fr')->setName('Categorie1_2');
         $subCategory2->setDefaultImageName('');
         $subCategory2->setParent($category);
-
 
         $manager->persist($category);
         $manager->persist($subCategory1);
@@ -73,7 +71,6 @@ class ListingCategoryFixtures extends Fixture
         $subCategory2->setDefaultImageName('');
         $subCategory2->setParent($category);
 
-
         $manager->persist($category);
         $manager->persist($subCategory1);
         $manager->persist($subSubCategory1);
@@ -84,7 +81,5 @@ class ListingCategoryFixtures extends Fixture
         $subSubCategory1->mergeNewTranslations();
         $subCategory2->mergeNewTranslations();
         $manager->flush();
-
     }
-
 }

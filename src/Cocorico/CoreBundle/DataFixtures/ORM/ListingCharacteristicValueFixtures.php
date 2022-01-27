@@ -19,7 +19,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ListingCharacteristicValueFixtures extends Fixture implements DependentFixtureInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -90,7 +89,7 @@ class ListingCharacteristicValueFixtures extends Fixture implements DependentFix
         $this->addReference('characteristic_value_custom_1', $listingCharacteristicValue);
 
         $listingCharacteristicValue = new ListingCharacteristicValue();
-        $listingCharacteristicValue->setName("Custom value 2");
+        $listingCharacteristicValue->setName('Custom value 2');
         $listingCharacteristicValue->translate('en')->setName('Custom value 2');
         $listingCharacteristicValue->translate('fr')->setName('Valeur personnalisée 2');
         $listingCharacteristicValue->setPosition(2);
@@ -106,9 +105,8 @@ class ListingCharacteristicValueFixtures extends Fixture implements DependentFix
      */
     public function getDependencies()
     {
-        return array(
+        return [
             ListingCharacteristicTypeFixtures::class,
-        );
+        ];
     }
-
 }

@@ -22,7 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class UserLanguage
 {
-
     /**
      * @var integer
      *
@@ -102,5 +101,4 @@ class UserLanguage
     {
         return $this->user;
     }
-
 }

@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Cocorico\CoreBundle\Model;
 
+namespace Cocorico\CoreBundle\Model;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Id\AbstractIdGenerator;
@@ -33,7 +33,7 @@ class CustomIdGenerator extends AbstractIdGenerator
 
         //Seed
         list($uSec, $sec) = explode(' ', microtime());
-        $seed = (float)$sec + ((float)$uSec * 100000);
+        $seed = (float) $sec + ((float) $uSec * 100000);
         mt_srand($seed);
 
         while (true) {

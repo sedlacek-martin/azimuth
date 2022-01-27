@@ -31,9 +31,10 @@ class ListingCategoryRepository extends NestedTreeRepository
 
         $qb
             ->addSelect('t')
-            ->leftJoin($this->rootAlias . ".translations", 't')
+            ->leftJoin($this->rootAlias . '.translations', 't')
             ->andWhere('t.locale = :locale')
-            ->setParameter('locale', $locale);
+            ->setParameter('locale', $locale)
+            ->orderBy("{$this->rootAlias}.position", 'asc');
 
         return $qb;
     }
@@ -60,14 +61,12 @@ class ListingCategoryRepository extends NestedTreeRepository
     public function findCategoriesByIds(array $ids, $locale)
     {
         $qb = $this->getNodesHierarchyTranslatedQueryBuilder($locale);
-        $qb->andWhere($this->rootAlias . ".id IN (:ids)")
+        $qb->andWhere($this->rootAlias . '.id IN (:ids)')
             ->setParameter('ids', $ids);
-
 
         $query = $qb->getQuery();
         $query->useResultCache(true, 43200, 'findCategoriesByIds');
 
         return $query->execute();
     }
-
 }

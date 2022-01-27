@@ -18,6 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 class UserRequestListener
 {
     protected $securityTokenStorage;
+
     protected $timezone;
 
     public function __construct(TokenStorage $securityTokenStorage, $timezone)
@@ -39,14 +40,14 @@ class UserRequestListener
         $session->set('timezone', $this->timezone);
         $user = $this->securityTokenStorage->getToken() ? $this->securityTokenStorage->getToken()->getUser() : null;
         if ($user) {
-            if ($user && method_exists($user, "getTimeZone")) {
+            if ($user && method_exists($user, 'getTimeZone')) {
                 $session->set('timezone', $user->getTimeZone());
             }
         }
 
-        if ($cookies->has('userType') && $cookies->get('userType') == "offerer") {
+        if ($cookies->has('userType') && $cookies->get('userType') == 'offerer') {
             $session->set('profile', 'offerer');
-        } elseif ($cookies->has('userType') && $cookies->get('userType') == "asker") {
+        } elseif ($cookies->has('userType') && $cookies->get('userType') == 'asker') {
             $session->set('profile', 'asker');
         }
     }

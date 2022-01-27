@@ -18,6 +18,7 @@ class MemberOrganizationRepository extends \Doctrine\ORM\EntityRepository
             ->select('COUNT(mo.id) as cnt');
 
         $result = $qb->getQuery()->getSingleResult();
+
         return $result['cnt'];
     }
 }

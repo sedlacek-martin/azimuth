@@ -12,11 +12,10 @@ class UserSettingsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
             ->add('newMessageNotifications', CheckboxType::class, [
                 'required' => false,
-                'label' => 'user_settings.new_message_notification.label'
+                'label' => 'user_settings.new_message_notification.label',
             ]);
     }
 
@@ -27,11 +26,11 @@ class UserSettingsType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => User::class,
                 'csrf_token_id' => 'user_settings',
                 'translation_domain' => 'cocorico_user',
-            )
+            ]
         );
     }
 
@@ -42,5 +41,4 @@ class UserSettingsType extends AbstractType
     {
         return 'user_settings';
     }
-
 }

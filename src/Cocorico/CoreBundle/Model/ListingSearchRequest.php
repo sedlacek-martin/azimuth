@@ -23,38 +23,52 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Class ListingSearchRequest
  *
  * Represent the listing search request
- *
  */
 class ListingSearchRequest implements TranslationContainerInterface
 {
     protected $location;
+
     protected $categories;
+
     protected $characteristics;
+
     /** @var  DateRange */
     protected $dateRange;
+
     /** @var  TimeRange */
     protected $timeRange;
+
     //Number of flexibility days
     protected $flexibility;
+
     protected $sortBy = 'distance';
+
     protected $page;
+
     protected $maxPerPage;
+
     /** @var RequestStack requestStack */
     protected $requestStack;
+
     /** @var Request request */
     protected $request;
+
     protected $similarListings;
+
     protected $locale;
+
     protected $isXmlHttpRequest = false;
+
 //    todo: decouple category fields and delivery
 //    protected $categoriesFields;
     protected $delivery;
+
     protected $keywords;
 
-    public static $sortByValues = array(
+    public static $sortByValues = [
         'recommended' => 'listing.search.sort_by.recommended',
-        'distance' => 'listing.search.sort_by.distance'
-    );
+        'distance' => 'listing.search.sort_by.distance',
+    ];
 
     /**
      * @param RequestStack $requestStack
@@ -82,8 +96,8 @@ class ListingSearchRequest implements TranslationContainerInterface
         $this->location = new ListingLocationSearchRequest($this->locale);
 
         //Categories
-        $this->categories = array();
-        $categories = $this->request->query->get("categories");
+        $this->categories = [];
+        $categories = $this->request->query->get('categories');
         if (is_array($categories)) {
             $this->categories = $categories;
         }
@@ -96,22 +110,22 @@ class ListingSearchRequest implements TranslationContainerInterface
 //        }
 
         //Characteristics
-        $this->characteristics = array();
-        $characteristics = $this->request->query->get("characteristics");
+        $this->characteristics = [];
+        $characteristics = $this->request->query->get('characteristics');
         if (is_array($characteristics)) {
             $this->characteristics = $characteristics;
         }
 
-        $this->setSimilarListings(array());
+        $this->setSimilarListings([]);
 
         //Delivery
-        $delivery = $this->request->query->get("delivery");
+        $delivery = $this->request->query->get('delivery');
         if ($delivery) {
             $this->delivery = $delivery;
         }
 
         //Keywords
-        $keywords = $this->request->query->get("keywords");
+        $keywords = $this->request->query->get('keywords');
         if ($keywords) {
             $this->keywords = $keywords;
         }
@@ -178,7 +192,7 @@ class ListingSearchRequest implements TranslationContainerInterface
      */
     public function getDateTimeRange()
     {
-        return new DateTimeRange($this->getDateRange(), array($this->getTimeRange()));
+        return new DateTimeRange($this->getDateRange(), [$this->getTimeRange()]);
     }
 
     /**
@@ -212,7 +226,6 @@ class ListingSearchRequest implements TranslationContainerInterface
     {
         $this->location = $location;
     }
-
 
     /**
      * @return mixed
@@ -285,14 +298,13 @@ class ListingSearchRequest implements TranslationContainerInterface
      */
     public static function getTranslationMessages()
     {
-        $messages = array();
+        $messages = [];
         foreach (self::$sortByValues as $key => $sortByValue) {
             $messages[] = new Message($sortByValue, 'cocorico_listing');
         }
 
         return $messages;
     }
-
 
     /**
      * @return int[]
@@ -374,7 +386,6 @@ class ListingSearchRequest implements TranslationContainerInterface
         $this->isXmlHttpRequest = $isXmlHttpRequest;
     }
 
-
     /**
      * Remove some Object properties while serialisation
      *
@@ -382,6 +393,6 @@ class ListingSearchRequest implements TranslationContainerInterface
      */
     public function __sleep()
     {
-        return array_diff(array_keys(get_object_vars($this)), array('requestStack', 'request'));
+        return array_diff(array_keys(get_object_vars($this)), ['requestStack', 'request']);
     }
 }

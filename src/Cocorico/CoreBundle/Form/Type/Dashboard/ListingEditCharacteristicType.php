@@ -33,11 +33,11 @@ class ListingEditCharacteristicType extends ListingEditType
             ->add(
                 'listingListingCharacteristicsOrderedByGroup',
                 CollectionType::class,
-                array(
+                [
                     'entry_type' => ListingListingCharacteristicType::class,
-                    /** @Ignore */
-                    'label' => false
-                )
+                    /* @Ignore */
+                    'label' => false,
+                ]
             );
 
         //Add new ListingCharacteristics eventually not already attached to listing

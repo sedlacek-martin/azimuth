@@ -17,7 +17,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class CocoricoCoreBundle
- *
  */
 class CocoricoCoreBundle extends Bundle
 {

@@ -37,6 +37,5 @@ class UserImageUploadValidationListener
         if ($file->getSize() > $this->maxUploadFileSize * 1000000) {
             throw new ValidationException('File size too large');
         }
-
     }
 }

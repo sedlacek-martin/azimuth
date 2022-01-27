@@ -15,7 +15,6 @@ use Cocorico\CoreBundle\Event\ListingSearchFormBuilderEvent;
 use Cocorico\CoreBundle\Event\ListingSearchFormEvents;
 use Cocorico\CoreBundle\Form\Type\ListingCategoryType;
 use Cocorico\CoreBundle\Form\Type\ListingCharacteristicType;
-use Cocorico\CoreBundle\Form\Type\PriceRangeType;
 use Cocorico\CoreBundle\Model\ListingSearchRequest;
 use Cocorico\CoreBundle\Repository\ListingCategoryRepository;
 use Cocorico\TimeBundle\Form\Type\DateRangeType;
@@ -41,16 +40,27 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class ListingSearchResultType extends AbstractType
 {
     protected $entityManager;
+
     protected $request;
+
     protected $dispatcher;
+
     protected $currency;
+
     protected $locale;
+
     protected $timeUnitIsDay;
+
     protected $timeUnitFlexibility;
+
     protected $daysDisplayMode;
+
     protected $timesDisplayMode;
+
     protected $allowSingleDay;
+
     protected $endDayIncluded;
+
     protected $minStartTimeDelay;
 
     /**
@@ -71,7 +81,7 @@ class ListingSearchResultType extends AbstractType
 
         $this->locale = $this->request->getLocale();
 
-        $parameters = $parameters["parameters"];
+        $parameters = $parameters['parameters'];
         $this->timeUnitIsDay = ($parameters['cocorico_time_unit'] % 1440 == 0) ? true : false;
         $this->timeUnitFlexibility = $parameters['cocorico_time_unit_flexibility'];
         $this->daysDisplayMode = $parameters['cocorico_days_display_mode'];
@@ -91,7 +101,7 @@ class ListingSearchResultType extends AbstractType
 
         //CATEGORIES
         /** @var ListingCategoryRepository $categoryRepository */
-        $categoryRepository = $this->entityManager->getRepository("CocoricoCoreBundle:ListingCategory");
+        $categoryRepository = $this->entityManager->getRepository('CocoricoCoreBundle:ListingCategory');
         $categories = $categoryRepository->findCategoriesByIds(
             $listingSearchRequest->getCategories(),
             $this->locale
@@ -101,14 +111,14 @@ class ListingSearchResultType extends AbstractType
             ->add(
                 'categories',
                 ListingCategoryType::class,
-                array(
+                [
                     'label' => 'listing_search.form.categories',
                     'mapped' => false,
                     'data' => $categories,
                     'block_name' => 'listing_categories',
                     'multiple' => true,
                     'placeholder' => 'listing_search.form.categories.empty_value',
-                )
+                ]
             );
 
         //DATE RANGE
@@ -117,23 +127,23 @@ class ListingSearchResultType extends AbstractType
             ->add(
                 'date_range',
                 DateRangeType::class,
-                array(
-                    'start_options' => array(
+                [
+                    'start_options' => [
                         'label' => 'listing_search.form.start',
-                        'data' => $dateRange && $dateRange->getStart() ? $dateRange->getStart() : null
-                    ),
-                    'end_options' => array(
+                        'data' => $dateRange && $dateRange->getStart() ? $dateRange->getStart() : null,
+                    ],
+                    'end_options' => [
                         'label' => 'listing_search.form.end',
-                        'data' => $dateRange && $dateRange->getEnd() ? $dateRange->getEnd() : null
-                    ),
+                        'data' => $dateRange && $dateRange->getEnd() ? $dateRange->getEnd() : null,
+                    ],
                     'allow_single_day' => $this->allowSingleDay,
                     'end_day_included' => $this->endDayIncluded,
                     'required' => false,
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => false,
                     'block_name' => 'date_range',
                     'display_mode' => $this->daysDisplayMode,
-                )
+                ]
             );
 
         //CHARACTERISTICS
@@ -142,20 +152,20 @@ class ListingSearchResultType extends AbstractType
             ->add(
                 'characteristics',
                 ListingCharacteristicType::class,
-                array(
+                [
                     'mapped' => false,
                     'data' => array_filter($characteristics),
-                )
+                ]
             )
-            ->add(
-                'sort_by',
-                ChoiceType::class,
-                array(
-                    'choices' => array_flip(ListingSearchRequest::$sortByValues),
-                    'data' => 'distance',
-                    'required' => true,
-                )
-            )
+//            ->add(
+//                'sort_by',
+//                ChoiceType::class,
+//                array(
+//                    'choices' => array_flip(ListingSearchRequest::$sortByValues),
+//                    'data' => 'distance',
+//                    'required' => true,
+//                )
+//            )
             ->add(
                 'page',
                 HiddenType::class
@@ -168,21 +178,21 @@ class ListingSearchResultType extends AbstractType
             $builder->add(
                 'time_range',
                 TimeRangeType::class,
-                array(
-                    'start_options' => array(
+                [
+                    'start_options' => [
                         'label' => 'listing_search.form.start_time',
-                        'data' => $timeRange && $timeRange->getStart() ? $timeRange->getStart() : null
-                    ),
-                    'end_options' => array(
+                        'data' => $timeRange && $timeRange->getStart() ? $timeRange->getStart() : null,
+                    ],
+                    'end_options' => [
                         'label' => 'listing_search.form.end_time',
-                        'data' => $timeRange && $timeRange->getEnd() ? $timeRange->getEnd() : null
-                    ),
+                        'data' => $timeRange && $timeRange->getEnd() ? $timeRange->getEnd() : null,
+                    ],
                     'required' => false,
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => false,
                     'block_name' => 'time_range',
-                    'display_mode' => $this->timesDisplayMode
-                )
+                    'display_mode' => $this->timesDisplayMode,
+                ]
             );
         }
 
@@ -191,7 +201,7 @@ class ListingSearchResultType extends AbstractType
             $builder->add(
                 'flexibility',
                 ChoiceType::class,
-                array(
+                [
                     'label' => 'listing_search.form.flexibility',
                     'placeholder' => 'listing_search.form.flexibility',
                     'choices' => array_combine(
@@ -199,7 +209,7 @@ class ListingSearchResultType extends AbstractType
                         range(1, $this->timeUnitFlexibility)
                     ),
                     'required' => false,
-                )
+                ]
             );
         }
 
@@ -236,14 +246,14 @@ class ListingSearchResultType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setDefaults(
-            array(
+            [
                 'csrf_protection' => false,
                 'data_class' => 'Cocorico\CoreBundle\Model\ListingSearchRequest',
                 'translation_domain' => 'cocorico_listing',
-                'constraints' => array(
-                    new Callback(array('callback' => array($this, 'checkDate'))),
-                ),
-            )
+                'constraints' => [
+                    new Callback(['callback' => [$this, 'checkDate']]),
+                ],
+            ]
         );
     }
 
@@ -256,7 +266,7 @@ class ListingSearchResultType extends AbstractType
     public function checkDate($listingSearchRequest, ExecutionContextInterface $context)
     {
         $minStartTime = new DateTime();
-        $minStartTime->add(new DateInterval('PT'.$this->minStartTimeDelay.'M'));
+        $minStartTime->add(new DateInterval('PT' . $this->minStartTimeDelay . 'M'));
 
         $start = false;
         if ($this->timeUnitIsDay) {
@@ -275,7 +285,7 @@ class ListingSearchResultType extends AbstractType
             $minStartTime->setTimezone(new DateTimeZone($this->request->getSession()->get('timezone')));
             $context->buildViolation('time_range.invalid.min_start {{ min_start_time }}')
                 ->atPath('date_range')
-                ->setParameters(array('{{ min_start_time }}' => $minStartTime->format('d/m/Y H:i')))
+                ->setParameters(['{{ min_start_time }}' => $minStartTime->format('d/m/Y H:i')])
                 ->setTranslationDomain('cocorico')
                 ->addViolation();
         }

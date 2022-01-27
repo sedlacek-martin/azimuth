@@ -26,22 +26,22 @@ class ListingEditDatesType extends AbstractType
             ->add(
                 'dateRange',
                 DateRangeType::class,
-                array(
-                    'start_options' => array(
+                [
+                    'start_options' => [
                         'label' => 'listing.form.valid_from.label',
-                        'data' => $dateRange && $dateRange->getStart() ? $dateRange->getStart() : null
-                    ),
-                    'end_options' => array(
+                        'data' => $dateRange && $dateRange->getStart() ? $dateRange->getStart() : null,
+                    ],
+                    'end_options' => [
                         'label' => 'listing.form.valid_to.label',
-                        'data' => $dateRange && $dateRange->getEnd() ? $dateRange->getEnd() : null
-                    ),
+                        'data' => $dateRange && $dateRange->getEnd() ? $dateRange->getEnd() : null,
+                    ],
                     'allow_single_day' => true,
                     'end_day_included' => true,
                     'block_name' => 'date_range',
                     'required' => false,
-                    /** @Ignore */
+                    /* @Ignore */
                     'label' => 'listing.form.valid',
-                )
+                ]
             )
             ->add('expiryDate',
             DateType::class, [
@@ -50,8 +50,8 @@ class ListingEditDatesType extends AbstractType
                     'format' => 'dd/MM/yyyy',
                     'attr' => [
                         'class' => 'form-control',
-                        'data-max-date' => (new DateTime())->add(new DateInterval("P1Y"))->format('Y-m-d'),
-                    ]
+                        'data-max-date' => (new DateTime())->add(new DateInterval('P1Y'))->format('Y-m-d'),
+                    ],
             ]);
     }
 
@@ -62,12 +62,12 @@ class ListingEditDatesType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => Listing::class,
                 'csrf_token_id' => 'listing_edit',
                 'translation_domain' => 'cocorico_listing',
                 'constraints' => new Valid(),//To have error on collection item field,
-            )
+            ]
         );
     }
 
@@ -78,5 +78,4 @@ class ListingEditDatesType extends AbstractType
     {
         return 'listing_edit_dates';
     }
-
 }

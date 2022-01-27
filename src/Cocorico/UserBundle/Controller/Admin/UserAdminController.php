@@ -42,7 +42,7 @@ class UserAdminController extends BaseController
         } catch (\Exception $e) {
             $this->get('translator')->trans(
                 'flash_batch_reset_fees_error',
-                array(),
+                [],
                 'SonataAdminBundle'
             );
 
@@ -55,7 +55,7 @@ class UserAdminController extends BaseController
             'sonata_flash_success',
             $this->get('translator')->trans(
                 'flash_batch_reset_fees_success',
-                array(),
+                [],
                 'SonataAdminBundle'
             )
         );
@@ -64,5 +64,4 @@ class UserAdminController extends BaseController
             $this->admin->generateUrl('list', $this->admin->getFilterParameters())
         );
     }
-
 }

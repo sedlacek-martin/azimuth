@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\GeoBundle\Entity;
 
 use Cocorico\GeoBundle\Model\GeocodableTrait;
@@ -24,13 +23,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Cocorico\GeoBundle\Repository\DepartmentRepository")
  *
  * @ORM\Table(name="geo_department")
- *
  */
 class Department
 {
     use ORMBehaviors\Translatable\Translatable;
     use GeocodableTrait;
-    
+
     /**
      * @var integer
      *
@@ -60,14 +58,10 @@ class Department
      */
     private $area;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\City", mappedBy="department", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\City", mappedBy="department", cascade={"persist", "remove"}) */
     private $cities;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Coordinate", mappedBy="department", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Coordinate", mappedBy="department", cascade={"persist", "remove"}) */
     private $coordinates;
 
     public function __construct()
@@ -221,7 +215,7 @@ class Department
      */
     public function getName()
     {
-        return (string)$this->translate()->getName();
+        return (string) $this->translate()->getName();
     }
 
     /**
@@ -229,6 +223,6 @@ class Department
      */
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string) $this->getName();
     }
 }

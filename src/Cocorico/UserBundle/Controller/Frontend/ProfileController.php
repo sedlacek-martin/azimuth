@@ -45,7 +45,6 @@ class ProfileController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws AccessDeniedException
      */
-
     public function showAction(Request $request, User $user)
     {
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -62,7 +61,7 @@ class ProfileController extends Controller
         $userListings = $em->getRepository('CocoricoCoreBundle:Listing')->findByOwner(
             $user->getId(),
             $request->getLocale(),
-            array(Listing::STATUS_PUBLISHED)
+            [Listing::STATUS_PUBLISHED]
         );
 
         //Breadcrumbs
@@ -71,11 +70,11 @@ class ProfileController extends Controller
 
         return $this->render(
             'CocoricoUserBundle:Frontend/Profile:show.html.twig',
-            array(
+            [
                 'user' => $user,
                 'user_listings' => $userListings,
                 'thread' => $thread,
-            )
+            ]
         );
     }
 }

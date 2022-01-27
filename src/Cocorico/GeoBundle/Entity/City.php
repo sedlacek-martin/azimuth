@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cocorico\GeoBundle\Entity;
 
 use Cocorico\GeoBundle\Model\GeocodableTrait;
@@ -24,7 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Cocorico\GeoBundle\Repository\CityRepository")
  *
  * @ORM\Table(name="geo_city")
- *
  */
 class City
 {
@@ -70,9 +68,7 @@ class City
      */
     private $department;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Coordinate", mappedBy="city", cascade={"persist", "remove"})
-     **/
+    /** @ORM\OneToMany(targetEntity="Cocorico\GeoBundle\Entity\Coordinate", mappedBy="city", cascade={"persist", "remove"}) */
     private $coordinates;
 
     public function __construct()
@@ -212,7 +208,7 @@ class City
      */
     public function getName()
     {
-        return (string)$this->translate()->getName();
+        return (string) $this->translate()->getName();
     }
 
     /**
@@ -220,6 +216,6 @@ class City
      */
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string) $this->getName();
     }
 }

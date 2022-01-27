@@ -9,11 +9,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserInvitationVoter extends BaseVoter
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
-
 
     public function __construct(AuthorizationCheckerInterface $authorizationChecker)
     {
@@ -27,7 +24,7 @@ class UserInvitationVoter extends BaseVoter
      */
     public function voteOnEdit(UserInvitation $userInvitation, TokenInterface $token): bool
     {
-        if ($this->authorizationChecker->isGranted("ROLE_SUPER_ADMIN")) {
+        if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
             return true;
         }
 
@@ -46,7 +43,7 @@ class UserInvitationVoter extends BaseVoter
         return $this->voteOnEdit($userInvitation, $token);
     }
 
-    function getAttributes(): array
+    public function getAttributes(): array
     {
         return [
             self::EDIT,
@@ -54,7 +51,7 @@ class UserInvitationVoter extends BaseVoter
         ];
     }
 
-    function getClass(): string
+    public function getClass(): string
     {
         return UserInvitation::class;
     }

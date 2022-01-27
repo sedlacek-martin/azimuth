@@ -4,7 +4,7 @@
 ## Table of Contents
 
 ### Getting started:
-- [Docker installation](development.md)
+- [Docker installation (local setup)](local-setup.md)
 - [Application installation](installation-application.md)
 - [Parameters](parameters.md)
 - [Service creation](services-creation.md)

@@ -32,7 +32,7 @@ class UserImageUploadListener
         $request = $event->getRequest();
         $response = $event->getResponse();
         //print_r($request->request->all());
-        $idUser = $request->query->get("user_id");
+        $idUser = $request->query->get('user_id');
 
         // $idUser = $request->getUser()->getId();
         if ($idUser) {
@@ -40,20 +40,19 @@ class UserImageUploadListener
             $user = $this->uem->getRepository()->find($idUser);
             $this->uem->addImages(
                 $user,
-                array($file->getFilename()),
+                [$file->getFilename()],
                 true
             );
         }
 
-        $response['files'] = array(
-            array(
+        $response['files'] = [
+            [
                 'name' => $file->getFilename(),
 //                'size' => $file->getSize(),
 //                'url' => '',
 //                'deleteUrl' => '',
 //                'deleteType' => 'DELETE'
-            )
-        );
+            ],
+        ];
     }
-
 }

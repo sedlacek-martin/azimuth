@@ -23,7 +23,6 @@ use FOS\MessageBundle\Model\ThreadInterface;
  */
 class ThreadMetadata extends BaseThreadMetadata
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -47,6 +46,4 @@ class ThreadMetadata extends BaseThreadMetadata
      * @var ParticipantInterface
      */
     protected $participant;
-
-
 }

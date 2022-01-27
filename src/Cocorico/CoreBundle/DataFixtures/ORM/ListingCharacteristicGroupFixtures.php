@@ -17,7 +17,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ListingCharacteristicGroupFixtures extends Fixture
 {
-
     /**
      * {@inheritDoc}
      */
@@ -40,7 +39,5 @@ class ListingCharacteristicGroupFixtures extends Fixture
         $listingCharacteristicGroup->mergeNewTranslations();
         $manager->flush();
         $this->addReference('group_2', $listingCharacteristicGroup);
-
     }
-
 }
