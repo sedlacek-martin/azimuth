@@ -164,17 +164,22 @@ class ListingSearchManager
            return $queryBuilder;
        }
 
-       if ($range->getStart()) {
+       if ($range->getStart() && $range->getEnd()) {
            $queryBuilder
-               ->andWhere('((l.validFrom <= :from AND l.validTo >= :from) OR l.validFrom IS NULL)')
-               ->setParameter('from', $range->getStart());
-       }
-
-       if ($range->getEnd()) {
-           $queryBuilder
-               ->andWhere('((l.validFrom <= :to AND l.validTo >= :to) OR l.validTo IS NULL)')
+               ->andWhere('(
+                   (l.validTo >= :from AND l.validTo <= :to) 
+                   OR (l.validFrom >= :from AND l.validFrom <= :to) 
+                   OR (l.validFrom <= :from AND l.validTo >= :to) 
+               )')
+               ->setParameter('from', $range->getStart())
                ->setParameter('to', $range->getEnd());
        }
+
+//       if ($range->getEnd()) {
+//           $queryBuilder
+//               ->andWhere('(l.validFrom <= :to)')
+//               ->setParameter('to', $range->getEnd());
+//       }
 
         return $queryBuilder;
     }
