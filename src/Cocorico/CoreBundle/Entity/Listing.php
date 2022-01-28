@@ -81,9 +81,7 @@ class Listing extends BaseListing
      */
     private $images;
 
-    /**
-     * @ORM\OneToMany(targetEntity="ListingListingCharacteristic", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
+    /** @ORM\OneToMany(targetEntity="ListingListingCharacteristic", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true) */
     private $listingListingCharacteristics;
 
     /**
