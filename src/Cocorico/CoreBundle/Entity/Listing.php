@@ -81,7 +81,9 @@ class Listing extends BaseListing
      */
     private $images;
 
-    /** fetch="EAGER" */
+    /**
+     * @ORM\OneToMany(targetEntity="ListingListingCharacteristic", mappedBy="listing", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
     private $listingListingCharacteristics;
 
     /**
