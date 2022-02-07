@@ -20,6 +20,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AdminNotificationCommand extends ContainerAwareCommand
 {
+    public const TOOL_START_DAY = '2021-10-01';
+
     /** @var EntityManagerInterface */
     protected $em;
 
@@ -201,7 +203,7 @@ class AdminNotificationCommand extends ContainerAwareCommand
         $from = (new \DateTime())->modify('-1 day');
 
         if (date('D') == 'Sun') {
-            $from = (new \DateTime())->modify('-6 day')->setTime(0, 01);
+            $from = (\DateTime::createFromFormat('Y-m-d', self::TOOL_START_DAY));
         }
 
         return [$from, $to];
