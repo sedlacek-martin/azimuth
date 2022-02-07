@@ -61,6 +61,7 @@ function createHost($env) {
         "migration_$env",
         'deploy:writable',
         'deploy:symlink',
+        "assets_symlink_$env",
         'deploy:unlock',
         'cleanup',
         'success'
@@ -86,6 +87,10 @@ function createHost($env) {
         run("/usr/home/azimutu/public_html/{$env}/release/bin/console assets:install --symlink web --env={$env}");
         run("/usr/home/azimutu/public_html/{$env}/release/bin/console ckeditor:install");
         run("/usr/home/azimutu/public_html/{$env}/release/bin/console assetic:dump --env={$env}");
+    });
+
+    task("assets_symlink_$env", function () use ($env) {
+        run("/usr/home/azimutu/public_html/{$env}/current/bin/console assets:install --symlink web --env={$env}");
     });
 
     task("translations_$env", function () use ($env) {
