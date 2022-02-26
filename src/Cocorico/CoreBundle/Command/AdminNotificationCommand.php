@@ -135,7 +135,12 @@ class AdminNotificationCommand extends ContainerAwareCommand
 
         $dataPosts = $listingRepository->getWaitingForValidationCountByMo($from, $to);
         $dataMessages = $messageRepository->getWaitingForValidationCountByMo($from, $to);
-        $dataNewPosts = $listingRepository->getNewCountByMo($from, $to);
+
+        // For new posts always show only the posts for the previous day!
+        $toDayOnly = new \DateTime();
+        $fromDayOnly = (new \DateTime())->modify('-1 day');
+        $dataNewPosts = $listingRepository->getNewCountByMo($fromDayOnly, $toDayOnly);
+
         $postValidationsCounts = [];
         $postNewCounts = [];
         $messageValidationsCounts = [];
