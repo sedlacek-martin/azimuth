@@ -12,7 +12,7 @@
     <div class="topbar {% if is_granted('ROLE_PREVIOUS_ADMIN') %}danger{% endif %}">
         <div class="container px-0">
             <div class="d-flex align-item-center justify-space-between">
-                <div class="col-xs-5">
+                <div class="col-xs-6">
                     <ul class="list-inline">
                         <li>
                             <a tabindex="11" href="{{ path('cocorico_contact_new') }}">
@@ -27,50 +27,66 @@
                     </ul>
                 </div>
 
-                <div class="col-xs-7 col-sm-4 px-0 navbar navbar-default">
+                <div class="col-xs-6 col-sm-4 px-0 navbar navbar-default d-flex align-item-center justify-end">
                     {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
-                        <div class="col-xs-12 d-flex justify-end py-2">
-                            <i class="glyphicon glyphicon-user px-2"></i>
-                                {{ app.user.firstname | capitalize }} {{ app.user.lastname | capitalize }}
-                        </div>
-                    {% endif %}
-
-                    <div class="col-xs-12 row d-flex justify-end px-0">
-                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                        <span>{{ 'impersonation.active'|trans }} ({{ app.user.firstName | capitalize }})</span><br>
-                        <a  class="link text-underline" href="{{ path('cocorico_home', {'_become_who_you_are': '_exit'}) }}">
-                            {{ 'exit_impersonation'|trans|upper }}
+                    <div class="dropdown show" style="border-right: lightgrey 1px solid; height:2rem;">
+                        <a class="dropdown-toggle show-announcements-dropdown" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="glyphicon glyphicon-bell" id="announcement-bell"></i>
+                            <span id="announcements"></span>
                         </a>
-                    {% elseif app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}
-                        <div class="col-xs-2 dropdown show" style="border-right: lightgrey 1px solid; height:2rem;">
-                            <a class="dropdown-toggle show-announcements-dropdown" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <i class="glyphicon glyphicon-bell" id="announcement-bell"></i>
-                                <span id="announcements"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" id="announcement-dropdown">
-                                <div id="announcement-dropdown-content"></div>
-                                <div id="announcement-dropdown-content-empty">
-                                    <em class="announcement-item text-muted">{{ 'announcements.empty'|trans }}</em>
-                                </div>
+                        <div class="dropdown-menu dropdown-menu-right" id="announcement-dropdown">
+                            <div id="announcement-dropdown-content"></div>
+                            <div id="announcement-dropdown-content-empty">
+                                <em class="announcement-item text-muted">{{ 'announcements.empty'|trans }}</em>
                             </div>
                         </div>
-
-                        <div class="col">
-                            <ul class="nav navbar-nav py-0 my-0">
-                                <li id="dashboard-dropdown" class="dropdown">
-                                    <a id="dashboard-link" class="dropdown-toggle py-2"
-                                       href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"
-                                       title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        {{ 'nav.dashboard.link'|trans }}
-                                        <span class="new-message-indicator" style="display: none"></span>
-                                        <span class="icon-down-open-mini"></span>
-                                    </a>
-                                    {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}
-                                </li>
-                            </ul>
-                        </div>
-                    {% endif %}
                     </div>
+                    <div class=" d-flex justify-end py-2">
+                        <ul class="nav navbar-nav py-0 my-0">
+                            <li id="dashboard-dropdown" class="dropdown">
+                            <a id="dashboard-link" class="dropdown-toggle py-2"
+                               href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"
+                               title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="glyphicon glyphicon-user px-2"></i>
+                                {{ app.user.firstname | capitalize }} {{ app.user.lastname | capitalize }}
+                                <span class="new-message-indicator" style="display: none"></span>
+                                <span class="icon-down-open-mini fs-13 text-black"></span>
+                            </a>
+                            {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}
+                            </li>
+                        </ul>
+                    </div>
+{#                        <div class="col-xs-12 d-flex justify-end py-2">#}
+{#                            <i class="glyphicon glyphicon-user px-2"></i>#}
+{#                            {{ app.user.firstname | capitalize }} {{ app.user.lastname | capitalize }}#}
+{#                        </div>#}
+                    {% endif %}
+
+{#                    <div class="col-xs-12 row d-flex justify-end px-0">#}
+{#                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}#}
+{#                        <span>{{ 'impersonation.active'|trans }} ({{ app.user.firstName | capitalize }})</span><br>#}
+{#                        <a  class="link text-underline" href="{{ path('cocorico_home', {'_become_who_you_are': '_exit'}) }}">#}
+{#                            {{ 'exit_impersonation'|trans|upper }}#}
+{#                        </a>#}
+{#                    {% elseif app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %}#}
+
+
+{#                        <div class="col">#}
+{#                            <ul class="nav navbar-nav py-0 my-0">#}
+{#                                <li id="dashboard-dropdown" class="dropdown">#}
+{#                                    <a id="dashboard-link" class="dropdown-toggle py-2"#}
+{#                                       href="{{ path('cocorico_user_dashboard_profile_edit_about_me') }}" tabindex="7"#}
+{#                                       title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">#}
+{#                                        {{ 'nav.dashboard.link'|trans }}#}
+{#                                        <span class="new-message-indicator" style="display: none"></span>#}
+{#                                        <span class="icon-down-open-mini"></span>#}
+{#                                    </a>#}
+{#                                    {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}#}
+{#                                </li>#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    {% endif %}#}
+{#                    </div>#}
                 </div>
             </div>
         </div>

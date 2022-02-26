@@ -303,7 +303,8 @@ class ListingAdmin extends BaseAdmin
                     'field_options' => ['format' => 'dd/MM/yyyy'],
                 ],
                 null
-            );
+            )
+            ->add('user.memberOrganization', null, []);
     }
 
     /**

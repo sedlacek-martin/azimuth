@@ -18378,3 +18378,11 @@ div .announcement-item:not(:last-child) {
 .announcement-alert-close:hover {
     color:black
 }
+
+.fs-13 {
+    font-size: 1.3em;
+}
+
+.text-black {
+    color: black !important;
+}
