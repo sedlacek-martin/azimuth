@@ -98,7 +98,7 @@ class ListingCategory extends BaseListingCategory
      * @Assert\NotBlank(message="assert.not_blank")
      * @ORM\Column(name="position", type="smallint", nullable=false)
      */
-    private $position;
+    private $position = 0;
 
     public function __construct()
     {
