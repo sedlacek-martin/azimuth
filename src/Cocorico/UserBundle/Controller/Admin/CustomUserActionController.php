@@ -49,7 +49,7 @@ class CustomUserActionController extends Controller
                         'SonataAdminBundle')
                 );
             }
-        } elseif ($user->isExpired() && $user->isReconfirmRequested()) {
+        } elseif (($user->isExpired() || $user->isExpiredSoon()) && $user->isReconfirmRequested()) {
             try {
                 $extensionPeriod = $user->getMemberOrganization()->getUserExpiryPeriod();
                 $newExpiryDate = (new \DateTime())->add(new \DateInterval("P{$extensionPeriod}D"));
